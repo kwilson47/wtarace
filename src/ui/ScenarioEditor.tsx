@@ -1,0 +1,117 @@
+import { useMemo, useState } from 'react';
+import type { Player, Rules, Season, Tournament } from '../data/schema';
+import type { Warning } from '../engine/checkScenario';
+import { pickKey, type Scenario } from '../engine/types';
+import { PickSelect } from './PickSelect';
+import { warningsByPick } from './warningText';
+
+type OnPick = (playerId: string, tournamentId: string, round: string | null) => void;
+
+interface Props {
+  season: Season;
+  /** Tracked players in current-rank order. */
+  players: Player[];
+  scenario: Scenario;
+  warnings: Warning[];
+  onPick: OnPick;
+}
+
+interface PanelProps {
+  tournaments: Tournament[];
+  players: Player[];
+  rules: Rules;
+  scenario: Scenario;
+  messages: Map<string, string[]>;
+  onPick: OnPick;
+}
+
+const eventName = (t: Tournament) => `${t.name}${t.status === 'in-progress' ? ' — LIVE' : ''}`;
+
+function Cell({ player, tournament, rules, scenario, messages, onPick }: Omit<PanelProps, 'tournaments' | 'players'> & { player: Player; tournament: Tournament }) {
+  const key = pickKey(player.id, tournament.id);
+  return (
+    <PickSelect
+      player={player}
+      tournament={tournament}
+      rules={rules}
+      value={scenario[key]}
+      onChange={(round) => onPick(player.id, tournament.id, round)}
+      messages={messages.get(key) ?? []}
+    />
+  );
+}
+
+function ByTournament({ tournaments, players, ...rest }: PanelProps) {
+  const [id, setId] = useState(tournaments[0].id);
+  const tournament = tournaments.find((t) => t.id === id) ?? tournaments[0];
+  return (
+    <div role="tabpanel">
+      <label className="picker">
+        Tournament{' '}
+        <select id="tournament-select" value={tournament.id} onChange={(e) => setId(e.target.value)}>
+          {tournaments.map((t) => <option key={t.id} value={t.id}>{eventName(t)}</option>)}
+        </select>
+      </label>
+      <ul className="picks">
+        {players.map((p) => (
+          <li key={p.id}>
+            <span className="who">{p.name}</span>
+            <Cell player={p} tournament={tournament} {...rest} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ByPlayer({ tournaments, players, ...rest }: PanelProps) {
+  const [id, setId] = useState(players[0]?.id ?? '');
+  const player = players.find((p) => p.id === id) ?? players[0];
+  if (!player) return null;
+  return (
+    <div role="tabpanel">
+      <label className="picker">
+        Player{' '}
+        <select id="player-select" value={player.id} onChange={(e) => setId(e.target.value)}>
+          {players.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+        </select>
+      </label>
+      <ul className="picks">
+        {tournaments.map((t) => (
+          <li key={t.id}>
+            <span className="who">{eventName(t)}</span>
+            <Cell player={player} tournament={t} {...rest} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function ScenarioEditor({ season, players, scenario, warnings, onPick }: Props) {
+  const [tab, setTab] = useState<'tournament' | 'player'>('tournament');
+  const remaining = useMemo(
+    () => season.tournaments.filter((t) => t.status !== 'completed').sort((a, b) => a.startDate.localeCompare(b.startDate)),
+    [season],
+  );
+  const messages = useMemo(() => warningsByPick(warnings, season), [warnings, season]);
+
+  if (remaining.length === 0) {
+    return <section className="editor" aria-label="Scenario editor"><p>No tournaments remain before the Finals.</p></section>;
+  }
+  const panelProps: PanelProps = { tournaments: remaining, players, rules: season.rules, scenario, messages, onPick };
+  return (
+    <section className="editor" aria-label="Scenario editor">
+      <h2>Your scenario</h2>
+      <div role="tablist" className="tabs">
+        <button type="button" role="tab" aria-selected={tab === 'tournament'} onClick={() => setTab('tournament')}>By tournament</button>
+        <button type="button" role="tab" aria-selected={tab === 'player'} onClick={() => setTab('player')}>By player</button>
+      </div>
+      {tab === 'tournament' ? <ByTournament {...panelProps} /> : <ByPlayer {...panelProps} />}
+      <div className="footnotes">
+        <p>Projections never add zero-pointers for skipped mandatory events. Those depend on WTA rulings such as injury exemptions.</p>
+        <p>Without draw data we can't tell when two players you've picked would have to meet earlier in the draw.</p>
+      </div>
+    </section>
+  );
+}
