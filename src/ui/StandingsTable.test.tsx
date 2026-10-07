@@ -55,4 +55,20 @@ describe('StandingsTable', () => {
     expect(first.getByTitle('Officially qualified')).toBeInTheDocument();
     expect(within(screen.getByTestId('row-p2')).queryByTitle('Officially qualified')).toBeNull();
   });
+
+  it('marks eliminated players as out and mutes their row', () => {
+    render(<StandingsTable rows={range(11, { 11: { eligible: false, eventsShort: 1 } })} eliminated={new Set(['p10', 'p11'])} />);
+    const outBadge = within(screen.getByTestId('row-p10')).getByText('Out');
+    expect(outBadge).toHaveAttribute('title', expect.stringMatching(/can't reach a qualifying place/i));
+    expect(cls('p10')).toEqual(['alternate', 'out']);
+    // An eliminated player's event shortfall no longer matters, so the note is dropped.
+    expect(within(screen.getByTestId('row-p11')).queryByText(/more event/)).toBeNull();
+    expect(within(screen.getByTestId('row-p9')).queryByText('Out')).toBeNull();
+  });
+
+  it('explains the badges in a legend', () => {
+    render(<StandingsTable rows={range(3)} />);
+    expect(screen.getByText(/Q = officially qualified/)).toBeInTheDocument();
+    expect(screen.getByText(/Out = can't reach a qualifying place/)).toBeInTheDocument();
+  });
 });

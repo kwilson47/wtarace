@@ -33,6 +33,9 @@ button { font: inherit; padding: 6px 12px; border: 1px solid var(--line); border
 .standings tr.alternate { background: var(--alt-bg); }
 .badge { margin-left: 6px; font-size: 0.75rem; padding: 1px 5px; border-radius: 4px; background: var(--accent); color: #fff; }
 .badge.champion { background: var(--fg); color: var(--bg); }
+.badge.out { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.standings tr.out td { color: var(--muted); }
+.legend { color: var(--muted); font-size: 0.8rem; margin: -16px 0 24px; }
 .note { display: block; color: var(--muted); font-size: 0.8rem; }
 .up { color: var(--up); } .down { color: var(--down); } .same { color: var(--muted); }
 .wide { display: none; }

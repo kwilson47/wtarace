@@ -3,16 +3,23 @@ import { flagEmoji, formatDelta, formatPoints } from './format';
 
 const ALTERNATES = 2;
 
-/** Class names per player id: qualifiers, the cutoff under the last qualifier, and the next eligible alternates. */
-function rowClasses(rows: StandingRow[]): Map<string, string> {
+const OUT_TITLE = "Can't reach a qualifying place, whatever happens next (based on actual results)";
+
+/** Class names per player id: qualifiers, the cutoff under the last qualifier, the next eligible alternates, and eliminated players. */
+function rowClasses(rows: StandingRow[], eliminated: ReadonlySet<string>): Map<string, string> {
   const byRank = [...rows].sort((a, b) => a.projectedRank - b.projectedRank);
   const qualifiers = byRank.filter((r) => r.projectedQualifier !== null);
   const last = qualifiers[qualifiers.length - 1];
   const alternates = byRank.filter((r) => r.eligible && r.projectedQualifier === null).slice(0, ALTERNATES);
-  const classes = new Map<string, string>();
-  for (const r of qualifiers) classes.set(r.playerId, r === last ? 'qualifier cutoff' : 'qualifier');
-  for (const r of alternates) classes.set(r.playerId, 'alternate');
-  return classes;
+  const classes = new Map<string, string[]>();
+  const add = (id: string, name: string) => classes.set(id, [...(classes.get(id) ?? []), name]);
+  for (const r of qualifiers) {
+    add(r.playerId, 'qualifier');
+    if (r === last) add(r.playerId, 'cutoff');
+  }
+  for (const r of alternates) add(r.playerId, 'alternate');
+  for (const id of eliminated) add(id, 'out');
+  return new Map([...classes].map(([id, names]) => [id, names.join(' ')]));
 }
 
 function RankChange({ change }: { change: number }) {
@@ -21,9 +28,13 @@ function RankChange({ change }: { change: number }) {
   return <span className="same" aria-label="No change">–</span>;
 }
 
-export function StandingsTable({ rows }: { rows: StandingRow[] }) {
-  const classes = rowClasses(rows);
+const NONE: ReadonlySet<string> = new Set();
+
+/** `eliminated`: players who can no longer qualify, from actual results (independent of the visitor's picks). */
+export function StandingsTable({ rows, eliminated = NONE }: { rows: StandingRow[]; eliminated?: ReadonlySet<string> }) {
+  const classes = rowClasses(rows, eliminated);
   return (
+    <>
     <table className="standings">
       <caption>Projected race — highlighted players are projected to qualify for the WTA Finals</caption>
       <thead>
@@ -45,7 +56,10 @@ export function StandingsTable({ rows }: { rows: StandingRow[] }) {
               <span aria-hidden="true">{flagEmoji(r.country)}</span> {r.name}
               {r.qualified && <span className="badge" title="Officially qualified">Q</span>}
               {r.projectedQualifier === 'champion' && <span className="badge champion" title="Grand Slam champion place">GS</span>}
-              {!r.eligible && <span className="note">{`Needs ${r.eventsShort} more event${r.eventsShort === 1 ? '' : 's'} to be eligible`}</span>}
+              {eliminated.has(r.playerId) && <span className="badge out" title={OUT_TITLE}>Out</span>}
+              {!r.eligible && !eliminated.has(r.playerId) && (
+                <span className="note">{`Needs ${r.eventsShort} more event${r.eventsShort === 1 ? '' : 's'} to be eligible`}</span>
+              )}
             </td>
             <td className="wide num" data-testid="current">{formatPoints(r.currentTotal)}</td>
             <td className="wide num" data-testid="projected">{formatPoints(r.projectedTotal)}</td>
@@ -56,5 +70,11 @@ export function StandingsTable({ rows }: { rows: StandingRow[] }) {
         ))}
       </tbody>
     </table>
+    <p className="legend">
+      Q = officially qualified · GS = Grand Slam champion place · Out = can't reach a qualifying place whatever
+      happens next, based on actual results. Without draw data, Out can show up later than it does in reality,
+      never earlier.
+    </p>
+    </>
   );
 }

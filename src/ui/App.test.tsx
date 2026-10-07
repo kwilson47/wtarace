@@ -17,6 +17,17 @@ describe('App', () => {
     expect(delta('ana')).toHaveTextContent('0');
   });
 
+  it('marks players who can no longer qualify, whatever the visitor picks', async () => {
+    render(<App season={season} />);
+    expect(within(screen.getByTestId('row-cat')).getByText('Out')).toBeInTheDocument();
+    expect(within(screen.getByTestId('row-bea')).queryByText('Out')).toBeNull();
+    // A pick that projects cat higher doesn't change her actual status.
+    await userEvent.click(screen.getByRole('tab', { name: 'By player' }));
+    await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Player' }), 'cat');
+    await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Cat Gamma at Next Open' }), 'W');
+    expect(within(screen.getByTestId('row-cat')).getByText('Out')).toBeInTheDocument();
+  });
+
   it('updates the projection and the URL when a pick is made', async () => {
     render(<App season={season} />);
     await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Ana Alpha at Live Masters' }), 'W');
