@@ -63,4 +63,28 @@ describe('countRace', () => {
     expect(race.total).toBe(1130);
     expect(ids(race.dropped)).toEqual(['c250']);
   });
+
+  it('counts a zero-pointer ahead of positive results in the open pool', () => {
+    const withZp = results('ana').map((r) => (r.tournamentId === 'live' ? { tournamentId: 'live', round: 'ZP', points: 0 } : r));
+    const race = countRace(withZp, tournaments, rules);
+    // Required: slam 1000 + m1000 20. Two open slots: the zero-pointer, then c500 100. c250 40 drops.
+    expect(race.total).toBe(1120);
+    expect(ids(race.counted)).toEqual(['c500', 'live', 'm1000', 'slam']);
+    expect(ids(race.dropped)).toEqual(['c250']);
+  });
+
+  it('lets a zero-pointer fill its required group ahead of a positive result', () => {
+    const r: Rules = { ...rules, maxCountedResults: 2, requiredGroups: [{ categories: ['WTA500', 'WTA1000'], count: 1 }] };
+    const zpAndMore = [
+      { tournamentId: 'c500', round: 'W', points: 100 },
+      { tournamentId: 'live', round: 'ZP', points: 0 },
+      { tournamentId: 'slam', round: 'W', points: 1000 },
+      { tournamentId: 'm1000', round: 'SF', points: 20 },
+    ];
+    const race = countRace(zpAndMore, tournaments, r);
+    // The group's one required slot goes to the zero-pointer; the one open slot to slam 1000.
+    expect(race.total).toBe(1000);
+    expect(ids(race.counted)).toEqual(['live', 'slam']);
+    expect(ids(race.dropped)).toEqual(['c500', 'm1000']);
+  });
 });
