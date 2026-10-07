@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { selectQualifiers, type QualifierCandidate } from './qualification';
+import { eventsShort, selectQualifiers, type QualifierCandidate } from './qualification';
 import { projectStandings } from './standings';
 import { pickKey, type Scenario } from './types';
 import { rawSeason, season } from '../test/fixtures';
@@ -85,5 +85,23 @@ describe('projectStandings qualification', () => {
     raw.tournaments = raw.tournaments.map((t) => (t.id === 'clash' ? { ...t, category: 'GS', drawType: 'gs128' } : t));
     // cat wins clash: 1140, rank 2, but has played only 1 counting event.
     expect(rows(parseOrThrow(raw), { [pickKey('cat', 'clash')]: 'W' })).toEqual({ ana: [true, 'direct'], bea: [true, 'direct'], cat: [false, null] });
+  });
+});
+
+describe('eventsShort', () => {
+  const short = (id: string) => {
+    const p = season.players.find((x) => x.id === id)!;
+    return eventsShort(p.results, p.eventMinimumWaived, season.tournaments, season.rules);
+  };
+  it('is 0 for an eligible player', () => expect(short('ana')).toBe(0));
+  it('counts how many required events a player lacks', () => expect(short('cat')).toBe(1));
+  it('is 0 when waived', () => {
+    const p = season.players.find((x) => x.id === 'cat')!;
+    expect(eventsShort(p.results, true, season.tournaments, season.rules)).toBe(0);
+  });
+  it('is exposed on standings rows', () => {
+    const rows = projectStandings(season.players, {}, season.tournaments, season.rules);
+    expect(rows.find((r) => r.playerId === 'cat')!.eventsShort).toBe(1);
+    expect(rows.find((r) => r.playerId === 'ana')!.eventsShort).toBe(0);
   });
 });

@@ -7,7 +7,7 @@ const row = (rank: number, overrides: Partial<StandingRow> = {}): StandingRow =>
   playerId: `p${rank}`, name: `Player ${rank}`, country: 'US',
   currentRank: rank, projectedRank: rank, rankChange: 0,
   currentTotal: 5000 - rank * 100, projectedTotal: 5000 - rank * 100, delta: 0, qualified: false,
-  eligible: true, projectedQualifier: rank <= 8 ? 'direct' : null,
+  eligible: true, eventsShort: 0, projectedQualifier: rank <= 8 ? 'direct' : null,
   ...overrides,
 });
 const range = (n: number, overrides: Record<number, Partial<StandingRow>> = {}) =>
@@ -36,8 +36,8 @@ describe('StandingsTable', () => {
   });
 
   it('marks ineligible players and never makes them alternates', () => {
-    render(<StandingsTable rows={range(11, { 3: { eligible: false, projectedQualifier: null }, 9: { projectedQualifier: 'direct' } })} />);
-    expect(within(screen.getByTestId('row-p3')).getByText('Not eligible (event minimum)')).toBeInTheDocument();
+    render(<StandingsTable rows={range(11, { 3: { eligible: false, eventsShort: 1, projectedQualifier: null }, 9: { projectedQualifier: 'direct' } })} />);
+    expect(within(screen.getByTestId('row-p3')).getByText('Needs 1 more event to be eligible')).toBeInTheDocument();
     expect(cls('p3')).toEqual([]);
     expect(cls('p9')).toEqual(['cutoff', 'qualifier']);
     expect(cls('p10')).toEqual(['alternate']);

@@ -2,7 +2,7 @@ import type { Player, Rules, Tournament } from '../data/schema';
 import { applyScenario } from './applyScenario';
 import { countRace, type CountedRace } from './countRace';
 import { findTournament } from './lookup';
-import { isChampion, isEligible, selectQualifiers, type QualifierKind } from './qualification';
+import { eventsShort, isChampion, isEligible, selectQualifiers, type QualifierKind } from './qualification';
 import type { Scenario } from './types';
 
 export interface RankEntry {
@@ -23,6 +23,8 @@ export interface StandingRow {
   rankChange: number;
   qualified: boolean;
   eligible: boolean;
+  /** Events still needed to meet the event minimum; 0 when eligible. */
+  eventsShort: number;
   projectedQualifier: QualifierKind | null;
 }
 
@@ -61,6 +63,7 @@ export function projectStandings(players: Player[], scenario: Scenario, tourname
   const currentRanks = ranks(current, tournaments, rules);
   const projectedRanks = ranks(projected, tournaments, rules);
   const eligible = players.map((p, i) => isEligible(projectedResults[i]!, p.eventMinimumWaived, tournaments, rules));
+  const short = players.map((p, i) => eventsShort(projectedResults[i]!, p.eventMinimumWaived, tournaments, rules));
   const qualifiers = selectQualifiers(
     players.map((p, i) => ({
       playerId: p.id,
@@ -89,6 +92,7 @@ export function projectStandings(players: Player[], scenario: Scenario, tourname
         rankChange: currentRank - projectedRank,
         qualified: p.qualified,
         eligible: eligible[i]!,
+        eventsShort: short[i]!,
         projectedQualifier: qualifiers.get(p.id) ?? null,
       };
     })

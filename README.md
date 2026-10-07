@@ -17,7 +17,7 @@ npm run test:e2e   # Playwright
 ## Updating the data (about daily during events)
 
 1. Edit `data/*.json`: results, `live` status, `officialRaceTotal`, `qualified`, and `meta.json` → `lastUpdated` (UTC).
-   - In-progress event: keep a `results` entry with the points the official race currently credits (which may be 0 until the WTA posts them), and a `live` entry (`alive` + current round, or `eliminated` + round lost). Refresh the points once the WTA posts them.
+   - In-progress event: keep a `results` entry with the points the official race currently credits (which may be 0 until the WTA posts them; projections automatically credit the live round's points until then), and a `live` entry (`alive` + current round, or `eliminated` + round lost). Refresh the points once the WTA posts them; the projection keeps whichever is higher.
    - When an event finishes: set its `status` to `completed` and remove the `live` entries for it.
    - When a draw comes out: fill that tournament's `byes` with tracked player ids.
 2. `npm run validate`. It must print `Data OK`. Never change an `officialRaceTotal` to make it pass. A mismatch means a data or rules error.

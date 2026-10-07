@@ -10,13 +10,18 @@ export interface QualifierCandidate {
   champion: boolean;
 }
 
-export function isEligible(results: Result[], waived: boolean, tournaments: Tournament[], rules: Rules): boolean {
+/** How many more qualifying events the player needs to meet the event minimum (0 when eligible or waived). */
+export function eventsShort(results: Result[], waived: boolean, tournaments: Tournament[], rules: Rules): number {
   const min = rules.qualification.minEvents;
-  if (!min || waived) return true;
+  if (!min || waived) return 0;
   const played = results.filter(
     (r) => r.round !== ZERO_POINTER_ROUND && min.categories.includes(findTournament(tournaments, r.tournamentId).category),
   ).length;
-  return played >= min.count;
+  return Math.max(0, min.count - played);
+}
+
+export function isEligible(results: Result[], waived: boolean, tournaments: Tournament[], rules: Rules): boolean {
+  return eventsShort(results, waived, tournaments, rules) === 0;
 }
 
 /** True when the player won (reached the last round of the points table) an event in the champion categories. */

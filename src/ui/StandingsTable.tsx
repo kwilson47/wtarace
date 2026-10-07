@@ -45,7 +45,7 @@ export function StandingsTable({ rows }: { rows: StandingRow[] }) {
               <span aria-hidden="true">{flagEmoji(r.country)}</span> {r.name}
               {r.qualified && <span className="badge" title="Officially qualified">Q</span>}
               {r.projectedQualifier === 'champion' && <span className="badge champion" title="Grand Slam champion place">GS</span>}
-              {!r.eligible && <span className="note">Not eligible (event minimum)</span>}
+              {!r.eligible && <span className="note">{`Needs ${r.eventsShort} more event${r.eventsShort === 1 ? '' : 's'} to be eligible`}</span>}
             </td>
             <td className="wide num" data-testid="current">{formatPoints(r.currentTotal)}</td>
             <td className="wide num" data-testid="projected">{formatPoints(r.projectedTotal)}</td>

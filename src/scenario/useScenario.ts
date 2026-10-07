@@ -9,10 +9,9 @@ const PARAM = 's';
 function loadFromUrl(season: Season): { scenario: Scenario; ignored: IgnoredPick[] } {
   const decoded = decodeScenario(new URLSearchParams(window.location.search).get(PARAM));
   const reconciled = reconcileScenario(decoded.scenario, season);
-  return {
-    scenario: reconciled.scenario,
-    ignored: [...decoded.malformed.map((pick) => ({ pick, reason: 'unreadable' })), ...reconciled.ignored],
-  };
+  const n = decoded.malformed.length;
+  const unreadable: IgnoredPick[] = n > 0 ? [{ pick: `${n} unreadable entr${n === 1 ? 'y' : 'ies'}`, reason: 'unreadable' }] : [];
+  return { scenario: reconciled.scenario, ignored: [...unreadable, ...reconciled.ignored] };
 }
 
 export function useScenario(season: Season) {

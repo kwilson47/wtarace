@@ -46,7 +46,8 @@ describe('ScenarioEditor', () => {
 
   it('shows the zero-pointer and draw-conflict footnotes', () => {
     setup();
-    expect(screen.getByText(/zero-pointer/i)).toBeInTheDocument();
+    expect(screen.getByText(/never add zero-pointers/i)).toBeInTheDocument();
+    expect(screen.getByText(/keep each player's current commitment zero-pointers/i)).toBeInTheDocument();
     expect(screen.getByText(/draw/i, { selector: '.footnotes p' })).toBeInTheDocument();
   });
 });

@@ -111,6 +111,7 @@ export function ScenarioEditor({ season, players, scenario, warnings, onPick }: 
       <div className="footnotes">
         <p>Projections never add zero-pointers for skipped mandatory events. Those depend on WTA rulings such as injury exemptions.</p>
         <p>Without draw data we can't tell when two players you've picked would have to meet earlier in the draw.</p>
+        <p>Projections keep each player's current commitment zero-pointers; playing extra events doesn't remove them here.</p>
       </div>
     </section>
   );

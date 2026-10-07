@@ -30,7 +30,7 @@ describe('App', () => {
     render(<App season={season} />);
     expect(projected('ana')).toHaveTextContent('1,220');
     const notice = screen.getByRole('status');
-    expect(notice).toHaveTextContent('bad — unreadable');
+    expect(notice).toHaveTextContent('1 unreadable entry — unreadable');
     expect(notice).toHaveTextContent('zed at live: W — unknown player');
     expect(window.location.search).toBe('?s=ana.live.W');
     await userEvent.click(within(notice).getByRole('button', { name: 'Dismiss' }));
