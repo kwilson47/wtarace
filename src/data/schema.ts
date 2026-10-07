@@ -32,6 +32,13 @@ export const rulesSchema = z.object({
   byeRule: z.enum(['points-of-round-lost', 'points-of-previous-round']),
   /** Applied in order over counted results; player id is the final fallback. */
   tiebreakers: z.array(tiebreakerSchema).min(1),
+  qualification: z.object({
+    places: z.number().int().positive(),
+    /** The last place goes to the best-ranked eligible winner of an event in `categories` within the rank window, if any. */
+    championPlace: z.object({ categories: categoryList, fromRank: z.number().int().positive(), toRank: z.number().int().positive() }).nullable(),
+    /** Qualifiers must have played `count` events in `categories` (zero-pointers excluded) unless waived. */
+    minEvents: z.object({ count: z.number().int().positive(), categories: categoryList }).nullable(),
+  }),
   trackedPlayerCount: z.number().int().positive(),
 });
 
@@ -58,6 +65,7 @@ export const playerSchema = z.object({
   results: z.array(resultSchema),
   live: z.array(liveSchema).default([]),
   qualified: z.boolean().default(false),
+  eventMinimumWaived: z.boolean().default(false),
 });
 
 export const metaSchema = z.object({ lastUpdated: z.iso.datetime({ offset: true }) });

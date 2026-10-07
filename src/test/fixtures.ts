@@ -39,6 +39,11 @@ export function rawSeason(): SeasonInput {
         { kind: 'pointsIn', categories: ['GS', 'WTA1000C'] },
         { kind: 'highestIn', categories: ['GS', 'WTA1000C', 'WTA1000', 'WTA500', 'WTA250'] },
       ],
+      qualification: {
+        places: 2,
+        championPlace: { categories: ['GS'], fromRank: 2, toRank: 3 },
+        minEvents: { count: 2, categories: ['WTA1000C', 'WTA1000', 'WTA500'] },
+      },
       trackedPlayerCount: 3,
     },
     tournaments: [

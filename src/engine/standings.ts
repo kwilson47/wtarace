@@ -2,6 +2,7 @@ import type { Player, Rules, Tournament } from '../data/schema';
 import { applyScenario } from './applyScenario';
 import { countRace, type CountedRace } from './countRace';
 import { findTournament } from './lookup';
+import { isChampion, isEligible, selectQualifiers, type QualifierKind } from './qualification';
 import type { Scenario } from './types';
 
 export interface RankEntry {
@@ -21,6 +22,8 @@ export interface StandingRow {
   /** Positive = moved up. */
   rankChange: number;
   qualified: boolean;
+  eligible: boolean;
+  projectedQualifier: QualifierKind | null;
 }
 
 /** Negative when `a` ranks ahead of `b`. Player id is the final fallback so ranking is deterministic. */
@@ -50,12 +53,23 @@ function ranks(entries: RankEntry[], tournaments: Tournament[], rules: Rules): M
 
 export function projectStandings(players: Player[], scenario: Scenario, tournaments: Tournament[], rules: Rules): StandingRow[] {
   const current = players.map((p) => ({ id: p.id, race: countRace(p.results, tournaments, rules) }));
-  const projected = players.map((p) => ({
+  const projectedResults = players.map((p) => applyScenario(p, scenario, tournaments, rules));
+  const projected = players.map((p, i) => ({
     id: p.id,
-    race: countRace(applyScenario(p, scenario, tournaments, rules), tournaments, rules),
+    race: countRace(projectedResults[i]!, tournaments, rules),
   }));
   const currentRanks = ranks(current, tournaments, rules);
   const projectedRanks = ranks(projected, tournaments, rules);
+  const eligible = players.map((p, i) => isEligible(projectedResults[i]!, p.eventMinimumWaived, tournaments, rules));
+  const qualifiers = selectQualifiers(
+    players.map((p, i) => ({
+      playerId: p.id,
+      rank: projectedRanks.get(p.id)!,
+      eligible: eligible[i]!,
+      champion: isChampion(projectedResults[i]!, tournaments, rules),
+    })),
+    rules,
+  );
 
   return players
     .map((p, i): StandingRow => {
@@ -74,6 +88,8 @@ export function projectStandings(players: Player[], scenario: Scenario, tourname
         projectedRank,
         rankChange: currentRank - projectedRank,
         qualified: p.qualified,
+        eligible: eligible[i]!,
+        projectedQualifier: qualifiers.get(p.id) ?? null,
       };
     })
     .sort((a, b) => a.projectedRank - b.projectedRank);
