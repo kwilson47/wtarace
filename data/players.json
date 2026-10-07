@@ -1,0 +1,2574 @@
+[
+  {
+    "id": "elena-rybakina",
+    "name": "Elena Rybakina",
+    "country": "KZ",
+    "officialRaceTotal": 7492,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "W",
+        "points": 2000
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "W",
+        "points": 2000
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R64",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R64"
+      }
+    ],
+    "qualified": true
+  },
+  {
+    "id": "aryna-sabalenka",
+    "name": "Aryna Sabalenka",
+    "country": "BY",
+    "officialRaceTotal": 6485,
+    "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-2",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "F",
+        "points": 1300
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "F",
+        "points": 1300
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R32",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R32"
+      }
+    ],
+    "qualified": true
+  },
+  {
+    "id": "jessica-pegula",
+    "name": "Jessica Pegula",
+    "country": "US",
+    "officialRaceTotal": 5825,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "SF",
+        "points": 780
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "charleston-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "SF",
+        "points": 780
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "mirra-andreeva",
+    "name": "Mirra Andreeva",
+    "country": "RU",
+    "officialRaceTotal": 5722,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "linz-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "W",
+        "points": 2000
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "singapore-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "QF",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "alive",
+        "round": "QF"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "coco-gauff",
+    "name": "Coco Gauff",
+    "country": "US",
+    "officialRaceTotal": 5654,
+    "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "united-cup-2026",
+        "round": "UC3",
+        "points": 150
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R32",
+        "points": 10
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "SF",
+        "points": 780
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "SF",
+        "points": 780
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R16",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R16"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "elina-svitolina",
+    "name": "Elina Svitolina",
+    "country": "UA",
+    "officialRaceTotal": 4809,
+    "results": [
+      {
+        "tournamentId": "auckland-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "SF",
+        "points": 780
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "QF",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "alive",
+        "round": "QF"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "karolina-muchova",
+    "name": "Karolina Muchova",
+    "country": "CZ",
+    "officialRaceTotal": 4400,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "F",
+        "points": 1300
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "QF",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "alive",
+        "round": "QF"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "linda-noskova",
+    "name": "Linda Noskova",
+    "country": "CZ",
+    "officialRaceTotal": 4234,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "W",
+        "points": 2000
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R16",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R16"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "marta-kostyuk",
+    "name": "Marta Kostyuk",
+    "country": "UA",
+    "officialRaceTotal": 3910,
+    "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rouen-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "SF",
+        "points": 780
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "SF",
+        "points": 780
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "guadalajara-2026",
+        "round": "QF",
+        "points": 60
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "iga-swiatek",
+    "name": "Iga Swiatek",
+    "country": "PL",
+    "officialRaceTotal": 3584,
+    "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "united-cup-2026",
+        "round": "UC3",
+        "points": 150
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "W",
+        "points": 1000
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "QF",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "alive",
+        "round": "QF"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "iva-jovic",
+    "name": "Iva Jovic",
+    "country": "US",
+    "officialRaceTotal": 2731,
+    "results": [
+      {
+        "tournamentId": "auckland-2026",
+        "round": "SF",
+        "points": 98
+      },
+      {
+        "tournamentId": "hobart-2026",
+        "round": "F",
+        "points": 163
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "austin-2026",
+        "round": "R16",
+        "points": 30
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "charleston-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "guadalajara-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R16",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R16"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "victoria-mboko",
+    "name": "Victoria Mboko",
+    "country": "CA",
+    "officialRaceTotal": 2393,
+    "results": [
+      {
+        "tournamentId": "hong-kong-2025",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "united-cup-2026",
+        "round": "UC1RR",
+        "points": 32
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "F",
+        "points": 650
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "ZP",
+        "points": 0
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "sorana-cirstea",
+    "name": "Sorana Cirstea",
+    "country": "RO",
+    "officialRaceTotal": 2390,
+    "results": [
+      {
+        "tournamentId": "hong-kong-2025",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "Q",
+        "points": 25
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "cluj-napoca-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "linz-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "rouen-2026",
+        "round": "SF",
+        "points": 98
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R16",
+        "points": 240
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "diana-shnaider",
+    "name": "Diana Shnaider",
+    "country": "RU",
+    "officialRaceTotal": 2344,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "charleston-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "SF",
+        "points": 780
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R32",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R32"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "alexandra-eala",
+    "name": "Alexandra Eala",
+    "country": "PH",
+    "officialRaceTotal": 2181,
+    "results": [
+      {
+        "tournamentId": "hong-kong-2025",
+        "round": "R16",
+        "points": 30
+      },
+      {
+        "tournamentId": "auckland-2026",
+        "round": "SF",
+        "points": 98
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "abu-dhabi-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "linz-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "singapore-2026",
+        "round": "R16",
+        "points": 1
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "naomi-osaka",
+    "name": "Naomi Osaka",
+    "country": "JP",
+    "officialRaceTotal": 2177,
+    "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "united-cup-2026",
+        "round": "UC1RR",
+        "points": 32
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R16",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R16"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "elise-mertens",
+    "name": "Elise Mertens",
+    "country": "BE",
+    "officialRaceTotal": 2160,
+    "results": [
+      {
+        "tournamentId": "united-cup-2026",
+        "round": "UC3",
+        "points": 150
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "stuttgart-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "s-hertogenbosch-2026",
+        "round": "R16",
+        "points": 30
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "monterrey-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "singapore-2026",
+        "round": "QF",
+        "points": 60
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "QF",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "alive",
+        "round": "QF"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "madison-keys",
+    "name": "Madison Keys",
+    "country": "US",
+    "officialRaceTotal": 2095,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "charleston-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "eastbourne-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "belinda-bencic",
+    "name": "Belinda Bencic",
+    "country": "CH",
+    "officialRaceTotal": 2087,
+    "results": [
+      {
+        "tournamentId": "hong-kong-2025",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "united-cup-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "charleston-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R32",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R32"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "anna-kalinskaya",
+    "name": "Anna Kalinskaya",
+    "country": "RU",
+    "officialRaceTotal": 1967,
+    "results": [
+      {
+        "tournamentId": "hong-kong-2025",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R32",
+        "points": 32
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "charleston-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R64",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R64"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "amanda-anisimova",
+    "name": "Amanda Anisimova",
+    "country": "US",
+    "officialRaceTotal": 1963,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "QF",
+        "points": 430
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R32",
+        "points": 10
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "anastasia-potapova",
+    "name": "Anastasia Potapova",
+    "country": "AT",
+    "officialRaceTotal": 1807,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R32",
+        "points": 32
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "Q",
+        "points": 13
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "cluj-napoca-2026",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "Q",
+        "points": 2
+      },
+      {
+        "tournamentId": "merida-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "linz-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "SF",
+        "points": 410
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R16",
+        "points": 150
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "s-hertogenbosch-2026",
+        "round": "R16",
+        "points": 30
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R64",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R64"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "emma-navarro",
+    "name": "Emma Navarro",
+    "country": "US",
+    "officialRaceTotal": 1805,
+    "results": [
+      {
+        "tournamentId": "auckland-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "abu-dhabi-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "merida-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "W",
+        "points": 500
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "s-hertogenbosch-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "nottingham-2026",
+        "round": "F",
+        "points": 163
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "QF",
+        "points": 430
+      }
+    ],
+    "live": [],
+    "qualified": false
+  },
+  {
+    "id": "maja-chwalinska",
+    "name": "Maja Chwalinska",
+    "country": "PL",
+    "officialRaceTotal": 1745,
+    "results": [
+      {
+        "tournamentId": "auckland-2026",
+        "round": "Q",
+        "points": 12
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "Q",
+        "points": 30
+      },
+      {
+        "tournamentId": "cluj-napoca-2026",
+        "round": "QF",
+        "points": 72
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "F",
+        "points": 1340
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "monterrey-2026",
+        "round": "R16",
+        "points": 1
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "singapore-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R64",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R64"
+      }
+    ],
+    "qualified": false
+  },
+  {
+    "id": "marie-bouzkova",
+    "name": "Marie Bouzkova",
+    "country": "CZ",
+    "officialRaceTotal": 1708,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R32",
+        "points": 32
+      },
+      {
+        "tournamentId": "adelaide-2026",
+        "round": "R16",
+        "points": 73
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "merida-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "bogota-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "nottingham-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R16",
+        "points": 240
+      },
+      {
+        "tournamentId": "prague-2026",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R32",
+        "points": 130
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R32",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "beijing-2026",
+        "state": "eliminated",
+        "round": "R32"
+      }
+    ],
+    "qualified": false
+  }
+]

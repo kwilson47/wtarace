@@ -1,0 +1,490 @@
+[
+  {
+    "id": "hong-kong-2025",
+    "name": "Prudential Hong Kong Tennis Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2025-10-27",
+    "endDate": "2025-11-02",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "zp-wta500-1",
+    "name": "Unattributed WTA500 commitment zero-pointer",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2025-10-27",
+    "endDate": "2026-11-01",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "zp-wta500-2",
+    "name": "Unattributed WTA500 commitment zero-pointer",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2025-10-27",
+    "endDate": "2026-11-01",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "united-cup-2026",
+    "name": "United Cup",
+    "category": "WTA500",
+    "drawType": "united-cup",
+    "startDate": "2026-01-02",
+    "endDate": "2026-01-11",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "brisbane-2026",
+    "name": "Brisbane International",
+    "category": "WTA500",
+    "drawType": "wta500-48",
+    "startDate": "2026-01-04",
+    "endDate": "2026-01-11",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "auckland-2026",
+    "name": "ASB Classic",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-01-05",
+    "endDate": "2026-01-11",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "adelaide-2026",
+    "name": "Adelaide International",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-01-12",
+    "endDate": "2026-01-17",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "hobart-2026",
+    "name": "Hobart International",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-01-12",
+    "endDate": "2026-01-17",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "australian-open-2026",
+    "name": "Australian Open",
+    "category": "GS",
+    "drawType": "gs-128",
+    "startDate": "2026-01-18",
+    "endDate": "2026-02-01",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "abu-dhabi-2026",
+    "name": "Mubadala Abu Dhabi Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-02-01",
+    "endDate": "2026-02-07",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "cluj-napoca-2026",
+    "name": "Transylvania Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-02-01",
+    "endDate": "2026-02-07",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "doha-2026",
+    "name": "Qatar TotalEnergies Open",
+    "category": "WTA1000",
+    "drawType": "wta1000-56",
+    "startDate": "2026-02-08",
+    "endDate": "2026-02-14",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "dubai-2026",
+    "name": "Dubai Duty Free Tennis Championships",
+    "category": "WTA1000",
+    "drawType": "wta1000-56",
+    "startDate": "2026-02-15",
+    "endDate": "2026-02-21",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "austin-2026",
+    "name": "ATX Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-02-23",
+    "endDate": "2026-03-01",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "merida-2026",
+    "name": "Mérida Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-02-23",
+    "endDate": "2026-03-01",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "indian-wells-2026",
+    "name": "BNP Paribas Open",
+    "category": "WTA1000C",
+    "drawType": "wta1000-96",
+    "startDate": "2026-03-04",
+    "endDate": "2026-03-15",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "miami-2026",
+    "name": "Miami Open",
+    "category": "WTA1000C",
+    "drawType": "wta1000-96",
+    "startDate": "2026-03-17",
+    "endDate": "2026-03-29",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "bogota-2026",
+    "name": "Copa Colsanitas Colsubsidio",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-03-30",
+    "endDate": "2026-04-05",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "charleston-2026",
+    "name": "Credit One Charleston Open",
+    "category": "WTA500",
+    "drawType": "wta500-48",
+    "startDate": "2026-03-30",
+    "endDate": "2026-04-05",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "linz-2026",
+    "name": "Upper Austria Ladies Linz",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-04-06",
+    "endDate": "2026-04-12",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "rouen-2026",
+    "name": "Open Capfinances Rouen Métropole",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-04-13",
+    "endDate": "2026-04-19",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "stuttgart-2026",
+    "name": "Porsche Tennis Grand Prix",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-04-13",
+    "endDate": "2026-04-19",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "madrid-2026",
+    "name": "Mutua Madrid Open",
+    "category": "WTA1000C",
+    "drawType": "wta1000-96",
+    "startDate": "2026-04-21",
+    "endDate": "2026-05-03",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "rome-2026",
+    "name": "Internazionali BNL d'Italia",
+    "category": "WTA1000C",
+    "drawType": "wta1000-96",
+    "startDate": "2026-05-05",
+    "endDate": "2026-05-17",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "strasbourg-2026",
+    "name": "Internationaux de Strasbourg",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-05-17",
+    "endDate": "2026-05-23",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "roland-garros-2026",
+    "name": "Roland Garros",
+    "category": "GS",
+    "drawType": "gs-128",
+    "startDate": "2026-05-24",
+    "endDate": "2026-06-07",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "queens-2026",
+    "name": "The HSBC Championships",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-14",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "s-hertogenbosch-2026",
+    "name": "Libéma Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-14",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "berlin-2026",
+    "name": "VANDA Pharmaceuticals Berlin Tennis Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-06-15",
+    "endDate": "2026-06-21",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "nottingham-2026",
+    "name": "Lexus Nottingham Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-06-15",
+    "endDate": "2026-06-21",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "bad-homburg-2026",
+    "name": "Bad Homburg Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-06-21",
+    "endDate": "2026-06-27",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "eastbourne-2026",
+    "name": "Lexus Eastbourne Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-06-22",
+    "endDate": "2026-06-27",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "wimbledon-2026",
+    "name": "The Championships, Wimbledon",
+    "category": "GS",
+    "drawType": "gs-128",
+    "startDate": "2026-06-29",
+    "endDate": "2026-07-12",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "prague-2026",
+    "name": "Livesport Prague Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-07-20",
+    "endDate": "2026-07-26",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "washington-dc-2026",
+    "name": "Mubadala DC Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-07-27",
+    "endDate": "2026-08-02",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "toronto-2026",
+    "name": "National Bank Open",
+    "category": "WTA1000C",
+    "drawType": "wta1000-96",
+    "startDate": "2026-08-02",
+    "endDate": "2026-08-13",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "cincinnati-2026",
+    "name": "Cincinnati Open",
+    "category": "WTA1000C",
+    "drawType": "wta1000-96",
+    "startDate": "2026-08-13",
+    "endDate": "2026-08-23",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "monterrey-2026",
+    "name": "Abierto GNP Seguros",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-08-23",
+    "endDate": "2026-08-29",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "us-open-2026",
+    "name": "US Open",
+    "category": "GS",
+    "drawType": "gs-128",
+    "startDate": "2026-08-30",
+    "endDate": "2026-09-13",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "guadalajara-2026",
+    "name": "Guadalajara Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-09-13",
+    "endDate": "2026-09-19",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "singapore-2026",
+    "name": "Singapore Tennis Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-09-21",
+    "endDate": "2026-09-27",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "beijing-2026",
+    "name": "China Open",
+    "category": "WTA1000C",
+    "drawType": "wta1000-96",
+    "startDate": "2026-09-30",
+    "endDate": "2026-10-11",
+    "status": "in-progress",
+    "byes": [
+      "elena-rybakina",
+      "aryna-sabalenka",
+      "mirra-andreeva",
+      "coco-gauff",
+      "elina-svitolina",
+      "karolina-muchova",
+      "linda-noskova",
+      "iga-swiatek",
+      "iva-jovic",
+      "diana-shnaider",
+      "naomi-osaka",
+      "elise-mertens",
+      "belinda-bencic",
+      "anna-kalinskaya",
+      "anastasia-potapova",
+      "maja-chwalinska",
+      "marie-bouzkova"
+    ]
+  },
+  {
+    "id": "wuhan-2026",
+    "name": "Wuhan Open",
+    "category": "WTA1000",
+    "drawType": "wta1000-56",
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "status": "upcoming",
+    "byes": []
+  },
+  {
+    "id": "ningbo-2026",
+    "name": "Ningbo Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "status": "upcoming",
+    "byes": []
+  },
+  {
+    "id": "osaka-2026",
+    "name": "Japan Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "status": "upcoming",
+    "byes": []
+  },
+  {
+    "id": "guangzhou-2026",
+    "name": "Guangzhou Open",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "status": "upcoming",
+    "byes": []
+  },
+  {
+    "id": "tokyo-2026",
+    "name": "Toray Pan Pacific Open",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "status": "upcoming",
+    "byes": []
+  }
+]

@@ -1,0 +1,342 @@
+{
+  "season": 2026,
+  "maxCountedResults": 18,
+  "requiredGroups": [
+    {
+      "categories": [
+        "GS"
+      ],
+      "count": 4
+    },
+    {
+      "categories": [
+        "WTA1000C"
+      ],
+      "count": 6
+    },
+    {
+      "categories": [
+        "WTA1000"
+      ],
+      "count": 1
+    }
+  ],
+  "excludedCategories": [
+    "WTA125",
+    "ITF"
+  ],
+  "pointsTables": {
+    "gs-128": [
+      {
+        "round": "R128",
+        "label": "Round of 128",
+        "points": 10
+      },
+      {
+        "round": "R64",
+        "label": "Round of 64",
+        "points": 70
+      },
+      {
+        "round": "R32",
+        "label": "Round of 32",
+        "points": 130
+      },
+      {
+        "round": "R16",
+        "label": "Round of 16",
+        "points": 240
+      },
+      {
+        "round": "QF",
+        "label": "Quarterfinal",
+        "points": 430
+      },
+      {
+        "round": "SF",
+        "label": "Semifinal",
+        "points": 780
+      },
+      {
+        "round": "F",
+        "label": "Final",
+        "points": 1300
+      },
+      {
+        "round": "W",
+        "label": "Winner",
+        "points": 2000
+      }
+    ],
+    "wta1000-96": [
+      {
+        "round": "R128",
+        "label": "Round of 128",
+        "points": 10
+      },
+      {
+        "round": "R64",
+        "label": "Round of 64",
+        "points": 35
+      },
+      {
+        "round": "R32",
+        "label": "Round of 32",
+        "points": 65
+      },
+      {
+        "round": "R16",
+        "label": "Round of 16",
+        "points": 120
+      },
+      {
+        "round": "QF",
+        "label": "Quarterfinal",
+        "points": 215
+      },
+      {
+        "round": "SF",
+        "label": "Semifinal",
+        "points": 390
+      },
+      {
+        "round": "F",
+        "label": "Final",
+        "points": 650
+      },
+      {
+        "round": "W",
+        "label": "Winner",
+        "points": 1000
+      }
+    ],
+    "wta1000-56": [
+      {
+        "round": "R64",
+        "label": "Round of 64",
+        "points": 10
+      },
+      {
+        "round": "R32",
+        "label": "Round of 32",
+        "points": 65
+      },
+      {
+        "round": "R16",
+        "label": "Round of 16",
+        "points": 120
+      },
+      {
+        "round": "QF",
+        "label": "Quarterfinal",
+        "points": 215
+      },
+      {
+        "round": "SF",
+        "label": "Semifinal",
+        "points": 390
+      },
+      {
+        "round": "F",
+        "label": "Final",
+        "points": 650
+      },
+      {
+        "round": "W",
+        "label": "Winner",
+        "points": 1000
+      }
+    ],
+    "wta500-48": [
+      {
+        "round": "R64",
+        "label": "Round of 64",
+        "points": 1
+      },
+      {
+        "round": "R32",
+        "label": "Round of 32",
+        "points": 32
+      },
+      {
+        "round": "R16",
+        "label": "Round of 16",
+        "points": 60
+      },
+      {
+        "round": "QF",
+        "label": "Quarterfinal",
+        "points": 108
+      },
+      {
+        "round": "SF",
+        "label": "Semifinal",
+        "points": 195
+      },
+      {
+        "round": "F",
+        "label": "Final",
+        "points": 325
+      },
+      {
+        "round": "W",
+        "label": "Winner",
+        "points": 500
+      }
+    ],
+    "wta500-28": [
+      {
+        "round": "R32",
+        "label": "Round of 32",
+        "points": 1
+      },
+      {
+        "round": "R16",
+        "label": "Round of 16",
+        "points": 60
+      },
+      {
+        "round": "QF",
+        "label": "Quarterfinal",
+        "points": 108
+      },
+      {
+        "round": "SF",
+        "label": "Semifinal",
+        "points": 195
+      },
+      {
+        "round": "F",
+        "label": "Final",
+        "points": 325
+      },
+      {
+        "round": "W",
+        "label": "Winner",
+        "points": 500
+      }
+    ],
+    "wta250-32": [
+      {
+        "round": "R32",
+        "label": "Round of 32",
+        "points": 1
+      },
+      {
+        "round": "R16",
+        "label": "Round of 16",
+        "points": 30
+      },
+      {
+        "round": "QF",
+        "label": "Quarterfinal",
+        "points": 54
+      },
+      {
+        "round": "SF",
+        "label": "Semifinal",
+        "points": 98
+      },
+      {
+        "round": "F",
+        "label": "Final",
+        "points": 163
+      },
+      {
+        "round": "W",
+        "label": "Winner",
+        "points": 250
+      }
+    ],
+    "united-cup": [
+      {
+        "round": "UC0",
+        "label": "0 match wins",
+        "points": 1
+      },
+      {
+        "round": "UC1RR",
+        "label": "1 round-robin win",
+        "points": 32
+      },
+      {
+        "round": "UC1KO",
+        "label": "1 win (QF, SF or F)",
+        "points": 60
+      },
+      {
+        "round": "UC2RR",
+        "label": "2 round-robin wins",
+        "points": 90
+      },
+      {
+        "round": "UC2KO",
+        "label": "2 wins (1 from QF, SF or F)",
+        "points": 108
+      },
+      {
+        "round": "UC3",
+        "label": "3 match wins",
+        "points": 150
+      },
+      {
+        "round": "UC4",
+        "label": "4 match wins",
+        "points": 325
+      },
+      {
+        "round": "W",
+        "label": "5 match wins",
+        "points": 500
+      }
+    ]
+  },
+  "byeRule": "points-of-previous-round",
+  "tiebreakers": [
+    {
+      "kind": "pointsIn",
+      "categories": [
+        "WTA1000C",
+        "WTA1000"
+      ]
+    },
+    {
+      "kind": "highestIn",
+      "categories": [
+        "WTA1000C",
+        "WTA1000"
+      ]
+    },
+    {
+      "kind": "highestIn",
+      "categories": [
+        "WTA500"
+      ]
+    },
+    {
+      "kind": "highestIn",
+      "categories": [
+        "WTA250"
+      ]
+    }
+  ],
+  "qualification": {
+    "places": 8,
+    "championPlace": {
+      "categories": [
+        "GS"
+      ],
+      "fromRank": 8,
+      "toRank": 20
+    },
+    "minEvents": {
+      "count": 8,
+      "categories": [
+        "WTA1000C",
+        "WTA1000",
+        "WTA500"
+      ]
+    }
+  },
+  "trackedPlayerCount": 25
+}
