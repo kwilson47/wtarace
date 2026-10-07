@@ -13,15 +13,25 @@ const roundPointsSchema = z.object({
   points: z.number().int().nonnegative(),
 });
 
+const categoryList = z.array(z.string().min(1)).min(1);
+
+const tiebreakerSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('pointsIn'), categories: categoryList }),
+  z.object({ kind: z.literal('highestIn'), categories: categoryList }),
+]);
+
 export const rulesSchema = z.object({
   season: z.number().int(),
   maxCountedResults: z.number().int().positive(),
-  mandatoryCategories: z.array(z.string()),
-  mandatoryEventIds: z.array(id),
+  /** In order, each group's best `count` results always count (even past the cap). */
+  requiredGroups: z.array(z.object({ categories: categoryList, count: z.number().int().positive() })),
+  /** Results from these categories never count. */
+  excludedCategories: z.array(z.string().min(1)),
   /** Each table is ordered from the first round to the winner. */
   pointsTables: z.record(z.string(), z.array(roundPointsSchema).min(2)),
   byeRule: z.enum(['points-of-round-lost', 'points-of-previous-round']),
-  tiebreakers: z.array(z.enum(['mostMandatoryPoints', 'highestSingleResult', 'fewestResults', 'name'])).min(1),
+  /** Applied in order over counted results; player id is the final fallback. */
+  tiebreakers: z.array(tiebreakerSchema).min(1),
   trackedPlayerCount: z.number().int().positive(),
 });
 
@@ -116,6 +126,7 @@ export const seasonSchema = z
   });
 
 export type Rules = z.infer<typeof rulesSchema>;
+export type Tiebreaker = z.infer<typeof tiebreakerSchema>;
 export type RoundPoints = z.infer<typeof roundPointsSchema>;
 export type Tournament = z.infer<typeof tournamentSchema>;
 export type Player = z.infer<typeof playerSchema>;

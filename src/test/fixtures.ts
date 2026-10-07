@@ -28,16 +28,22 @@ export function rawSeason(): SeasonInput {
     rules: {
       season: 2026,
       maxCountedResults: 4,
-      mandatoryCategories: ['GS'],
-      mandatoryEventIds: ['m1000'],
+      requiredGroups: [
+        { categories: ['GS'], count: 1 },
+        { categories: ['WTA1000C'], count: 1 },
+      ],
+      excludedCategories: ['ITF'],
       pointsTables: { d32, gs128 },
       byeRule: 'points-of-previous-round',
-      tiebreakers: ['mostMandatoryPoints', 'highestSingleResult', 'name'],
+      tiebreakers: [
+        { kind: 'pointsIn', categories: ['GS', 'WTA1000C'] },
+        { kind: 'highestIn', categories: ['GS', 'WTA1000C', 'WTA1000', 'WTA500', 'WTA250'] },
+      ],
       trackedPlayerCount: 3,
     },
     tournaments: [
       { id: 'slam', name: 'Slam Open', category: 'GS', drawType: 'gs128', startDate: '2026-01-12', endDate: '2026-01-25', status: 'completed', byes: [] },
-      { id: 'm1000', name: 'Mandatory 1000', category: 'WTA1000', drawType: 'd32', startDate: '2026-03-02', endDate: '2026-03-08', status: 'completed', byes: [] },
+      { id: 'm1000', name: 'Mandatory 1000', category: 'WTA1000C', drawType: 'd32', startDate: '2026-03-02', endDate: '2026-03-08', status: 'completed', byes: [] },
       { id: 'c500', name: 'City 500', category: 'WTA500', drawType: 'd32', startDate: '2026-04-06', endDate: '2026-04-12', status: 'completed', byes: [] },
       { id: 'c250', name: 'Town 250', category: 'WTA250', drawType: 'd32', startDate: '2026-05-04', endDate: '2026-05-10', status: 'completed', byes: [] },
       { id: 'live', name: 'Live Masters', category: 'WTA1000', drawType: 'd32', startDate: '2026-10-05', endDate: '2026-10-12', status: 'in-progress', byes: [] },
@@ -46,7 +52,7 @@ export function rawSeason(): SeasonInput {
     ],
     players: [
       {
-        // Mandatory: slam 1000 + m1000 20. Optional best 2 of (100, 40, 10) = 140. Total 1160.
+        // Required: slam 1000 + m1000 20. Optional best 2 of (100, 40, 10) = 140. Total 1160.
         id: 'ana', name: 'Ana Alpha', country: 'ES', officialRaceTotal: 1160, qualified: true,
         results: [
           { tournamentId: 'slam', round: 'W', points: 1000 },

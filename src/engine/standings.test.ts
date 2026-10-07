@@ -6,44 +6,48 @@ import { parseOrThrow, type Result, type Rules } from '../data/schema';
 
 const { tournaments, rules } = season;
 const res = (tournamentId: string, points: number, round = 'W'): Result => ({ tournamentId, round, points });
-const entry = (id: string, name: string, counted: Result[], dropped: Result[] = []): RankEntry => ({
-  id, name, race: { total: counted.reduce((s, r) => s + r.points, 0), counted, dropped },
+const entry = (id: string, counted: Result[]): RankEntry => ({
+  id, race: { total: counted.reduce((s, r) => s + r.points, 0), counted, dropped: [] },
 });
 const withTiebreakers = (tiebreakers: Rules['tiebreakers']): Rules => ({ ...rules, tiebreakers });
 
 describe('compareEntries', () => {
   it('ranks a higher total first', () => {
-    expect(compareEntries(entry('a', 'A', [res('c500', 200)]), entry('b', 'B', [res('c500', 100)]), tournaments, rules)).toBeLessThan(0);
+    expect(compareEntries(entry('a', [res('c500', 200)]), entry('b', [res('c500', 100)]), tournaments, rules)).toBeLessThan(0);
   });
 
-  it('breaks ties by mostMandatoryPoints', () => {
-    const a = entry('a', 'A', [res('slam', 100), res('c500', 100)]);
-    const b = entry('b', 'B', [res('c250', 100), res('c500', 100)]);
-    expect(compareEntries(b, a, tournaments, withTiebreakers(['mostMandatoryPoints']))).toBeGreaterThan(0);
+  it('pointsIn sums counted points from the listed categories only', () => {
+    // a has more Grand Slam points, b more combined-WTA-1000 points.
+    const a = entry('a', [res('slam', 150), res('c500', 50)]);
+    const b = entry('b', [res('m1000', 100), res('c500', 100)]);
+    expect(compareEntries(a, b, tournaments, withTiebreakers([{ kind: 'pointsIn', categories: ['WTA1000C'] }]))).toBeGreaterThan(0);
   });
 
-  it('breaks ties by highestSingleResult', () => {
-    const a = entry('a', 'A', [res('c500', 150), res('c250', 50)]);
-    const b = entry('b', 'B', [res('c500', 100), res('c250', 100)]);
-    expect(compareEntries(b, a, tournaments, withTiebreakers(['highestSingleResult']))).toBeGreaterThan(0);
+  it('highestIn compares the best counted result within the listed categories only', () => {
+    // a has the best result overall (slam 150), b the best WTA 500 result.
+    const a = entry('a', [res('slam', 150), res('c500', 50)]);
+    const b = entry('b', [res('c500', 100), res('c250', 100)]);
+    expect(compareEntries(a, b, tournaments, withTiebreakers([{ kind: 'highestIn', categories: ['WTA500'] }]))).toBeGreaterThan(0);
   });
 
-  it('breaks ties by fewestResults, ignoring zero-pointers', () => {
-    const a = entry('a', 'A', [res('c500', 100), res('slam', 0, 'ZP')]);
-    const b = entry('b', 'B', [res('c500', 50), res('c250', 50)]);
-    expect(compareEntries(b, a, tournaments, withTiebreakers(['fewestResults']))).toBeGreaterThan(0);
+  it('treats no result in the listed categories as 0', () => {
+    const a = entry('a', [res('c500', 100)]);
+    const b = entry('b', [res('c250', 100)]);
+    expect(compareEntries(a, b, tournaments, withTiebreakers([{ kind: 'highestIn', categories: ['WTA250'] }]))).toBeGreaterThan(0);
   });
 
-  it('breaks ties by name', () => {
-    const zed = entry('a', 'Zed', [res('c500', 100)]);
-    const amy = entry('b', 'Amy', [res('c500', 100)]);
-    expect(compareEntries(zed, amy, tournaments, withTiebreakers(['name']))).toBeGreaterThan(0);
+  it('moves to the next criterion only when the previous one ties', () => {
+    const a = entry('a', [res('c500', 120), res('m1000', 40)]);
+    const b = entry('b', [res('c500', 120), res('slam', 40)]);
+    const r = withTiebreakers([{ kind: 'highestIn', categories: ['WTA500'] }, { kind: 'pointsIn', categories: ['WTA1000C'] }]);
+    expect(compareEntries(a, b, tournaments, r)).toBeLessThan(0);
+    expect(compareEntries(b, a, tournaments, r)).toBeGreaterThan(0);
   });
 
   it('falls back to id when every criterion ties', () => {
-    const x = entry('x', 'Same', [res('c500', 100)]);
-    const y = entry('y', 'Same', [res('c500', 100)]);
-    expect(compareEntries(y, x, tournaments, withTiebreakers(['name']))).toBeGreaterThan(0);
+    const x = entry('x', [res('c500', 100)]);
+    const y = entry('y', [res('c500', 100)]);
+    expect(compareEntries(y, x, tournaments, rules)).toBeGreaterThan(0);
   });
 });
 
