@@ -1,8 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { season } from './data/season';
+import { App } from './ui/App';
+import './ui/styles.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <h1>Race to the WTA Finals 2026</h1>
+    <App season={season} />
   </StrictMode>,
 );
