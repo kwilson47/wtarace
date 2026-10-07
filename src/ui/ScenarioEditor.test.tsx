@@ -17,7 +17,44 @@ describe('ScenarioEditor', () => {
   it('lists remaining events by date and marks live ones', () => {
     setup();
     const options = screen.getAllByRole('option').filter((o) => o.closest('select')?.getAttribute('id') === 'tournament-select');
-    expect(options.map((o) => o.textContent)).toEqual(['Live Masters — LIVE', 'Next Open', 'Clash Cup']);
+    expect(options.map((o) => o.textContent)).toEqual([
+      'Live Masters (WTA 1000) — LIVE',
+      'Next Open (WTA 500)',
+      'Clash Cup (WTA 250)',
+    ]);
+  });
+
+  it('by player: labels each event with its type', async () => {
+    setup();
+    await userEvent.click(screen.getByRole('tab', { name: 'By player' }));
+    expect(screen.getByText('Next Open').closest('li')).toHaveTextContent('WTA 500');
+    expect(screen.getByText('Live Masters — LIVE').closest('li')).toHaveTextContent('WTA 1000');
+  });
+
+  it('by player: clears every pick for the selected player only', async () => {
+    const { onPick } = setup({ [pickKey('ana', 'live')]: 'W', [pickKey('ana', 'clash')]: 'SF', [pickKey('bea', 'next')]: 'F' });
+    await userEvent.click(screen.getByRole('tab', { name: 'By player' }));
+    await userEvent.click(screen.getByRole('button', { name: "Clear Ana Alpha's picks" }));
+    expect(onPick.mock.calls).toEqual([
+      ['ana', 'live', null],
+      ['ana', 'clash', null],
+    ]);
+  });
+
+  it('by player: disables clearing when the player has no picks', async () => {
+    setup({ [pickKey('bea', 'next')]: 'F' });
+    await userEvent.click(screen.getByRole('tab', { name: 'By player' }));
+    expect(screen.getByRole('button', { name: "Clear Ana Alpha's picks" })).toBeDisabled();
+  });
+
+  it('by tournament: clears every pick at the selected tournament only', async () => {
+    const { onPick } = setup({ [pickKey('ana', 'next')]: 'W', [pickKey('bea', 'next')]: 'F', [pickKey('ana', 'clash')]: 'SF' });
+    await userEvent.selectOptions(screen.getByLabelText('Tournament'), 'next');
+    await userEvent.click(screen.getByRole('button', { name: 'Clear picks for Next Open' }));
+    expect(onPick.mock.calls).toEqual([
+      ['ana', 'next', null],
+      ['bea', 'next', null],
+    ]);
   });
 
   it('by tournament: one dropdown or locked cell per player, and picks reach onPick', async () => {

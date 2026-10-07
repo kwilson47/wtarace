@@ -15,3 +15,17 @@ export function formatDelta(n: number): string {
 export function formatUpdated(iso: string): string {
   return `${new Date(iso).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
 }
+
+const CATEGORY_LABELS: Record<string, string> = {
+  GS: 'Grand Slam',
+  WTA1000C: 'WTA 1000',
+  WTA1000: 'WTA 1000',
+  WTA500: 'WTA 500',
+  WTA250: 'WTA 250',
+  WTA125: 'WTA 125',
+};
+
+/** Fan-facing event type; combined and WTA-only 1000s both read "WTA 1000". */
+export function categoryLabel(category: string): string {
+  return CATEGORY_LABELS[category] ?? category;
+}

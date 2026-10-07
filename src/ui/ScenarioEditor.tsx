@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Player, Rules, Season, Tournament } from '../data/schema';
 import type { Warning } from '../engine/checkScenario';
 import { pickKey, type Scenario } from '../engine/types';
+import { categoryLabel } from './format';
 import { PickSelect } from './PickSelect';
 import { warningsByPick } from './warningText';
 
@@ -25,7 +26,29 @@ interface PanelProps {
   onPick: OnPick;
 }
 
-const eventName = (t: Tournament) => `${t.name}${t.status === 'in-progress' ? ' — LIVE' : ''}`;
+const live = (t: Tournament) => (t.status === 'in-progress' ? ' — LIVE' : '');
+const eventName = (t: Tournament) => `${t.name}${live(t)}`;
+const eventOption = (t: Tournament) => `${t.name} (${categoryLabel(t.category)})${live(t)}`;
+
+/** Clears every existing pick among `picks`; disabled when there is nothing to clear. */
+function ClearButton({ label, picks, scenario, onPick }: {
+  label: string;
+  picks: { playerId: string; tournamentId: string }[];
+  scenario: Scenario;
+  onPick: OnPick;
+}) {
+  const picked = picks.filter((p) => scenario[pickKey(p.playerId, p.tournamentId)] !== undefined);
+  return (
+    <button
+      type="button"
+      className="clear"
+      disabled={picked.length === 0}
+      onClick={() => picked.forEach((p) => onPick(p.playerId, p.tournamentId, null))}
+    >
+      {label}
+    </button>
+  );
+}
 
 function Cell({ player, tournament, rules, scenario, messages, onPick }: Omit<PanelProps, 'tournaments' | 'players'> & { player: Player; tournament: Tournament }) {
   const key = pickKey(player.id, tournament.id);
@@ -49,9 +72,15 @@ function ByTournament({ tournaments, players, ...rest }: PanelProps) {
       <label className="picker">
         Tournament{' '}
         <select id="tournament-select" value={tournament.id} onChange={(e) => setId(e.target.value)}>
-          {tournaments.map((t) => <option key={t.id} value={t.id}>{eventName(t)}</option>)}
+          {tournaments.map((t) => <option key={t.id} value={t.id}>{eventOption(t)}</option>)}
         </select>
       </label>
+      <ClearButton
+        label={`Clear picks for ${tournament.name}`}
+        picks={players.map((p) => ({ playerId: p.id, tournamentId: tournament.id }))}
+        scenario={rest.scenario}
+        onPick={rest.onPick}
+      />
       <ul className="picks">
         {players.map((p) => (
           <li key={p.id}>
@@ -76,10 +105,18 @@ function ByPlayer({ tournaments, players, ...rest }: PanelProps) {
           {players.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
       </label>
+      <ClearButton
+        label={`Clear ${player.name}'s picks`}
+        picks={tournaments.map((t) => ({ playerId: player.id, tournamentId: t.id }))}
+        scenario={rest.scenario}
+        onPick={rest.onPick}
+      />
       <ul className="picks">
         {tournaments.map((t) => (
           <li key={t.id}>
-            <span className="who">{eventName(t)}</span>
+            <span className="who">
+              {eventName(t)} <span className="tag">{categoryLabel(t.category)}</span>
+            </span>
             <Cell player={player} tournament={t} {...rest} />
           </li>
         ))}

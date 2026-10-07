@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { flagEmoji, formatDelta, formatPoints, formatUpdated } from './format';
+import { categoryLabel, flagEmoji, formatDelta, formatPoints, formatUpdated } from './format';
 
 describe('format', () => {
   it('builds a flag emoji from an ISO code', () => expect(flagEmoji('PL')).toBe('🇵🇱'));
@@ -10,4 +10,12 @@ describe('format', () => {
     expect(formatDelta(0)).toBe('0');
   });
   it('formats the update time in UTC', () => expect(formatUpdated('2026-10-07T14:05:00+02:00')).toBe('2026-10-07 12:05 UTC'));
+  it('labels event categories for fans', () => {
+    expect(categoryLabel('GS')).toBe('Grand Slam');
+    expect(categoryLabel('WTA1000C')).toBe('WTA 1000');
+    expect(categoryLabel('WTA1000')).toBe('WTA 1000');
+    expect(categoryLabel('WTA500')).toBe('WTA 500');
+    expect(categoryLabel('WTA250')).toBe('WTA 250');
+    expect(categoryLabel('Other')).toBe('Other');
+  });
 });
