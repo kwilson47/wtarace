@@ -2161,7 +2161,7 @@
       },
       {
         "tournamentId": "adelaide-2026",
-        "round": "Q",
+        "round": "R32",
         "points": 13
       },
       {
@@ -2176,7 +2176,7 @@
       },
       {
         "tournamentId": "dubai-2026",
-        "round": "Q",
+        "round": "Q1",
         "points": 2
       },
       {
@@ -2387,12 +2387,12 @@
     "results": [
       {
         "tournamentId": "auckland-2026",
-        "round": "Q",
+        "round": "Q2",
         "points": 12
       },
       {
         "tournamentId": "australian-open-2026",
-        "round": "Q",
+        "round": "Q3",
         "points": 30
       },
       {

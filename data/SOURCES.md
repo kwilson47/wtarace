@@ -45,7 +45,10 @@ Primary sources:
   - 96 → `wta1000-96`; 56 → `wta1000-56`;
   - 48 → `wta500-48`; 28 or 30 → `wta500-28`; 32 → `wta250-32`.
   - Eastbourne 2026 reports a draw size of 0, so it is treated as a 32-player WTA 250. Its stored points match that table.
-- **Round codes and points.** The round is the deepest main-draw round reached: the round lost, the next round if her last match was a win (walkover or withdrawal), or `W` for a title. `Q` marks a result whose race points are qualifying points only. That covers a qualifier who withdrew before her first main-draw match (Cirstea, Adelaide), a lucky loser who lost her first main-draw match (Potapova, Adelaide), and qualifying losses.
+- **Round codes and points.** The round is the deepest main-draw round reached: the round lost, the next round if her last match was a win (walkover or withdrawal), or `W` for a title. **Qualifying codes** mean the race points come from qualifying, stored as published:
+  - `Q1`, `Q2` and `Q3` mean she lost in that qualifying round, taken from the feed's `tourn_round` on the qualifying match. The cases are Potapova at Dubai (Q1, 2 points), Chwalinska at Auckland (Q2, 12) and Chwalinska at the Australian Open (Q3, 30). Each matches its rulebook qualifying column on p.147.
+  - Plain `Q` means she qualified but played no main-draw match. The only case is Cirstea at Adelaide, 25 points: the feed shows two qualifying wins and no main-draw match, and her points are the qualifier (QLFR) points.
+  - A lucky loser who played a main-draw match is stored at her real main-draw round. Potapova at Adelaide lost in Q2, entered the main draw as a lucky loser (feed `entry_type` "L") and lost in R32. She is stored as `R32` with the published 13 points, which are her qualifying points only, per R §VIII.B.2.d, p.148.
   - Points are always the published race points (`points_champ`), even where they differ from the table: bye then first-match loss (10 or 1), qualifier points added, or walkover cases (Kostyuk at Guadalajara and Mertens at Singapore, QF = 60).
 - **WTA 125 and ITF results** are not stored. The WTA publishes no race points for them, and they never count.
 - **Countries.** The WTA displays IOC codes, mapped here to ISO 3166-1 alpha-2: KAZ→KZ, BLR→BY, USA→US, RUS→RU, CZE→CZ, UKR→UA, POL→PL, CAN→CA, ROU→RO, PHI→PH, JPN→JP, BEL→BE, SUI→CH, AUT→AT. The WTA displays RUS and BLR for players competing without a flag, so they map to RU and BY. No player needed `UN`.
@@ -60,7 +63,11 @@ Primary sources:
   - Guangzhou and Tokyo (Toray Pan Pacific Open): 10-26 to 11-01. These are the last Race events (RR p.1).
   - Chennai and Hong Kong 2026 (from 11-02) belong to the 2027 Race Year, so they are excluded. The WTA Finals is excluded.
 - **Beijing byes:** seeds 1–32 have byes in the 96-player draw, per R §V.A.5.d (p.80) and the seeds in https://api.wtatennis.com/tennis/tournaments/1020/2026/players. Every tracked seed is listed. The Wuhan draw is not out yet, so it has no byes.
-- **Placeholder tournaments** `zp-wta500-1` and `zp-wta500-2` follow the controller's ruling for zero-pointers whose event is not published (see below). Their dates span the Race Year.
+- **Placeholder tournaments** `zp-wta500-1` and `zp-wta500-2` stand for zero-pointers whose event is not published. Their dates span the Race Year. They are allowed under **controller Ruling 8a**, which needs both of these, and not that today's total requires the zero-pointer:
+  - the official `tournamentsPlayed` is higher than the player's stored events;
+  - WTA 500 commitment zero-pointers must count (R §VIII.A.4.a.i(c), p.144; RR p.3), so they will take a counting slot once a player passes 18 results.
+
+  The placeholders are Sabalenka ×2 and Gauff, Kostyuk, Swiatek and Osaka ×1. None of the 6 is needed for today's total. The per-player count arithmetic is in the zero-pointer table below.
 
 ## Players (`players.json`)
 
@@ -78,7 +85,7 @@ Primary sources:
 
 No official per-player race breakdown could be fetched; every breakdown-style endpoint returned 404 or held no breakdown. Zero-pointers were therefore found this way:
 1. The official `tournamentsPlayed` count was compared with the WTA events found in the match feed. The difference is the number of hidden zero-pointers.
-2. Each one was attributed to a real event when a source names that event; otherwise it was stored as a labelled placeholder.
+2. Each one was attributed to a real event when a source names that event. Otherwise it was stored as a labelled WTA 500 placeholder under controller Ruling 8a, described under Tournaments above. These are kept even where today's total doesn't need them.
 3. After this, every player's stored event count (excluding the in-progress Beijing) equals `tournamentsPlayed`.
 
 Zero-pointers arise only from Grand Slams, WTA 1000 commitments and WTA 500 commitment shortfalls (R §II.A, pp.9–10; §VIII.A.4.a.i, pp.143–144; §VIII.B.3.a.i(a), p.148). A WTA 500 commitment zero-pointer is a count shortfall, not tied to one event (RR p.3).
@@ -118,4 +125,5 @@ News sources cited:
 - She also withdrew from Toronto (T-TORONTO) and Cincinnati (T-CINCY), and T-USO says she is out of the US Open. Counting every one of those as a zero-pointer would give 6, but the official count allows only 4.
 - She has not played since injuring her knee at Queen's on about 10 June, which is more than 8 weeks. Under the Long-Term Injury rule (R §VIII.A.4.a.ii(c), pp.145–146), WTA 1000 zero-pointers during the injury are not required, while Grand Slam zero-pointers must count. Her WTA 500 requirement drops to at most 4, and she has played 4: United Cup, Adelaide, Strasbourg and Queen's.
 - That leaves exactly Dubai, Rome, Wimbledon and the US Open. Her total, 2393, is the same under any attribution.
+- These 4 of her 6 cited withdrawals were picked as zero-pointers by inference from the official `tournamentsPlayed` count and the long-term-injury rule. The WTA has not announced which events carry her zero-pointers.
 - `eventMinimumWaived` stays false, because no exemption has been announced.
