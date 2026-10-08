@@ -10,14 +10,20 @@ export interface QualifierCandidate {
   champion: boolean;
 }
 
+/** Events played that count toward the event minimum (zero-pointers are not events played). */
+export function eventsPlayed(results: Result[], tournaments: Tournament[], rules: Rules): number {
+  const min = rules.qualification.minEvents;
+  if (!min) return 0;
+  return results.filter(
+    (r) => r.round !== ZERO_POINTER_ROUND && min.categories.includes(findTournament(tournaments, r.tournamentId).category),
+  ).length;
+}
+
 /** How many more qualifying events the player needs to meet the event minimum (0 when eligible or waived). */
 export function eventsShort(results: Result[], waived: boolean, tournaments: Tournament[], rules: Rules): number {
   const min = rules.qualification.minEvents;
   if (!min || waived) return 0;
-  const played = results.filter(
-    (r) => r.round !== ZERO_POINTER_ROUND && min.categories.includes(findTournament(tournaments, r.tournamentId).category),
-  ).length;
-  return Math.max(0, min.count - played);
+  return Math.max(0, min.count - eventsPlayed(results, tournaments, rules));
 }
 
 export function isEligible(results: Result[], waived: boolean, tournaments: Tournament[], rules: Rules): boolean {
