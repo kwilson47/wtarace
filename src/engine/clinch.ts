@@ -8,7 +8,7 @@ import { eventsShort } from './qualification';
 import { pickKey, type Scenario } from './types';
 
 /** One finishing round at one remaining event. `fromTop`: 0 = winner, 1 = final, 2 = semifinal, … */
-interface Finish {
+export interface Finish {
   tournamentId: string;
   round: string;
   fromTop: number;
@@ -17,7 +17,7 @@ interface Finish {
 }
 
 /** One way a player's remaining season could go: a finish per week she plays, and where that leaves her. */
-interface Outcome {
+export interface Outcome {
   finishes: Finish[];
   total: number;
   eligible: boolean;
@@ -95,14 +95,17 @@ function outcomesFor(player: Player, tournaments: Tournament[], rules: Rules): O
   return outcomes;
 }
 
+/** Each listed player's results that together achieve what was asked. */
+export type Placement = ReadonlyMap<string, Finish[]>;
+/** `null`: impossible. `'unknown'`: the search grew too large to tell. */
+export type SearchResult = Placement | null | 'unknown';
+
 /**
- * Players certain to qualify whatever happens in the remaining events, judged from actual results.
- * For each player, it searches for ANY combination of results that knocks her out. The search is
- * generous to the other players (they can enter every event; ties go against the player; players
- * outside the tracked list are bounded independently), so a player is only marked when that is
- * certain. If a search grows too large, the player is not marked.
+ * Searches over actual results for ways the remaining events could go. The search is generous to the
+ * other players (they can enter every event; ties go against the player; players outside the tracked
+ * list are bounded independently), so "impossible" is certain.
  */
-export function clinchedPlayers(players: Player[], tournaments: Tournament[], rules: Rules): Set<string> {
+export function raceSearch(players: Player[], tournaments: Tournament[], rules: Rules) {
   const { places, championPlace } = rules.qualification;
   const directPlaces = championPlace ? places - 1 : places;
   const info = raceInfo(players, tournaments, rules);
@@ -115,30 +118,32 @@ export function clinchedPlayers(players: Player[], tournaments: Tournament[], ru
   const drawSize = new Map(tournaments.map((t) => [t.id, t.drawSize]));
 
   /**
-   * Can `count` players (excluding `exclude`, including `must` if given) all finish on or above `target`,
-   * each eligible, at the same time? Places at each event are limited, and so is who can meet whom.
+   * Results under which `count` players (excluding `exclude`, including `must` if given) all finish on or
+   * above `target`, each eligible, at the same time. Places at each event are limited, and so is who can
+   * meet whom. With `trackedOnly`, players outside the tracked list take no places.
    */
-  const memo = new Map<string, boolean>();
-  const canFinishAbove = (target: number, count: number, exclude: Set<string>, must?: string): boolean => {
-    const key = `${target}|${count}|${[...exclude].sort().join(',')}|${must ?? ''}`;
-    if (!memo.has(key)) memo.set(key, searchFinishAbove(target, count, exclude, must));
+  const memo = new Map<string, SearchResult>();
+  const finishAbove = (target: number, count: number, exclude: Set<string>, must: string | undefined, trackedOnly: boolean): SearchResult => {
+    const key = `${target}|${count}|${[...exclude].sort().join(',')}|${must ?? ''}|${trackedOnly}`;
+    if (!memo.has(key)) memo.set(key, searchFinishAbove(target, count, exclude, must, trackedOnly));
     return memo.get(key)!;
   };
-  const searchFinishAbove = (target: number, count: number, exclude: Set<string>, must?: string): boolean => {
+  const searchFinishAbove = (target: number, count: number, exclude: Set<string>, must: string | undefined, trackedOnly: boolean): SearchResult => {
     // Players outside the tracked list can fill some of the places; `must` still has to be one of them.
-    const outside = maxUntrackedPassers(untracked.slots, target - untracked.base, count);
+    const outside = trackedOnly ? 0 : maxUntrackedPassers(untracked.slots, target - untracked.base, count);
     const need = Math.max(must ? 1 : 0, count - outside);
-    if (need === 0) return true;
+    if (need === 0) return new Map();
     const candidates = info
       .filter((i) => !exclude.has(i.id) && (i.eligibleNow || i.canBeEligible) && i.ceiling >= target)
       .map((i) => ({ id: i.id, options: minimalOptions(outcomes(i).filter((o) => o.total >= target && o.eligible)) }))
       .filter((c) => c.options.length > 0)
       .sort((a, b) => (a.id === must ? -1 : b.id === must ? 1 : a.options.length - b.options.length));
-    if (must && candidates[0]?.id !== must) return false;
-    if (candidates.length < need) return false;
+    if (must && candidates[0]?.id !== must) return null;
+    if (candidates.length < need) return null;
 
     const used = new Map<string, number>();
     const placed: Finish[] = [];
+    const chosen: { id: string; finishes: Finish[] }[] = [];
     let budget = SEARCH_BUDGET;
     const fits = (o: Outcome) =>
       o.finishes.every((f) => {
@@ -153,54 +158,77 @@ export function clinchedPlayers(players: Player[], tournaments: Tournament[], ru
           return (f.fromTop === meet && g.fromTop < meet) || (g.fromTop === meet && f.fromTop < meet);
         });
       });
-    const search = (index: number, chosen: number): boolean => {
-      if (chosen === need) return true;
-      if (candidates.length - index < need - chosen) return false;
+    const search = (index: number): boolean => {
+      if (chosen.length === need) return true;
+      if (candidates.length - index < need - chosen.length) return false;
       if (--budget < 0) throw new BudgetExceeded();
       const c = candidates[index]!;
       for (const o of c.options) {
         if (!fits(o)) continue;
         for (const f of o.finishes) used.set(`${f.tournamentId}:${f.round}`, (used.get(`${f.tournamentId}:${f.round}`) ?? 0) + 1);
         placed.push(...o.finishes);
-        const ok = search(index + 1, chosen + 1);
+        chosen.push({ id: c.id, finishes: o.finishes });
+        if (search(index + 1)) return true;
+        chosen.pop();
         placed.splice(placed.length - o.finishes.length);
         for (const f of o.finishes) used.set(`${f.tournamentId}:${f.round}`, used.get(`${f.tournamentId}:${f.round}`)! - 1);
-        if (ok) return true;
       }
-      return c.id !== must && search(index + 1, chosen);
+      return c.id !== must && search(index + 1);
     };
     try {
-      return search(0, 0);
+      return search(0) ? new Map(chosen.map((c) => [c.id, c.finishes])) : null;
     } catch (e) {
-      if (e instanceof BudgetExceeded) return true; // unknown: assume she can be knocked out
+      if (e instanceof BudgetExceeded) return 'unknown';
       throw e;
     }
   };
 
-  /** Is there any way the remaining results leave `x` out of the qualifying places? */
-  const canMiss = (x: RaceInfo): boolean => {
-    const target = x.floor; // her worst case: she earns nothing more
+  /**
+   * Results that leave `x` out of the qualifying places while she finishes on `target` points (her
+   * actual worst case is her floor). `null` means no such results exist.
+   */
+  const missPath = (x: RaceInfo, target: number, trackedOnly = false): SearchResult => {
     const others = (...ids: string[]) => new Set([x.id, ...ids]);
-    if (!championPlace) return canFinishAbove(target, places, others());
+    const above = (t: number, count: number, exclude: Set<string>, must?: string) => finishAbove(t, count, exclude, must, trackedOnly);
+    if (!championPlace) return above(target, places, others());
+    let unknown = false;
+    const found = (r: SearchResult): Placement | null => {
+      if (r === 'unknown') unknown = true;
+      return r === 'unknown' ? null : r;
+    };
     if (!x.champion) {
       // Every place taken by players above her…
-      if (canFinishAbove(target, places, others())) return true;
+      const all = found(above(target, places, others()));
+      if (all) return all;
       // …or the direct places taken, and the champion place going to a champion who finishes below her.
-      return info.some(
-        (c) => c !== x && c.canBeChampion && (c.eligibleNow || c.canBeEligible) && c.floor <= target &&
-          canFinishAbove(target, directPlaces, others(c.id)),
-      );
+      for (const c of info) {
+        if (c === x || !c.canBeChampion || !(c.eligibleNow || c.canBeEligible) || c.floor > target) continue;
+        const direct = found(above(target, directPlaces, others(c.id)));
+        if (direct) return direct;
+      }
+      return unknown ? 'unknown' : null;
     }
     // A champion misses only by dropping out of the champion window…
-    if (canFinishAbove(target, championPlace.toRank, others())) return true;
+    const window = found(above(target, championPlace.toRank, others()));
+    if (window) return window;
     // …or when another champion finishes above her but outside the direct places, taking the champion place.
-    return info.some((c) => {
-      if (c === x || !c.canBeChampion || !(c.eligibleNow || c.canBeEligible)) return false;
-      return canFinishAbove(Math.max(c.floor, target), directPlaces + 1, others(), c.id);
-    });
+    for (const c of info) {
+      if (c === x || !c.canBeChampion || !(c.eligibleNow || c.canBeEligible)) continue;
+      const taken = found(above(Math.max(c.floor, target), directPlaces + 1, others(), c.id));
+      if (taken) return taken;
+    }
+    return unknown ? 'unknown' : null;
   };
 
-  const clinched = new Set<string>();
-  for (const x of info) if (x.eligibleNow && !canMiss(x)) clinched.add(x.id);
-  return clinched;
+  return { info, outcomes, missPath };
+}
+
+/**
+ * Players certain to qualify whatever happens in the remaining events, judged from actual results.
+ * A player is only marked when no combination of results can knock her out; if a search grows too
+ * large, she is not marked.
+ */
+export function clinchedPlayers(players: Player[], tournaments: Tournament[], rules: Rules): Set<string> {
+  const search = raceSearch(players, tournaments, rules);
+  return new Set(search.info.filter((x) => x.eligibleNow && search.missPath(x, x.floor) === null).map((x) => x.id));
 }

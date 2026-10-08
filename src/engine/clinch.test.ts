@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { clinchedPlayers } from './clinch';
-import { rawSeason, season } from '../test/fixtures';
+import { clinchedPlayers, raceSearch, type Placement } from './clinch';
+import { bracketSeason, rawSeason, season } from '../test/fixtures';
 import { parseOrThrow, type Season, type SeasonInput } from '../data/schema';
 
 const clinched = (s: Season) => [...clinchedPlayers(s.players, s.tournaments, s.rules)].sort();
@@ -16,47 +16,6 @@ function championSeason(): Season {
     { tournamentId: 'c500', round: 'R32', points: 1 },
   ];
   raw.players.push({ id: 'dee', name: 'Dee Delta', country: 'FR', officialRaceTotal: 1, results: [{ tournamentId: 'c250', round: 'R32', points: 1 }] });
-  return parseOrThrow(raw);
-}
-
-/**
- * xen (970) can only be passed by ana and bea (950 each), and each needs to reach the final of the
- * in-progress `live` event (F = 980, W = 1040). Two places, no champion place, no other remaining
- * events, and a 0-point tracked player so nobody outside the list can get close.
- */
-function bracketSeason(anaPosition: number, beaPosition: number, xenQualifyingPoints = 130): Season {
-  const raw: SeasonInput = rawSeason();
-  raw.rules.maxCountedResults = 10;
-  raw.rules.trackedPlayerCount = 4;
-  raw.rules.qualification = { places: 2, championPlace: null, minEvents: null };
-  raw.tournaments = raw.tournaments
-    .filter((t) => t.status !== 'upcoming')
-    .map((t) => (t.id === 'live' ? { ...t, drawSize: 32 } : t));
-  const contender = (id: string, name: string, drawPosition: number) => ({
-    id, name, country: 'US', officialRaceTotal: 0,
-    results: [
-      { tournamentId: 'slam', round: 'F', points: 640 },
-      { tournamentId: 'm1000', round: 'W', points: 100 },
-      { tournamentId: 'c500', round: 'W', points: 100 },
-      { tournamentId: 'c250', round: 'W', points: 100 },
-      { tournamentId: 'live', round: 'QF', points: 10 },
-    ],
-    live: [{ tournamentId: 'live', state: 'alive' as const, round: 'QF', drawPosition }],
-  });
-  raw.players = [
-    {
-      id: 'xen', name: 'Xen Xi', country: 'US', officialRaceTotal: 0,
-      results: [
-        { tournamentId: 'slam', round: 'F', points: 640 },
-        { tournamentId: 'm1000', round: 'W', points: 100 },
-        { tournamentId: 'c500', round: 'W', points: 100 },
-        { tournamentId: 'c250', round: 'Q', points: xenQualifyingPoints },
-      ],
-    },
-    contender('ana', 'Ana Alpha', anaPosition),
-    contender('bea', 'Bea Beta', beaPosition),
-    { id: 'low', name: 'Low Lima', country: 'US', officialRaceTotal: 0, results: [] },
-  ];
   return parseOrThrow(raw);
 }
 
@@ -93,5 +52,25 @@ describe('clinchedPlayers', () => {
     expect(clinched(bracketSeason(1, 17, 140))).not.toContain('xen');
     // At 981, a final is no longer enough, and only one of them can win.
     expect(clinched(bracketSeason(1, 17, 141))).toContain('xen');
+  });
+});
+
+describe('raceSearch.missPath', () => {
+  it('returns the results that knock a player out', () => {
+    // Opposite halves: one of ana and bea wins (1040), the other reaches the final (980); both pass xen's 970.
+    const s = bracketSeason(1, 17);
+    const search = raceSearch(s.players, s.tournaments, s.rules);
+    const xen = search.info.find((i) => i.id === 'xen')!;
+    const found = search.missPath(xen, xen.floor);
+    expect(found).toBeInstanceOf(Map);
+    const rounds = [...(found as Placement).entries()].map(([id, f]) => `${id}:${f.map((x) => x.round).join()}`).sort();
+    expect(rounds).toEqual(['ana:F', 'bea:W']);
+  });
+
+  it('returns null when nobody can knock her out', () => {
+    const s = bracketSeason(1, 9);
+    const search = raceSearch(s.players, s.tournaments, s.rules);
+    const xen = search.info.find((i) => i.id === 'xen')!;
+    expect(search.missPath(xen, xen.floor)).toBeNull();
   });
 });

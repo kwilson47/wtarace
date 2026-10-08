@@ -1,4 +1,4 @@
-import { parseOrThrow, type RoundPoints, type SeasonInput } from '../data/schema';
+import { parseOrThrow, type RoundPoints, type Season, type SeasonInput } from '../data/schema';
 
 // SYNTHETIC TEST DATA. These rules, points and players are invented so the
 // arithmetic in tests is easy to follow. They are NOT real WTA values.
@@ -95,3 +95,44 @@ export function rawSeason(): SeasonInput {
 }
 
 export const season = parseOrThrow(rawSeason());
+
+/**
+ * xen (970) can only be passed by ana and bea (950 each), and each needs to reach the final of the
+ * in-progress `live` event (F = 980, W = 1040). Two places, no champion place, no other remaining
+ * events, and a 0-point tracked player so nobody outside the list can get close.
+ */
+export function bracketSeason(anaPosition: number, beaPosition: number, xenQualifyingPoints = 130): Season {
+  const raw: SeasonInput = rawSeason();
+  raw.rules.maxCountedResults = 10;
+  raw.rules.trackedPlayerCount = 4;
+  raw.rules.qualification = { places: 2, championPlace: null, minEvents: null };
+  raw.tournaments = raw.tournaments
+    .filter((t) => t.status !== 'upcoming')
+    .map((t) => (t.id === 'live' ? { ...t, drawSize: 32 } : t));
+  const contender = (id: string, name: string, drawPosition: number) => ({
+    id, name, country: 'US', officialRaceTotal: 0,
+    results: [
+      { tournamentId: 'slam', round: 'F', points: 640 },
+      { tournamentId: 'm1000', round: 'W', points: 100 },
+      { tournamentId: 'c500', round: 'W', points: 100 },
+      { tournamentId: 'c250', round: 'W', points: 100 },
+      { tournamentId: 'live', round: 'QF', points: 10 },
+    ],
+    live: [{ tournamentId: 'live', state: 'alive' as const, round: 'QF', drawPosition }],
+  });
+  raw.players = [
+    {
+      id: 'xen', name: 'Xen Xi', country: 'US', officialRaceTotal: 0,
+      results: [
+        { tournamentId: 'slam', round: 'F', points: 640 },
+        { tournamentId: 'm1000', round: 'W', points: 100 },
+        { tournamentId: 'c500', round: 'W', points: 100 },
+        { tournamentId: 'c250', round: 'Q', points: xenQualifyingPoints },
+      ],
+    },
+    contender('ana', 'Ana Alpha', anaPosition),
+    contender('bea', 'Bea Beta', beaPosition),
+    { id: 'low', name: 'Low Lima', country: 'US', officialRaceTotal: 0, results: [] },
+  ];
+  return parseOrThrow(raw);
+}
