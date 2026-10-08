@@ -446,7 +446,27 @@
     "startDate": "2026-10-12",
     "endDate": "2026-10-18",
     "status": "upcoming",
-    "byes": []
+    "byes": [],
+    "entries": [
+      "aryna-sabalenka",
+      "jessica-pegula",
+      "mirra-andreeva",
+      "coco-gauff",
+      "elina-svitolina",
+      "karolina-muchova",
+      "linda-noskova",
+      "marta-kostyuk",
+      "iga-swiatek",
+      "iva-jovic",
+      "sorana-cirstea",
+      "diana-shnaider",
+      "alexandra-eala",
+      "elise-mertens",
+      "belinda-bencic",
+      "anna-kalinskaya",
+      "maja-chwalinska",
+      "marie-bouzkova"
+    ]
   },
   {
     "id": "ningbo-2026",
@@ -456,7 +476,23 @@
     "startDate": "2026-10-19",
     "endDate": "2026-10-25",
     "status": "upcoming",
-    "byes": []
+    "byes": [],
+    "entries": [
+      "elena-rybakina",
+      "jessica-pegula",
+      "elina-svitolina",
+      "marta-kostyuk",
+      "iga-swiatek",
+      "iva-jovic",
+      "sorana-cirstea",
+      "diana-shnaider",
+      "alexandra-eala",
+      "elise-mertens",
+      "belinda-bencic",
+      "anna-kalinskaya",
+      "maja-chwalinska",
+      "marie-bouzkova"
+    ]
   },
   {
     "id": "osaka-2026",
@@ -466,7 +502,8 @@
     "startDate": "2026-10-19",
     "endDate": "2026-10-25",
     "status": "upcoming",
-    "byes": []
+    "byes": [],
+    "entries": []
   },
   {
     "id": "guangzhou-2026",
@@ -476,7 +513,8 @@
     "startDate": "2026-10-26",
     "endDate": "2026-11-01",
     "status": "upcoming",
-    "byes": []
+    "byes": [],
+    "entries": []
   },
   {
     "id": "tokyo-2026",
@@ -486,6 +524,22 @@
     "startDate": "2026-10-26",
     "endDate": "2026-11-01",
     "status": "upcoming",
-    "byes": []
+    "byes": [],
+    "entries": [
+      "elena-rybakina",
+      "jessica-pegula",
+      "elina-svitolina",
+      "marta-kostyuk",
+      "iga-swiatek",
+      "iva-jovic",
+      "sorana-cirstea",
+      "diana-shnaider",
+      "alexandra-eala",
+      "naomi-osaka",
+      "elise-mertens",
+      "belinda-bencic",
+      "anna-kalinskaya",
+      "maja-chwalinska"
+    ]
   }
 ]

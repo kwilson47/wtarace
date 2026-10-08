@@ -4,12 +4,13 @@ import { describe, expect, it, vi } from 'vitest';
 import { ScenarioEditor } from './ScenarioEditor';
 import { checkScenario } from '../engine/checkScenario';
 import { pickKey, type Scenario } from '../engine/types';
-import { season } from '../test/fixtures';
+import { rawSeason, season } from '../test/fixtures';
+import { parseOrThrow, type Season } from '../data/schema';
 
-function setup(scenario: Scenario = {}) {
+function setup(scenario: Scenario = {}, s: Season = season) {
   const onPick = vi.fn();
-  const warnings = checkScenario(scenario, season.players, season.tournaments, season.rules);
-  render(<ScenarioEditor season={season} players={season.players} scenario={scenario} warnings={warnings} onPick={onPick} onLoad={() => {}} />);
+  const warnings = checkScenario(scenario, s.players, s.tournaments, s.rules);
+  render(<ScenarioEditor season={s} players={s.players} scenario={scenario} warnings={warnings} onPick={onPick} onLoad={() => {}} />);
   return { onPick };
 }
 
@@ -86,5 +87,43 @@ describe('ScenarioEditor', () => {
     expect(screen.getByText(/never add zero-pointers/i)).toBeInTheDocument();
     expect(screen.getByText(/keep each player's current commitment zero-pointers/i)).toBeInTheDocument();
     expect(screen.getByText(/draw/i, { selector: '.footnotes p' })).toBeInTheDocument();
+  });
+
+  describe('entry lists', () => {
+    // Next Open's entry list has cat only.
+    const withEntries = () => {
+      const raw = rawSeason();
+      raw.tournaments.find((t) => t.id === 'next')!.entries = ['cat'];
+      return parseOrThrow(raw);
+    };
+
+    it('lists entered players first, then the rest under a heading', async () => {
+      setup({}, withEntries());
+      await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Tournament' }), 'next');
+      const items = screen.getAllByRole('listitem').map((li) => li.textContent);
+      expect(items[0]).toMatch(/^Entered/);
+      expect(items[1]).toMatch(/^Cat Gamma/);
+      expect(items[2]).toMatch(/^Not on the entry list/);
+      expect(items[3]).toMatch(/^Ana Alpha/);
+      expect(items[4]).toMatch(/^Bea Beta/);
+      expect(items).toHaveLength(5);
+    });
+
+    it('keeps the plain list when an event has no entry list', async () => {
+      setup({}, withEntries());
+      await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Tournament' }), 'clash');
+      expect(screen.queryByText('Entered')).toBeNull();
+      expect(screen.queryByText('Not on the entry list')).toBeNull();
+    });
+
+    it('tags entered events in the By player tab', async () => {
+      setup({}, withEntries());
+      await userEvent.click(screen.getByRole('tab', { name: 'By player' }));
+      await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Player' }), 'cat');
+      const next = screen.getAllByRole('listitem').find((li) => li.textContent?.startsWith('Next Open'))!;
+      expect(next).toHaveTextContent('Entered');
+      const clash = screen.getAllByRole('listitem').find((li) => li.textContent?.startsWith('Clash Cup'))!;
+      expect(clash).not.toHaveTextContent('Entered');
+    });
   });
 });

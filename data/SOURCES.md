@@ -63,6 +63,11 @@ Primary sources:
   - Guangzhou and Tokyo (Toray Pan Pacific Open): 10-26 to 11-01. These are the last Race events (RR p.1).
   - Chennai and Hong Kong 2026 (from 11-02) belong to the 2027 Race Year, so they are excluded. The WTA Finals is excluded.
 - **Beijing byes:** seeds 1–32 have byes in the 96-player draw, per R §V.A.5.d (p.80) and the seeds in https://api.wtatennis.com/tennis/tournaments/1020/2026/players. Every tracked seed is listed. The Wuhan draw is not out yet, so it has no byes.
+- **Entry lists (`entries`), as of 2026-10-08:** tracked players with entry type M (main draw) or Q (qualifying) in the singles event of https://api.wtatennis.com/tennis/tournaments/{id}/2026/players. The ids are Wuhan 1075, Ningbo 2092, Osaka 405, Tokyo 1056 and Guangzhou 1023.
+  - Players were matched by full name.
+  - Osaka and Guangzhou have published lists with no tracked players, so their `entries` are empty.
+  - The Tokyo list had only 17 names, so it may be incomplete.
+  - Entry lists change with withdrawals and wildcards. The site only uses them to order and tag players in the scenario editor, never in the Q, Out, Max or chances calculations.
 - **Placeholder tournaments** `zp-wta500-1` and `zp-wta500-2` stand for zero-pointers whose event is not published. Their dates span the Race Year. They are allowed under **controller Ruling 8a**, which needs both of these, and not that today's total requires the zero-pointer:
   - the official `tournamentsPlayed` is higher than the player's stored events;
   - WTA 500 commitment zero-pointers must count (R §VIII.A.4.a.i(c), p.144; RR p.3), so they will take a counting slot once a player passes 18 results.

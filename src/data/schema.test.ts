@@ -100,6 +100,18 @@ describe('parseSeason', () => {
     })).toContain('live: draw position 9 is used by more than one player');
   });
 
+  it('accepts an entry list of tracked players for an upcoming event', () => {
+    expect(errorsFor((raw) => { raw.tournaments[5]!.entries = ['ana', 'cat']; })).toBe('');
+  });
+
+  it('rejects an entry list naming an unknown player', () => {
+    expect(errorsFor((raw) => { raw.tournaments[5]!.entries = ['zed']; })).toContain('Tournament next: entries lists unknown player "zed"');
+  });
+
+  it('rejects an entry list on an event that is not upcoming', () => {
+    expect(errorsFor((raw) => { raw.tournaments[4]!.entries = ['ana']; })).toContain('Tournament live: entries are only for upcoming events');
+  });
+
   it('reports field-level problems with their path', () => {
     expect(errorsFor((raw) => { raw.meta.lastUpdated = 'yesterday'; })).toContain('meta.lastUpdated');
   });

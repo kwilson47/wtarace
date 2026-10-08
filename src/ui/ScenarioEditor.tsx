@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import type { Player, Rules, Season, Tournament } from '../data/schema';
 import type { Warning } from '../engine/checkScenario';
 import { pickKey, type Scenario } from '../engine/types';
@@ -70,6 +70,14 @@ function Cell({ player, tournament, rules, scenario, messages, onPick }: Omit<Pa
 function ByTournament({ tournaments, players, ...rest }: PanelProps) {
   const [id, setId] = useState(tournaments[0].id);
   const tournament = tournaments.find((t) => t.id === id) ?? tournaments[0];
+  // With a published entry list, entered players come first (each part keeps current-rank order).
+  const entries = tournament.entries;
+  const groups: { heading: string | null; players: Player[] }[] = entries
+    ? [
+        { heading: 'Entered', players: players.filter((p) => entries.includes(p.id)) },
+        { heading: 'Not on the entry list', players: players.filter((p) => !entries.includes(p.id)) },
+      ].filter((g) => g.players.length > 0)
+    : [{ heading: null, players }];
   return (
     <div role="tabpanel">
       <label className="picker">
@@ -85,11 +93,16 @@ function ByTournament({ tournaments, players, ...rest }: PanelProps) {
         onPick={rest.onPick}
       />
       <ul className="picks">
-        {players.map((p) => (
-          <li key={p.id}>
-            <span className="who">{p.name}</span>
-            <Cell player={p} tournament={tournament} {...rest} />
-          </li>
+        {groups.map((g) => (
+          <Fragment key={g.heading ?? 'all'}>
+            {g.heading && <li className="group-heading">{g.heading}</li>}
+            {g.players.map((p) => (
+              <li key={p.id}>
+                <span className="who">{p.name}</span>
+                <Cell player={p} tournament={tournament} {...rest} />
+              </li>
+            ))}
+          </Fragment>
         ))}
       </ul>
     </div>
@@ -121,6 +134,7 @@ function ByPlayer({ season, onLoad, tournaments, players, ...rest }: PanelProps 
           <li key={t.id}>
             <span className="who">
               {eventName(t)} <span className="tag">{categoryLabel(t.category)}</span>
+              {t.entries?.includes(player.id) && <span className="tag entered">Entered</span>}
             </span>
             <Cell player={player} tournament={t} {...rest} />
           </li>

@@ -54,6 +54,8 @@ export const tournamentSchema = z.object({
   byes: z.array(id).default([]),
   /** Number of positions in the official draw order, for in-progress events whose draw is known. */
   drawSize: z.number().int().positive().optional(),
+  /** Tracked players on an upcoming event's entry list (main draw or qualifying), once published. Display only. */
+  entries: z.array(id).optional(),
 });
 
 const resultSchema = z.object({ tournamentId: id, round: roundCode, points: z.number().int().nonnegative() });
@@ -101,6 +103,10 @@ export const seasonSchema = z
     for (const t of s.tournaments) {
       if (!s.rules.pointsTables[t.drawType]) issue(`Tournament ${t.id}: drawType "${t.drawType}" has no points table`);
       if (t.startDate > t.endDate) issue(`Tournament ${t.id}: startDate is after endDate`);
+      if (t.entries && t.status !== 'upcoming') issue(`Tournament ${t.id}: entries are only for upcoming events`);
+      for (const e of t.entries ?? []) {
+        if (!s.players.some((p) => p.id === e)) issue(`Tournament ${t.id}: entries lists unknown player "${e}"`);
+      }
     }
     const roundExists = (drawType: string, round: string) =>
       s.rules.pointsTables[drawType]?.some((r) => r.round === round) ?? true; // missing table reported above
