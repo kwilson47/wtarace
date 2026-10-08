@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import type { Season } from '../data/schema';
 import { checkScenario } from '../engine/checkScenario';
-import { eliminatedPlayers } from '../engine/elimination';
+import { eliminatedPlayers, raceBounds } from '../engine/elimination';
 import { projectStandings } from '../engine/standings';
 import { useScenario } from '../scenario/useScenario';
 import type { IgnoredPick } from '../scenario/reconcile';
@@ -29,6 +29,10 @@ export function App({ season }: { season: Season }) {
   const warnings = useMemo(() => checkScenario(scenario, players, tournaments, rules), [players, scenario, tournaments, rules]);
   // From actual results only, so it doesn't change with picks.
   const eliminated = useMemo(() => eliminatedPlayers(players, tournaments, rules), [players, tournaments, rules]);
+  const maxPoints = useMemo(
+    () => new Map(players.map((p) => [p.id, raceBounds(p, tournaments, rules).ceiling])),
+    [players, tournaments, rules],
+  );
   const clinched = useClinched(season);
   const byCurrentRank = useMemo(() => {
     const rank = new Map(rows.map((r) => [r.playerId, r.currentRank]));
@@ -40,7 +44,7 @@ export function App({ season }: { season: Season }) {
       <Header season={rules.season} lastUpdated={season.meta.lastUpdated} onReset={reset} />
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
-        <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} />
+        <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} />
         <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} />
       </main>
     </div>

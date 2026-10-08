@@ -29,6 +29,9 @@ function RankChange({ change }: { change: number }) {
 }
 
 const NONE: ReadonlySet<string> = new Set();
+const NO_MAX: ReadonlyMap<string, number> = new Map();
+
+const MAX_TITLE = 'Most points she can still finish with, from actual results';
 
 interface Props {
   rows: StandingRow[];
@@ -36,9 +39,11 @@ interface Props {
   eliminated?: ReadonlySet<string>;
   /** Players certain to qualify, from actual results; shown with the same Q as WTA announcements. */
   clinched?: ReadonlySet<string>;
+  /** Each player's highest reachable total, from actual results (independent of the visitor's picks). */
+  maxPoints?: ReadonlyMap<string, number>;
 }
 
-export function StandingsTable({ rows, eliminated = NONE, clinched = NONE }: Props) {
+export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPoints = NO_MAX }: Props) {
   const classes = rowClasses(rows, eliminated);
   return (
     <>
@@ -53,6 +58,7 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE }: Pro
           <th scope="col" className="narrow num">Points</th>
           <th scope="col" className="num">+/−</th>
           <th scope="col"><span className="visually-hidden">Rank change</span></th>
+          <th scope="col" className="wide num max" title={MAX_TITLE}>Max</th>
         </tr>
       </thead>
       <tbody>
@@ -73,14 +79,18 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE }: Pro
             <td className="narrow num">{`${formatPoints(r.currentTotal)} → ${formatPoints(r.projectedTotal)}`}</td>
             <td className="num" data-testid="delta">{formatDelta(r.delta)}</td>
             <td><RankChange change={r.rankChange} /></td>
+            <td className="wide num max" data-testid="max">
+              {maxPoints.has(r.playerId) ? formatPoints(maxPoints.get(r.playerId)!) : ''}
+            </td>
           </tr>
         ))}
       </tbody>
     </table>
     <p className="legend">
       Q = qualified: announced by the WTA, or certain whatever happens next · GS = Grand Slam champion place ·
-      Out = can't reach a qualifying place whatever happens next. Both are worked out from actual results and
-      can show up later than in reality, never earlier.
+      Out = can't reach a qualifying place whatever happens next · Max = the most points she can still finish
+      with. Q, Out and Max are worked out from actual results, not your picks; Q and Out can show up later than
+      in reality, never earlier.
     </p>
     </>
   );

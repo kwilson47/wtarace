@@ -24,6 +24,15 @@ describe('App', () => {
     expect(within(screen.getByTestId('row-cat')).queryByTitle('Qualified')).toBeNull();
   });
 
+  it("shows each player's maximum possible total from actual results, whatever the visitor picks", async () => {
+    render(<App season={season} />);
+    const max = (id: string) => within(screen.getByTestId(`row-${id}`)).getByTestId('max');
+    expect(max('ana')).toHaveTextContent('1,220');
+    expect(max('cat')).toHaveTextContent('240');
+    await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Ana Alpha at Live Masters' }), 'W');
+    expect(max('ana')).toHaveTextContent('1,220');
+  });
+
   it('marks players who can no longer qualify, whatever the visitor picks', async () => {
     render(<App season={season} />);
     expect(within(screen.getByTestId('row-cat')).getByText('Out')).toBeInTheDocument();

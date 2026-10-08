@@ -35,6 +35,7 @@ button { font: inherit; padding: 6px 12px; border: 1px solid var(--line); border
 .badge.champion { background: var(--fg); color: var(--bg); }
 .badge.out { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 .standings tr.out td { color: var(--muted); }
+.standings .max { color: var(--muted); padding-left: 16px; }
 .legend { color: var(--muted); font-size: 0.8rem; margin: -16px 0 24px; }
 .note { display: block; color: var(--muted); font-size: 0.8rem; }
 .up { color: var(--up); } .down { color: var(--down); } .same { color: var(--muted); }
