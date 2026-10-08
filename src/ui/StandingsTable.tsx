@@ -48,10 +48,10 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE }: Pro
         <tr>
           <th scope="col">#</th>
           <th scope="col">Player</th>
-          <th scope="col" className="wide">Current</th>
-          <th scope="col" className="wide">Projected</th>
-          <th scope="col" className="narrow">Points</th>
-          <th scope="col">+/−</th>
+          <th scope="col" className="wide num">Current</th>
+          <th scope="col" className="wide num">Projected</th>
+          <th scope="col" className="narrow num">Points</th>
+          <th scope="col" className="num">+/−</th>
           <th scope="col"><span className="visually-hidden">Rank change</span></th>
         </tr>
       </thead>
