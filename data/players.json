@@ -389,7 +389,7 @@
       },
       {
         "tournamentId": "beijing-2026",
-        "round": "QF",
+        "round": "SF",
         "points": 0
       }
     ],
@@ -397,7 +397,7 @@
       {
         "tournamentId": "beijing-2026",
         "state": "alive",
-        "round": "QF"
+        "round": "SF"
       }
     ],
     "qualified": false
