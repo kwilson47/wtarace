@@ -30,6 +30,26 @@
     "byes": []
   },
   {
+    "id": "chennai-2025",
+    "name": "Chennai",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2025-10-27",
+    "endDate": "2025-11-02",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "jiujiang-2025",
+    "name": "Jiujiang",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2025-10-27",
+    "endDate": "2025-11-02",
+    "status": "completed",
+    "byes": []
+  },
+  {
     "id": "united-cup-2026",
     "name": "United Cup",
     "category": "WTA500",
@@ -102,6 +122,16 @@
   {
     "id": "cluj-napoca-2026",
     "name": "Cluj-Napoca",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-02-01",
+    "endDate": "2026-02-07",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "ostrava-2026",
+    "name": "Ostrava",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-02-01",
@@ -330,6 +360,16 @@
     "byes": []
   },
   {
+    "id": "athens-2026",
+    "name": "Athens",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-07-13",
+    "endDate": "2026-07-19",
+    "status": "completed",
+    "byes": []
+  },
+  {
     "id": "prague-2026",
     "name": "Prague",
     "category": "WTA250",
@@ -344,6 +384,16 @@
     "name": "Washington",
     "category": "WTA500",
     "drawType": "wta500-28",
+    "startDate": "2026-07-27",
+    "endDate": "2026-08-02",
+    "status": "completed",
+    "byes": []
+  },
+  {
+    "id": "memphis-2026",
+    "name": "Memphis",
+    "category": "WTA250",
+    "drawType": "wta250-32",
     "startDate": "2026-07-27",
     "endDate": "2026-08-02",
     "status": "completed",
@@ -410,6 +460,16 @@
     "byes": []
   },
   {
+    "id": "seoul-2026",
+    "name": "Seoul",
+    "category": "WTA250",
+    "drawType": "wta250-32",
+    "startDate": "2026-09-21",
+    "endDate": "2026-09-27",
+    "status": "completed",
+    "byes": []
+  },
+  {
     "id": "beijing-2026",
     "name": "Beijing",
     "category": "WTA1000C",
@@ -435,7 +495,20 @@
       "anna-kalinskaya",
       "anastasia-potapova",
       "maja-chwalinska",
-      "marie-bouzkova"
+      "marie-bouzkova",
+      "leylah-fernandez",
+      "sara-bejlek",
+      "jelena-ostapenko",
+      "maria-sakkari",
+      "diane-parry",
+      "jasmine-paolini",
+      "peyton-stearns",
+      "ann-li",
+      "xinyu-wang",
+      "ekaterina-alexandrova",
+      "cristina-bucsa",
+      "nikola-bartunkova",
+      "liudmila-samsonova"
     ]
   },
   {
@@ -465,7 +538,21 @@
       "belinda-bencic",
       "anna-kalinskaya",
       "maja-chwalinska",
-      "marie-bouzkova"
+      "marie-bouzkova",
+      "leylah-fernandez",
+      "sara-bejlek",
+      "jelena-ostapenko",
+      "maria-sakkari",
+      "diane-parry",
+      "jasmine-paolini",
+      "peyton-stearns",
+      "ann-li",
+      "xinyu-wang",
+      "ekaterina-alexandrova",
+      "cristina-bucsa",
+      "kimberly-birrell",
+      "nikola-bartunkova",
+      "liudmila-samsonova"
     ]
   },
   {
@@ -491,7 +578,14 @@
       "belinda-bencic",
       "anna-kalinskaya",
       "maja-chwalinska",
-      "marie-bouzkova"
+      "marie-bouzkova",
+      "leylah-fernandez",
+      "sara-bejlek",
+      "diane-parry",
+      "jasmine-paolini",
+      "xinyu-wang",
+      "ekaterina-alexandrova",
+      "cristina-bucsa"
     ]
   },
   {
@@ -503,7 +597,13 @@
     "endDate": "2026-10-25",
     "status": "upcoming",
     "byes": [],
-    "entries": []
+    "entries": [
+      "peyton-stearns",
+      "ann-li",
+      "kimberly-birrell",
+      "nikola-bartunkova",
+      "liudmila-samsonova"
+    ]
   },
   {
     "id": "guangzhou-2026",
@@ -514,7 +614,9 @@
     "endDate": "2026-11-01",
     "status": "upcoming",
     "byes": [],
-    "entries": []
+    "entries": [
+      "sara-bejlek"
+    ]
   },
   {
     "id": "tokyo-2026",
@@ -539,7 +641,10 @@
       "elise-mertens",
       "belinda-bencic",
       "anna-kalinskaya",
-      "maja-chwalinska"
+      "maja-chwalinska",
+      "leylah-fernandez",
+      "jasmine-paolini",
+      "ekaterina-alexandrova"
     ]
   }
 ]

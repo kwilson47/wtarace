@@ -41,17 +41,24 @@ Primary sources:
   | `UC4` | 4 match wins |
   | `W` | 5 match wins |
 
+  Ranks 26–40: Sakkari 90 points = `UC2RR` (two round-robin wins, then lost to Gauff in the QF); Paolini 32 = `UC1RR`.
+
 - **Draw types** come from `singlesDrawSize` in the WTA API:
   - 96 → `wta1000-96`; 56 → `wta1000-56`;
   - 48 → `wta500-48`; 28 or 30 → `wta500-28`; 32 → `wta250-32`.
+  - Ostrava 2026 is a WTA 250 with a 30-player draw. It uses `wta250-32`, because the WTA 250 table is the same for 30 and 32 draws apart from byes. Its stored points are the published ones.
   - Eastbourne 2026 reports a draw size of 0, so it is treated as a 32-player WTA 250. Its stored points match that table.
 - **Round codes and points.** The round is the deepest main-draw round reached: the round lost, the next round if her last match was a win (walkover or withdrawal), or `W` for a title. **Qualifying codes** mean the race points come from qualifying, stored as published:
   - `Q1`, `Q2` and `Q3` mean she lost in that qualifying round, taken from the feed's `tourn_round` on the qualifying match. The cases are Potapova at Dubai (Q1, 2 points), Chwalinska at Auckland (Q2, 12) and Chwalinska at the Australian Open (Q3, 30). Each matches its rulebook qualifying column on p.147.
   - Plain `Q` means she qualified but played no main-draw match. The only case is Cirstea at Adelaide, 25 points: the feed shows two qualifying wins and no main-draw match, and her points are the qualifier (QLFR) points.
   - A lucky loser who played a main-draw match is stored at her real main-draw round. Potapova at Adelaide lost in Q2, entered the main draw as a lucky loser (feed `entry_type` "L") and lost in R32. She is stored as `R32` with the published 13 points, which are her qualifying points only, per R §VIII.B.2.d, p.148.
+  - **Counting rule:** a qualifying loss (`Q1`, `Q2`, …) never fills a required group (Grand Slams or WTA 1000s). A Grand Slam or WTA 1000 result must count only once the player is accepted into the main draw (R §VIII.A.4.a.i(a), p.144), so a qualifying loss is an optional result.
+    - Plain `Q` (qualified) is a main-draw acceptance, so it can fill a required group.
+    - Confirmed by Birrell: her only Rome result is Q1 (2 points). Her official 1228 is reproduced only when that result competes as optional, letting her Nottingham 12 count. Every other player with qualifying results reproduces her total under either reading.
   - Points are always the published race points (`points_champ`), even where they differ from the table: bye then first-match loss (10 or 1), qualifier points added, or walkover cases (Kostyuk at Guadalajara and Mertens at Singapore, QF = 60).
+- **In-progress results not yet credited:** a result at an in-progress event stored with 0 points (not a zero-pointer) is left out of the current (official) total. Otherwise it could take a counting place, for example a required WTA 1000 place, which the official race doesn't give it. This matters for Bejlek and Alexandrova (Beijing). Projections still credit the live round.
 - **WTA 125 and ITF results** are not stored. The WTA publishes no race points for them, and they never count.
-- **Countries.** The WTA displays IOC codes, mapped here to ISO 3166-1 alpha-2: KAZ→KZ, BLR→BY, USA→US, RUS→RU, CZE→CZ, UKR→UA, POL→PL, CAN→CA, ROU→RO, PHI→PH, JPN→JP, BEL→BE, SUI→CH, AUT→AT. The WTA displays RUS and BLR for players competing without a flag, so they map to RU and BY. No player needed `UN`.
+- **Countries.** The WTA displays IOC codes, mapped here to ISO 3166-1 alpha-2: KAZ→KZ, BLR→BY, USA→US, RUS→RU, CZE→CZ, UKR→UA, POL→PL, CAN→CA, ROU→RO, PHI→PH, JPN→JP, BEL→BE, SUI→CH, AUT→AT, LAT→LV, GRE→GR, FRA→FR, ITA→IT, CHN→CN, ESP→ES, AUS→AU. The WTA displays RUS and BLR for players competing without a flag, so they map to RU and BY. No player needed `UN`.
 
 ## Tournaments (`tournaments.json`)
 
@@ -63,11 +70,20 @@ Primary sources:
   - Guangzhou and Tokyo (Toray Pan Pacific Open): 10-26 to 11-01. These are the last Race events (RR p.1).
   - Chennai and Hong Kong 2026 (from 11-02) belong to the 2027 Race Year, so they are excluded. The WTA Finals is excluded.
 - **Beijing byes:** seeds 1–32 have byes in the 96-player draw, per R §V.A.5.d (p.80) and the seeds in https://api.wtatennis.com/tennis/tournaments/1020/2026/players. Every tracked seed is listed. The Wuhan draw is not out yet, so it has no byes.
-- **Entry lists (`entries`), as of 2026-10-08:** tracked players with entry type M (main draw) or Q (qualifying) in the singles event of https://api.wtatennis.com/tennis/tournaments/{id}/2026/players. The ids are Wuhan 1075, Ningbo 2092, Osaka 405, Tokyo 1056 and Guangzhou 1023.
+- **Entry lists (`entries`), as of 2026-10-08, all 40 tracked players:** tracked players with entry type M (main draw) or Q (qualifying) in the singles event of https://api.wtatennis.com/tennis/tournaments/{id}/2026/players. The ids are Wuhan 1075, Ningbo 2092, Osaka 405, Tokyo 1056 and Guangzhou 1023.
   - Players were matched by full name.
   - Osaka and Guangzhou have published lists with no tracked players, so their `entries` are empty.
   - The Tokyo list had only 17 names, so it may be incomplete.
   - Entry lists change with withdrawals and wildcards. The site only uses them to order and tag players in the scenario editor, never in the Q, Out, Max or chances calculations.
+- **Added for ranks 26–40** (2026-10-08), WTA 250s none of the original 25 played. Names and dates are from each match's `tournament` object in the player match feed:
+  - Chennai 2025 (1148);
+  - Jiujiang 2025 (1077);
+  - Ostrava (1154);
+  - Athens (1175);
+  - Memphis (1167);
+  - Seoul (1024).
+
+  The feed's group name for the 2026 Canadian Open is "MONTREAL", but its title says "Toronto, CAN", and its dates match `toronto-2026`.
 - **Placeholder tournaments** `zp-wta500-1` and `zp-wta500-2` stand for zero-pointers whose event is not published. Their dates span the Race Year. They are allowed under **controller Ruling 8a**, which needs both of these, and not that today's total requires the zero-pointer:
   - the official `tournamentsPlayed` is higher than the player's stored events;
   - WTA 500 commitment zero-pointers must count (R §VIII.A.4.a.i(c), p.144; RR p.3), so they will take a counting slot once a player passes 18 results.
@@ -76,7 +92,7 @@ Primary sources:
 
 ## Players (`players.json`)
 
-- **Top 25 and `officialRaceTotal`:** https://api.wtatennis.com/tennis/players/ranked?page=0&pageSize=30&type=rankSingles&sort=asc&metric=CHAMPSINGLES&name= . This is the feed behind https://www.wtatennis.com/rankings/race-singles. Totals are copied exactly. The same feed gives `tournamentsPlayed`, the official event count.
+- **Top 40 and `officialRaceTotal`:** ranks 1–25 as of 2026-09-28, ranks 26–40 added 2026-10-08 (same feed, `pageSize=45`): https://api.wtatennis.com/tennis/players/ranked?page=0&pageSize=30&type=rankSingles&sort=asc&metric=CHAMPSINGLES&name= . This is the feed behind https://www.wtatennis.com/rankings/race-singles. Totals are copied exactly. The same feed gives `tournamentsPlayed`, the official event count.
 - **Per-tournament race points:** https://api.wtatennis.com/tennis/players/{wtaId}/matches?page=0&pageSize=100&sort=desc&type=S . This is the feed behind the profile and rankings "Latest Matches". The field `points_champ_N` is the race points; it is 0 at the WTA Finals and absent for WTA 125 and ITF. Every Race-Year event since 2025-10-27 is included.
 - **Beijing:**
   - Source: https://api.wtatennis.com/tennis/tournaments/1020/2026/matches and /players.
@@ -84,6 +100,12 @@ Primary sources:
   - Alive at SF: Andreeva.
   - Alive at QF: Svitolina, Swiatek, Mertens.
   - Draw: `drawSize` 96 and each alive player's `drawPosition` are her 1-based index in the singles draw order of the /players feed: Svitolina 24, Mertens 36, Swiatek 48, Andreeva 72. Checked against the match feed: the quarters are positions 1–24, 25–48, 49–72 and 73–96 (Zheng v Svitolina, Mertens v Swiatek, Alexandrova v Andreeva, Muchova v Bartunkova).
+  - Ranks 26–40, from the same feeds on 2026-10-08:
+    - Bartunkova is alive in the SF at `drawPosition` 91; she beat Muchova in the QF.
+    - Alexandrova lost in the QF (to Andreeva).
+    - Other eliminations: Ann Li R16; Bejlek, Ostapenko, Sakkari and Samsonova R32; Fernandez, Parry, Paolini, Stearns, Xinyu Wang, Bucsa and Birrell R64.
+    - Baptiste is not in the draw.
+    - Seeds among them were added to `byes`.
   - Eliminated: Muchova QF, Rybakina R64 (after a bye), Sabalenka R32, Gauff R16, Noskova R16, Jovic R16, Shnaider R32, Osaka R16, Bencic R32, Kalinskaya R64 (retired), Potapova R64 (retired), Chwalinska R64, Bouzkova R32.
 - **`qualified`:** true for Rybakina and Sabalenka only. Source: WTA press release, 2026-09-28, https://www.wtatennis.com/news/4583238/aryna-sabalenka-qualifies-for-wta-finals-indian-wells-for-sixth-consecutive-season ("Sabalenka joins PIF WTA World No. 1 Elena Rybakina, who qualified earlier this month"). No other singles qualification had been announced.
 - **`eventMinimumWaived`:** false for everyone. The WTA has announced no long-term-injury exemption.
@@ -108,6 +130,10 @@ News sources cited:
 - **T-TORONTO:** tennis365, 2026-07-19, https://www.tennis365.com/tennis-features/canadian-open-withdrawal-list-carlos-alcaraz-emma-raducanu-joined-karolina-muchova . It names Muchova.
 - **T-CINCY:** tennis365, 2026-08-14, https://www.tennis365.com/tennis-features/cincinnati-open-withdrawal-list-2026-17-players-out-alcaraz-sinner-osaka . It names Muchova.
 - **W-WIMB:** wtatennis.com, 2026-06-12, https://www.wtatennis.com/news/4518167/mboko-withdraws-from-wimbledon-due-to-knee-injury
+- **T-PAOLINI-TOR:** tennisuptodate, https://tennisuptodate.com/wta/jasmine-paolini-withdraws-from-canadian-open-as-injury-list-continues-to-grow ("withdraw from Washington and Toronto").
+- **W-CINCY:** wtatennis.com, https://www.wtatennis.com/news/4556337/karolina-muchova-2025-finalist-jasmine-paolini-to-miss-cincinnati-open-with-injuries
+- **P-BUCSA:** puntodebreak, 2026-06-22, https://www.puntodebreak.com/en/2026/06/22/official-cristina-bucsa-will-not-be-able-to-compete-in-wimbledon-2026 . The main-draw spot went to Jimenez Kasintseva.
+- **TT-BAPTISTE:** tennistonic, https://tennistonic.com/tennis-news/1004362/hailey-baptiste-faces-long-recovery-after-roland-garros-injury-with-acl-and-meniscus-issues
 - **T-USO:** tennis365, 2026-07-29, https://www.tennis365.com/tennis-features/us-open-withdrawal-list-4-wta-stars-out-australian-joins-victoria-mboko-doubts-emma-raducanu
 
 | Player | Official events | Stored played | Zero-pointers stored | Evidence |
@@ -126,6 +152,12 @@ News sources cited:
 | Bencic | 15 | 14 | doha | W-DOHA ("Belinda Bencic (illness)") |
 | Potapova | 19 | 18 | miami | She was accepted into Miami as a replacement (T-MIAMI), but she is not in the official draw sheet (MDS 902) and has no Miami match. **Needed for the total:** sum 1808. With Miami as a combined zero-pointer, Beijing 0 is surplus and the open pool drops Mérida 1, giving 1807 official. A WTA 500 zero-pointer instead would give 1793. |
 | Navarro | 21 | 19 | miami, madrid | Miami: T-MIAMI. Madrid: T-MADRID. **Needed for the total:** sum 1808. With the combined group full of 4 played plus 2 zero-pointers, the open pool keeps its best 7 and drops 1 + 1 + 1, giving 1805 official. |
+| Sakkari | 20 | 19 | dubai | MDS 718 ("M. Sakkari Illness"). **Needed for the total:** without it, 1405; with it, 1404 official. |
+| Alexandrova | 23 | 22 | madrid | MDS 1038 ("E. Alexandrova Lower Back Injury"). The only single attribution that reproduces 1279. |
+| Bucsa | 20 | 19 | wimbledon | P-BUCSA. **Needed for the total:** 1232 without it, 1231 with it. |
+| Paolini | 17 | 14 | toronto, cincinnati, zp-wta500-1 | Toronto: T-PAOLINI-TOR. Cincinnati: W-CINCY. The 3rd: all other Grand Slams and WTA 1000s were played or attributed, and she also withdrew from Washington (500), so it is a WTA 500 shortfall. Total 1324 under every attribution. |
+| Baptiste | 14 | 12 | wimbledon, us-open | A Long-Term Injury from Roland Garros on (ACL; TT-BAPTISTE): Grand Slam zero-pointers must count, WTA 1000 ones during the injury need not (R §VIII.A.4.a.ii(c), p.145). That leaves exactly Wimbledon and the US Open, the same reasoning as Mboko. Total 1153 under any attribution. |
+| Bejlek | 20 | 19 | zp-wta500-1 | **Unattributed (controller ruling, 2026-10-08).** No source names the missing event. Doha, Indian Wells, Madrid and a WTA 500 shortfall all reproduce 1472, so it is stored as the existing labelled placeholder. Replace it if a source turns up. |
 
 **Mboko** (an interpretation; flagged in the report):
 - Dubai (MDS 718, "Right elbow injury"), Rome (MDS 709, "gastrointestinal illness") and Wimbledon (W-WIMB) are cited withdrawals after acceptance.
