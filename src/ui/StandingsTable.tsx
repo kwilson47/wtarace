@@ -1,5 +1,8 @@
+import { Fragment, useState } from 'react';
+import type { Breakdown } from '../engine/breakdown';
 import type { StandingRow } from '../engine/standings';
 import { flagEmoji, formatDelta, formatPoints } from './format';
+import { ResultsBreakdown } from './ResultsBreakdown';
 
 const ALTERNATES = 2;
 
@@ -41,14 +44,26 @@ interface Props {
   clinched?: ReadonlySet<string>;
   /** Each player's highest reachable total, from actual results (independent of the visitor's picks). */
   maxPoints?: ReadonlyMap<string, number>;
+  /** Where a player's projected points come from; when given, player names expand to show it. */
+  breakdownOf?: (playerId: string) => Breakdown;
 }
 
-export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPoints = NO_MAX }: Props) {
+export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPoints = NO_MAX, breakdownOf }: Props) {
   const classes = rowClasses(rows, eliminated);
+  const [expanded, setExpanded] = useState<ReadonlySet<string>>(NONE);
+  const toggle = (id: string) =>
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (!next.delete(id)) next.add(id);
+      return next;
+    });
   return (
     <>
     <table className="standings">
-      <caption>Projected race — highlighted players are projected to qualify for the WTA Finals</caption>
+      <caption>
+        Projected race — highlighted players are projected to qualify for the WTA Finals
+        {breakdownOf && '. Select a name to see where her points come from.'}
+      </caption>
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -63,10 +78,18 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
       </thead>
       <tbody>
         {rows.map((r) => (
-          <tr key={r.playerId} data-testid={`row-${r.playerId}`} className={classes.get(r.playerId)}>
+          <Fragment key={r.playerId}>
+          <tr data-testid={`row-${r.playerId}`} className={classes.get(r.playerId)}>
             <td>{r.projectedRank}</td>
             <td className="player">
-              <span aria-hidden="true">{flagEmoji(r.country)}</span> {r.name}
+              <span aria-hidden="true">{flagEmoji(r.country)}</span>{' '}
+              {breakdownOf ? (
+                <button type="button" className="name" aria-expanded={expanded.has(r.playerId)} onClick={() => toggle(r.playerId)}>
+                  {r.name}
+                </button>
+              ) : (
+                r.name
+              )}
               {(r.qualified || clinched.has(r.playerId)) && <span className="badge" title="Qualified">Q</span>}
               {r.projectedQualifier === 'champion' && <span className="badge champion" title="Grand Slam champion place">GS</span>}
               {eliminated.has(r.playerId) && <span className="badge out" title={OUT_TITLE}>Out</span>}
@@ -83,6 +106,14 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
               {maxPoints.has(r.playerId) ? formatPoints(maxPoints.get(r.playerId)!) : ''}
             </td>
           </tr>
+          {breakdownOf && expanded.has(r.playerId) && (
+            <tr className="breakdown-row">
+              <td colSpan={8}>
+                <ResultsBreakdown name={r.name} breakdown={breakdownOf(r.playerId)} />
+              </td>
+            </tr>
+          )}
+          </Fragment>
         ))}
       </tbody>
     </table>

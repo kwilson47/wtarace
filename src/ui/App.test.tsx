@@ -69,6 +69,29 @@ describe('App', () => {
     expect(window.location.search).toBe('?s=bea.live.SF');
   });
 
+  it('expands a player to show where her points come from, following picks', async () => {
+    render(<App season={season} />);
+    const results = () => screen.getByRole('region', { name: "Ana Alpha's results" });
+    await userEvent.click(screen.getByRole('button', { name: 'Ana Alpha' }));
+    expect(screen.getByRole('button', { name: 'Ana Alpha' })).toHaveAttribute('aria-expanded', 'true');
+    expect(results()).toHaveTextContent('Grand Slam');
+    expect(results()).toHaveTextContent('Slam Open W 1,000');
+    expect(results()).toHaveTextContent('Live Masters QF 10 (in progress, not counted)');
+    expect(results()).toHaveTextContent('Counting 4 of 4 results');
+    expect(results()).toHaveTextContent('Events toward the 2-event minimum: 3');
+    await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Ana Alpha at Live Masters' }), 'W');
+    expect(results()).toHaveTextContent('Live Masters W 100 (your pick)');
+    expect(results()).toHaveTextContent('Town 250 F 40 (not counted)');
+    await userEvent.click(screen.getByRole('button', { name: 'Ana Alpha' }));
+    expect(screen.queryByRole('region', { name: "Ana Alpha's results" })).toBeNull();
+  });
+
+  it('labels zero-pointers in the breakdown', async () => {
+    render(<App season={season} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Cat Gamma' }));
+    expect(screen.getByRole('region', { name: "Cat Gamma's results" })).toHaveTextContent('Slam Open zero-pointer 0');
+  });
+
   it('updates the projection and the URL when a pick is made', async () => {
     render(<App season={season} />);
     await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Ana Alpha at Live Masters' }), 'W');

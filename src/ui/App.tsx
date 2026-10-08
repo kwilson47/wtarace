@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { Season } from '../data/schema';
+import { playerBreakdown } from '../engine/breakdown';
 import { checkScenario } from '../engine/checkScenario';
 import { eliminatedPlayers, raceBounds } from '../engine/elimination';
 import { projectStandings } from '../engine/standings';
@@ -34,6 +35,10 @@ export function App({ season }: { season: Season }) {
     [players, tournaments, rules],
   );
   const clinched = useClinched(season);
+  const breakdownOf = useCallback(
+    (id: string) => playerBreakdown(players.find((p) => p.id === id)!, scenario, tournaments, rules),
+    [players, scenario, tournaments, rules],
+  );
   const byCurrentRank = useMemo(() => {
     const rank = new Map(rows.map((r) => [r.playerId, r.currentRank]));
     return [...players].sort((a, b) => rank.get(a.id)! - rank.get(b.id)!);
@@ -44,7 +49,7 @@ export function App({ season }: { season: Season }) {
       <Header season={rules.season} lastUpdated={season.meta.lastUpdated} onReset={reset} />
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
-        <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} />
+        <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} breakdownOf={breakdownOf} />
         <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} onLoad={load} />
       </main>
     </div>
