@@ -54,8 +54,8 @@ function Example({ title, scenario, players, season, onLoad }: {
 
 interface Props {
   player: Player;
-  /** null while it is being worked out. */
-  outlook: Outlook | null;
+  /** null while it is being worked out; 'failed' if that errored. */
+  outlook: Outlook | 'failed' | null;
   /** Tracked players in current-rank order, for listing example picks. */
   players: Player[];
   season: Season;
@@ -65,24 +65,25 @@ interface Props {
 export function PlayerOutlook({ player, outlook, players, season, onLoad }: Props) {
   let body: ReactNode;
   if (outlook === null) body = <p className="muted">Working out her chances…</p>;
+  else if (outlook === 'failed') body = <p>We couldn't work out her chances.</p>;
   else if (outlook.status === 'qualified') body = <p>{`${player.name} has qualified for the WTA Finals.`}</p>;
   else if (outlook.status === 'out') body = <p>{`${player.name} can no longer qualify.`}</p>;
   else {
     const route = outlook.safeRoute && describePicks(outlook.safeRoute, [player], season)[0];
+    const own = route
+      ? `She can get there herself — ${route.picks}.`
+      : outlook.eventsLeft
+        ? "She can't get there on her own results, so she also needs help from others."
+        : 'She has no events left, so it depends on other players.';
     body = (
       <>
         {outlook.safeAt === null ? (
-          <p>We couldn't prove a points total that is always enough.</p>
+          <p>{`We couldn't prove a points total that is always enough.${outlook.eventsLeft ? '' : ` ${own}`}`}</p>
         ) : (
           <p>
             {`Safe at ${formatPoints(outlook.safeAt)} points: finishing with at least this many guarantees a place, whatever anyone else does`}
             {outlook.eligibleNow ? '.' : ', once she meets the event minimum.'}
-            {' '}
-            {route
-              ? `She can get there herself — ${route.picks}.`
-              : outlook.eventsLeft
-                ? "She can't get there on her own results, so she also needs help from others."
-                : 'She has no events left, so it depends on other players.'}
+            {` ${own}`}
           </p>
         )}
         {outlook.qualifyExample ? (
