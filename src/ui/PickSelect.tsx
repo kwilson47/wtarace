@@ -1,5 +1,11 @@
-import type { Player, Rules, Tournament } from '../data/schema';
+import type { Player, RoundPoints, Rules, Tournament } from '../data/schema';
 import { pickOptions } from '../engine/picks';
+
+/** Short round names so the dropdowns fit on a phone: R32, QF, SF, final; anything else keeps its label. */
+function shortRound(r: RoundPoints): string {
+  if (/^R\d+$/.test(r.round) || r.round === 'QF' || r.round === 'SF') return r.round;
+  return r.round === 'F' ? 'final' : r.label;
+}
 
 interface Props {
   player: Player;
@@ -22,10 +28,10 @@ export function PickSelect({ player, tournament, rules, value, onChange, message
           value={value ?? ''}
           onChange={(e) => onChange(e.target.value === '' ? null : e.target.value)}
         >
-          <option value="">{options.allowNone ? 'Not playing' : `Alive in ${options.currentRound?.label} — no pick`}</option>
+          <option value="">{options.allowNone ? 'Not playing' : `Alive in ${options.currentRound ? shortRound(options.currentRound) : ''} — no pick`}</option>
           {options.rounds.map((r, i) => (
             <option key={r.round} value={r.round}>
-              {i === options.rounds.length - 1 ? r.label : `Lost in ${r.label}`}
+              {i === options.rounds.length - 1 ? r.label : `Lost in ${shortRound(r)}`}
             </option>
           ))}
         </select>

@@ -3,6 +3,7 @@
   --fg: #1a1a1a;
   --muted: #666;
   --accent: #6b2c91;
+  --accent-text: #6b2c91;
   --line: #ddd;
   --qualifier-bg: #f1eaf7;
   --alt-bg: #f7f7f7;
@@ -14,7 +15,7 @@
   background: var(--bg);
 }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #121212; --fg: #eee; --muted: #aaa; --line: #333; --qualifier-bg: #2a1f33; --alt-bg: #1c1c1c; --warn: #f0a050; --up: #5fd38a; --down: #ff8a80; }
+  :root { --accent-text: #c9a0e8; --bg: #121212; --fg: #eee; --muted: #aaa; --line: #333; --qualifier-bg: #2a1f33; --alt-bg: #1c1c1c; --warn: #f0a050; --up: #5fd38a; --down: #ff8a80; }
 }
 body { margin: 0; background: var(--bg); }
 .app { max-width: 960px; margin: 0 auto; padding: 0 16px 48px; }
@@ -76,6 +77,7 @@ select { font: inherit; max-width: 100%; }
 .breakdown .pts { font-weight: 600; font-variant-numeric: tabular-nums; }
 .breakdown li { flex: 0 0 auto; max-width: 100%; }
 .picks li.group-heading { display: block; padding: 10px 0 4px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
-.tag.entered { color: var(--accent); border-color: var(--accent); }
+.tag.entered { color: var(--accent-text); border-color: var(--accent-text); }
 .table-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin: 0 0 8px; font-size: 0.9rem; }
 .table-controls .note-inline { color: var(--muted); }
+.picks li > .pick { margin-left: auto; }

@@ -17,7 +17,7 @@ const optionTexts = () => screen.getAllByRole('option').map((o) => o.textContent
 describe('PickSelect', () => {
   it('offers Not playing plus rounds trimmed to a 32 draw', () => {
     setup('bea', 'clash');
-    expect(optionTexts()).toEqual(['Not playing', 'Lost in Round of 32', 'Lost in Round of 16', 'Lost in Quarterfinal', 'Lost in Semifinal', 'Lost in Final', 'Winner']);
+    expect(optionTexts()).toEqual(['Not playing', 'Lost in R32', 'Lost in R16', 'Lost in QF', 'Lost in SF', 'Lost in final', 'Winner']);
   });
 
   it('offers every round of a 128 draw', () => {
@@ -25,17 +25,17 @@ describe('PickSelect', () => {
     raw.tournaments = raw.tournaments.map((t) => (t.id === 'clash' ? { ...t, drawType: 'gs128' } : t));
     setup('bea', 'clash', parseOrThrow(raw));
     expect(optionTexts()).toHaveLength(9);
-    expect(optionTexts()[1]).toBe('Lost in Round of 128');
+    expect(optionTexts()[1]).toBe('Lost in R128');
   });
 
   it('starts a bye player at the second round', () => {
     setup('ana', 'next');
-    expect(optionTexts()[1]).toBe('Lost in Round of 16');
+    expect(optionTexts()[1]).toBe('Lost in R16');
   });
 
   it('starts an alive player at her current round', () => {
     setup('ana', 'live');
-    expect(optionTexts()).toEqual(['Alive in Quarterfinal — no pick', 'Lost in Quarterfinal', 'Lost in Semifinal', 'Lost in Final', 'Winner']);
+    expect(optionTexts()).toEqual(['Alive in QF — no pick', 'Lost in QF', 'Lost in SF', 'Lost in final', 'Winner']);
   });
 
   it('locks an eliminated player', () => {
