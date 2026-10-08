@@ -8,6 +8,7 @@ import type { IgnoredPick } from '../scenario/reconcile';
 import { Header } from './Header';
 import { ScenarioEditor } from './ScenarioEditor';
 import { StandingsTable } from './StandingsTable';
+import { useClinched } from './useClinched';
 
 function IgnoredNotice({ ignored, onDismiss }: { ignored: IgnoredPick[]; onDismiss: () => void }) {
   return (
@@ -28,6 +29,7 @@ export function App({ season }: { season: Season }) {
   const warnings = useMemo(() => checkScenario(scenario, players, tournaments, rules), [players, scenario, tournaments, rules]);
   // From actual results only, so it doesn't change with picks.
   const eliminated = useMemo(() => eliminatedPlayers(players, tournaments, rules), [players, tournaments, rules]);
+  const clinched = useClinched(season);
   const byCurrentRank = useMemo(() => {
     const rank = new Map(rows.map((r) => [r.playerId, r.currentRank]));
     return [...players].sort((a, b) => rank.get(a.id)! - rank.get(b.id)!);
@@ -38,7 +40,7 @@ export function App({ season }: { season: Season }) {
       <Header season={rules.season} lastUpdated={season.meta.lastUpdated} onReset={reset} />
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
-        <StandingsTable rows={rows} eliminated={eliminated} />
+        <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} />
         <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} />
       </main>
     </div>

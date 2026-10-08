@@ -397,7 +397,8 @@
       {
         "tournamentId": "beijing-2026",
         "state": "alive",
-        "round": "SF"
+        "round": "SF",
+        "drawPosition": 72
       }
     ],
     "qualified": false
@@ -604,7 +605,8 @@
       {
         "tournamentId": "beijing-2026",
         "state": "alive",
-        "round": "QF"
+        "round": "QF",
+        "drawPosition": 24
       }
     ],
     "qualified": false
@@ -997,7 +999,8 @@
       {
         "tournamentId": "beijing-2026",
         "state": "alive",
-        "round": "QF"
+        "round": "QF",
+        "drawPosition": 48
       }
     ],
     "qualified": false
@@ -1761,7 +1764,8 @@
       {
         "tournamentId": "beijing-2026",
         "state": "alive",
-        "round": "QF"
+        "round": "QF",
+        "drawPosition": 36
       }
     ],
     "qualified": false

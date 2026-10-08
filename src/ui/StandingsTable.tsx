@@ -30,8 +30,15 @@ function RankChange({ change }: { change: number }) {
 
 const NONE: ReadonlySet<string> = new Set();
 
-/** `eliminated`: players who can no longer qualify, from actual results (independent of the visitor's picks). */
-export function StandingsTable({ rows, eliminated = NONE }: { rows: StandingRow[]; eliminated?: ReadonlySet<string> }) {
+interface Props {
+  rows: StandingRow[];
+  /** Players who can no longer qualify, from actual results (independent of the visitor's picks). */
+  eliminated?: ReadonlySet<string>;
+  /** Players certain to qualify, from actual results; shown with the same Q as WTA announcements. */
+  clinched?: ReadonlySet<string>;
+}
+
+export function StandingsTable({ rows, eliminated = NONE, clinched = NONE }: Props) {
   const classes = rowClasses(rows, eliminated);
   return (
     <>
@@ -54,7 +61,7 @@ export function StandingsTable({ rows, eliminated = NONE }: { rows: StandingRow[
             <td>{r.projectedRank}</td>
             <td className="player">
               <span aria-hidden="true">{flagEmoji(r.country)}</span> {r.name}
-              {r.qualified && <span className="badge" title="Officially qualified">Q</span>}
+              {(r.qualified || clinched.has(r.playerId)) && <span className="badge" title="Qualified">Q</span>}
               {r.projectedQualifier === 'champion' && <span className="badge champion" title="Grand Slam champion place">GS</span>}
               {eliminated.has(r.playerId) && <span className="badge out" title={OUT_TITLE}>Out</span>}
               {!r.eligible && !eliminated.has(r.playerId) && (
@@ -71,9 +78,9 @@ export function StandingsTable({ rows, eliminated = NONE }: { rows: StandingRow[
       </tbody>
     </table>
     <p className="legend">
-      Q = officially qualified · GS = Grand Slam champion place · Out = can't reach a qualifying place whatever
-      happens next, based on actual results. Without draw data, Out can show up later than it does in reality,
-      never earlier.
+      Q = qualified: announced by the WTA, or certain whatever happens next · GS = Grand Slam champion place ·
+      Out = can't reach a qualifying place whatever happens next. Both are worked out from actual results and
+      can show up later than in reality, never earlier.
     </p>
     </>
   );

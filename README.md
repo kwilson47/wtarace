@@ -20,6 +20,7 @@ npm run test:e2e   # Playwright
    - In-progress event: keep a `results` entry with the points the official race currently credits (which may be 0 until the WTA posts them; projections automatically credit the live round's points until then), and a `live` entry (`alive` + current round, or `eliminated` + round lost). Refresh the points once the WTA posts them; the projection keeps whichever is higher.
    - When an event finishes: set its `status` to `completed` and remove the `live` entries for it.
    - When a draw comes out: fill that tournament's `byes` with tracked player ids.
+   - While an event is in progress: set its `drawSize` and give each alive tracked player's `live` entry a `drawPosition`, both from the draw order in `https://api.wtatennis.com/tennis/tournaments/{id}/{year}/players` (1-based). The qualification check uses them to know who can meet whom; without them it is more cautious and may show Q later.
 2. `npm run validate`. It must print `Data OK`. Never change an `officialRaceTotal` to make it pass. A mismatch means a data or rules error.
 3. Commit and push. CI runs every check and deploys only if they all pass. A failing push leaves the live site unchanged.
 

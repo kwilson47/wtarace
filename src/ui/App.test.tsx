@@ -17,6 +17,13 @@ describe('App', () => {
     expect(delta('ana')).toHaveTextContent('0');
   });
 
+  it('shows Q for players certain to qualify, once the background check finishes', async () => {
+    render(<App season={season} />);
+    // bea has no official flag, but nobody can push her out of the two places.
+    expect(await within(screen.getByTestId('row-bea')).findByTitle('Qualified')).toBeInTheDocument();
+    expect(within(screen.getByTestId('row-cat')).queryByTitle('Qualified')).toBeNull();
+  });
+
   it('marks players who can no longer qualify, whatever the visitor picks', async () => {
     render(<App season={season} />);
     expect(within(screen.getByTestId('row-cat')).getByText('Out')).toBeInTheDocument();

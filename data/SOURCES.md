@@ -78,6 +78,7 @@ Primary sources:
   - The official race (2026-09-28) credits no Beijing points yet, so each tracked player in the draw has `{round, points: 0}` plus a `live` entry.
   - Alive at SF: Andreeva.
   - Alive at QF: Svitolina, Swiatek, Mertens.
+  - Draw: `drawSize` 96 and each alive player's `drawPosition` are her 1-based index in the singles draw order of the /players feed: Svitolina 24, Mertens 36, Swiatek 48, Andreeva 72. Checked against the match feed: the quarters are positions 1–24, 25–48, 49–72 and 73–96 (Zheng v Svitolina, Mertens v Swiatek, Alexandrova v Andreeva, Muchova v Bartunkova).
   - Eliminated: Muchova QF, Rybakina R64 (after a bye), Sabalenka R32, Gauff R16, Noskova R16, Jovic R16, Shnaider R32, Osaka R16, Bencic R32, Kalinskaya R64 (retired), Potapova R64 (retired), Chwalinska R64, Bouzkova R32.
 - **`qualified`:** true for Rybakina and Sabalenka only. Source: WTA press release, 2026-09-28, https://www.wtatennis.com/news/4583238/aryna-sabalenka-qualifies-for-wta-finals-indian-wells-for-sixth-consecutive-season ("Sabalenka joins PIF WTA World No. 1 Elena Rybakina, who qualified earlier this month"). No other singles qualification had been announced.
 - **`eventMinimumWaived`:** false for everyone. The WTA has announced no long-term-injury exemption.

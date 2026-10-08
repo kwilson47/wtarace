@@ -52,8 +52,8 @@ describe('StandingsTable', () => {
     expect(first.getByText('4,210 → 4,860')).toBeInTheDocument();
     expect(first.getByTestId('delta')).toHaveTextContent('+650');
     expect(first.getByLabelText('Up 2')).toBeInTheDocument();
-    expect(first.getByTitle('Officially qualified')).toBeInTheDocument();
-    expect(within(screen.getByTestId('row-p2')).queryByTitle('Officially qualified')).toBeNull();
+    expect(first.getByTitle('Qualified')).toBeInTheDocument();
+    expect(within(screen.getByTestId('row-p2')).queryByTitle('Qualified')).toBeNull();
   });
 
   it('marks eliminated players as out and mutes their row', () => {
@@ -66,9 +66,16 @@ describe('StandingsTable', () => {
     expect(within(screen.getByTestId('row-p9')).queryByText('Out')).toBeNull();
   });
 
+  it('shows the Q badge for players certain to qualify, as well as announced ones', () => {
+    render(<StandingsTable rows={range(3, { 1: { qualified: true } })} clinched={new Set(['p2'])} />);
+    expect(within(screen.getByTestId('row-p1')).getByTitle('Qualified')).toBeInTheDocument();
+    expect(within(screen.getByTestId('row-p2')).getByTitle('Qualified')).toBeInTheDocument();
+    expect(within(screen.getByTestId('row-p3')).queryByTitle('Qualified')).toBeNull();
+  });
+
   it('explains the badges in a legend', () => {
     render(<StandingsTable rows={range(3)} />);
-    expect(screen.getByText(/Q = officially qualified/)).toBeInTheDocument();
+    expect(screen.getByText(/Q = qualified/)).toBeInTheDocument();
     expect(screen.getByText(/Out = can't reach a qualifying place/)).toBeInTheDocument();
   });
 });

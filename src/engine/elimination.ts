@@ -34,7 +34,8 @@ export function remainingWeeks(tournaments: Tournament[]): Tournament[][] {
   return weeks;
 }
 
-const playable = (player: Player, weeks: Tournament[][], rules: Rules) =>
+/** Per week, the remaining events where the player can still have a result. */
+export const playable = (player: Player, weeks: Tournament[][], rules: Rules) =>
   weeks.map((w) => w.filter((t) => pickOptions(player, t, rules).kind === 'open'));
 
 export function raceBounds(player: Player, tournaments: Tournament[], rules: Rules): RaceBounds {
@@ -53,13 +54,49 @@ export function raceBounds(player: Player, tournaments: Tournament[], rules: Rul
   return { floor: total({}), ceiling };
 }
 
-/** Finishing positions at an event, from the first round to the winner: 1 W, 1 F, 2 SF, 4 QF, … */
+/** How many players finish in a round, counted from the top: 1 W, 1 F, 2 SF, 4 QF, … */
+export const roundCapacity = (fromTop: number) => (fromTop === 0 ? 1 : 2 ** (fromTop - 1));
+
+/** Finishing positions at an event, from the first round to the winner. */
 function eventSlots(t: Tournament, rules: Rules): Slot[] {
   const table = pointsTable(rules, t.drawType);
-  return table.map((r, i) => {
-    const fromTop = table.length - 1 - i;
-    return { points: r.points, capacity: fromTop === 0 ? 1 : 2 ** (fromTop - 1) };
+  return table.map((r, i) => ({ points: r.points, capacity: roundCapacity(table.length - 1 - i) }));
+}
+
+/** Each player's floor, ceiling, eligibility and champion status, from actual results. */
+export function raceInfo(players: Player[], tournaments: Tournament[], rules: Rules) {
+  const { championPlace, minEvents } = rules.qualification;
+  const weeks = remainingWeeks(tournaments);
+  return players.map((p) => {
+    const now = applyScenario(p, {}, tournaments, rules);
+    const short = eventsShort(now, p.eventMinimumWaived, tournaments, rules);
+    const options = playable(p, weeks, rules);
+    const newEventWeeks = options.filter((w) =>
+      w.some((t) => minEvents?.categories.includes(t.category) && !p.results.some((r) => r.tournamentId === t.id)),
+    ).length;
+    const champion = isChampion(now, tournaments, rules);
+    return {
+      player: p,
+      id: p.id,
+      ...raceBounds(p, tournaments, rules),
+      eligibleNow: short === 0,
+      canBeEligible: short <= newEventWeeks,
+      champion,
+      canBeChampion: champion || options.some((w) => w.some((t) => championPlace?.categories.includes(t.category))),
+    };
   });
+}
+export type RaceInfo = ReturnType<typeof raceInfo>[number];
+
+/**
+ * Players outside the tracked list: at most the lowest tracked official total each (the tracked
+ * players are the race's top `trackedPlayerCount`), competing for the remaining events' places.
+ */
+export function untrackedModel(players: Player[], tournaments: Tournament[], rules: Rules) {
+  return {
+    base: Math.min(...players.map((p) => countRace(p.results, tournaments, rules).total)),
+    slots: remainingWeeks(tournaments).map((w) => w.flatMap((t) => eventSlots(t, rules))),
+  };
 }
 
 /**
@@ -118,35 +155,14 @@ export function maxUntrackedPassers(weeks: Slot[][], need: number, limit: number
  * the race's top `trackedPlayerCount`, so anyone outside it has at most the lowest tracked official total.
  */
 export function eliminatedPlayers(players: Player[], tournaments: Tournament[], rules: Rules): Set<string> {
-  const { places, championPlace, minEvents } = rules.qualification;
-  const weeks = remainingWeeks(tournaments);
-
-  const info = players.map((p) => {
-    const now = applyScenario(p, {}, tournaments, rules);
-    const short = eventsShort(now, p.eventMinimumWaived, tournaments, rules);
-    const options = playable(p, weeks, rules);
-    const newEventWeeks = options.filter((w) =>
-      w.some((t) => minEvents?.categories.includes(t.category) && !p.results.some((r) => r.tournamentId === t.id)),
-    ).length;
-    const champion = isChampion(now, tournaments, rules);
-    return {
-      id: p.id,
-      ...raceBounds(p, tournaments, rules),
-      eligibleNow: short === 0,
-      canBeEligible: short <= newEventWeeks,
-      champion,
-      canBeChampion: champion || options.some((w) => w.some((t) => championPlace?.categories.includes(t.category))),
-    };
-  });
-  type Info = (typeof info)[number];
-
-  const untrackedBase = Math.min(...players.map((p) => countRace(p.results, tournaments, rules).total));
-  const untrackedSlots = weeks.map((w) => w.flatMap((t) => eventSlots(t, rules)));
+  const { places, championPlace } = rules.qualification;
+  const info = raceInfo(players, tournaments, rules);
+  const untracked = untrackedModel(players, tournaments, rules);
   /** True when no combination of results can push champion `c` below `rank`. */
-  const certainWithin = (c: Info, rank: number) => {
+  const certainWithin = (c: RaceInfo, rank: number) => {
     const threats = info.filter((o) => o !== c && o.ceiling >= c.floor).length;
     const room = rank - 1 - threats;
-    return room >= 0 && maxUntrackedPassers(untrackedSlots, c.floor - untrackedBase, room + 1) <= room;
+    return room >= 0 && maxUntrackedPassers(untracked.slots, c.floor - untracked.base, room + 1) <= room;
   };
 
   const out = new Set<string>();

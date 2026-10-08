@@ -73,6 +73,33 @@ describe('parseSeason', () => {
     expect(errorsFor((raw) => { raw.players[2]!.id = 'bea'; })).toContain('Duplicate player id "bea"');
   });
 
+  it('accepts draw positions inside the draw', () => {
+    expect(errorsFor((raw) => {
+      raw.tournaments[4]!.drawSize = 32;
+      player(raw, 'ana').live![0]!.drawPosition = 9;
+    })).toBe('');
+  });
+
+  it('rejects a draw position without a draw size', () => {
+    expect(errorsFor((raw) => { player(raw, 'ana').live![0]!.drawPosition = 9; }))
+      .toContain('ana at live: drawPosition needs the tournament\'s drawSize');
+  });
+
+  it('rejects a draw position outside the draw', () => {
+    expect(errorsFor((raw) => {
+      raw.tournaments[4]!.drawSize = 32;
+      player(raw, 'ana').live![0]!.drawPosition = 33;
+    })).toContain('ana at live: drawPosition 33 is outside the 32-player draw');
+  });
+
+  it('rejects two players at the same draw position', () => {
+    expect(errorsFor((raw) => {
+      raw.tournaments[4]!.drawSize = 32;
+      player(raw, 'ana').live![0]!.drawPosition = 9;
+      player(raw, 'bea').live![0]!.drawPosition = 9;
+    })).toContain('live: draw position 9 is used by more than one player');
+  });
+
   it('reports field-level problems with their path', () => {
     expect(errorsFor((raw) => { raw.meta.lastUpdated = 'yesterday'; })).toContain('meta.lastUpdated');
   });

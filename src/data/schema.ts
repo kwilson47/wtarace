@@ -52,10 +52,18 @@ export const tournamentSchema = z.object({
   status: z.enum(['completed', 'in-progress', 'upcoming']),
   /** Players known to have a first-round bye (fill in once the draw is out). */
   byes: z.array(id).default([]),
+  /** Number of positions in the official draw order, for in-progress events whose draw is known. */
+  drawSize: z.number().int().positive().optional(),
 });
 
 const resultSchema = z.object({ tournamentId: id, round: roundCode, points: z.number().int().nonnegative() });
-const liveSchema = z.object({ tournamentId: id, state: z.enum(['alive', 'eliminated']), round: roundCode });
+const liveSchema = z.object({
+  tournamentId: id,
+  state: z.enum(['alive', 'eliminated']),
+  round: roundCode,
+  /** 1-based position in the official draw order; halves, quarters and eighths are equal blocks of it. */
+  drawPosition: z.number().int().positive().optional(),
+});
 
 export const playerSchema = z.object({
   id,
@@ -89,6 +97,7 @@ export const seasonSchema = z
     }
 
     const tournaments = new Map(s.tournaments.map((t) => [t.id, t]));
+    const positions = new Set<string>(); // "tournamentId#drawPosition" across all players
     for (const t of s.tournaments) {
       if (!s.rules.pointsTables[t.drawType]) issue(`Tournament ${t.id}: drawType "${t.drawType}" has no points table`);
       if (t.startDate > t.endDate) issue(`Tournament ${t.id}: startDate is after endDate`);
@@ -128,6 +137,13 @@ export const seasonSchema = z
         }
         if (!p.results.some((r) => r.tournamentId === t.id)) {
           issue(`${p.id}: live status at ${t.id} but no result recording points earned there`);
+        }
+        if (l.drawPosition !== undefined) {
+          if (t.drawSize === undefined) issue(`${p.id} at ${t.id}: drawPosition needs the tournament's drawSize`);
+          else if (l.drawPosition > t.drawSize) issue(`${p.id} at ${t.id}: drawPosition ${l.drawPosition} is outside the ${t.drawSize}-player draw`);
+          const key = `${t.id}#${l.drawPosition}`;
+          if (positions.has(key)) issue(`${t.id}: draw position ${l.drawPosition} is used by more than one player`);
+          positions.add(key);
         }
       }
     }
