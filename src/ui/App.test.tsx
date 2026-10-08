@@ -6,9 +6,26 @@ import { bracketSeason, season } from '../test/fixtures';
 
 const projected = (id: string) => within(screen.getByTestId(`row-${id}`)).getByTestId('projected');
 const delta = (id: string) => within(screen.getByTestId(`row-${id}`)).getByTestId('delta');
+const showEliminated = () => userEvent.click(screen.getByRole('checkbox', { name: 'Hide eliminated players' }));
 
 describe('App', () => {
-  beforeEach(() => window.history.replaceState(null, '', '/'));
+  beforeEach(() => {
+    window.history.replaceState(null, '', '/');
+    window.localStorage.clear();
+  });
+
+  it('hides eliminated players by default, and remembers when they are shown', async () => {
+    const { unmount } = render(<App season={season} />);
+    expect(screen.queryByTestId('row-cat')).toBeNull();
+    expect(screen.getByText('1 eliminated player hidden')).toBeInTheDocument();
+    await showEliminated();
+    expect(screen.getByTestId('row-cat')).toBeInTheDocument();
+    expect(screen.queryByText(/eliminated player hidden/)).toBeNull();
+    unmount();
+    render(<App season={season} />);
+    expect(screen.getByTestId('row-cat')).toBeInTheDocument();
+    expect(screen.getByRole('checkbox', { name: 'Hide eliminated players' })).not.toBeChecked();
+  });
 
   it('shows the current race when there are no picks', () => {
     render(<App season={season} />);
@@ -21,11 +38,13 @@ describe('App', () => {
     render(<App season={season} />);
     // bea has no official flag, but nobody can push her out of the two places.
     expect(await within(screen.getByTestId('row-bea')).findByTitle('Qualified')).toBeInTheDocument();
+    await showEliminated();
     expect(within(screen.getByTestId('row-cat')).queryByTitle('Qualified')).toBeNull();
   });
 
   it("shows each player's maximum possible total from actual results, whatever the visitor picks", async () => {
     render(<App season={season} />);
+    await showEliminated();
     const max = (id: string) => within(screen.getByTestId(`row-${id}`)).getByTestId('max');
     expect(max('ana')).toHaveTextContent('1,220');
     expect(max('cat')).toHaveTextContent('240');
@@ -35,6 +54,7 @@ describe('App', () => {
 
   it('marks players who can no longer qualify, whatever the visitor picks', async () => {
     render(<App season={season} />);
+    await showEliminated();
     expect(within(screen.getByTestId('row-cat')).getByText('Out')).toBeInTheDocument();
     expect(within(screen.getByTestId('row-bea')).queryByText('Out')).toBeNull();
     // A pick that projects cat higher doesn't change her actual status.
@@ -88,6 +108,7 @@ describe('App', () => {
 
   it('labels zero-pointers in the breakdown', async () => {
     render(<App season={season} />);
+    await showEliminated();
     await userEvent.click(screen.getByRole('button', { name: 'Cat Gamma' }));
     expect(screen.getByRole('region', { name: "Cat Gamma's results" })).toHaveTextContent('Slam Open zero-pointer 0');
   });

@@ -77,3 +77,5 @@ select { font: inherit; max-width: 100%; }
 .breakdown li { flex: 0 0 auto; max-width: 100%; }
 .picks li.group-heading { display: block; padding: 10px 0 4px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
 .tag.entered { color: var(--accent); border-color: var(--accent); }
+.table-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin: 0 0 8px; font-size: 0.9rem; }
+.table-controls .note-inline { color: var(--muted); }

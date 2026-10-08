@@ -1,5 +1,5 @@
-import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { StandingsTable } from './StandingsTable';
 import type { StandingRow } from '../engine/standings';
 
@@ -15,6 +15,8 @@ const range = (n: number, overrides: Record<number, Partial<StandingRow>> = {}) 
 const cls = (id: string) => screen.getByTestId(`row-${id}`).className.split(/\s+/).filter(Boolean).sort();
 
 describe('StandingsTable', () => {
+  beforeEach(() => window.localStorage.clear());
+
   it('highlights qualifiers, draws the cutoff under the last one and shades two alternates', () => {
     render(<StandingsTable rows={range(11)} />);
     expect(cls('p1')).toEqual(['qualifier']);
@@ -58,6 +60,8 @@ describe('StandingsTable', () => {
 
   it('marks eliminated players as out and mutes their row', () => {
     render(<StandingsTable rows={range(11, { 11: { eligible: false, eventsShort: 1 } })} eliminated={new Set(['p10', 'p11'])} />);
+    expect(screen.getByText('2 eliminated players hidden')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Hide eliminated players' }));
     const outBadge = within(screen.getByTestId('row-p10')).getByText('Out');
     expect(outBadge).toHaveAttribute('title', expect.stringMatching(/can't reach a qualifying place/i));
     expect(cls('p10')).toEqual(['alternate', 'out']);

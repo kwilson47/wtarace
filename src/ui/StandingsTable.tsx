@@ -3,6 +3,7 @@ import type { Breakdown } from '../engine/breakdown';
 import type { StandingRow } from '../engine/standings';
 import { flagEmoji, formatDelta, formatPoints } from './format';
 import { ResultsBreakdown } from './ResultsBreakdown';
+import { usePersistentFlag } from './usePersistentFlag';
 
 const ALTERNATES = 2;
 
@@ -51,6 +52,9 @@ interface Props {
 export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPoints = NO_MAX, breakdownOf }: Props) {
   const classes = rowClasses(rows, eliminated);
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(NONE);
+  const [hideOut, setHideOut] = usePersistentFlag('hideEliminated', true);
+  const hidden = hideOut ? rows.filter((r) => eliminated.has(r.playerId)).length : 0;
+  const shown = hidden > 0 ? rows.filter((r) => !eliminated.has(r.playerId)) : rows;
   const toggle = (id: string) =>
     setExpanded((prev) => {
       const next = new Set(prev);
@@ -59,6 +63,14 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
     });
   return (
     <>
+    {eliminated.size > 0 && (
+      <p className="table-controls">
+        <label>
+          <input type="checkbox" checked={hideOut} onChange={(e) => setHideOut(e.target.checked)} /> Hide eliminated players
+        </label>
+        {hidden > 0 && <span className="note-inline">{`${hidden} eliminated player${hidden === 1 ? '' : 's'} hidden`}</span>}
+      </p>
+    )}
     <table className="standings">
       <caption>
         Projected race — highlighted players are projected to qualify for the WTA Finals
@@ -77,7 +89,7 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
         </tr>
       </thead>
       <tbody>
-        {rows.map((r) => (
+        {shown.map((r) => (
           <Fragment key={r.playerId}>
           <tr data-testid={`row-${r.playerId}`} className={classes.get(r.playerId)}>
             <td>{r.projectedRank}</td>

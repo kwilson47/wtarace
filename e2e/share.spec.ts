@@ -4,6 +4,9 @@ test.use({ permissions: ['clipboard-read', 'clipboard-write'] });
 
 test('picks update standings and survive a shared link', async ({ page, context }) => {
   await page.goto('/');
+  // The lowest-ranked players are usually eliminated, which the table hides by default; the choice
+  // is remembered, so the shared page below shows them too.
+  await page.getByRole('checkbox', { name: 'Hide eliminated players' }).uncheck();
   const editor = page.getByRole('region', { name: 'Scenario editor' });
   await editor.getByRole('tab', { name: 'By player' }).click();
 
