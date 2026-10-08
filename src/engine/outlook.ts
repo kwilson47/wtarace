@@ -67,9 +67,10 @@ export function playerOutlook(playerId: string, players: Player[], tournaments: 
     checkScenario(scenario, players, tournaments, rules).length === 0 &&
     (projectStandings(players, scenario, tournaments, rules).find((r) => r.playerId === playerId)!.projectedQualifier !== null) === qualifies;
 
-  // Missing out: prefer players finishing strictly above her, so the projection's tiebreak can't save her.
-  let missExample: Scenario | null = null;
-  for (const target of [x.floor + 1, x.floor]) {
+  // Missing out: simplest is as things stand. Otherwise prefer players finishing strictly above her,
+  // so the projection's tiebreak can't save her.
+  let missExample: Scenario | null = shows({}, false) ? {} : null;
+  for (const target of missExample ? [] : [x.floor + 1, x.floor]) {
     const found = search.missPath(x, target, true);
     if (found === null || found === 'unknown') continue;
     const scenario = toScenario(found, players);

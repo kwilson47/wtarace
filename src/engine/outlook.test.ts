@@ -49,6 +49,8 @@ describe('playerOutlook', () => {
     expect(o.safeRoute).toEqual({ 'bea|live': 'F' });
     expect(o.eventsLeft).toBe(true);
     expect(o.eligibleNow).toBe(true);
+    // As things stand (nobody earns more) she is third, so that is the simplest way she misses out.
+    expect(o.missExample).toEqual({});
     shows(s, o.missExample!, 'bea', false);
   });
 });
