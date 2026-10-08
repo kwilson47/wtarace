@@ -1,6 +1,6 @@
 import type { Player, Rules, Tournament } from '../data/schema';
 import { applyScenario } from './applyScenario';
-import { countRace, type CountedRace } from './countRace';
+import { countRace, officialRace, type CountedRace } from './countRace';
 import { findTournament } from './lookup';
 import { eventsShort, isChampion, isEligible, selectQualifiers, type QualifierKind } from './qualification';
 import type { Scenario } from './types';
@@ -54,7 +54,7 @@ function ranks(entries: RankEntry[], tournaments: Tournament[], rules: Rules): M
 }
 
 export function projectStandings(players: Player[], scenario: Scenario, tournaments: Tournament[], rules: Rules): StandingRow[] {
-  const current = players.map((p) => ({ id: p.id, race: countRace(p.results, tournaments, rules) }));
+  const current = players.map((p) => ({ id: p.id, race: officialRace(p.results, tournaments, rules) }));
   const projectedResults = players.map((p) => applyScenario(p, scenario, tournaments, rules));
   const projected = players.map((p, i) => ({
     id: p.id,

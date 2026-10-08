@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { countRace } from './countRace';
+import { countRace, officialRace } from './countRace';
 import { season } from '../test/fixtures';
 import type { Rules } from '../data/schema';
 
@@ -86,5 +86,48 @@ describe('countRace', () => {
     expect(race.total).toBe(1000);
     expect(ids(race.counted)).toEqual(['live', 'slam']);
     expect(ids(race.dropped)).toEqual(['c500', 'm1000']);
+  });
+
+  it('does not let a qualifying loss fill a required group (it was never a main-draw result)', () => {
+    // m1000 is the only combined 1000, lost in qualifying: it competes as an optional result instead.
+    const rs = [
+      { tournamentId: 'slam', round: 'W', points: 1000 },
+      { tournamentId: 'm1000', round: 'Q1', points: 3 },
+      { tournamentId: 'c500', round: 'W', points: 100 },
+      { tournamentId: 'c250', round: 'F', points: 40 },
+      { tournamentId: 'live', round: 'QF', points: 10 },
+    ];
+    const race = countRace(rs, tournaments, rules);
+    expect(race.total).toBe(1150);
+    expect(ids(race.dropped)).toEqual(['m1000']);
+  });
+
+  it('lets a player who qualified (Q) fill a required group', () => {
+    const rs = [
+      { tournamentId: 'slam', round: 'W', points: 1000 },
+      { tournamentId: 'm1000', round: 'Q', points: 3 },
+      { tournamentId: 'c500', round: 'W', points: 100 },
+      { tournamentId: 'c250', round: 'F', points: 40 },
+      { tournamentId: 'live', round: 'QF', points: 10 },
+    ];
+    expect(countRace(rs, tournaments, rules).total).toBe(1143);
+  });
+});
+
+describe('officialRace', () => {
+  it('leaves out results at an in-progress event that the WTA has not credited yet', () => {
+    const rs = [
+      { tournamentId: 'slam', round: 'W', points: 1000 },
+      { tournamentId: 'live', round: 'R32', points: 0 },
+    ];
+    expect(ids(officialRace(rs, tournaments, rules).counted)).toEqual(['slam']);
+  });
+
+  it('keeps in-progress points once they are credited, and zero-pointers', () => {
+    const rs = [
+      { tournamentId: 'slam', round: 'ZP', points: 0 },
+      { tournamentId: 'live', round: 'QF', points: 10 },
+    ];
+    expect(ids(officialRace(rs, tournaments, rules).counted)).toEqual(['live', 'slam']);
   });
 });

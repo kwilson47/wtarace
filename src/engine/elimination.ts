@@ -1,6 +1,6 @@
 import type { Player, Rules, Tournament } from '../data/schema';
 import { applyScenario } from './applyScenario';
-import { countRace } from './countRace';
+import { countRace, officialRace } from './countRace';
 import { pointsTable } from './lookup';
 import { pickOptions } from './picks';
 import { eventsShort, isChampion } from './qualification';
@@ -94,7 +94,7 @@ export type RaceInfo = ReturnType<typeof raceInfo>[number];
  */
 export function untrackedModel(players: Player[], tournaments: Tournament[], rules: Rules) {
   return {
-    base: Math.min(...players.map((p) => countRace(p.results, tournaments, rules).total)),
+    base: Math.min(...players.map((p) => officialRace(p.results, tournaments, rules).total)),
     slots: remainingWeeks(tournaments).map((w) => w.flatMap((t) => eventSlots(t, rules))),
   };
 }
