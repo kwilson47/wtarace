@@ -9,7 +9,7 @@ import { season } from '../test/fixtures';
 function setup(scenario: Scenario = {}) {
   const onPick = vi.fn();
   const warnings = checkScenario(scenario, season.players, season.tournaments, season.rules);
-  render(<ScenarioEditor season={season} players={season.players} scenario={scenario} warnings={warnings} onPick={onPick} />);
+  render(<ScenarioEditor season={season} players={season.players} scenario={scenario} warnings={warnings} onPick={onPick} onLoad={() => {}} />);
   return { onPick };
 }
 

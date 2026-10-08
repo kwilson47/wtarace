@@ -58,3 +58,9 @@ button { font: inherit; padding: 6px 12px; border: 1px solid var(--line); border
 .warning { color: var(--warn); font-size: 0.85rem; }
 .footnotes { color: var(--muted); font-size: 0.85rem; margin-top: 16px; }
 select { font: inherit; max-width: 100%; }
+.outlook { border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; }
+.outlook h3 { margin: 0 0 6px; font-size: 1rem; }
+.outlook p { margin: 6px 0; }
+.outlook .example ul { margin: 4px 0 6px; padding-left: 20px; }
+.outlook .example button { font-size: 0.9rem; }
+.muted { color: var(--muted); }

@@ -4,6 +4,8 @@ import type { Warning } from '../engine/checkScenario';
 import { pickKey, type Scenario } from '../engine/types';
 import { categoryLabel } from './format';
 import { PickSelect } from './PickSelect';
+import { PlayerOutlook } from './PlayerOutlook';
+import { useOutlook } from './useOutlook';
 import { warningsByPick } from './warningText';
 
 type OnPick = (playerId: string, tournamentId: string, round: string | null) => void;
@@ -15,6 +17,7 @@ interface Props {
   scenario: Scenario;
   warnings: Warning[];
   onPick: OnPick;
+  onLoad: (scenario: Scenario) => void;
 }
 
 interface PanelProps {
@@ -93,9 +96,10 @@ function ByTournament({ tournaments, players, ...rest }: PanelProps) {
   );
 }
 
-function ByPlayer({ tournaments, players, ...rest }: PanelProps) {
+function ByPlayer({ season, onLoad, tournaments, players, ...rest }: PanelProps & { season: Season; onLoad: (scenario: Scenario) => void }) {
   const [id, setId] = useState(players[0]?.id ?? '');
   const player = players.find((p) => p.id === id) ?? players[0];
+  const outlook = useOutlook(season, player?.id ?? '');
   if (!player) return null;
   return (
     <div role="tabpanel">
@@ -105,6 +109,7 @@ function ByPlayer({ tournaments, players, ...rest }: PanelProps) {
           {players.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
       </label>
+      <PlayerOutlook player={player} outlook={outlook} players={players} season={season} onLoad={onLoad} />
       <ClearButton
         label={`Clear ${player.name}'s picks`}
         picks={tournaments.map((t) => ({ playerId: player.id, tournamentId: t.id }))}
@@ -125,7 +130,7 @@ function ByPlayer({ tournaments, players, ...rest }: PanelProps) {
   );
 }
 
-export function ScenarioEditor({ season, players, scenario, warnings, onPick }: Props) {
+export function ScenarioEditor({ season, players, scenario, warnings, onPick, onLoad }: Props) {
   const [tab, setTab] = useState<'tournament' | 'player'>('tournament');
   const remaining = useMemo(
     () => season.tournaments.filter((t) => t.status !== 'completed').sort((a, b) => a.startDate.localeCompare(b.startDate)),
@@ -144,7 +149,7 @@ export function ScenarioEditor({ season, players, scenario, warnings, onPick }: 
         <button type="button" role="tab" aria-selected={tab === 'tournament'} onClick={() => setTab('tournament')}>By tournament</button>
         <button type="button" role="tab" aria-selected={tab === 'player'} onClick={() => setTab('player')}>By player</button>
       </div>
-      {tab === 'tournament' ? <ByTournament {...panelProps} /> : <ByPlayer {...panelProps} />}
+      {tab === 'tournament' ? <ByTournament {...panelProps} /> : <ByPlayer {...panelProps} season={season} onLoad={onLoad} />}
       <div className="footnotes">
         <p>Projections never add zero-pointers for skipped mandatory events. Those depend on WTA rulings such as injury exemptions.</p>
         <p>Without draw data we can't tell when two players you've picked would have to meet earlier in the draw.</p>

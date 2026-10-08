@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { App } from './App';
-import { season } from '../test/fixtures';
+import { bracketSeason, season } from '../test/fixtures';
 
 const projected = (id: string) => within(screen.getByTestId(`row-${id}`)).getByTestId('projected');
 const delta = (id: string) => within(screen.getByTestId(`row-${id}`)).getByTestId('delta');
@@ -42,6 +42,31 @@ describe('App', () => {
     await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Player' }), 'cat');
     await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Cat Gamma at Next Open' }), 'W');
     expect(within(screen.getByTestId('row-cat')).getByText('Out')).toBeInTheDocument();
+  });
+
+  it("shows the selected player's outlook in the By player tab", async () => {
+    render(<App season={season} />);
+    await userEvent.click(screen.getByRole('tab', { name: 'By player' }));
+    await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Player' }), 'bea');
+    expect(await screen.findByText('Bea Beta has qualified for the WTA Finals.')).toBeInTheDocument();
+    await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Player' }), 'cat');
+    expect(await screen.findByText('Cat Gamma can no longer qualify.')).toBeInTheDocument();
+  });
+
+  it('loads an outlook example into the picks', async () => {
+    const s = bracketSeason(1, 17);
+    render(<App season={s} />);
+    await userEvent.click(screen.getByRole('tab', { name: 'By player' }));
+    await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Player' }), 'bea');
+    const chances = await screen.findByRole('region', { name: 'Chances' });
+    await within(chances).findByText(/Safe at/);
+    expect(chances).toHaveTextContent('Safe at 971 points');
+    expect(chances).toHaveTextContent('Live Masters: Lost in Final');
+    const qualify = within(chances).getByRole('region', { name: 'How she could qualify' });
+    expect(qualify).toHaveTextContent('Bea Beta — Live Masters: Lost in Semifinal');
+    await userEvent.click(within(qualify).getByRole('button', { name: 'Load this scenario' }));
+    expect(projected('bea')).toHaveTextContent('960');
+    expect(window.location.search).toBe('?s=bea.live.SF');
   });
 
   it('updates the projection and the URL when a pick is made', async () => {

@@ -38,7 +38,8 @@ export function useScenario(season: Season) {
   }, []);
 
   const reset = useCallback(() => setScenario({}), []);
+  const load = useCallback((next: Scenario) => setScenario(next), []);
   const dismissIgnored = useCallback(() => setIgnored([]), []);
 
-  return { scenario, setPick, reset, ignored, dismissIgnored };
+  return { scenario, setPick, reset, load, ignored, dismissIgnored };
 }
