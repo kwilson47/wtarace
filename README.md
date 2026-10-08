@@ -25,6 +25,7 @@ npm run test:e2e   # Playwright
 3. Commit and push. CI runs every check and deploys only if they all pass. A failing push leaves the live site unchanged.
 
 Data rules to keep in mind:
+- Tournament `name`s are short, the way the WTA lists events: the city for most events (`Wuhan`, `Toronto`), and the usual short names for the Slams (`Australian Open`, `French Open`, `Wimbledon`, `US Open`).
 - Tournament categories are `GS`, `WTA1000C` (combined), `WTA1000` (WTA-only), `WTA500`, `WTA250`, `WTA125` and `ITF`. The counting groups, tiebreakers and qualification rules live in `data/rules.json`.
 - Zero-pointers: store only those the WTA counts. Where the official event count shows a zero-pointer whose event isn't published, use a labelled placeholder tournament (`zp-<category>-<n>`) and document it per player in `data/SOURCES.md`.
 - `results` must list every WTA 1000 and 500 event a player played, because the 8-event Finals minimum is computed from them. Set `eventMinimumWaived` only on a WTA-announced long-term-injury exemption.

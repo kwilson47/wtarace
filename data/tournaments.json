@@ -1,7 +1,7 @@
 [
   {
     "id": "hong-kong-2025",
-    "name": "Prudential Hong Kong Tennis Open",
+    "name": "Hong Kong",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2025-10-27",
@@ -11,7 +11,7 @@
   },
   {
     "id": "zp-wta500-1",
-    "name": "Unattributed WTA500 commitment zero-pointer",
+    "name": "Unnamed WTA 500 zero-pointer",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2025-10-27",
@@ -21,7 +21,7 @@
   },
   {
     "id": "zp-wta500-2",
-    "name": "Unattributed WTA500 commitment zero-pointer",
+    "name": "Unnamed WTA 500 zero-pointer",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2025-10-27",
@@ -41,7 +41,7 @@
   },
   {
     "id": "brisbane-2026",
-    "name": "Brisbane International",
+    "name": "Brisbane",
     "category": "WTA500",
     "drawType": "wta500-48",
     "startDate": "2026-01-04",
@@ -51,7 +51,7 @@
   },
   {
     "id": "auckland-2026",
-    "name": "ASB Classic",
+    "name": "Auckland",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-01-05",
@@ -61,7 +61,7 @@
   },
   {
     "id": "adelaide-2026",
-    "name": "Adelaide International",
+    "name": "Adelaide",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-01-12",
@@ -71,7 +71,7 @@
   },
   {
     "id": "hobart-2026",
-    "name": "Hobart International",
+    "name": "Hobart",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-01-12",
@@ -91,7 +91,7 @@
   },
   {
     "id": "abu-dhabi-2026",
-    "name": "Mubadala Abu Dhabi Open",
+    "name": "Abu Dhabi",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-02-01",
@@ -101,7 +101,7 @@
   },
   {
     "id": "cluj-napoca-2026",
-    "name": "Transylvania Open",
+    "name": "Cluj-Napoca",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-02-01",
@@ -111,7 +111,7 @@
   },
   {
     "id": "doha-2026",
-    "name": "Qatar TotalEnergies Open",
+    "name": "Doha",
     "category": "WTA1000",
     "drawType": "wta1000-56",
     "startDate": "2026-02-08",
@@ -121,7 +121,7 @@
   },
   {
     "id": "dubai-2026",
-    "name": "Dubai Duty Free Tennis Championships",
+    "name": "Dubai",
     "category": "WTA1000",
     "drawType": "wta1000-56",
     "startDate": "2026-02-15",
@@ -131,7 +131,7 @@
   },
   {
     "id": "austin-2026",
-    "name": "ATX Open",
+    "name": "Austin",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-02-23",
@@ -141,7 +141,7 @@
   },
   {
     "id": "merida-2026",
-    "name": "Mérida Open",
+    "name": "Mérida",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-02-23",
@@ -151,7 +151,7 @@
   },
   {
     "id": "indian-wells-2026",
-    "name": "BNP Paribas Open",
+    "name": "Indian Wells",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
     "startDate": "2026-03-04",
@@ -161,7 +161,7 @@
   },
   {
     "id": "miami-2026",
-    "name": "Miami Open",
+    "name": "Miami",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
     "startDate": "2026-03-17",
@@ -171,7 +171,7 @@
   },
   {
     "id": "bogota-2026",
-    "name": "Copa Colsanitas Colsubsidio",
+    "name": "Bogotá",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-03-30",
@@ -181,7 +181,7 @@
   },
   {
     "id": "charleston-2026",
-    "name": "Credit One Charleston Open",
+    "name": "Charleston",
     "category": "WTA500",
     "drawType": "wta500-48",
     "startDate": "2026-03-30",
@@ -191,7 +191,7 @@
   },
   {
     "id": "linz-2026",
-    "name": "Upper Austria Ladies Linz",
+    "name": "Linz",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-04-06",
@@ -201,7 +201,7 @@
   },
   {
     "id": "rouen-2026",
-    "name": "Open Capfinances Rouen Métropole",
+    "name": "Rouen",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-04-13",
@@ -211,7 +211,7 @@
   },
   {
     "id": "stuttgart-2026",
-    "name": "Porsche Tennis Grand Prix",
+    "name": "Stuttgart",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-04-13",
@@ -221,7 +221,7 @@
   },
   {
     "id": "madrid-2026",
-    "name": "Mutua Madrid Open",
+    "name": "Madrid",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
     "startDate": "2026-04-21",
@@ -231,7 +231,7 @@
   },
   {
     "id": "rome-2026",
-    "name": "Internazionali BNL d'Italia",
+    "name": "Rome",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
     "startDate": "2026-05-05",
@@ -241,7 +241,7 @@
   },
   {
     "id": "strasbourg-2026",
-    "name": "Internationaux de Strasbourg",
+    "name": "Strasbourg",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-05-17",
@@ -251,7 +251,7 @@
   },
   {
     "id": "roland-garros-2026",
-    "name": "Roland Garros",
+    "name": "French Open",
     "category": "GS",
     "drawType": "gs-128",
     "startDate": "2026-05-24",
@@ -261,7 +261,7 @@
   },
   {
     "id": "queens-2026",
-    "name": "The HSBC Championships",
+    "name": "Queen's",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-06-08",
@@ -271,7 +271,7 @@
   },
   {
     "id": "s-hertogenbosch-2026",
-    "name": "Libéma Open",
+    "name": "'s-Hertogenbosch",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-06-08",
@@ -281,7 +281,7 @@
   },
   {
     "id": "berlin-2026",
-    "name": "VANDA Pharmaceuticals Berlin Tennis Open",
+    "name": "Berlin",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-06-15",
@@ -291,7 +291,7 @@
   },
   {
     "id": "nottingham-2026",
-    "name": "Lexus Nottingham Open",
+    "name": "Nottingham",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-06-15",
@@ -301,7 +301,7 @@
   },
   {
     "id": "bad-homburg-2026",
-    "name": "Bad Homburg Open",
+    "name": "Bad Homburg",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-06-21",
@@ -311,7 +311,7 @@
   },
   {
     "id": "eastbourne-2026",
-    "name": "Lexus Eastbourne Open",
+    "name": "Eastbourne",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-06-22",
@@ -321,7 +321,7 @@
   },
   {
     "id": "wimbledon-2026",
-    "name": "The Championships, Wimbledon",
+    "name": "Wimbledon",
     "category": "GS",
     "drawType": "gs-128",
     "startDate": "2026-06-29",
@@ -331,7 +331,7 @@
   },
   {
     "id": "prague-2026",
-    "name": "Livesport Prague Open",
+    "name": "Prague",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-07-20",
@@ -341,7 +341,7 @@
   },
   {
     "id": "washington-dc-2026",
-    "name": "Mubadala DC Open",
+    "name": "Washington",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-07-27",
@@ -351,7 +351,7 @@
   },
   {
     "id": "toronto-2026",
-    "name": "National Bank Open",
+    "name": "Toronto",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
     "startDate": "2026-08-02",
@@ -361,7 +361,7 @@
   },
   {
     "id": "cincinnati-2026",
-    "name": "Cincinnati Open",
+    "name": "Cincinnati",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
     "startDate": "2026-08-13",
@@ -371,7 +371,7 @@
   },
   {
     "id": "monterrey-2026",
-    "name": "Abierto GNP Seguros",
+    "name": "Monterrey",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-08-23",
@@ -391,7 +391,7 @@
   },
   {
     "id": "guadalajara-2026",
-    "name": "Guadalajara Open",
+    "name": "Guadalajara",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-09-13",
@@ -401,7 +401,7 @@
   },
   {
     "id": "singapore-2026",
-    "name": "Singapore Tennis Open",
+    "name": "Singapore",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-09-21",
@@ -411,7 +411,7 @@
   },
   {
     "id": "beijing-2026",
-    "name": "China Open",
+    "name": "Beijing",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
     "startDate": "2026-09-30",
@@ -440,7 +440,7 @@
   },
   {
     "id": "wuhan-2026",
-    "name": "Wuhan Open",
+    "name": "Wuhan",
     "category": "WTA1000",
     "drawType": "wta1000-56",
     "startDate": "2026-10-12",
@@ -450,7 +450,7 @@
   },
   {
     "id": "ningbo-2026",
-    "name": "Ningbo Open",
+    "name": "Ningbo",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-10-19",
@@ -460,7 +460,7 @@
   },
   {
     "id": "osaka-2026",
-    "name": "Japan Open",
+    "name": "Osaka",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-10-19",
@@ -470,7 +470,7 @@
   },
   {
     "id": "guangzhou-2026",
-    "name": "Guangzhou Open",
+    "name": "Guangzhou",
     "category": "WTA250",
     "drawType": "wta250-32",
     "startDate": "2026-10-26",
@@ -480,7 +480,7 @@
   },
   {
     "id": "tokyo-2026",
-    "name": "Toray Pan Pacific Open",
+    "name": "Tokyo",
     "category": "WTA500",
     "drawType": "wta500-28",
     "startDate": "2026-10-26",
