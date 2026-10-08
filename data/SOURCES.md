@@ -4,7 +4,7 @@ Every value in `data/*.json` comes from one of the sources below, all fetched on
 
 **As of:**
 - **Official race totals:** the WTA's current Race list, `rankedAt` 2026-09-28. On 2026-10-07 the race page's date picker shows 2026-10-05, and querying `at=2026-10-05` returns the same 2026-09-28 list. Re-checked unchanged at 2026-10-07T21:51Z.
-- **Beijing live status:** the WTA match feed, `lastUpdated` 2026-10-07T15:13:23Z. Re-checked unchanged at 21:51Z.
+- **Beijing live status:** the WTA match feed, `lastUpdated` 2026-10-08T12:54:48Z, checked at 12:56Z. QF results so far: Bartunkova d Muchova 6-3, 6-0 (final). Alexandrova v Andreeva was still in progress (7-6(4), 5-6), so Andreeva stays alive at QF.
 - **`meta.json` `lastUpdated`:** 2026-10-07T21:51:15Z, the time of that final check.
 
 ## Rules (`rules.json`)
@@ -76,8 +76,8 @@ Primary sources:
 - **Beijing:**
   - Source: https://api.wtatennis.com/tennis/tournaments/1020/2026/matches and /players.
   - The official race (2026-09-28) credits no Beijing points yet, so each tracked player in the draw has `{round, points: 0}` plus a `live` entry.
-  - Alive at QF: Andreeva, Svitolina, Muchova, Swiatek, Mertens.
-  - Eliminated: Rybakina R64 (after a bye), Sabalenka R32, Gauff R16, Noskova R16, Jovic R16, Shnaider R32, Osaka R16, Bencic R32, Kalinskaya R64 (retired), Potapova R64 (retired), Chwalinska R64, Bouzkova R32.
+  - Alive at QF: Andreeva, Svitolina, Swiatek, Mertens.
+  - Eliminated: Muchova QF, Rybakina R64 (after a bye), Sabalenka R32, Gauff R16, Noskova R16, Jovic R16, Shnaider R32, Osaka R16, Bencic R32, Kalinskaya R64 (retired), Potapova R64 (retired), Chwalinska R64, Bouzkova R32.
 - **`qualified`:** true for Rybakina and Sabalenka only. Source: WTA press release, 2026-09-28, https://www.wtatennis.com/news/4583238/aryna-sabalenka-qualifies-for-wta-finals-indian-wells-for-sixth-consecutive-season ("Sabalenka joins PIF WTA World No. 1 Elena Rybakina, who qualified earlier this month"). No other singles qualification had been announced.
 - **`eventMinimumWaived`:** false for everyone. The WTA has announced no long-term-injury exemption.
 
