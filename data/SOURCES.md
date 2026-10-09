@@ -73,7 +73,8 @@ Primary sources:
 - **Entry lists (`entries`), as of 2026-10-08, all 40 tracked players:** tracked players with entry type M (main draw) or Q (qualifying) in the singles event of https://api.wtatennis.com/tennis/tournaments/{id}/2026/players. The ids are Wuhan 1075, Ningbo 2092, Osaka 405, Tokyo 1056 and Guangzhou 1023.
   - Players were matched by full name.
   - Osaka and Guangzhou have published lists with no tracked players, so their `entries` are empty.
-  - The Tokyo list had only 17 names, so it may be incomplete.
+  - The Tokyo list had 17 names on 2026-10-08 and 37 on 2026-10-09. The 2026-10-09 refresh added Parry, Stearns, Li, Xinyu Wang, Bucsa, Birrell, Bartunkova and Samsonova. There were no other changes.
+  - On 2026-10-09 the Wuhan feed listed only the 32-player qualifying draw (event `RS`). The main-draw list had been taken down ahead of the draw, so the Wuhan `entries` stay as of 2026-10-08.
   - Entry lists change with withdrawals and wildcards. The site only uses them to order and tag players in the scenario editor, never in the Q, Out, Max or chances calculations.
 - **Added for ranks 26–40** (2026-10-08), WTA 250s none of the original 25 played. Names and dates are from each match's `tournament` object in the player match feed:
   - Chennai 2025 (1148);
@@ -97,8 +98,9 @@ Primary sources:
 - **Beijing:**
   - Source: https://api.wtatennis.com/tennis/tournaments/1020/2026/matches and /players.
   - The official race (2026-09-28) credits no Beijing points yet, so each tracked player in the draw has `{round, points: 0}` plus a `live` entry.
-  - Alive at SF: Andreeva.
-  - Alive at QF: Svitolina, Swiatek, Mertens.
+  - As of 2026-10-09, all QFs are done. Alive at SF: Andreeva (72), Bartunkova (91), Mertens (36), and the untracked Zheng.
+  - SFs: Zheng v Mertens; Andreeva v Bartunkova.
+  - QF results on 2026-10-09: Zheng d. Svitolina 6-3 7-6(6); Mertens d. Swiatek 7-6(0) 6-3.
   - Draw: `drawSize` 96 and each alive player's `drawPosition` are her 1-based index in the singles draw order of the /players feed: Svitolina 24, Mertens 36, Swiatek 48, Andreeva 72. Checked against the match feed: the quarters are positions 1–24, 25–48, 49–72 and 73–96 (Zheng v Svitolina, Mertens v Swiatek, Alexandrova v Andreeva, Muchova v Bartunkova).
   - Ranks 26–40, from the same feeds on 2026-10-08:
     - Bartunkova is alive in the SF at `drawPosition` 91; she beat Muchova in the QF.
@@ -106,7 +108,7 @@ Primary sources:
     - Other eliminations: Ann Li R16; Bejlek, Ostapenko, Sakkari and Samsonova R32; Fernandez, Parry, Paolini, Stearns, Xinyu Wang, Bucsa and Birrell R64.
     - Baptiste is not in the draw.
     - Seeds among them were added to `byes`.
-  - Eliminated: Muchova QF, Rybakina R64 (after a bye), Sabalenka R32, Gauff R16, Noskova R16, Jovic R16, Shnaider R32, Osaka R16, Bencic R32, Kalinskaya R64 (retired), Potapova R64 (retired), Chwalinska R64, Bouzkova R32.
+  - Eliminated: Svitolina QF, Swiatek QF, Muchova QF, Rybakina R64 (after a bye), Sabalenka R32, Gauff R16, Noskova R16, Jovic R16, Shnaider R32, Osaka R16, Bencic R32, Kalinskaya R64 (retired), Potapova R64 (retired), Chwalinska R64, Bouzkova R32.
 - **`qualified`:** true for Rybakina and Sabalenka only. Source: WTA press release, 2026-09-28, https://www.wtatennis.com/news/4583238/aryna-sabalenka-qualifies-for-wta-finals-indian-wells-for-sixth-consecutive-season ("Sabalenka joins PIF WTA World No. 1 Elena Rybakina, who qualified earlier this month"). No other singles qualification had been announced.
 - **`eventMinimumWaived`:** false for everyone. The WTA has announced no long-term-injury exemption.
 
