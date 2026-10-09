@@ -28,12 +28,13 @@ export function describePicks(scenario: Scenario, players: Player[], season: Sea
     });
 }
 
-function Example({ title, scenario, players, season, onLoad }: {
+function Example({ title, scenario, players, season, onLoad, scenarioHref }: {
   title: string;
   scenario: Scenario;
   players: Player[];
   season: Season;
-  onLoad: (scenario: Scenario) => void;
+  onLoad?: (scenario: Scenario) => void;
+  scenarioHref?: (scenario: Scenario) => string;
 }) {
   const lines = describePicks(scenario, players, season);
   return (
@@ -47,7 +48,11 @@ function Example({ title, scenario, players, season, onLoad }: {
           {lines.map((l) => <li key={l.name}>{`${l.name} — ${l.picks}`}</li>)}
         </ul>
       )}
-      <button type="button" title="Replaces your current picks" onClick={() => onLoad(scenario)}>Load this scenario</button>
+      {scenarioHref ? (
+        <a className="button" href={scenarioHref(scenario)}>Try this scenario</a>
+      ) : (
+        <button type="button" title="Replaces your current picks" onClick={() => onLoad?.(scenario)}>Load this scenario</button>
+      )}
     </section>
   );
 }
@@ -59,10 +64,14 @@ interface Props {
   /** Tracked players in current-rank order, for listing example picks. */
   players: Player[];
   season: Season;
-  onLoad: (scenario: Scenario) => void;
+  /** Loads an example into the visitor's picks (homepage). */
+  onLoad?: (scenario: Scenario) => void;
+  /** Links each example to the homepage instead (player pages). */
+  scenarioHref?: (scenario: Scenario) => string;
+  heading?: string;
 }
 
-export function PlayerOutlook({ player, outlook, players, season, onLoad }: Props) {
+export function PlayerOutlook({ player, outlook, players, season, onLoad, scenarioHref, heading }: Props) {
   let body: ReactNode;
   if (outlook === null) {
     body = (
@@ -94,22 +103,22 @@ export function PlayerOutlook({ player, outlook, players, season, onLoad }: Prop
           </p>
         )}
         {outlook.qualifyExample ? (
-          <Example title="How she could qualify" scenario={outlook.qualifyExample} players={players} season={season} onLoad={onLoad} />
+          <Example title="How she could qualify" scenario={outlook.qualifyExample} players={players} season={season} onLoad={onLoad} scenarioHref={scenarioHref} />
         ) : (
           <p>We couldn't find a simple way for her to qualify.</p>
         )}
         {outlook.missExample ? (
-          <Example title="How she could miss out" scenario={outlook.missExample} players={players} season={season} onLoad={onLoad} />
+          <Example title="How she could miss out" scenario={outlook.missExample} players={players} season={season} onLoad={onLoad} scenarioHref={scenarioHref} />
         ) : (
           <p>We couldn't build an example of her missing out to show here.</p>
         )}
-        <p className="note">In these examples, players not listed earn no more points. Loading one replaces your current picks.</p>
+        <p className="note">{`In these examples, players not listed earn no more points.${scenarioHref ? '' : ' Loading one replaces your current picks.'}`}</p>
       </>
     );
   }
   return (
     <section className="outlook" aria-label="Chances">
-      <h3>{`${player.name}'s chances`}</h3>
+      <h3>{heading ?? `${player.name}'s chances`}</h3>
       {body}
     </section>
   );
