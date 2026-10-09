@@ -27,6 +27,12 @@ describe('App', () => {
     expect(screen.getByRole('checkbox', { name: 'Hide eliminated players' })).not.toBeChecked();
   });
 
+  it('explains what the site is for, in words a search engine can read', () => {
+    render(<App season={season} />);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Race to the WTA Finals 2026');
+    expect(screen.getByText(/Live standings and projections for the 2026 Race to the WTA Finals/)).toBeInTheDocument();
+  });
+
   it('shows the current race when there are no picks', () => {
     render(<App season={season} />);
     expect(screen.getByText('Data updated 2026-10-07 12:00 UTC')).toBeInTheDocument();

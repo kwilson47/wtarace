@@ -1,0 +1,5 @@
+# Keep the Cloudflare Pages copies out of search results; finalsrace.win is the canonical site.
+https://wta-race.pages.dev/*
+  X-Robots-Tag: noindex
+https://:hash.wta-race.pages.dev/*
+  X-Robots-Tag: noindex

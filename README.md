@@ -33,6 +33,10 @@ Data rules to keep in mind:
 
 Rule values and their sources are recorded in `data/SOURCES.md`.
 
+## Search and link previews
+
+`index.html` holds the page title, description, canonical URL, link-preview tags and a static intro, which the app replaces when it loads. `public/` holds `robots.txt`, the favicon and `og.png`, the link-preview image. Regenerate the image with `node scripts/og-image.mjs` after editing `scripts/og-image.html`. `sitemap.xml` is written at build time, dated from `data/meta.json`. `public/_headers` keeps the `pages.dev` copies out of search results.
+
 ## Deployment setup (one-time)
 
 1. In Cloudflare, create a Pages project named `wta-race` (Direct Upload).
