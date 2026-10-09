@@ -82,3 +82,4 @@ select { font: inherit; max-width: 100%; }
 .table-controls .note-inline { color: var(--muted); }
 .picks li > .pick { margin-left: auto; }
 .intro { margin: 0 0 6px; max-width: 70ch; }
+.loading { color: var(--muted); }
