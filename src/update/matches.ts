@@ -8,6 +8,11 @@ const ENTRY: Record<string, string> = { Q: 'Q', W: 'WC', L: 'LL', S: 'SE', A: 'A
 const CATEGORY_LEVEL: Record<string, string> = { GS: 'Grand Slam', WTA1000C: 'WTA 1000', WTA1000: 'WTA 1000', WTA500: 'WTA 500', WTA250: 'WTA 250', WTA125: 'WTA 125' };
 const LETTER_ROUND: Record<string, string> = { Q: 'QF', S: 'SF', F: 'F' };
 const num = (v: unknown): number | null => (v === null || v === undefined || v === '' || Number.isNaN(Number(v)) ? null : Number(v));
+/** Rankings and seeds start at 1; the feeds publish 0 for none. */
+const positive = (v: unknown): number | null => {
+  const n = num(v);
+  return n !== null && n > 0 ? n : null;
+};
 
 /** The race year: from the first tracked event's start to the last one's end. */
 export function raceWindow(raw: RawSeason): { start: string; end: string } {
@@ -49,9 +54,9 @@ export function toMatchRecords(raw: RawSeason, wtaId: number, feed: PlayerMatch[
         id: m.opponent?.id ?? null,
         name: m.opponent?.fullName ?? '',
         country,
-        seed: num(theirs(m.seed_1, m.seed_2)),
+        seed: positive(theirs(m.seed_1, m.seed_2)),
         entry: ENTRY[String(theirs(m.entry_type_1, m.entry_type_2) ?? '').trim()] ?? null,
-        rank: num(theirs(m.rank_1, m.rank_2)),
+        rank: positive(theirs(m.rank_1, m.rank_2)),
       },
       won: String(m.winner) === String(side),
       score: (m.scores ?? '').trim().replace(/\s+/g, ' '),
@@ -104,7 +109,7 @@ export function liveMatchRecords(raw: RawSeason, wtaId: number, snap: Pick<FeedS
           id: num(theirs(m.PlayerIDA, m.PlayerIDB)),
           name: [theirs(m.PlayerNameFirstA, m.PlayerNameFirstB), theirs(m.PlayerNameLastA, m.PlayerNameLastB)].filter(Boolean).join(' '),
           country: country ? IOC_TO_ISO[country] ?? null : null,
-          seed: num(theirs(m.SeedA, m.SeedB)),
+          seed: positive(theirs(m.SeedA, m.SeedB)),
           entry: ENTRY[String(theirs(m.EntryTypeA, m.EntryTypeB) ?? '').trim()] ?? null,
           rank: null,
         },
@@ -144,7 +149,11 @@ export function updateMatchFiles(
     const published = toMatchRecords(raw, p.wtaId, feed);
     const inFeed = new Set(published.map((r) => `${r.tournamentId}-${r.year}`));
     const underWay = live ? liveMatchRecords(raw, p.wtaId, live).filter((r) => !inFeed.has(`${r.tournamentId}-${r.year}`)) : [];
-    const next = [...published, ...underWay].sort(byDateThenRound);
+    // An event in neither source keeps what she had: e.g. one just credited (its live feed is no longer read)
+    // that her match feed doesn't list yet.
+    const known = new Set([...published, ...underWay].map((r) => `${r.tournamentId}-${r.year}`));
+    const carried = (existing[p.id] ?? []).filter((r) => !known.has(`${r.tournamentId}-${r.year}`));
+    const next = [...published, ...underWay, ...carried].sort(byDateThenRound);
     const previous = existing[p.id];
     if (previous && JSON.stringify(previous) === JSON.stringify(next)) continue;
     const invalid = matchFileSchema.safeParse(next);

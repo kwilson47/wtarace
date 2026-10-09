@@ -109,3 +109,29 @@ describe('matches at an event under way', () => {
     expect(out.notes[0]).toMatch(/^Bea Beta: her match feed had something unexpected/);
   });
 });
+
+describe('review fixes', () => {
+  it("keeps a finished event's matches until her match feed lists them", async () => {
+    const { snapshot, TOURNAMENT_IDS } = await import('./testFeeds');
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = [{
+      DrawMatchType: 'S', DrawLevelType: 'M', RoundID: 1, MatchState: 'F', PlayerIDA: '1', PlayerIDB: '102', Winner: '2',
+      PlayerNameFirstB: 'Opp', PlayerNameLastB: 'Two', ScoreString: '6-3,6-4',
+    }];
+    const first = updateMatchFiles(raw, { '1': [] }, [], {}, snap).files.ana!;
+    expect(first).toHaveLength(1);
+    // The event is credited (completed): its live feed is no longer read, and her match feed doesn't list it yet.
+    const credited = updaterSeason();
+    credited.tournaments.find((t) => t.id === 'live')!.status = 'completed';
+    const later = updateMatchFiles(credited, { '1': [] }, [], { ana: first }, snapshot(credited));
+    expect(later.files).toEqual({});
+  });
+
+  it('treats a published rank or seed of 0 as none', () => {
+    const records = toMatchRecords(updaterSeason(), 2, [
+      playerMatch({ tourn_nbr: '903', player_1: '2', rank_2: 0, seed_2: 0, winner: 1, tournament: event() }),
+    ]);
+    expect(records[0]!.opponent).toMatchObject({ rank: null, seed: null });
+  });
+});
