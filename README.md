@@ -16,6 +16,8 @@ npm run test:e2e   # Playwright, against the built site: run `npm run build` fir
 
 `npm run dev` serves the homepage, each player's season page at `/players/<player id>/` and each tournament page at `/tournaments/<tournament id>/`, the same addresses as the built site. `npm run preview` serves the last `npm run build` exactly as it deploys. `npm run build` prerenders the real pages into `dist/` via `scripts/prerender.ts`: the homepage, and `players/<id>/index.html` for every tracked player. Each player page shows her season from `data/matches/<id>.json`: record, splits, and every tournament round by round.
 
+On tournament pages for live events, and upcoming ones whose draw is out, visitors pick match winners in the bracket and the earlier-round lists. A "Race impact" panel shows the race top 10 under those picks. The picks join the homepage's scenario in `?s=`. Picks for players outside the tracked 40 are stored as `w<WTA id>` keys, e.g. `w328120.beijing-2026.F`; the race ignores them, and reconciliation drops them once the event is completed.
+
 ## Updating the data
 
 **Automatic (normal case).** The `Update data` workflow (`.github/workflows/update.yml`) runs every hour. It reads the official WTA feeds and refreshes:
