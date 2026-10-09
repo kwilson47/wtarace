@@ -1,15 +1,20 @@
 import type { Season, Tournament } from '../data/schema';
-import { buildBracket, finalists, type BracketMatch, type Slot } from '../draws/bracket';
-import type { DrawFile, DrawMatch } from '../draws/drawSchema';
+import { buildBracket, finalists, type Slot } from '../draws/bracket';
+import type { DrawFile } from '../draws/drawSchema';
+import { applyPicks, clearTournamentPicks, pickedRounds, pickWinner, type PickedMatch } from '../draws/picks';
 import { pointsTable } from '../engine/lookup';
+import { encodeScenario } from '../scenario/url';
+import { useScenario } from '../scenario/useScenario';
 import { categoryLabel, flagEmoji, formatPoints } from './format';
+import { RaceImpact } from './RaceImpact';
 import { UpdatedTime } from './UpdatedTime';
 
 const day = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 const dates = (t: Tournament) => `${day.format(new Date(`${t.startDate}T00:00:00Z`))} – ${day.format(new Date(`${t.endDate}T00:00:00Z`))}`;
 const STATUS = { completed: 'Completed', 'in-progress': 'In progress', upcoming: 'Upcoming' } as const;
 
-function Name({ wtaId, draw, season }: { wtaId: Slot; draw: DrawFile; season: Season }) {
+/** `plain` leaves a tracked player's name unlinked, for use inside a button. */
+function Name({ wtaId, draw, season, plain = false }: { wtaId: Slot; draw: DrawFile; season: Season; plain?: boolean }) {
   if (wtaId === 'bye') return <span className="bye">Bye</span>;
   if (wtaId === null) return <span className="tbd">—</span>;
   const p = draw.players.find((x) => x.wtaId === wtaId);
@@ -19,42 +24,81 @@ function Name({ wtaId, draw, season }: { wtaId: Slot; draw: DrawFile; season: Se
   return (
     <>
       {p?.country && <span aria-hidden="true">{flagEmoji(p.country)} </span>}
-      {tracked ? <a href={`/players/${tracked.id}/`}>{label}</a> : label}
+      {tracked && !plain ? <a href={`/players/${tracked.id}/`}>{label}</a> : label}
       {tag}
     </>
   );
 }
 
-function MatchBox({ m, draw, season }: { m: BracketMatch; draw: DrawFile; season: Season }) {
-  const line = (slot: Slot) => (
-    <div className={`line${m.winner !== null && slot === m.winner ? ' winner' : ''}`}>
-      <Name wtaId={slot} draw={draw} season={season} />
-    </div>
-  );
+function MatchBox({ m, draw, season, onPick }: { m: PickedMatch; draw: DrawFile; season: Season; onPick?: (wtaId: number) => void }) {
+  const line = (slot: Slot) => {
+    const won = m.winner !== null && slot === m.winner;
+    if (onPick && m.pickable && typeof slot === 'number') {
+      return (
+        <button type="button" className={`line${won ? ' winner' : ''}`} aria-pressed={won} onClick={() => onPick(slot)}>
+          <Name wtaId={slot} draw={draw} season={season} plain />
+        </button>
+      );
+    }
+    return (
+      <div className={`line${won ? ' winner' : ''}`}>
+        <Name wtaId={slot} draw={draw} season={season} />
+      </div>
+    );
+  };
   return (
-    <div className="match">
+    <div className={`match${m.conflict ? ' conflict' : ''}`}>
       {line(m.top)}
       {line(m.bottom)}
       {m.score && <div className="score">{`${m.score}${m.outcome === 'retired' ? ' ret.' : ''}`}</div>}
       {m.outcome === 'walkover' && <div className="score">w/o</div>}
+      {m.picked && <div className="pick-note">your pick</div>}
+      {m.conflict && <div className="pick-note">Your picks clash here</div>}
     </div>
   );
 }
 
-function RoundList({ label, matches, draw, season, open }: { label: string; matches: DrawMatch[]; draw: DrawFile; season: Season; open: boolean }) {
+interface RoundListProps {
+  label: string;
+  matches: PickedMatch[];
+  draw: DrawFile;
+  season: Season;
+  open: boolean;
+  onPick?: (m: PickedMatch, wtaId: number) => void;
+}
+
+function RoundList({ label, matches, draw, season, open, onPick }: RoundListProps) {
   return (
     <details open={open}>
       <summary>{`${label} (${matches.length} matches)`}</summary>
       <ul className="round-list">
         {matches.map((m, i) => {
-          const loser = m.winner === m.a ? m.b : m.a;
+          const pick = (slot: Slot) =>
+            typeof slot === 'number' ? (
+              <button type="button" className="pick" aria-pressed={m.winner === slot} onClick={() => onPick!(m, slot)}>
+                <Name wtaId={slot} draw={draw} season={season} plain />
+              </button>
+            ) : null;
+          if (m.winner !== null && !m.picked) {
+            const loser = m.winner === m.top ? m.bottom : m.top;
+            return (
+              <li key={i}>
+                <Name wtaId={m.winner} draw={draw} season={season} /> d. <Name wtaId={loser} draw={draw} season={season} />
+                {` ${m.outcome === 'walkover' ? 'w/o' : `${m.score}${m.outcome === 'retired' ? ' ret.' : ''}`}`}
+              </li>
+            );
+          }
+          if (onPick && m.pickable) {
+            return (
+              <li key={i}>
+                {pick(m.top)} vs {pick(m.bottom)}
+                {m.picked && ' (your pick)'}
+              </li>
+            );
+          }
           return (
             <li key={i}>
-              {m.winner === null ? (
-                <><Name wtaId={m.a} draw={draw} season={season} /> vs <Name wtaId={m.b} draw={draw} season={season} /></>
-              ) : (
-                <><Name wtaId={m.winner} draw={draw} season={season} /> d. <Name wtaId={loser} draw={draw} season={season} />{` ${m.outcome === 'walkover' ? 'w/o' : `${m.score}${m.outcome === 'retired' ? ' ret.' : ''}`}`}</>
-              )}
+              <Name wtaId={m.top} draw={draw} season={season} /> vs <Name wtaId={m.bottom} draw={draw} season={season} />
             </li>
           );
         })}
@@ -115,6 +159,18 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
   const qf = table.findIndex((r) => r.round === 'QF') + 1;
   const firstShown = t.status === 'completed' ? 1 : Math.max(1, qf);
   const current = draw?.matches.find((m) => m.winner === null)?.round ?? 0;
+  const { scenario, load } = useScenario(season);
+  const interactive = t.status !== 'completed' && t.drawType !== 'united-cup';
+  const applied = bracket ? applyPicks(bracket, interactive && draw ? pickedRounds(season, t, draw, scenario) : new Map()) : null;
+  const onPick = interactive ? (m: PickedMatch, wtaId: number) => load(pickWinner(scenario, season, t, m, wtaId)) : undefined;
+  const encoded = encodeScenario(scenario);
+  const share = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+    } catch {
+      window.prompt('Copy this link to share your picks:', window.location.href);
+    }
+  };
   return (
     <div className="app tournament-page">
       <nav className="crumbs"><a href="/">← Full standings</a></nav>
@@ -135,32 +191,47 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
             <p>A team event: there's no singles draw.</p>
           ) : !draw ? (
             <p>The draw hasn't been made yet.</p>
-          ) : !bracket ? (
+          ) : !bracket || !applied ? (
             <p>The draw is out, but its first round isn't complete in the WTA's data yet.</p>
           ) : (
-            <>
-              <div className="bracket">
-                {bracket.rounds.slice(firstShown - 1).map((round, i) => (
-                  <div className="bracket-round" key={firstShown + i}>
-                    <h3>{roundLabel(firstShown + i)}</h3>
-                    <div className="bracket-matches">
-                      {round.map((m, j) => <MatchBox key={j} m={m} draw={draw} season={season} />)}
+            <div className="draw-layout">
+              <div className="draw-main">
+                <div className="bracket">
+                  {applied.slice(firstShown - 1).map((round, i) => (
+                    <div className="bracket-round" key={firstShown + i}>
+                      <h3>{roundLabel(firstShown + i)}</h3>
+                      <div className="bracket-matches">
+                        {round.map((m, j) => (
+                          <MatchBox key={j} m={m} draw={draw} season={season} onPick={onPick && ((wtaId) => onPick(m, wtaId))} />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                {firstShown > 1 &&
+                  Array.from({ length: firstShown - 1 }, (_, i) => firstShown - 1 - i).map((round) => (
+                    <RoundList
+                      key={round}
+                      label={roundLabel(round)}
+                      matches={applied[round - 1]!.filter((m) => m.outcome !== 'bye')}
+                      draw={draw}
+                      season={season}
+                      open={round === current}
+                      onPick={onPick}
+                    />
+                  ))}
               </div>
-              {firstShown > 1 &&
-                Array.from({ length: firstShown - 1 }, (_, i) => firstShown - 1 - i).map((round) => (
-                  <RoundList
-                    key={round}
-                    label={roundLabel(round)}
-                    matches={draw.matches.filter((m) => m.round === round)}
-                    draw={draw}
-                    season={season}
-                    open={round === current}
-                  />
-                ))}
-            </>
+              {interactive && (
+                <div className="impact-side">
+                  <RaceImpact season={season} scenario={scenario} />
+                  <div className="impact-actions">
+                    <a href={encoded ? `/?s=${encoded}` : '/'}>Full standings with these picks →</a>
+                    <button type="button" onClick={share}>Share these picks</button>
+                    <button type="button" onClick={() => load(clearTournamentPicks(scenario, t.id))}>Clear picks for this event</button>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
         </section>
         <TrackedPlayers season={season} t={t} />

@@ -58,4 +58,10 @@ describe('hydration', () => {
   it('a tournament page hydrates cleanly', async () => {
     expect(await hydrationErrors(<TournamentPage season={season} tournamentId="next" draw={null} />)).toEqual([]);
   });
+  it('a tournament page hydrates cleanly with shared bracket picks in the URL', async () => {
+    const errors = await hydrationErrors(<TournamentPage season={season} tournamentId="live" draw={null} />, () => {
+      window.history.replaceState(null, '', '/tournaments/live/?s=w5.live.SF');
+    });
+    expect(errors).toEqual([]);
+  });
 });
