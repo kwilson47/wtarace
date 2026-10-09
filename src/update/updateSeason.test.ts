@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { drawList, liveMatches, match, playerMatch, raceRows, snapshot, TOURNAMENT_IDS, updaterSeason } from './testFeeds';
-import { updateSeason } from './updateSeason';
+import { playerFeedsNeeded, updateSeason } from './updateSeason';
 
 describe('updateSeason: totals', () => {
   it('takes official totals from the race ranking feed', () => {
@@ -189,5 +189,16 @@ describe('updateSeason: a new player in the top 40', () => {
     expect(result.raw.players.some((p) => p.wtaId === 4)).toBe(false);
     expect(result.problems[0]).toContain('Dee Delta: her results add up to 101 from 2 events, but the WTA shows 101 from 3.');
     expect(result.problems[0]).toContain('Slam Open');
+  });
+});
+
+describe('playerFeedsNeeded', () => {
+  it('asks for new top-40 players and for players at a finished event', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    expect(playerFeedsNeeded(raw, snap)).toEqual([]);
+    snap.race.push({ ranking: 4, points: 1, tournamentsPlayed: 1, player: { id: 4, fullName: 'Dee Delta', countryCode: 'FRA' } });
+    snap.eventMatches[TOURNAMENT_IDS.live!] = liveMatches([match('Q', 1, 105, 1), match('S', 1, 111, 1), match('F', 1, 117, 1)]);
+    expect(playerFeedsNeeded(raw, snap).sort()).toEqual([1, 2, 4]);
   });
 });
