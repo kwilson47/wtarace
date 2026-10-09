@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it } from 'vitest';
 import { season } from '../test/fixtures';
 import { App } from './App';
+import { PlayerPage } from './PlayerPage';
 
 /** Renders `element` as the build would (a clean URL, no stored preferences), then hydrates it in a browser-like state. */
 export async function hydrationErrors(element: ReactElement, browser: () => void = () => {}): Promise<unknown[]> {
@@ -33,5 +34,9 @@ describe('hydration', () => {
       window.localStorage.setItem('hideEliminated', 'false');
     });
     expect(errors).toEqual([]);
+  });
+
+  it('a player page hydrates cleanly', async () => {
+    expect(await hydrationErrors(<PlayerPage season={season} playerId="ana" outlook={{ status: 'qualified' }} />)).toEqual([]);
   });
 });
