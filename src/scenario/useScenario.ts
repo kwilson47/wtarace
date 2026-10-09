@@ -15,17 +15,26 @@ function loadFromUrl(season: Season): { scenario: Scenario; ignored: IgnoredPick
 }
 
 export function useScenario(season: Season) {
-  const [initial] = useState(() => loadFromUrl(season));
-  const [scenario, setScenario] = useState<Scenario>(initial.scenario);
-  const [ignored, setIgnored] = useState<IgnoredPick[]>(initial.ignored);
+  const [scenario, setScenario] = useState<Scenario>({});
+  const [ignored, setIgnored] = useState<IgnoredPick[]>([]);
+  const [loaded, setLoaded] = useState(false);
+
+  // Shared picks are read after the first render, so it matches the prerendered HTML.
+  useEffect(() => {
+    const initial = loadFromUrl(season);
+    setScenario(initial.scenario);
+    setIgnored(initial.ignored);
+    setLoaded(true);
+  }, [season]);
 
   useEffect(() => {
+    if (!loaded) return; // don't clear ?s= before it has been read
     const url = new URL(window.location.href);
     const encoded = encodeScenario(scenario);
     if (encoded) url.searchParams.set(PARAM, encoded);
     else url.searchParams.delete(PARAM);
     window.history.replaceState(null, '', url);
-  }, [scenario]);
+  }, [scenario, loaded]);
 
   const setPick = useCallback((playerId: string, tournamentId: string, round: string | null) => {
     setScenario((prev) => {

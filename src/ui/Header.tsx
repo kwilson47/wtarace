@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { formatUpdated } from './format';
+import { UpdatedTime } from './UpdatedTime';
 
 interface Props {
   season: number;
@@ -26,7 +26,7 @@ export function Header({ season, lastUpdated, onReset }: Props) {
       <p className="intro">
         {`Live standings and projections for the ${season} Race to the WTA Finals: who has qualified, who is out, and what each player still needs. Pick results for the remaining tournaments to see how the race could finish, then share your scenario.`}
       </p>
-      <p className="updated">Data updated {formatUpdated(lastUpdated)}</p>
+      <UpdatedTime iso={lastUpdated} />
       <div className="actions">
         <button type="button" onClick={share}>{copied ? 'Link copied' : 'Share'}</button>
         <button type="button" onClick={onReset}>Reset</button>
