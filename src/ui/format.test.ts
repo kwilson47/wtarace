@@ -9,7 +9,15 @@ describe('format', () => {
     expect(formatDelta(-1200)).toBe('−1,200');
     expect(formatDelta(0)).toBe('0');
   });
-  it('formats the update time in UTC', () => expect(formatUpdated('2026-10-07T14:05:00+02:00')).toBe('2026-10-07 12:05 UTC'));
+  it('formats the update time in a given time zone, naming the zone', () => {
+    const now = new Date('2026-10-09T18:00:00Z');
+    expect(formatUpdated('2026-10-09T13:03:00Z', { timeZone: 'America/New_York', locale: 'en-US', now })).toBe('Oct 9, 9:03 AM EDT');
+    expect(formatUpdated('2026-10-09T13:03:00Z', { timeZone: 'UTC', locale: 'en-US', now })).toBe('Oct 9, 1:03 PM UTC');
+  });
+  it('adds the year only when it is not the current year', () => {
+    const now = new Date('2027-01-05T00:00:00Z');
+    expect(formatUpdated('2026-10-09T13:03:00Z', { timeZone: 'UTC', locale: 'en-US', now })).toBe('Oct 9, 2026, 1:03 PM UTC');
+  });
   it('labels event categories for fans', () => {
     expect(categoryLabel('GS')).toBe('Grand Slam');
     expect(categoryLabel('WTA1000C')).toBe('WTA 1000');

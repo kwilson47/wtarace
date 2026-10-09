@@ -12,8 +12,22 @@ export function formatDelta(n: number): string {
   return '0';
 }
 
-export function formatUpdated(iso: string): string {
-  return `${new Date(iso).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
+/** The update time in the visitor's time zone (or `timeZone`), naming the zone; the year only when it isn't this year. */
+export function formatUpdated(iso: string, options: { timeZone?: string; locale?: string; now?: Date } = {}): string {
+  const { timeZone, locale, now = new Date() } = options;
+  const date = new Date(iso);
+  const yearOf = (d: Date) => new Intl.DateTimeFormat('en-US', { year: 'numeric', timeZone }).format(d);
+  return new Intl.DateTimeFormat(locale, {
+    month: 'short',
+    day: 'numeric',
+    ...(yearOf(date) === yearOf(now) ? {} : { year: 'numeric' }),
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+    timeZone,
+  })
+    .format(date)
+    .replace(/\u202f/g, ' '); // newer ICU puts a narrow no-break space before AM/PM
 }
 
 const CATEGORY_LABELS: Record<string, string> = {

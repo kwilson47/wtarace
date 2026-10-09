@@ -35,7 +35,7 @@ describe('App', () => {
 
   it('shows the current race when there are no picks', () => {
     render(<App season={season} />);
-    expect(screen.getByText('Data updated 2026-10-07 12:00 UTC')).toBeInTheDocument();
+    expect(screen.getByText(/^Data updated Oct 7/)).toBeInTheDocument();
     expect(projected('ana')).toHaveTextContent('1,160');
     expect(delta('ana')).toHaveTextContent('0');
   });
