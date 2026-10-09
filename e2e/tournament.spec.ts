@@ -6,7 +6,7 @@ test('a player page links to a tournament page, which links back to players', as
   await expect(page).toHaveURL(/\/tournaments\/toronto-2026\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Toronto 2026');
   await expect(page.getByText(/^Champion: Iga Swiatek/)).toBeVisible();
-  await page.getByRole('region', { name: 'Our players' }).getByRole('link', { name: 'Elena Rybakina' }).click();
+  await page.getByRole('region', { name: 'Tracked players' }).getByRole('link', { name: 'Elena Rybakina' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Elena Rybakina');
 });
 

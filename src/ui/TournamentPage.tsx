@@ -63,8 +63,8 @@ function RoundList({ label, matches, draw, season, open }: { label: string; matc
   );
 }
 
-/** Our tracked players at this event: result and points, current round, or entered. */
-function OurPlayers({ season, t }: { season: Season; t: Tournament }) {
+/** Tracked players at this event: result and points, current round, or entered. */
+function TrackedPlayers({ season, t }: { season: Season; t: Tournament }) {
   const table = pointsTable(season.rules, t.drawType);
   const label = (round: string) => (round === 'W' ? 'Winner' : round === 'ZP' ? 'Zero-pointer' : round);
   const rows = season.players.flatMap((p) => {
@@ -77,8 +77,8 @@ function OurPlayers({ season, t }: { season: Season; t: Tournament }) {
   });
   rows.sort((a, b) => b.depth - a.depth);
   return (
-    <section aria-label="Our players">
-      <h2>Our players</h2>
+    <section aria-label="Tracked players">
+      <h2>Tracked players</h2>
       {rows.length ? (
         <ul className="our-players">
           {rows.map(({ p, text }) => (
@@ -103,7 +103,7 @@ interface Props {
   draw: DrawFile | null;
 }
 
-/** An event: header, our players, and its draw (full bracket once completed; from the quarterfinals while live). */
+/** An event: header, its draw (full bracket once completed; from the quarterfinals while live), then our tracked players. */
 export function TournamentPage({ season, tournamentId, draw }: Props) {
   const t = season.tournaments.find((x) => x.id === tournamentId)!;
   const year = t.startDate.slice(0, 4);
@@ -129,7 +129,6 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
         <UpdatedTime iso={season.meta.lastUpdated} />
       </header>
       <main>
-        <OurPlayers season={season} t={t} />
         <section aria-label="Draw">
           <h2>Draw</h2>
           {t.drawType === 'united-cup' ? (
@@ -164,6 +163,7 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
             </>
           )}
         </section>
+        <TrackedPlayers season={season} t={t} />
       </main>
     </div>
   );

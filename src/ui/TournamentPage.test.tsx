@@ -43,7 +43,7 @@ describe('TournamentPage', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('City 500 2026');
     expect(screen.getByText(/WTA 500 · Completed/)).toBeInTheDocument();
     expect(screen.getByText('Champion: Ana Alpha · Runner-up: Bea Beta · 6-3 6-4')).toBeInTheDocument();
-    const ours = screen.getByRole('region', { name: 'Our players' });
+    const ours = screen.getByRole('region', { name: 'Tracked players' });
     expect(within(ours).getByRole('link', { name: 'Ana Alpha' })).toHaveAttribute('href', '/players/ana/');
     expect(ours).toHaveTextContent('Ana Alpha — Winner · 100 pts');
     const bracket = screen.getByRole('region', { name: 'Draw' });
@@ -67,7 +67,7 @@ describe('TournamentPage', () => {
     s.tournaments.find((t) => t.id === 'next')!.entries = ['cat'];
     render(<TournamentPage season={s} tournamentId="next" draw={null} />);
     expect(screen.getByText("The draw hasn't been made yet.")).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Our players' })).toHaveTextContent('Cat Gamma — Entered');
+    expect(screen.getByRole('region', { name: 'Tracked players' })).toHaveTextContent('Cat Gamma — Entered');
   });
 
   it('explains that a team event has no singles draw', () => {
