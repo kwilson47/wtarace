@@ -127,3 +127,23 @@ select { font: inherit; max-width: 100%; }
 .tournament-link { display: inline-block; margin: 0 12px 12px 0; color: var(--accent-text); }
 .player-page .tournament h3 a { color: inherit; }
 .our-players { columns: 3 230px; column-gap: 24px; } .our-players li { break-inside: avoid; }
+
+/* Bracket picker: the draw beside the race impact (below it on phones). */
+.draw-layout { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: flex-start; }
+.draw-layout > .draw-main { flex: 1 1 560px; min-width: 0; }
+.draw-layout > .impact-side { flex: 0 1 340px; min-width: 0; }
+.race-impact h2 { margin-top: 0; }
+.impact { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.impact td { padding: 4px; border-bottom: 1px solid var(--line); }
+.impact td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.impact tr.qualifier { background: var(--qualifier-bg); }
+.impact tr.cutoff td { border-bottom: 3px solid var(--accent); }
+.impact a { color: var(--accent-text); }
+.impact-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; font-size: 0.9rem; }
+.impact-actions a { color: var(--accent-text); }
+.match button.line, .round-list button.pick { display: block; width: 100%; text-align: left; font: inherit; border: 0; border-radius: 4px; padding: 1px 3px; background: transparent; color: inherit; cursor: pointer; }
+.round-list button.pick { display: inline; width: auto; }
+.match button.line:hover, .round-list button.pick:hover { background: var(--alt-bg); }
+.match button.line[aria-pressed='true'], .round-list button.pick[aria-pressed='true'] { font-weight: 600; background: var(--qualifier-bg); }
+.match.conflict { border-color: var(--warn); }
+.match .pick-note { color: var(--accent-text); font-size: 0.75rem; }

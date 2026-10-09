@@ -26,7 +26,7 @@ function rowClasses(rows: StandingRow[], eliminated: ReadonlySet<string>): Map<s
   return new Map([...classes].map(([id, names]) => [id, names.join(' ')]));
 }
 
-function RankChange({ change }: { change: number }) {
+export function RankChange({ change }: { change: number }) {
   if (change > 0) return <span className="up" aria-label={`Up ${change}`}>▲{change}</span>;
   if (change < 0) return <span className="down" aria-label={`Down ${-change}`}>▼{-change}</span>;
   return <span className="same" aria-label="No change">–</span>;
