@@ -4,12 +4,12 @@ import { IOC_TO_ISO, titleCase } from './newPlayers';
 import type { RawSeason } from './shared';
 
 const TEAM = /UNITED CUP|BILLIE JEAN KING|BJK CUP/i;
-const ENTRY: Record<string, string> = { Q: 'Q', W: 'WC', L: 'LL', S: 'SE', A: 'Alt', P: 'PR', WC: 'WC', LL: 'LL', SE: 'SE', PR: 'PR', ALT: 'Alt' };
+export const ENTRY: Record<string, string> = { Q: 'Q', W: 'WC', L: 'LL', S: 'SE', A: 'Alt', P: 'PR', WC: 'WC', LL: 'LL', SE: 'SE', PR: 'PR', ALT: 'Alt' };
 const CATEGORY_LEVEL: Record<string, string> = { GS: 'Grand Slam', WTA1000C: 'WTA 1000', WTA1000: 'WTA 1000', WTA500: 'WTA 500', WTA250: 'WTA 250', WTA125: 'WTA 125' };
 const LETTER_ROUND: Record<string, string> = { Q: 'QF', S: 'SF', F: 'F' };
-const num = (v: unknown): number | null => (v === null || v === undefined || v === '' || Number.isNaN(Number(v)) ? null : Number(v));
+export const num = (v: unknown): number | null => (v === null || v === undefined || v === '' || Number.isNaN(Number(v)) ? null : Number(v));
 /** Rankings and seeds start at 1; the feeds publish 0 for none. */
-const positive = (v: unknown): number | null => {
+export const positive = (v: unknown): number | null => {
   const n = num(v);
   return n !== null && n > 0 ? n : null;
 };

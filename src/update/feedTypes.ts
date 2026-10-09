@@ -23,7 +23,7 @@ export interface CalendarEvent {
 }
 
 export interface EventPlayer {
-  players: { id: number; fullName: string }[];
+  players: { id: number; fullName: string; countryCode?: string | null }[];
   seed: string | number | null;
   entryType: string | null;
 }
