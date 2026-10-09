@@ -1,6 +1,7 @@
 import { validateSeason } from '../data/validateSeason';
 import type { FeedSnapshot } from './feedTypes';
 import type { Ctx, RawSeason } from './shared';
+import { updateEntries } from './entries';
 import { updateEvents } from './events';
 import { updateTotals } from './totals';
 
@@ -21,6 +22,7 @@ export function updateSeason(raw: RawSeason, snap: FeedSnapshot): UpdateResult {
   const ctx: Ctx = { raw: structuredClone(raw), snap, changes: [], notes: [], problems: [] };
   updateTotals(ctx);
   updateEvents(ctx);
+  updateEntries(ctx);
   if (ctx.problems.length === 0) ctx.problems.push(...validateSeason(ctx.raw));
   const changed = JSON.stringify(ctx.raw) !== JSON.stringify(raw);
   if (changed && ctx.changes.length === 0) ctx.changes.push('Data refresh');

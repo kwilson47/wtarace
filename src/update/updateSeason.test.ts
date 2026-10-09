@@ -95,3 +95,21 @@ describe('updateSeason: events in progress', () => {
     expect(updateSeason(raw, snap).problems).toContain("Live Masters is in progress but its draw isn't in the feeds.");
   });
 });
+
+describe('updateSeason: entry lists', () => {
+  it('records tracked players on an upcoming entry list', () => {
+    const result = updateSeason(updaterSeason(), snapshot());
+    expect(result.raw.tournaments.find((t) => t.id === 'next')!.entries).toEqual(['ana', 'cat']);
+    expect(result.changes).toContain('Next Open entries: +Ana Alpha, +Cat Gamma');
+  });
+
+  it('keeps the previous list when the feed empties or more than halves', () => {
+    const raw = updaterSeason();
+    raw.tournaments.find((t) => t.id === 'next')!.entries = ['ana', 'bea', 'cat'];
+    const snap = snapshot(raw);
+    snap.eventPlayers[TOURNAMENT_IDS.next!] = { events: [{ eventTypeCode: 'RS', eventPlayers: drawList(4, {}) }] };
+    const result = updateSeason(raw, snap);
+    expect(result.raw.tournaments.find((t) => t.id === 'next')!.entries).toEqual(['ana', 'bea', 'cat']);
+    expect(result.notes).toContain('Next Open: the entry list came back with 0 of our 3 entrants, so the previous list was kept.');
+  });
+});
