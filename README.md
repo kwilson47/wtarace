@@ -14,13 +14,13 @@ npm test           # unit + component tests
 npm run test:e2e   # Playwright, against the built site: run `npm run build` first
 ```
 
-`npm run dev` serves the homepage and each player's season page at `/players/<player id>/`, the same addresses as the built site. `npm run preview` serves the last `npm run build` exactly as it deploys. `npm run build` prerenders the real pages into `dist/` via `scripts/prerender.ts`: the homepage, and `players/<id>/index.html` for every tracked player. Each player page shows her season from `data/matches/<id>.json`: record, splits, and every tournament round by round.
+`npm run dev` serves the homepage, each player's season page at `/players/<player id>/` and each tournament page at `/tournaments/<tournament id>/`, the same addresses as the built site. `npm run preview` serves the last `npm run build` exactly as it deploys. `npm run build` prerenders the real pages into `dist/` via `scripts/prerender.ts`: the homepage, and `players/<id>/index.html` for every tracked player. Each player page shows her season from `data/matches/<id>.json`: record, splits, and every tournament round by round.
 
 ## Updating the data
 
 **Automatic (normal case).** The `Update data` workflow (`.github/workflows/update.yml`) runs every hour. It reads the official WTA feeds and refreshes:
 - race totals;
-- every tracked player's match results (`data/matches/`; see `data/SOURCES.md`);
+- every tracked player's match results (`data/matches/`) and every tracked event's draw (`data/draws/`); see `data/SOURCES.md`;
 - live rounds, draw sizes, draw positions and byes at events under way;
 - entry lists;
 - crediting finished events once the WTA posts their points;
@@ -41,7 +41,7 @@ If every official total still reproduces and all checks pass, it commits (as `gi
    - When a draw comes out: fill that tournament's `byes` with tracked player ids.
    - When an upcoming event's entry list is published or changes: set its `entries` to the tracked player ids on it (main draw or qualifying), from `https://api.wtatennis.com/tennis/tournaments/{id}/{year}/players`. An empty list means none of them entered; leave the field out until a list is published. It only affects how the scenario editor orders and tags players.
    - While an event is in progress: set its `drawSize` and give each alive tracked player's `live` entry a `drawPosition`, both from the draw order in `https://api.wtatennis.com/tennis/tournaments/{id}/{year}/players` (1-based). The qualification check uses them to know who can meet whom; without them it is more cautious and may show Q later.
-2. `npm run validate`. It must print `Data OK`. It also checks the match files. Never change an `officialRaceTotal` to make it pass. A mismatch means a data or rules error.
+2. `npm run validate`. It must print `Data OK`. It also checks the match and draw files. Never change an `officialRaceTotal` to make it pass. A mismatch means a data or rules error.
 3. Commit and push. CI runs every check and deploys only if they all pass. A failing push leaves the live site unchanged.
 
 Data rules to keep in mind:

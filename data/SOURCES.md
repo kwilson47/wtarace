@@ -90,6 +90,19 @@ One file per tracked player, `data/matches/<player id>.json`, filled by the auto
 - **Points** are ranking points as published. They're absent while an event is under way.
 - **Names:** an event we track uses our short name. Others use the feed's city, or the event name when the city is blank.
 
+## Draws (`data/draws/`)
+
+One file per tracked event, `data/draws/<tournament id>.json`, filled by the automatic updater from 2026-10-09. Like match data, draws are published fact: never checked against totals, and they never block an update.
+
+- **Source:** the event's `tournaments/{id}/{year}/players` feed (`LS` event, in draw order) and `tournaments/{id}/{year}/matches` feed (main-draw singles).
+- **When a file is written:** only once the draw is out, meaning the main-draw singles matches are listed; before that, `LS` is only the entry list. Live and upcoming events are refreshed every run. Completed events are fetched once, and finally in the run that credits them.
+- **Byes:** the draw order doesn't count them. The bracket (`src/draws/bracket.ts`) has `2^⌈log2 n⌉` lines. A player with no first-round match takes a whole first-round pair with her bye; everyone else takes one line.
+- **Rounds** come from the match id, which counts down from the final (`LS001` = final, `LS002`–`003` = semifinals, …). The feed can publish an upcoming match with a different `RoundID`; Beijing 2026's scheduled semifinals said "2".
+- **Winner codes:** even means player A won (2, or 4 on retirement); odd means player B (3 or 5).
+- **Scores** are winner-first.
+- **Checked on the first fill:** all 45 draws build, with the right round count. Every match is placed exactly once, and every completed event's champion matches our stored results.
+- **The United Cup** is a team event with no singles knockout draw, so it has no draw file.
+
 ## Tournaments (`tournaments.json`)
 
 - **Completed events:** the name, dates and draw size come from the `tournament` object in the official WTA match feed (below). Sponsor suffixes such as "presented by …" are trimmed.
