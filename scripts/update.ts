@@ -1,10 +1,11 @@
 // Refreshes data/ from the official WTA feeds.
 // Usage: tsx scripts/update.ts [--dry-run] [--out result.json] [--message commit-message.txt]
 import { writeFileSync } from 'node:fs';
-import { fetchSnapshot } from '../src/update/feeds';
+import { updateDrawFiles } from '../src/update/draws';
+import { fetchEventFeeds, fetchSnapshot } from '../src/update/feeds';
 import { updateSeason } from '../src/update/updateSeason';
 import { updateMatchFiles } from '../src/update/matches';
-import { readData, readMatchFiles, writeData, writeMatchFiles } from '../src/update/writeData';
+import { readData, readDrawFiles, readMatchFiles, writeData, writeDrawFiles, writeMatchFiles } from '../src/update/writeData';
 
 const args = process.argv.slice(2);
 const option = (name: string) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
@@ -40,8 +41,30 @@ const result = updateSeason(raw, snapshot);
 const matchUpdate = result.problems.length
   ? { files: {}, changes: [], notes: [] }
   : updateMatchFiles(result.raw, snapshot.playerMatches, snapshot.playerFeedErrors ?? [], readMatchFiles(dir), snapshot);
-const changed = result.changed || Object.keys(matchUpdate.files).length > 0;
-const base = { at, changes: [...result.changes, ...matchUpdate.changes], notes: [...result.notes, ...matchUpdate.notes], problems: result.problems };
+const existingDraws = readDrawFiles(dir);
+const drawFeeds = { players: { ...snapshot.eventPlayers }, matches: { ...snapshot.eventMatches } };
+const drawFailures: string[] = [];
+if (!result.problems.length) {
+  // Completed events are fetched once, for their first draw file.
+  for (const t of result.raw.tournaments) {
+    if (t.wtaId === undefined || t.status !== 'completed' || existingDraws[t.id] || drawFeeds.matches[String(t.wtaId)]) continue;
+    try {
+      const feeds = await fetchEventFeeds(t);
+      drawFeeds.players[String(t.wtaId)] = feeds.players;
+      drawFeeds.matches[String(t.wtaId)] = feeds.matches;
+    } catch {
+      drawFailures.push(t.id);
+    }
+  }
+}
+const drawUpdate = result.problems.length ? { files: {}, changes: [], notes: [] } : updateDrawFiles(result.raw, drawFeeds, existingDraws, drawFailures);
+const changed = result.changed || Object.keys(matchUpdate.files).length > 0 || Object.keys(drawUpdate.files).length > 0;
+const base = {
+  at,
+  changes: [...result.changes, ...matchUpdate.changes, ...drawUpdate.changes],
+  notes: [...result.notes, ...matchUpdate.notes, ...drawUpdate.notes],
+  problems: result.problems,
+};
 if (result.problems.length) finish({ status: 'blocked', ...base });
 else if (!changed) finish({ status: 'unchanged', ...base });
 else {
@@ -49,6 +72,7 @@ else {
     result.raw.meta.lastUpdated = `${at.slice(0, 16)}:00Z`;
     writeData(dir, result.raw);
     writeMatchFiles(dir, matchUpdate.files);
+    writeDrawFiles(dir, drawUpdate.files);
     const messageFile = option('--message');
     if (messageFile) writeFileSync(messageFile, `data: automatic update\n\n${base.changes.map((c) => `- ${c}`).join('\n')}\n`);
   }

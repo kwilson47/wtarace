@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { EventPlayersFeed, LiveMatch } from './feedTypes';
-import { isDrawOut, toDrawFile } from './draws';
+import { isDrawOut, toDrawFile, updateDrawFiles } from './draws';
+import { updaterSeason } from './testFeeds';
 
 const table = [{ round: 'R32' }, { round: 'R16' }, { round: 'QF' }, { round: 'SF' }, { round: 'F' }, { round: 'W' }];
 const players: EventPlayersFeed = {
@@ -46,5 +47,34 @@ describe('toDrawFile', () => {
     expect(isDrawOut([])).toBe(false);
     expect(isDrawOut([m({ DrawLevelType: 'Q' })])).toBe(false);
     expect(isDrawOut([m({ MatchState: 'U' })])).toBe(true);
+  });
+});
+
+describe('rounds of upcoming matches', () => {
+  it('takes the round from the match id, which the feed numbers from the final down', () => {
+    // An unplayed semifinal published with RoundID 2: the match id LS003 still places it in the semifinals.
+    const draw = toDrawFile(table, players, [m({ RoundID: 2, MatchState: 'U', MatchID: 'LS003' }), m({ RoundID: '1', MatchID: 'LS016', Winner: '2', ScoreString: '6-1,6-1' })]);
+    expect(draw.matches.map((x) => x.round)).toEqual([1, 4]);
+  });
+});
+
+describe('updateDrawFiles', () => {
+  const raw = updaterSeason();
+  const feeds = (matches: LiveMatch[]) => ({ players: { '905': players }, matches: { '905': matches } });
+
+  it('writes a draw once it is out, and only when it changes', () => {
+    expect(updateDrawFiles(raw, feeds([]), {}, []).files).toEqual({});
+    const first = updateDrawFiles(raw, feeds([m({ Winner: '3', ScoreString: '6-4,6-4' })]), {}, []);
+    expect(Object.keys(first.files)).toEqual(['live']);
+    expect(first.changes).toEqual(['Draw: Live Masters added']);
+    expect(updateDrawFiles(raw, feeds([m({ Winner: '3', ScoreString: '6-4,6-4' })]), first.files, []).files).toEqual({});
+    const more = updateDrawFiles(raw, feeds([m({ Winner: '3', ScoreString: '6-4,6-4' }), m({ RoundID: 2, PlayerIDA: '1', PlayerIDB: '3', MatchState: 'U' })]), first.files, []);
+    expect(more.changes).toEqual(['Draw: Live Masters updated']);
+  });
+
+  it("keeps the previous draw when an event's feeds failed", () => {
+    const out = updateDrawFiles(raw, { players: {}, matches: {} }, { live: { drawSize: 0, players: [], matches: [] } }, ['live']);
+    expect(out.files).toEqual({});
+    expect(out.notes).toEqual(["Live Masters: its draw feeds didn't load, so the previous draw was kept."]);
   });
 });

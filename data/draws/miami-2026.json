@@ -1,0 +1,1439 @@
+{
+  "drawSize": 96,
+  "players": [
+    {
+      "wtaId": 320760,
+      "name": "Aryna Sabalenka",
+      "country": "BY",
+      "seed": 1,
+      "entry": null
+    },
+    {
+      "wtaId": 326096,
+      "name": "Ann Li",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 320728,
+      "name": "Kimberly Birrell",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 325725,
+      "name": "Caty McNally",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 322087,
+      "name": "Rebeka Masarova",
+      "country": "CH",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 326376,
+      "name": "Xinyu Wang",
+      "country": "CN",
+      "seed": 29,
+      "entry": null
+    },
+    {
+      "wtaId": 328120,
+      "name": "Qinwen Zheng",
+      "country": "CN",
+      "seed": 23,
+      "entry": null
+    },
+    {
+      "wtaId": 318358,
+      "name": "Jennifer Brady",
+      "country": "US",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 315683,
+      "name": "Sloane Stephens",
+      "country": "US",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 320408,
+      "name": "Elena-Gabriela Ruse",
+      "country": "RO",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329505,
+      "name": "Antonia Ruzic",
+      "country": "HR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 316959,
+      "name": "Madison Keys",
+      "country": "US",
+      "seed": 15,
+      "entry": null
+    },
+    {
+      "wtaId": 316738,
+      "name": "Elina Svitolina",
+      "country": "UA",
+      "seed": 9,
+      "entry": null
+    },
+    {
+      "wtaId": 333111,
+      "name": "Emerson Jones",
+      "country": "AU",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 329627,
+      "name": "Linda Fruhvirtova",
+      "country": "CZ",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 327101,
+      "name": "Hailey Baptiste",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 310440,
+      "name": "Tatjana Maria",
+      "country": "DE",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 322222,
+      "name": "Liudmila Samsonova",
+      "country": "RU",
+      "seed": 19,
+      "entry": null
+    },
+    {
+      "wtaId": 319939,
+      "name": "Jelena Ostapenko",
+      "country": "LV",
+      "seed": 25,
+      "entry": null
+    },
+    {
+      "wtaId": 324261,
+      "name": "Dayana Yastremska",
+      "country": "UA",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329409,
+      "name": "Ashlyn Krueger",
+      "country": "US",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 324576,
+      "name": "Lulu Sun",
+      "country": "NZ",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 318609,
+      "name": "Taylor Townsend",
+      "country": "US",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 319280,
+      "name": "Jasmine Paolini",
+      "country": "IT",
+      "seed": 7,
+      "entry": null
+    },
+    {
+      "wtaId": 324166,
+      "name": "Elena Rybakina",
+      "country": "KZ",
+      "seed": 3,
+      "entry": null
+    },
+    {
+      "wtaId": 328818,
+      "name": "Janice Tjen",
+      "country": "ID",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 317683,
+      "name": "Yulia Putintseva",
+      "country": "KZ",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329081,
+      "name": "Solana Sierra",
+      "country": "AR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 325936,
+      "name": "Kamilla Rakhimova",
+      "country": "UZ",
+      "seed": null,
+      "entry": "LL"
+    },
+    {
+      "wtaId": 326482,
+      "name": "Marta Kostyuk",
+      "country": "UA",
+      "seed": 27,
+      "entry": null
+    },
+    {
+      "wtaId": 332285,
+      "name": "Iva Jovic",
+      "country": "US",
+      "seed": 18,
+      "entry": null
+    },
+    {
+      "wtaId": 320124,
+      "name": "Paula Badosa",
+      "country": "ES",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 317790,
+      "name": "Aliaksandra Sasnovich",
+      "country": "BY",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 330375,
+      "name": "Sara Bejlek",
+      "country": "CZ",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329393,
+      "name": "Talia Gibson",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 319998,
+      "name": "Naomi Osaka",
+      "country": "JP",
+      "seed": 16,
+      "entry": null
+    },
+    {
+      "wtaId": 319007,
+      "name": "Ekaterina Alexandrova",
+      "country": "RU",
+      "seed": 11,
+      "entry": null
+    },
+    {
+      "wtaId": 332150,
+      "name": "Lilli Tagger",
+      "country": "AT",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 330548,
+      "name": "Ella Seidel",
+      "country": "DE",
+      "seed": null,
+      "entry": "LL"
+    },
+    {
+      "wtaId": 316296,
+      "name": "Viktorija Golubic",
+      "country": "CH",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 327573,
+      "name": "Peyton Stearns",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 320319,
+      "name": "Jaqueline Cristian",
+      "country": "RO",
+      "seed": 34,
+      "entry": null
+    },
+    {
+      "wtaId": 326735,
+      "name": "Leylah Fernandez",
+      "country": "CA",
+      "seed": 26,
+      "entry": null
+    },
+    {
+      "wtaId": 324789,
+      "name": "Emiliana Arango",
+      "country": "CO",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329199,
+      "name": "Oksana Selekhmeteva",
+      "country": "RU",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 324479,
+      "name": "Francesca Jones",
+      "country": "GB",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 230220,
+      "name": "Venus Williams",
+      "country": "US",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 316956,
+      "name": "Jessica Pegula",
+      "country": "US",
+      "seed": 5,
+      "entry": null
+    },
+    {
+      "wtaId": 326384,
+      "name": "Amanda Anisimova",
+      "country": "US",
+      "seed": 6,
+      "entry": null
+    },
+    {
+      "wtaId": 325771,
+      "name": "Simona Waltert",
+      "country": "CH",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 315232,
+      "name": "Ajla Tomljanovic",
+      "country": "AU",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 325826,
+      "name": "Eva Lys",
+      "country": "DE",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 325338,
+      "name": "Yuliia Starodubtseva",
+      "country": "UA",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 321158,
+      "name": "Cristina Bucsa",
+      "country": "ES",
+      "seed": 30,
+      "entry": null
+    },
+    {
+      "wtaId": 330482,
+      "name": "Diana Shnaider",
+      "country": "RU",
+      "seed": 20,
+      "entry": null
+    },
+    {
+      "wtaId": 330808,
+      "name": "Tereza Valentova",
+      "country": "CZ",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 327391,
+      "name": "Katie Volynets",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 326907,
+      "name": "Zeynep Sonmez",
+      "country": "TR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 318176,
+      "name": "Beatriz Haddad Maia",
+      "country": "BR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 319001,
+      "name": "Belinda Bencic",
+      "country": "CH",
+      "seed": 12,
+      "entry": null
+    },
+    {
+      "wtaId": 329668,
+      "name": "Linda Noskova",
+      "country": "CZ",
+      "seed": 14,
+      "entry": null
+    },
+    {
+      "wtaId": 311779,
+      "name": "Shuai Zhang",
+      "country": "CN",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 312469,
+      "name": "Sorana Cirstea",
+      "country": "RO",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 321106,
+      "name": "Dalma Galfi",
+      "country": "HU",
+      "seed": null,
+      "entry": "Alt"
+    },
+    {
+      "wtaId": 327834,
+      "name": "Elvina Kalieva",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 317964,
+      "name": "Elise Mertens",
+      "country": "BE",
+      "seed": 21,
+      "entry": null
+    },
+    {
+      "wtaId": 318312,
+      "name": "Maria Sakkari",
+      "country": "GR",
+      "seed": 33,
+      "entry": null
+    },
+    {
+      "wtaId": 326007,
+      "name": "Alycia Parks",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 327061,
+      "name": "Sinja Kraus",
+      "country": "AT",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 329457,
+      "name": "Darja Semenistaja",
+      "country": "LV",
+      "seed": null,
+      "entry": "LL"
+    },
+    {
+      "wtaId": 327909,
+      "name": "Elisabetta Cocciaretto",
+      "country": "IT",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 328560,
+      "name": "Coco Gauff",
+      "country": "US",
+      "seed": 4,
+      "entry": null
+    },
+    {
+      "wtaId": 331809,
+      "name": "Mirra Andreeva",
+      "country": "RU",
+      "seed": 8,
+      "entry": null
+    },
+    {
+      "wtaId": 326678,
+      "name": "McCartney Kessler",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 320277,
+      "name": "Magdalena Frech",
+      "country": "PL",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329057,
+      "name": "Darja Vidmanova",
+      "country": "CZ",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 328142,
+      "name": "Elsa Jacquemot",
+      "country": "FR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 320983,
+      "name": "Marie Bouzkova",
+      "country": "CZ",
+      "seed": 32,
+      "entry": null
+    },
+    {
+      "wtaId": 323942,
+      "name": "Anna Kalinskaya",
+      "country": "RU",
+      "seed": 22,
+      "entry": null
+    },
+    {
+      "wtaId": 327367,
+      "name": "Anastasia Zakharova",
+      "country": "RU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 322942,
+      "name": "Anna Bondar",
+      "country": "HU",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 320942,
+      "name": "Sofia Kenin",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 324267,
+      "name": "Anna Blinkova",
+      "country": "RU",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 331006,
+      "name": "Victoria Mboko",
+      "country": "CA",
+      "seed": 10,
+      "entry": null
+    },
+    {
+      "wtaId": 322191,
+      "name": "Karolina Muchova",
+      "country": "CZ",
+      "seed": 13,
+      "entry": null
+    },
+    {
+      "wtaId": 320301,
+      "name": "Katerina Siniakova",
+      "country": "CZ",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 325898,
+      "name": "Camila Osorio",
+      "country": "CO",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 319125,
+      "name": "Katie Boulter",
+      "country": "GB",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 328139,
+      "name": "Jessica Bouzas Maneiro",
+      "country": "ES",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 327793,
+      "name": "Clara Tauson",
+      "country": "DK",
+      "seed": 17,
+      "entry": null
+    },
+    {
+      "wtaId": 330332,
+      "name": "Alexandra Eala",
+      "country": "PH",
+      "seed": 31,
+      "entry": null
+    },
+    {
+      "wtaId": 310926,
+      "name": "Laura Siegemund",
+      "country": "DE",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 330799,
+      "name": "Petra Marcinko",
+      "country": "HR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 315130,
+      "name": "Magda Linette",
+      "country": "PL",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 325836,
+      "name": "Varvara Gracheva",
+      "country": "FR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 326408,
+      "name": "Iga Swiatek",
+      "country": "PL",
+      "seed": 2,
+      "entry": null
+    }
+  ],
+  "matches": [
+    {
+      "round": 1,
+      "a": 329057,
+      "b": 328142,
+      "winner": 328142,
+      "score": "6-7(5) 7-5 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 325771,
+      "b": 315232,
+      "winner": 315232,
+      "score": "6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 315130,
+      "b": 325836,
+      "winner": 315130,
+      "score": "2-6 6-2 6-0",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 326678,
+      "b": 320277,
+      "winner": 326678,
+      "score": "2-6 6-4 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 310926,
+      "b": 330799,
+      "winner": 310926,
+      "score": "6-4 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 319125,
+      "b": 328139,
+      "winner": 319125,
+      "score": "7-6(9) 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 311779,
+      "b": 312469,
+      "winner": 312469,
+      "score": "6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 326907,
+      "b": 318176,
+      "winner": 326907,
+      "score": "6-3 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 320942,
+      "b": 324267,
+      "winner": 324267,
+      "score": "3-6 6-1 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 320301,
+      "b": 325898,
+      "winner": 325898,
+      "score": "6-1 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 330375,
+      "b": 329393,
+      "winner": 329393,
+      "score": "6-1 6-0",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 320124,
+      "b": 317790,
+      "winner": 320124,
+      "score": "7-5 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 330808,
+      "b": 327391,
+      "winner": 330808,
+      "score": "6-2 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 326007,
+      "b": 327061,
+      "winner": 326007,
+      "score": "7-5 7-6(4)",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 321106,
+      "b": 327834,
+      "winner": 327834,
+      "score": "6-3 6-7(5) 7-6(5)",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 327367,
+      "b": 322942,
+      "winner": 327367,
+      "score": "5-7 6-3 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 325826,
+      "b": 325338,
+      "winner": 325338,
+      "score": "6-1 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 329457,
+      "b": 327909,
+      "winner": 327909,
+      "score": "6-4 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 324479,
+      "b": 230220,
+      "winner": 324479,
+      "score": "7-5 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 316296,
+      "b": 327573,
+      "winner": 327573,
+      "score": "7-6(6) 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 332150,
+      "b": 330548,
+      "winner": 332150,
+      "score": "6-7(8) 6-4 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 324789,
+      "b": 329199,
+      "winner": 329199,
+      "score": "6-3 4-6 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 326096,
+      "b": 320728,
+      "winner": 326096,
+      "score": "6-2 2-6 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 328818,
+      "b": 317683,
+      "winner": 317683,
+      "score": "3-6 6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 327101,
+      "b": 310440,
+      "winner": 327101,
+      "score": "7-5 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 325725,
+      "b": 322087,
+      "winner": 325725,
+      "score": "6-2 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 329081,
+      "b": 325936,
+      "winner": 325936,
+      "score": "6-1 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 324261,
+      "b": 329409,
+      "winner": 324261,
+      "score": "2-6 6-4 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 324576,
+      "b": 318609,
+      "winner": 318609,
+      "score": "7-6(5) 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 320408,
+      "b": 329505,
+      "winner": 320408,
+      "score": "7-5 7-6(3)",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 333111,
+      "b": 329627,
+      "winner": 333111,
+      "score": "3-6 7-6(3) 7-6(4)",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 318358,
+      "b": 315683,
+      "winner": 315683,
+      "score": "6-4 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 330332,
+      "b": 310926,
+      "winner": 330332,
+      "score": "6-7(6) 6-3 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 315130,
+      "b": 326408,
+      "winner": 315130,
+      "score": "1-6 7-5 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 328142,
+      "b": 320983,
+      "winner": 320983,
+      "score": "6-2 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 331809,
+      "b": 326678,
+      "winner": 331809,
+      "score": "6-1 6-7(3) 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 329668,
+      "b": 312469,
+      "winner": 312469,
+      "score": "6-2 3-6 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 326907,
+      "b": 319001,
+      "winner": 319001,
+      "score": "6-3 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 324267,
+      "b": 331006,
+      "winner": 331006,
+      "score": "6-2 6-0",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 323942,
+      "b": 327367,
+      "winner": 327367,
+      "score": "3-6 6-1 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 330482,
+      "b": 330808,
+      "winner": 330482,
+      "score": "7-6(7) 7-6(3)",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 326384,
+      "b": 315232,
+      "winner": 326384,
+      "score": "6-1 5-7 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 318312,
+      "b": 326007,
+      "winner": 326007,
+      "score": "6-3 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 319125,
+      "b": 327793,
+      "winner": 319125,
+      "score": "6-7(4) 6-4 1-0",
+      "outcome": "retired"
+    },
+    {
+      "round": 2,
+      "a": 325338,
+      "b": 321158,
+      "winner": 325338,
+      "score": "6-2 3-2",
+      "outcome": "retired"
+    },
+    {
+      "round": 2,
+      "a": 322191,
+      "b": 325898,
+      "winner": 322191,
+      "score": "4-6 6-2 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 327834,
+      "b": 317964,
+      "winner": 317964,
+      "score": "6-2 6-0",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 318609,
+      "b": 319280,
+      "winner": 319280,
+      "score": "6-3 1-6 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 327909,
+      "b": 328560,
+      "winner": 328560,
+      "score": "3-6 6-4 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 327101,
+      "b": 322222,
+      "winner": 327101,
+      "score": "6-3 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 319939,
+      "b": 324261,
+      "winner": 319939,
+      "score": "6-4 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 319007,
+      "b": 332150,
+      "winner": 319007,
+      "score": "6-3 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 316738,
+      "b": 333111,
+      "winner": 316738,
+      "score": "6-2 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 325725,
+      "b": 326376,
+      "winner": 325725,
+      "score": "6-4 1-6 6-0",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 320760,
+      "b": 326096,
+      "winner": 320760,
+      "score": "7-6(5) 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 325936,
+      "b": 326482,
+      "winner": 326482,
+      "score": "6-2 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 327573,
+      "b": 320319,
+      "winner": 320319,
+      "score": "6-4 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 324166,
+      "b": 317683,
+      "winner": 324166,
+      "score": "6-3 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 326735,
+      "b": 329199,
+      "winner": 326735,
+      "score": "7-6(1) 3-6 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 332285,
+      "b": 320124,
+      "winner": 332285,
+      "score": "6-2 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 324479,
+      "b": 316956,
+      "winner": 316956,
+      "score": "6-1 3-0",
+      "outcome": "retired"
+    },
+    {
+      "round": 2,
+      "a": 328120,
+      "b": 315683,
+      "winner": 328120,
+      "score": "6-3 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 320408,
+      "b": 316959,
+      "winner": 316959,
+      "score": "6-0 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 2,
+      "a": 329393,
+      "b": 319998,
+      "winner": 329393,
+      "score": "7-5 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 330482,
+      "b": 319001,
+      "winner": 319001,
+      "score": "6-3 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 331809,
+      "b": 320983,
+      "winner": 331809,
+      "score": "7-6(4) 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 326384,
+      "b": 325338,
+      "winner": 326384,
+      "score": "6-4 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 327367,
+      "b": 331006,
+      "winner": 331006,
+      "score": "6-1 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 322191,
+      "b": 319125,
+      "winner": 322191,
+      "score": "6-3 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 312469,
+      "b": 317964,
+      "winner": 312469,
+      "score": "6-3 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 330332,
+      "b": 315130,
+      "winner": 330332,
+      "score": "6-3 7-6(2)",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 326007,
+      "b": 328560,
+      "winner": 328560,
+      "score": "3-6 6-0 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 319007,
+      "b": 320319,
+      "winner": 320319,
+      "score": "6-3 4-6 7-6(5)",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 319939,
+      "b": 319280,
+      "winner": 319939,
+      "score": "5-7 6-2 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 326735,
+      "b": 316956,
+      "winner": 316956,
+      "score": "6-2 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 316738,
+      "b": 327101,
+      "winner": 327101,
+      "score": "6-3 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 332285,
+      "b": 329393,
+      "winner": 329393,
+      "score": "6-2 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 324166,
+      "b": 326482,
+      "winner": 324166,
+      "score": "6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 328120,
+      "b": 316959,
+      "winner": 328120,
+      "score": "4-6 6-2 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 3,
+      "a": 320760,
+      "b": 325725,
+      "winner": 320760,
+      "score": "6-4 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 322191,
+      "b": 330332,
+      "winner": 322191,
+      "score": "6-0 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 331809,
+      "b": 331006,
+      "winner": 331006,
+      "score": "7-6(4) 4-6 6-0",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 312469,
+      "b": 328560,
+      "winner": 328560,
+      "score": "6-4 3-6 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 327101,
+      "b": 319939,
+      "winner": 327101,
+      "score": "6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 320760,
+      "b": 328120,
+      "winner": 320760,
+      "score": "6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 320319,
+      "b": 316956,
+      "winner": 316956,
+      "score": "6-4 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 326384,
+      "b": 319001,
+      "winner": 319001,
+      "score": "6-2 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 4,
+      "a": 324166,
+      "b": 329393,
+      "winner": 324166,
+      "score": "6-2 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 5,
+      "a": 331006,
+      "b": 322191,
+      "winner": 322191,
+      "score": "7-5 7-6(5)",
+      "outcome": "played"
+    },
+    {
+      "round": 5,
+      "a": 319001,
+      "b": 328560,
+      "winner": 328560,
+      "score": "6-3 1-6 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 5,
+      "a": 324166,
+      "b": 316956,
+      "winner": 324166,
+      "score": "2-6 6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 5,
+      "a": 320760,
+      "b": 327101,
+      "winner": 320760,
+      "score": "6-4 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 6,
+      "a": 328560,
+      "b": 322191,
+      "winner": 328560,
+      "score": "6-1 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 6,
+      "a": 320760,
+      "b": 324166,
+      "winner": 320760,
+      "score": "6-4 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 7,
+      "a": 320760,
+      "b": 328560,
+      "winner": 320760,
+      "score": "6-2 4-6 6-3",
+      "outcome": "played"
+    }
+  ]
+}

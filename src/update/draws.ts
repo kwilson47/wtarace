@@ -1,7 +1,8 @@
-import type { DrawFile } from '../draws/drawSchema';
+import { drawFileSchema, type DrawFile } from '../draws/drawSchema';
 import type { EventPlayersFeed, LiveMatch } from './feedTypes';
 import { ENTRY, num, positive } from './matches';
 import { IOC_TO_ISO } from './newPlayers';
+import type { RawSeason } from './shared';
 
 const LETTER_ROUND: Record<string, string> = { Q: 'QF', S: 'SF', F: 'F' };
 const mainSingles = (matches: LiveMatch[]) => matches.filter((m) => m.DrawMatchType === 'S' && m.DrawLevelType === 'M');
@@ -25,8 +26,13 @@ export function toDrawFile(table: { round: string }[], playersFeed: EventPlayers
       };
     });
   const draw = mainSingles(matches).map((m) => {
+    // Match ids count down from the final (LS001), so they give the round even for matches not yet played,
+    // which the feed can publish with a different RoundID.
+    const number = /^LS(\d+)$/.exec(m.MatchID ?? '')?.[1];
     const id = String(m.RoundID).trim();
-    const round = /^\d+$/.test(id) ? Number(id) : table.findIndex((r) => r.round === LETTER_ROUND[id]) + 1;
+    const round = number
+      ? table.length - 1 - Math.floor(Math.log2(Number(number)))
+      : /^\d+$/.test(id) ? Number(id) : table.findIndex((r) => r.round === LETTER_ROUND[id]) + 1;
     if (round < 1) throw new Error(`unknown round id "${id}" in a match feed`);
     const a = positive(m.PlayerIDA);
     const b = positive(m.PlayerIDB);
@@ -43,4 +49,41 @@ export function toDrawFile(table: { round: string }[], playersFeed: EventPlayers
     };
   });
   return { drawSize: players.length, players, matches: draw.sort((x, y) => x.round - y.round) };
+}
+
+/**
+ * New draw files for tracked events whose draws changed, plus commit-message lines. `feeds` are keyed by
+ * WTA tournament id. An event in `failed` (tournament ids) keeps its previous file. Draws are published
+ * fact: they never block an update.
+ */
+export function updateDrawFiles(
+  raw: RawSeason,
+  feeds: { players: Record<string, EventPlayersFeed>; matches: Record<string, LiveMatch[]> },
+  existing: Record<string, DrawFile | undefined>,
+  failed: string[],
+): { files: Record<string, DrawFile>; changes: string[]; notes: string[] } {
+  const files: Record<string, DrawFile> = {};
+  const changes: string[] = [];
+  const notes: string[] = [];
+  for (const t of raw.tournaments) {
+    if (t.wtaId === undefined) continue;
+    if (failed.includes(t.id)) {
+      notes.push(`${t.name}: its draw feeds didn't load, so the previous draw was kept.`);
+      continue;
+    }
+    const playersFeed = feeds.players[String(t.wtaId)];
+    const matches = feeds.matches[String(t.wtaId)];
+    if (!playersFeed || !matches || !isDrawOut(matches)) continue;
+    const next = toDrawFile(raw.rules.pointsTables[t.drawType]!, playersFeed, matches);
+    const previous = existing[t.id];
+    if (previous && JSON.stringify(previous) === JSON.stringify(next)) continue;
+    const valid = drawFileSchema.safeParse(next);
+    if (!valid.success) {
+      notes.push(`${t.name}: its draw feed had something unexpected, so the previous draw was kept.`);
+      continue;
+    }
+    files[t.id] = next;
+    changes.push(`Draw: ${t.name} ${previous ? 'updated' : 'added'}`);
+  }
+  return { files, changes, notes };
 }

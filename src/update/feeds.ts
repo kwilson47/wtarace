@@ -67,3 +67,11 @@ export async function fetchSnapshot(raw: SeasonInput, get: GetJson = getJson): P
   }
   return partial;
 }
+
+/** One event's players and matches feeds. */
+export async function fetchEventFeeds(t: { wtaId?: number; startDate: string }, get: GetJson = getJson): Promise<{ players: EventPlayersFeed; matches: LiveMatch[] }> {
+  const base = `${API}/tournaments/${t.wtaId}/${t.startDate.slice(0, 4)}`;
+  const players = await get(`${base}/players`);
+  if (!Array.isArray((players as EventPlayersFeed | null)?.events)) throw new Error(`Unexpected response from ${base}/players`);
+  return { players: players as EventPlayersFeed, matches: arrayOf<LiveMatch>(await get(`${base}/matches`), 'matches', `${base}/matches`) };
+}

@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { SeasonInput } from '../data/schema';
+import type { DrawFile } from '../draws/drawSchema';
 import type { MatchRecord } from '../season/matchSchema';
 
 const NAMES = { rules: 'rules.json', tournaments: 'tournaments.json', players: 'players.json', meta: 'meta.json' } as const;
@@ -38,4 +39,21 @@ export function writeMatchFiles(dir: string, files: Record<string, MatchRecord[]
   const folder = join(dir, 'matches');
   mkdirSync(folder, { recursive: true });
   for (const [id, records] of Object.entries(files)) writeFileSync(join(folder, `${id}.json`), `${JSON.stringify(records, null, 2)}\n`);
+}
+
+/** data/draws/<tournament id>.json for every file present. */
+export function readDrawFiles(dir: string): Record<string, DrawFile> {
+  const folder = join(dir, 'draws');
+  if (!existsSync(folder)) return {};
+  return Object.fromEntries(
+    readdirSync(folder)
+      .filter((f) => f.endsWith('.json'))
+      .map((f) => [f.slice(0, -5), JSON.parse(readFileSync(join(folder, f), 'utf8')) as DrawFile]),
+  );
+}
+
+export function writeDrawFiles(dir: string, files: Record<string, DrawFile>): void {
+  const folder = join(dir, 'draws');
+  mkdirSync(folder, { recursive: true });
+  for (const [id, draw] of Object.entries(files)) writeFileSync(join(folder, `${id}.json`), `${JSON.stringify(draw, null, 2)}\n`);
 }

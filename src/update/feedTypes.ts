@@ -42,6 +42,8 @@ export interface LiveMatch {
   RoundID: string | number;
   /** 'F' finished; anything else not finished. */
   MatchState: string;
+  /** 'LS001' is the final, 'LS002'–'LS003' the semifinals, and so on: reliable for upcoming matches too. */
+  MatchID?: string;
   PlayerIDA: string | number;
   PlayerIDB: string | number;
   /** Even: player A won (2, or 4 on retirement); odd: player B won (3, or 5). Missing until played. */
