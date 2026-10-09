@@ -29,4 +29,12 @@ describe('reconcileScenario', () => {
   it('returns an empty scenario unchanged', () => {
     expect(reconcileScenario({}, season)).toEqual({ scenario: {}, ignored: [] });
   });
+  it('keeps picks for untracked players (w<WTA id>) at events still open, with a valid round', () => {
+    const { scenario, ignored } = reconcileScenario(
+      { [pickKey('w317964', 'live')]: 'SF', [pickKey('w1', 'slam')]: 'F', [pickKey('w2', 'live')]: 'ZZ', [pickKey('w3', 'nowhere')]: 'F' },
+      season,
+    );
+    expect(scenario).toEqual({ [pickKey('w317964', 'live')]: 'SF' });
+    expect(ignored.map((i) => i.reason)).toEqual(['not a pick for an open draw', 'not a pick for an open draw', 'not a pick for an open draw']);
+  });
 });

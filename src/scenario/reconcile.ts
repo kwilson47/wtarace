@@ -13,6 +13,17 @@ export function reconcileScenario(scenario: Scenario, season: Season): { scenari
   const ignored: IgnoredPick[] = [];
   for (const [key, round] of Object.entries(scenario)) {
     const { playerId, tournamentId } = splitPickKey(key);
+    if (/^w\d+$/.test(playerId)) {
+      // An untracked player's pick on a tournament page's bracket: kept for the bracket, ignored by the race.
+      const tournament = season.tournaments.find((t) => t.id === tournamentId);
+      const table = tournament ? season.rules.pointsTables[tournament.drawType] : undefined;
+      if (!tournament || tournament.status === 'completed' || !table?.some((r) => r.round === round)) {
+        ignored.push({ pick: `${playerId} at ${tournamentId}: ${round}`, reason: 'not a pick for an open draw' });
+        continue;
+      }
+      kept[key] = round;
+      continue;
+    }
     const player = season.players.find((p) => p.id === playerId);
     if (!player) {
       ignored.push({ pick: `${playerId} at ${tournamentId}: ${round}`, reason: 'unknown player' });
