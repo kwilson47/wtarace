@@ -1,10 +1,12 @@
-import type { MatchRecord } from '../season/matchSchema';
-import type { PlayerMatch } from './feedTypes';
+import { matchFileSchema, roundLabel, type MatchRecord } from '../season/matchSchema';
+import type { FeedSnapshot, PlayerMatch } from './feedTypes';
 import { IOC_TO_ISO, titleCase } from './newPlayers';
 import type { RawSeason } from './shared';
 
 const TEAM = /UNITED CUP|BILLIE JEAN KING|BJK CUP/i;
-const ENTRY: Record<string, string> = { Q: 'Q', W: 'WC', L: 'LL', S: 'SE', A: 'Alt', P: 'PR' };
+const ENTRY: Record<string, string> = { Q: 'Q', W: 'WC', L: 'LL', S: 'SE', A: 'Alt', P: 'PR', WC: 'WC', LL: 'LL', SE: 'SE', PR: 'PR', ALT: 'Alt' };
+const CATEGORY_LEVEL: Record<string, string> = { GS: 'Grand Slam', WTA1000C: 'WTA 1000', WTA1000: 'WTA 1000', WTA500: 'WTA 500', WTA250: 'WTA 250', WTA125: 'WTA 125' };
+const LETTER_ROUND: Record<string, string> = { Q: 'QF', S: 'SF', F: 'F' };
 const num = (v: unknown): number | null => (v === null || v === undefined || v === '' || Number.isNaN(Number(v)) ? null : Number(v));
 
 /** The race year: from the first tracked event's start to the last one's end. */
@@ -33,7 +35,7 @@ export function toMatchRecords(raw: RawSeason, wtaId: number, feed: PlayerMatch[
     records.push({
       tournamentId: id,
       year,
-      tournament: ours?.name ?? titleCase((info?.city ?? m.city ?? m.TournamentName).trim()),
+      tournament: ours?.name ?? titleCase((info?.city || m.city || info?.tournamentGroup.name || m.TournamentName).trim()),
       level,
       team: TEAM.test(title) || TEAM.test(info?.tournamentGroup.name ?? '') || ours?.drawType === 'united-cup',
       surface: titleCase((info?.surface ?? m.Surface ?? '').trim()),
@@ -57,8 +59,110 @@ export function toMatchRecords(raw: RawSeason, wtaId: number, feed: PlayerMatch[
       points: num(mine(m.points_1, m.points_2)),
     });
   }
-  return records.sort(
-    (a, b) =>
-      a.startDate.localeCompare(b.startDate) || a.tournamentId - b.tournamentId || Number(b.qualifying) - Number(a.qualifying) || a.round - b.round,
-  );
+  return records.sort(byDateThenRound);
+}
+
+const byDateThenRound = (a: MatchRecord, b: MatchRecord) =>
+  a.startDate.localeCompare(b.startDate) || a.tournamentId - b.tournamentId || Number(b.qualifying) - Number(a.qualifying) || a.round - b.round;
+
+/**
+ * Her finished matches at events under way, from each event's own match feed. A player's match feed
+ * only lists an event's matches some time after it ends, so these fill the gap until it does.
+ */
+export function liveMatchRecords(raw: RawSeason, wtaId: number, snap: Pick<FeedSnapshot, 'eventMatches' | 'calendar'>): MatchRecord[] {
+  const records: MatchRecord[] = [];
+  for (const t of raw.tournaments) {
+    if (t.status !== 'in-progress' || t.wtaId === undefined) continue;
+    const year = Number(t.startDate.slice(0, 4));
+    const cal = snap.calendar.find((c) => c.tournamentGroup.id === t.wtaId && c.year === year);
+    const table = raw.rules.pointsTables[t.drawType]!;
+    for (const m of snap.eventMatches[String(t.wtaId)] ?? []) {
+      if (m.DrawMatchType !== 'S' || m.MatchState !== 'F') continue;
+      const isA = String(m.PlayerIDA) === String(wtaId);
+      if (!isA && String(m.PlayerIDB) !== String(wtaId)) continue;
+      const theirs = <T>(a: T, b: T) => (isA ? b : a);
+      const id = String(m.RoundID).trim();
+      const numeric = /^\d+$/.test(id);
+      const qualifying = m.DrawLevelType === 'Q';
+      const score = (m.ScoreString ?? '').replace(/\s*Ret'?d\.?\s*$/i, '').split(',').map((s) => s.trim()).filter(Boolean).join(' ');
+      const winner = Number(m.Winner);
+      const country = theirs(m.PlayerCountryA, m.PlayerCountryB);
+      records.push({
+        tournamentId: t.wtaId,
+        year,
+        tournament: t.name,
+        level: CATEGORY_LEVEL[t.category] ?? t.category,
+        team: t.drawType === 'united-cup',
+        surface: titleCase((cal?.surface ?? '').trim()),
+        indoor: cal?.inOutdoor === 'I',
+        startDate: t.startDate,
+        endDate: t.endDate,
+        qualifying,
+        round: numeric ? Number(id) : table.findIndex((r) => r.round === LETTER_ROUND[id]) + 1,
+        roundName: qualifying ? '' : numeric ? table[Number(id) - 1]?.round ?? '' : id,
+        opponent: {
+          id: num(theirs(m.PlayerIDA, m.PlayerIDB)),
+          name: [theirs(m.PlayerNameFirstA, m.PlayerNameFirstB), theirs(m.PlayerNameLastA, m.PlayerNameLastB)].filter(Boolean).join(' '),
+          country: country ? IOC_TO_ISO[country] ?? null : null,
+          seed: num(theirs(m.SeedA, m.SeedB)),
+          entry: ENTRY[String(theirs(m.EntryTypeA, m.EntryTypeB) ?? '').trim()] ?? null,
+          rank: null,
+        },
+        won: (winner % 2 === 0) === isA,
+        score,
+        outcome: winner === 4 || winner === 5 ? 'retired' : score === '' ? 'walkover' : 'played',
+        points: null,
+      });
+    }
+  }
+  return records;
+}
+
+const matchKey = (r: MatchRecord) => `${r.tournamentId}-${r.year}-${r.qualifying}-${r.round}`;
+
+/**
+ * New match files for players whose race-year matches changed, plus commit-message lines. A player
+ * whose feed failed keeps her previous file. Match data is published fact: it never blocks an update.
+ */
+export function updateMatchFiles(
+  raw: RawSeason,
+  playerMatches: Record<string, PlayerMatch[]>,
+  failed: number[],
+  existing: Record<string, MatchRecord[] | undefined>,
+  live?: Pick<FeedSnapshot, 'eventMatches' | 'calendar'>,
+): { files: Record<string, MatchRecord[]>; changes: string[]; notes: string[] } {
+  const files: Record<string, MatchRecord[]> = {};
+  const changes: string[] = [];
+  const notes: string[] = [];
+  for (const p of raw.players) {
+    if (p.wtaId === undefined) continue;
+    const feed = playerMatches[String(p.wtaId)];
+    if (!feed) {
+      if (failed.includes(p.wtaId)) notes.push(`${p.name}: her match feed didn't load, so her previous matches were kept.`);
+      continue;
+    }
+    const published = toMatchRecords(raw, p.wtaId, feed);
+    const inFeed = new Set(published.map((r) => `${r.tournamentId}-${r.year}`));
+    const underWay = live ? liveMatchRecords(raw, p.wtaId, live).filter((r) => !inFeed.has(`${r.tournamentId}-${r.year}`)) : [];
+    const next = [...published, ...underWay].sort(byDateThenRound);
+    const previous = existing[p.id];
+    if (previous && JSON.stringify(previous) === JSON.stringify(next)) continue;
+    const invalid = matchFileSchema.safeParse(next);
+    if (!invalid.success) {
+      notes.push(`${p.name}: her match feed had something unexpected (${invalid.error.issues[0]?.path.join('.')}: ${invalid.error.issues[0]?.message}), so her previous matches were kept.`);
+      continue;
+    }
+    files[p.id] = next;
+    const added = next.filter((r) => !previous?.some((o) => matchKey(o) === matchKey(r)));
+    if (!previous) changes.push(`Matches: ${p.name} +${added.length} (first fill)`);
+    else if (added.length === 0) changes.push(`Matches: ${p.name} updated`);
+    else if (added.length > 3) changes.push(`Matches: ${p.name} +${added.length}`);
+    else {
+      for (const r of added) {
+        const players = r.won ? `${p.name} d. ${r.opponent.name}` : `${r.opponent.name} d. ${p.name}`;
+        changes.push(`Matches: ${players} (${r.tournament} ${roundLabel(r)})`);
+      }
+    }
+  }
+  return { files, changes, notes };
 }

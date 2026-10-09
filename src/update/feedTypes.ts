@@ -17,6 +17,9 @@ export interface CalendarEvent {
   /** 'past' | 'live' | 'inProgress' | 'future' */
   status: string;
   singlesDrawSize: number;
+  surface?: string;
+  /** 'I' indoor, 'O' outdoor. */
+  inOutdoor?: string;
 }
 
 export interface EventPlayer {
@@ -43,6 +46,19 @@ export interface LiveMatch {
   PlayerIDB: string | number;
   /** Even: player A won (2, or 4 on retirement); odd: player B won (3, or 5). Missing until played. */
   Winner?: string | number | null;
+  PlayerNameFirstA?: string;
+  PlayerNameLastA?: string;
+  PlayerNameFirstB?: string;
+  PlayerNameLastB?: string;
+  /** IOC codes. */
+  PlayerCountryA?: string;
+  PlayerCountryB?: string;
+  SeedA?: string | number | null;
+  SeedB?: string | number | null;
+  EntryTypeA?: string | null;
+  EntryTypeB?: string | null;
+  /** Winner first, sets separated by commas: "7-6(0),6-3"; "6-1,3-0 Ret'd" on a retirement. */
+  ScoreString?: string;
 }
 
 export interface PlayerMatchTournament {
@@ -102,6 +118,8 @@ export interface FeedSnapshot {
   /** Keyed by WTA tournament id. */
   eventPlayers: Record<string, EventPlayersFeed>;
   eventMatches: Record<string, LiveMatch[]>;
-  /** Keyed by WTA player id; only the feeds the update needs. */
+  /** Keyed by WTA player id: every tracked player, plus new top-40 players. */
   playerMatches: Record<string, PlayerMatch[]>;
+  /** Tracked players whose match feed failed to load (their match files are kept). */
+  playerFeedErrors?: number[];
 }

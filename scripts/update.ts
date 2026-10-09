@@ -3,7 +3,8 @@
 import { writeFileSync } from 'node:fs';
 import { fetchSnapshot } from '../src/update/feeds';
 import { updateSeason } from '../src/update/updateSeason';
-import { readData, writeData } from '../src/update/writeData';
+import { updateMatchFiles } from '../src/update/matches';
+import { readData, readMatchFiles, writeData, writeMatchFiles } from '../src/update/writeData';
 
 const args = process.argv.slice(2);
 const option = (name: string) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
@@ -35,15 +36,21 @@ try {
   process.exit(0);
 }
 const result = updateSeason(raw, snapshot);
-const base = { at, changes: result.changes, notes: result.notes, problems: result.problems };
+// Match files are published fact: they never block, and a blocked season update publishes nothing.
+const matchUpdate = result.problems.length
+  ? { files: {}, changes: [], notes: [] }
+  : updateMatchFiles(result.raw, snapshot.playerMatches, snapshot.playerFeedErrors ?? [], readMatchFiles(dir), snapshot);
+const changed = result.changed || Object.keys(matchUpdate.files).length > 0;
+const base = { at, changes: [...result.changes, ...matchUpdate.changes], notes: [...result.notes, ...matchUpdate.notes], problems: result.problems };
 if (result.problems.length) finish({ status: 'blocked', ...base });
-else if (!result.changed) finish({ status: 'unchanged', ...base });
+else if (!changed) finish({ status: 'unchanged', ...base });
 else {
   if (!dryRun) {
     result.raw.meta.lastUpdated = `${at.slice(0, 16)}:00Z`;
     writeData(dir, result.raw);
+    writeMatchFiles(dir, matchUpdate.files);
     const messageFile = option('--message');
-    if (messageFile) writeFileSync(messageFile, `data: automatic update\n\n${result.changes.map((c) => `- ${c}`).join('\n')}\n`);
+    if (messageFile) writeFileSync(messageFile, `data: automatic update\n\n${base.changes.map((c) => `- ${c}`).join('\n')}\n`);
   }
   finish({ status: 'changed', ...base });
 }

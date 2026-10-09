@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { playerMatch, updaterSeason } from './testFeeds';
-import { toMatchRecords } from './matches';
+import { toMatchRecords, updateMatchFiles } from './matches';
 
 const event = (over: Record<string, unknown> = {}) => ({
   tournamentGroup: { id: 903, name: 'CITY' }, year: 2026, title: 'City 500 - City', city: 'CITY', level: 'WTA 500',
@@ -44,5 +44,68 @@ describe('toMatchRecords', () => {
       playerMatch({ tourn_nbr: '2084', player_1: '2', round_name: '', tourn_round: '9', tournament: event({ tournamentGroup: { id: 2084, name: 'UNITED CUP' }, title: 'United Cup - Perth', city: 'PERTH', startDate: '2026-01-15' }) }),
     ]);
     expect(records.map((r) => [r.tournament, r.level, r.team])).toEqual([['Perth', 'WTA 500', true], ['Szekesfehervar', 'ITF', false]]);
+  });
+});
+
+describe('updateMatchFiles', () => {
+  const raw = updaterSeason();
+  const feed = [playerMatch({ tourn_nbr: '903', player_1: '2', round_name: 'R32', winner: 1, opponent: { id: 9, fullName: 'Opp One', countryCode: 'BEL' }, tournament: event() })];
+
+  it('writes a file for each player whose matches changed, naming the new matches', () => {
+    const out = updateMatchFiles(raw, { '2': feed }, [], {});
+    expect(Object.keys(out.files)).toEqual(['bea']);
+    expect(out.changes).toEqual(['Matches: Bea Beta +1 (first fill)']);
+    const again = updateMatchFiles(raw, { '2': feed }, [], { bea: out.files.bea });
+    expect(again.files).toEqual({});
+    const more = [...feed, playerMatch({ tourn_nbr: '903', player_1: '2', round_name: 'R16', tourn_round: '2', winner: 2, opponent: { id: 8, fullName: 'Opp Two', countryCode: 'USA' }, tournament: event() })];
+    expect(updateMatchFiles(raw, { '2': more }, [], { bea: out.files.bea }).changes).toEqual(['Matches: Opp Two d. Bea Beta (City 500 R16)']);
+  });
+
+  it('keeps her previous file when her feed failed, with a note', () => {
+    const out = updateMatchFiles(raw, {}, [2], { bea: [] });
+    expect(out.files).toEqual({});
+    expect(out.notes).toEqual(["Bea Beta: her match feed didn't load, so her previous matches were kept."]);
+  });
+});
+
+describe('matches at an event under way', () => {
+  it("fills in her finished matches from the event's own feed until her match feed has them", async () => {
+    const { snapshot, TOURNAMENT_IDS } = await import('./testFeeds');
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = [
+      {
+        DrawMatchType: 'S', DrawLevelType: 'M', RoundID: 1, MatchState: 'F', PlayerIDA: '1', PlayerIDB: '102', Winner: '2',
+        PlayerNameFirstA: 'Ana', PlayerNameLastA: 'Alpha', PlayerNameFirstB: 'Opp', PlayerNameLastB: 'Two', PlayerCountryB: 'BEL', SeedB: '', EntryTypeB: 'Q', ScoreString: '6-3,7-6(4)',
+      },
+      {
+        DrawMatchType: 'S', DrawLevelType: 'M', RoundID: 'Q', MatchState: 'F', PlayerIDA: '105', PlayerIDB: '1', Winner: '4',
+        PlayerNameFirstA: 'Big', PlayerNameLastA: 'Seed', PlayerCountryA: 'USA', SeedA: '3', ScoreString: "6-1,3-0 Ret'd",
+      },
+      { DrawMatchType: 'S', DrawLevelType: 'M', RoundID: 'S', MatchState: 'U', PlayerIDA: '1', PlayerIDB: '9' },
+    ];
+    snap.playerMatches = { '1': [] };
+    const out = updateMatchFiles(raw, snap.playerMatches, [], {}, snap);
+    expect(out.files.ana!.map((r) => [r.tournament, r.roundName, r.won, r.opponent.name, r.opponent.country, r.opponent.seed, r.opponent.entry, r.score, r.outcome, r.points])).toEqual([
+      ['Live Masters', 'R32', true, 'Opp Two', 'BE', null, 'Q', '6-3 7-6(4)', 'played', null],
+      ['Live Masters', 'Q', false, 'Big Seed', 'US', 3, null, '6-1 3-0', 'retired', null],
+    ]);
+    expect(out.files.ana![0]).toMatchObject({ level: 'WTA 1000', qualifying: false, round: 1 });
+  });
+
+  it('falls back to the event name when the feed gives no city', () => {
+    const records = toMatchRecords(updaterSeason(), 2, [
+      playerMatch({ tourn_nbr: '935', player_1: '2', tournament: event({ tournamentGroup: { id: 935, name: 'W100 SAINT-GAUDENS', level: 'ITF' }, city: '', level: 'ITF' }) }),
+    ]);
+    expect(records[0]!.tournament).toBe('W100 Saint-Gaudens');
+  });
+
+  it('keeps her previous file when the new records would not be valid', () => {
+    const raw = updaterSeason();
+    const bad = [playerMatch({ tourn_nbr: '903', player_1: '2', tournament: event({ startDate: 'soon' as unknown as string }) })];
+    raw.tournaments[0]!.startDate = '2026-01-12';
+    const out = updateMatchFiles(raw, { '2': bad.map((m) => ({ ...m, tournament: { ...m.tournament!, startDate: '2026-04-06', endDate: 'later' } })) }, [], { bea: [] });
+    expect(out.files).toEqual({});
+    expect(out.notes[0]).toMatch(/^Bea Beta: her match feed had something unexpected/);
   });
 });

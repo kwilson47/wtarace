@@ -42,9 +42,28 @@ export async function fetchSnapshot(raw: SeasonInput, get: GetJson = getJson): P
     eventPlayers[String(t.wtaId)] = players as EventPlayersFeed;
     eventMatches[String(t.wtaId)] = await fetchArray<LiveMatch>(`${base}/matches`, 'matches');
   }
-  const partial: FeedSnapshot = { race, calendar, eventPlayers, eventMatches, playerMatches: {} };
-  for (const id of playerFeedsNeeded(raw, partial)) {
-    partial.playerMatches[String(id)] = await fetchArray<PlayerMatch>(`${API}/players/${id}/matches?page=0&pageSize=100&sort=desc&type=S`, 'matches');
+  const partial: FeedSnapshot = { race, calendar, eventPlayers, eventMatches, playerMatches: {}, playerFeedErrors: [] };
+  const raceStart = from!;
+  const playerFeed = async (id: number) => {
+    const all: PlayerMatch[] = [];
+    for (let page = 0; page < 5; page++) {
+      const batch = await fetchArray<PlayerMatch>(`${API}/players/${id}/matches?page=${page}&pageSize=100&sort=desc&type=S`, 'matches');
+      all.push(...batch);
+      if (batch.length < 100 || batch.at(-1)!.StartDate.slice(0, 10) < raceStart) break;
+    }
+    return all;
+  };
+  // Feeds the season update depends on (new players, crediting) must load, or the run is a feed error.
+  const needed = playerFeedsNeeded(raw, partial);
+  for (const id of needed) partial.playerMatches[String(id)] = await playerFeed(id);
+  // Everyone else's feed is only for their match files: a failure keeps their previous file.
+  for (const p of raw.players) {
+    if (p.wtaId === undefined || needed.includes(p.wtaId)) continue;
+    try {
+      partial.playerMatches[String(p.wtaId)] = await playerFeed(p.wtaId);
+    } catch {
+      partial.playerFeedErrors!.push(p.wtaId);
+    }
   }
   return partial;
 }
