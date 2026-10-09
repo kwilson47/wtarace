@@ -23,7 +23,7 @@ function IgnoredNotice({ ignored, onDismiss }: { ignored: IgnoredPick[]; onDismi
   );
 }
 
-export function App({ season }: { season: Season }) {
+export function App({ season, chances = null }: { season: Season; chances?: Readonly<Record<string, number>> | null }) {
   const { scenario, setPick, reset, load, ignored, dismissIgnored } = useScenario(season);
   const { players, tournaments, rules } = season;
   const rows = useMemo(() => projectStandings(players, scenario, tournaments, rules), [players, scenario, tournaments, rules]);
@@ -55,7 +55,7 @@ export function App({ season }: { season: Season }) {
       <Header season={rules.season} lastUpdated={season.meta.lastUpdated} onReset={reset} />
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
-        <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} breakdownOf={breakdownOf} />
+        <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} breakdownOf={breakdownOf} chances={chances ?? undefined} />
         <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} onLoad={load} focusPlayer={focusPlayer} />
       </main>
     </div>

@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { formatChance } from './format';
 import { StandingsTable } from './StandingsTable';
 import type { StandingRow } from '../engine/standings';
 
@@ -81,5 +82,48 @@ describe('StandingsTable', () => {
     render(<StandingsTable rows={range(3)} />);
     expect(screen.getByText(/Q = qualified/)).toBeInTheDocument();
     expect(screen.getByText(/Out = can't reach a qualifying place/)).toBeInTheDocument();
+  });
+});
+
+describe('chances', () => {
+  beforeEach(() => window.localStorage.clear());
+  const breakdownOf = () => ({ entries: [], total: 0, countedResults: 0, maxCountedResults: 18, minEvents: null });
+
+  it('formats a chance: whole percent, >99%, <1%', () => {
+    expect(formatChance(0.874)).toBe('87%');
+    expect(formatChance(0.995)).toBe('>99%');
+    expect(formatChance(1)).toBe('>99%');
+    expect(formatChance(0.004)).toBe('<1%');
+    expect(formatChance(0)).toBe('<1%');
+  });
+
+  it('shows Q for qualified or clinched, — for eliminated, the percent otherwise, and a line in the expanded row', () => {
+    render(
+      <StandingsTable
+        rows={range(4, { 1: { qualified: true } })}
+        clinched={new Set(['p2'])}
+        eliminated={new Set(['p4'])}
+        chances={{ p1: 1, p2: 0.97, p3: 0.42, p4: 0 }}
+        breakdownOf={breakdownOf}
+      />,
+    );
+    expect(screen.getByRole('columnheader', { name: 'Chance' })).toHaveAttribute('title', "Chance to qualify, from 10,000 simulated finishes to the season using real results only. Your picks don't change it.");
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Hide eliminated players' })); // show p4
+    const cell = (id: string) => within(screen.getByTestId(`row-${id}`)).getByTestId('chance');
+    expect(cell('p1')).toHaveTextContent('Q');
+    expect(cell('p2')).toHaveTextContent('Q');
+    expect(cell('p3')).toHaveTextContent('42%');
+    expect(cell('p4')).toHaveTextContent('—');
+    fireEvent.click(screen.getByRole('button', { name: 'Player 3' }));
+    expect(screen.getByText('Chance to qualify: 42%')).toBeInTheDocument();
+    expect(screen.getByText(/Chances come from simulating the remaining events with ratings built from this season's results\./)).toBeInTheDocument();
+  });
+
+  it('leaves the column, line and note out without chances', () => {
+    render(<StandingsTable rows={range(3)} breakdownOf={breakdownOf} />);
+    expect(screen.queryByRole('columnheader', { name: 'Chance' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Player 1' }));
+    expect(screen.queryByText(/Chance to qualify/)).toBeNull();
+    expect(screen.queryByText(/Chances come from/)).toBeNull();
   });
 });

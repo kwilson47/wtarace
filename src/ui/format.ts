@@ -43,3 +43,10 @@ const CATEGORY_LABELS: Record<string, string> = {
 export function categoryLabel(category: string): string {
   return CATEGORY_LABELS[category] ?? category;
 }
+
+/** A simulated chance as shown: whole percent, capped at >99% and <1% (the simulation never proves anything). */
+export function formatChance(p: number): string {
+  if (p >= 0.995) return '>99%';
+  if (p < 0.005) return '<1%';
+  return `${Math.round(p * 100)}%`;
+}

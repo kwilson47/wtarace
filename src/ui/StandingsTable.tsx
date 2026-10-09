@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import type { Breakdown } from '../engine/breakdown';
 import type { StandingRow } from '../engine/standings';
-import { flagEmoji, formatDelta, formatPoints } from './format';
+import { flagEmoji, formatChance, formatDelta, formatPoints } from './format';
 import { ResultsBreakdown } from './ResultsBreakdown';
 import { usePersistentFlag } from './usePersistentFlag';
 
@@ -36,6 +36,7 @@ const NONE: ReadonlySet<string> = new Set();
 const NO_MAX: ReadonlyMap<string, number> = new Map();
 
 const MAX_TITLE = 'Most points she can still finish with, from actual results';
+const CHANCE_TITLE = "Chance to qualify, from 10,000 simulated finishes to the season using real results only. Your picks don't change it.";
 
 interface Props {
   rows: StandingRow[];
@@ -47,14 +48,22 @@ interface Props {
   maxPoints?: ReadonlyMap<string, number>;
   /** Where a player's projected points come from; when given, player names expand to show it. */
   breakdownOf?: (playerId: string) => Breakdown;
+  /** Each player's simulated chance of qualifying, from actual results (independent of the visitor's picks). */
+  chances?: Readonly<Record<string, number>>;
 }
 
-export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPoints = NO_MAX, breakdownOf }: Props) {
+export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPoints = NO_MAX, breakdownOf, chances }: Props) {
   const classes = rowClasses(rows, eliminated);
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(NONE);
   const [hideOut, setHideOut] = usePersistentFlag('hideEliminated', true);
   const hidden = hideOut ? rows.filter((r) => eliminated.has(r.playerId)).length : 0;
   const shown = hidden > 0 ? rows.filter((r) => !eliminated.has(r.playerId)) : rows;
+  const chanceOf = (r: StandingRow) =>
+    r.qualified || clinched.has(r.playerId) ? 'Q' : eliminated.has(r.playerId) ? '—' : formatChance(chances?.[r.playerId] ?? 0);
+  const chanceLine = (r: StandingRow) => {
+    const c = chanceOf(r);
+    return `Chance to qualify: ${c === 'Q' ? 'qualified' : c === '—' ? 'none' : c}`;
+  };
   const toggle = (id: string) =>
     setExpanded((prev) => {
       const next = new Set(prev);
@@ -86,6 +95,7 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
           <th scope="col" className="num">+/−</th>
           <th scope="col"><span className="visually-hidden">Rank change</span></th>
           <th scope="col" className="wide num max" title={MAX_TITLE}>Max</th>
+          {chances && <th scope="col" className="wide num chance" title={CHANCE_TITLE}>Chance</th>}
         </tr>
       </thead>
       <tbody>
@@ -117,10 +127,12 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
             <td className="wide num max" data-testid="max">
               {maxPoints.has(r.playerId) ? formatPoints(maxPoints.get(r.playerId)!) : ''}
             </td>
+            {chances && <td className="wide num chance" data-testid="chance">{chanceOf(r)}</td>}
           </tr>
           {breakdownOf && expanded.has(r.playerId) && (
             <tr className="breakdown-row">
-              <td colSpan={8}>
+              <td colSpan={chances ? 9 : 8}>
+                {chances && <p className="chance-line">{chanceLine(r)}</p>}
                 <ResultsBreakdown name={r.name} breakdown={breakdownOf(r.playerId)} profileHref={`/players/${r.playerId}/`} />
               </td>
             </tr>
@@ -135,6 +147,12 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
       with. Q, Out and Max are worked out from actual results, not your picks; Q and Out can show up later than
       in reality, never earlier.
     </p>
+    {chances && (
+      <p className="legend">
+        Chance = chance to qualify. Chances come from simulating the remaining events with ratings built from this
+        season's results.
+      </p>
+    )}
     </>
   );
 }
