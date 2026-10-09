@@ -60,6 +60,22 @@ Primary sources:
 - **WTA 125 and ITF results** are not stored. The WTA publishes no race points for them, and they never count.
 - **Countries.** The WTA displays IOC codes, mapped here to ISO 3166-1 alpha-2: KAZ→KZ, BLR→BY, USA→US, RUS→RU, CZE→CZ, UKR→UA, POL→PL, CAN→CA, ROU→RO, PHI→PH, JPN→JP, BEL→BE, SUI→CH, AUT→AT, LAT→LV, GRE→GR, FRA→FR, ITA→IT, CHN→CN, ESP→ES, AUS→AU. The WTA displays RUS and BLR for players competing without a flag, so they map to RU and BY. No player needed `UN`.
 
+## Automatic updates
+
+From 2026-10-09, an hourly job (`scripts/update.ts`, run by `.github/workflows/update.yml`) refreshes the data from the feeds already cited here:
+- the race ranking feed (totals, the top 40);
+- the calendar feed (event status);
+- each remaining event's `players` and `matches` feeds (draws, byes, live rounds, draw positions, entry lists);
+- player match feeds (race points for credited events, and the seasons of new top-40 players).
+
+It follows the conventions in this file and publishes only when every official total is reproduced.
+
+- **Per-run detail:** in the bot's commit messages.
+- **Anything it can't reconcile:** opens the `data-update` GitHub issue; those fixes are made by hand with sources, as before.
+- **Draw details:**
+  - Byes are tracked players in the draw with no first-round match. They're only recorded once the whole first round is in the feed.
+  - A finished event is marked completed in the first run whose official totals include its points.
+
 ## Tournaments (`tournaments.json`)
 
 - **Completed events:** the name, dates and draw size come from the `tournament` object in the official WTA match feed (below). Sponsor suffixes such as "presented by …" are trimmed.

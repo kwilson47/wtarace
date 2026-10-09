@@ -14,7 +14,23 @@ npm test           # unit + component tests
 npm run test:e2e   # Playwright
 ```
 
-## Updating the data (about daily during events)
+## Updating the data
+
+**Automatic (normal case).** The `Update data` workflow (`.github/workflows/update.yml`) runs every hour. It reads the official WTA feeds and refreshes:
+- race totals;
+- live rounds, draw sizes, draw positions and byes at events under way;
+- entry lists;
+- crediting finished events once the WTA posts their points;
+- new players entering the race top 40.
+
+If every official total still reproduces and all checks pass, it commits (as `github-actions[bot]`, with one line per change) and deploys.
+
+- Run it now: GitHub → Actions → Update data → Run workflow (or `gh workflow run update.yml`).
+- Try it locally without writing anything: `npm run update -- --dry-run`.
+- If it can't reconcile something, it publishes nothing and opens a `data-update` issue explaining why. A typical case is a new player with an unexplained zero-pointer. Fix the data by hand as below, with sources in `data/SOURCES.md`, and push. The issue closes itself after the next successful run.
+- It never changes stored results at completed events, zero-pointers, `qualified` flags or rules (other than `trackedPlayerCount`, which only grows).
+
+**By hand (judgement calls, or when the updater is blocked):**
 
 1. Edit `data/*.json`: results, `live` status, `officialRaceTotal`, `qualified`, and `meta.json` → `lastUpdated` (UTC).
    - In-progress event: keep a `results` entry with the points the official race currently credits (which may be 0 until the WTA posts them; projections automatically credit the live round's points until then), and a `live` entry (`alive` + current round, or `eliminated` + round lost). Refresh the points once the WTA posts them; the projection keeps whichever is higher.
