@@ -11,7 +11,7 @@ describe('PlayerOutlook', () => {
     render(
       <PlayerOutlook
         player={xen}
-        outlook={{ status: 'open', safeAt: null, safeRoute: null, eventsLeft: false, eligibleNow: true, missExample: null, qualifyExample: null }}
+        outlook={{ status: 'open', safeAt: null, guaranteedRoute: null, eventsLeft: false, eligibleNow: true, missExample: null, qualifyExample: null }}
         players={season.players}
         season={season}
         onLoad={() => {}}

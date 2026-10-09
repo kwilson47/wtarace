@@ -69,21 +69,21 @@ export function PlayerOutlook({ player, outlook, players, season, onLoad }: Prop
   else if (outlook.status === 'qualified') body = <p>{`${player.name} has qualified for the WTA Finals.`}</p>;
   else if (outlook.status === 'out') body = <p>{`${player.name} can no longer qualify.`}</p>;
   else {
-    const route = outlook.safeRoute && describePicks(outlook.safeRoute, [player], season)[0];
+    const route = outlook.guaranteedRoute && describePicks(outlook.guaranteedRoute, [player], season)[0];
     const own = route
-      ? `She can get there herself — ${route.picks}.`
+      ? `She's certain to qualify with these results of her own, whatever anyone else does — ${route.picks}.`
       : outlook.eventsLeft
-        ? "She can't get there on her own results, so she also needs help from others."
+        ? 'No results of her own are enough by themselves, so she also needs help from others.'
         : 'She has no events left, so it depends on other players.';
     body = (
       <>
+        <p>{own}</p>
         {outlook.safeAt === null ? (
-          <p>{`We couldn't prove a points total that is always enough.${outlook.eventsLeft ? '' : ` ${own}`}`}</p>
+          <p>We couldn't prove a points total that is always enough.</p>
         ) : (
           <p>
-            {`Safe at ${formatPoints(outlook.safeAt)} points: finishing with at least this many guarantees a place, whatever anyone else does`}
+            {`Safe at ${formatPoints(outlook.safeAt)} points: finishing with at least this many guarantees a place, however she gets there`}
             {outlook.eligibleNow ? '.' : ', once she meets the event minimum.'}
-            {` ${own}`}
           </p>
         )}
         {outlook.qualifyExample ? (

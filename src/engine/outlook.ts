@@ -12,8 +12,11 @@ export type Outlook =
       status: 'open';
       /** Lowest total that guarantees a place whatever anyone else does (with the event minimum met); null if none could be proven. */
       safeAt: number | null;
-      /** Her own results that reach `safeAt`; null when she can't reach it alone. */
-      safeRoute: Scenario | null;
+      /**
+       * The least of her own results that is certain to be enough, counting the places those results
+       * take from everyone else; null when no results of her own are enough (or none could be proven).
+       */
+      guaranteedRoute: Scenario | null;
       /** Whether she has any remaining events she can still play. */
       eventsLeft: boolean;
       eligibleNow: boolean;
@@ -38,9 +41,24 @@ function toScenario(placement: Placement, players: Player[]): Scenario {
   return picks;
 }
 
-/** Fewest events, then fewest points. */
-const simplest = (outcomes: Outcome[]) =>
-  [...outcomes].sort((a, b) => a.finishes.length - b.finishes.length || a.total - b.total)[0];
+/** How many of her own outcomes to try when looking for a guaranteed route, so the search stays quick. */
+const ROUTE_CHECKS = 2000;
+
+/**
+ * Her outcome with the fewest points (then the fewest events) that no results by anyone else can beat,
+ * with her own finishes taking their places. Any outcome reaching `safeAt` qualifies whatever, so the
+ * search only needs to look below the first of those.
+ */
+function guaranteedRoute(search: Search, x: RaceInfo, own: Outcome[], safeAt: number | null): Outcome | undefined {
+  const sorted = [...own].sort((a, b) => a.total - b.total || a.finishes.length - b.finishes.length);
+  let checks = 0;
+  for (const o of sorted) {
+    if (safeAt !== null && o.total >= safeAt) return o;
+    if (++checks > ROUTE_CHECKS) return safeAt === null ? undefined : sorted.find((r) => r.total >= safeAt);
+    if (search.missPath(x, o.total, false, o.finishes) === null) return o;
+  }
+  return undefined;
+}
 
 /** Lowest total at which no results can knock her out. Real qualification only gets easier with more points, so the search is monotonic. */
 function lowestSafeTotal(search: Search, x: RaceInfo): number | null {
@@ -101,11 +119,11 @@ export function playerOutlook(playerId: string, players: Player[], tournaments: 
   }
 
   const safeAt = lowestSafeTotal(search, x);
-  const route = safeAt === null ? undefined : simplest(own.filter((o) => o.total >= safeAt));
+  const route = guaranteedRoute(search, x, own, safeAt);
   return {
     status: 'open',
     safeAt,
-    safeRoute: route ? toScenario(new Map([[x.id, route.finishes]]), players) : null,
+    guaranteedRoute: route ? toScenario(new Map([[x.id, route.finishes]]), players) : null,
     eventsLeft: search.outcomes(x).some((o) => o.finishes.length > 0),
     eligibleNow: x.eligibleNow,
     missExample,

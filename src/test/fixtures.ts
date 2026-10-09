@@ -101,10 +101,10 @@ export const season = parseOrThrow(rawSeason());
  * in-progress `live` event (F = 980, W = 1040). Two places, no champion place, no other remaining
  * events, and a 0-point tracked player so nobody outside the list can get close.
  */
-export function bracketSeason(anaPosition: number, beaPosition: number, xenQualifyingPoints = 130): Season {
+export function bracketSeason(anaPosition: number, beaPosition: number, xenQualifyingPoints = 130, caraPosition?: number): Season {
   const raw: SeasonInput = rawSeason();
   raw.rules.maxCountedResults = 10;
-  raw.rules.trackedPlayerCount = 4;
+  raw.rules.trackedPlayerCount = caraPosition === undefined ? 4 : 5;
   raw.rules.qualification = { places: 2, championPlace: null, minEvents: null };
   raw.tournaments = raw.tournaments
     .filter((t) => t.status !== 'upcoming')
@@ -132,6 +132,7 @@ export function bracketSeason(anaPosition: number, beaPosition: number, xenQuali
     },
     contender('ana', 'Ana Alpha', anaPosition),
     contender('bea', 'Bea Beta', beaPosition),
+    ...(caraPosition === undefined ? [] : [contender('cara', 'Cara Gamma', caraPosition)]),
     { id: 'low', name: 'Low Lima', country: 'US', officialRaceTotal: 0, results: [] },
   ];
   return parseOrThrow(raw);

@@ -43,6 +43,23 @@ function meetingFromTop(a: number, b: number, drawSize: number): number {
 const finishKey = (f: Finish) => `${f.tournamentId}:${f.round}`;
 
 /**
+ * Can `f` be added alongside `placed` (whose per-round counts are `used`)? Each round holds a limited
+ * number of players, and two players in the draw can't both pass the round where they would meet.
+ */
+function fitsWith(f: Finish, used: Map<string, number>, placed: Finish[], drawSize: Map<string, number | undefined>): boolean {
+  if ((used.get(finishKey(f)) ?? 0) >= roundCapacity(f.fromTop)) return false;
+  const size = drawSize.get(f.tournamentId);
+  if (size === undefined || f.drawPosition === undefined) return true;
+  return placed.every((g) => {
+    if (g.tournamentId !== f.tournamentId || g.drawPosition === undefined) return true;
+    const meet = meetingFromTop(f.drawPosition!, g.drawPosition, size);
+    // Both reached the round where they meet: exactly one loses there, the other goes further.
+    if (f.fromTop > meet || g.fromTop > meet) return true;
+    return (f.fromTop === meet && g.fromTop < meet) || (g.fromTop === meet && f.fromTop < meet);
+  });
+}
+
+/**
  * Drops any option whose results include all of another option's results: the smaller one reaches the
  * target too and uses strictly fewer places, so the larger one can never be needed.
  */
@@ -120,15 +137,16 @@ export function raceSearch(players: Player[], tournaments: Tournament[], rules: 
   /**
    * Results under which `count` players (excluding `exclude`, including `must` if given) all finish on or
    * above `target`, each eligible, at the same time. Places at each event are limited, and so is who can
-   * meet whom. With `trackedOnly`, players outside the tracked list take no places.
+   * meet whom. With `trackedOnly`, players outside the tracked list take no places. `own` are finishes
+   * already taken (the player being knocked out), so nobody else can have them.
    */
   const memo = new Map<string, SearchResult>();
-  const finishAbove = (target: number, count: number, exclude: Set<string>, must: string | undefined, trackedOnly: boolean): SearchResult => {
-    const key = `${target}|${count}|${[...exclude].sort().join(',')}|${must ?? ''}|${trackedOnly}`;
-    if (!memo.has(key)) memo.set(key, searchFinishAbove(target, count, exclude, must, trackedOnly));
+  const finishAbove = (target: number, count: number, exclude: Set<string>, must: string | undefined, trackedOnly: boolean, own: Finish[]): SearchResult => {
+    const key = `${target}|${count}|${[...exclude].sort().join(',')}|${must ?? ''}|${trackedOnly}|${own.map(finishKey).join(',')}`;
+    if (!memo.has(key)) memo.set(key, searchFinishAbove(target, count, exclude, must, trackedOnly, own));
     return memo.get(key)!;
   };
-  const searchFinishAbove = (target: number, count: number, exclude: Set<string>, must: string | undefined, trackedOnly: boolean): SearchResult => {
+  const searchFinishAbove = (target: number, count: number, exclude: Set<string>, must: string | undefined, trackedOnly: boolean, own: Finish[]): SearchResult => {
     // Players outside the tracked list can fill some of the places; `must` still has to be one of them.
     const outside = trackedOnly ? 0 : maxUntrackedPassers(untracked.slots, target - untracked.base, count);
     const need = Math.max(must ? 1 : 0, count - outside);
@@ -142,22 +160,11 @@ export function raceSearch(players: Player[], tournaments: Tournament[], rules: 
     if (candidates.length < need) return null;
 
     const used = new Map<string, number>();
-    const placed: Finish[] = [];
+    const placed: Finish[] = [...own];
+    for (const f of own) used.set(`${f.tournamentId}:${f.round}`, (used.get(`${f.tournamentId}:${f.round}`) ?? 0) + 1);
     const chosen: { id: string; finishes: Finish[] }[] = [];
     let budget = SEARCH_BUDGET;
-    const fits = (o: Outcome) =>
-      o.finishes.every((f) => {
-        if ((used.get(`${f.tournamentId}:${f.round}`) ?? 0) >= roundCapacity(f.fromTop)) return false;
-        const size = drawSize.get(f.tournamentId);
-        if (size === undefined || f.drawPosition === undefined) return true;
-        return placed.every((g) => {
-          if (g.tournamentId !== f.tournamentId || g.drawPosition === undefined) return true;
-          const meet = meetingFromTop(f.drawPosition!, g.drawPosition, size);
-          // Both reached the round where they meet: exactly one loses there, the other goes further.
-          if (f.fromTop > meet || g.fromTop > meet) return true;
-          return (f.fromTop === meet && g.fromTop < meet) || (g.fromTop === meet && f.fromTop < meet);
-        });
-      });
+    const fits = (o: Outcome) => o.finishes.every((f) => fitsWith(f, used, placed, drawSize));
     const search = (index: number): boolean => {
       if (chosen.length === need) return true;
       if (candidates.length - index < need - chosen.length) return false;
@@ -185,11 +192,22 @@ export function raceSearch(players: Player[], tournaments: Tournament[], rules: 
 
   /**
    * Results that leave `x` out of the qualifying places while she finishes on `target` points (her
-   * actual worst case is her floor). `null` means no such results exist.
+   * actual worst case is her floor). `own`: the finishes that give her that total, when known; they
+   * take those places away from everyone else. `null` means no such results exist.
    */
-  const missPath = (x: RaceInfo, target: number, trackedOnly = false): SearchResult => {
+  const missPath = (x: RaceInfo, target: number, trackedOnly = false, own: Finish[] = []): SearchResult => {
+    if (own.length > 0) {
+      // A knockout found without her results still works if her results don't take any place it uses.
+      const base = missPath(x, target, trackedOnly);
+      if (base !== null && base !== 'unknown') {
+        const placed = [...base.values()].flat();
+        const used = new Map<string, number>();
+        for (const f of placed) used.set(finishKey(f), (used.get(finishKey(f)) ?? 0) + 1);
+        if (own.every((f) => fitsWith(f, used, placed, drawSize))) return base;
+      }
+    }
     const others = (...ids: string[]) => new Set([x.id, ...ids]);
-    const above = (t: number, count: number, exclude: Set<string>, must?: string) => finishAbove(t, count, exclude, must, trackedOnly);
+    const above = (t: number, count: number, exclude: Set<string>, must?: string) => finishAbove(t, count, exclude, must, trackedOnly, own);
     if (!championPlace) return above(target, places, others());
     let unknown = false;
     const found = (r: SearchResult): Placement | null => {

@@ -31,7 +31,7 @@ describe('playerOutlook', () => {
     const s = bracketSeason(1, 17);
     const o = open(outlook(s, 'xen'));
     expect(o.safeAt).toBe(981);
-    expect(o.safeRoute).toBeNull();
+    expect(o.guaranteedRoute).toBeNull();
     expect(o.eventsLeft).toBe(false);
     expect(o.qualifyExample).toEqual({}); // she is in as things stand
     expect(o.missExample).not.toBeNull();
@@ -46,11 +46,21 @@ describe('playerOutlook', () => {
     expect(o.qualifyExample).toEqual({ 'bea|live': 'SF' });
     shows(s, o.qualifyExample!, 'bea', true);
     expect(o.safeAt).toBe(971);
-    expect(o.safeRoute).toEqual({ 'bea|live': 'F' });
+    expect(o.guaranteedRoute).toEqual({ 'bea|live': 'F' });
     expect(o.eventsLeft).toBe(true);
     expect(o.eligibleNow).toBe(true);
     // As things stand (nobody earns more) she is third, so that is the simplest way she misses out.
     expect(o.missExample).toEqual({});
     shows(s, o.missExample!, 'bea', false);
+  });
+
+  it('counts the places her own results take when finding the results that guarantee her a place', () => {
+    // cara (950, QF) shares the top half with ana; bea is in the bottom half; xen is stuck on 970.
+    // Any total of 981+ is safe however it is reached, and only a title (1040) gets her there. But
+    // reaching the final (980) is enough: it knocks ana out, so only bea can pass her.
+    const s = bracketSeason(1, 17, 130, 9);
+    const o = open(outlook(s, 'cara'));
+    expect(o.safeAt).toBe(981);
+    expect(o.guaranteedRoute).toEqual({ 'cara|live': 'F' });
   });
 });
