@@ -23,8 +23,13 @@ function fillRoot(template: string, app: string): string {
   return (template.slice(0, start) + app + template.slice(end + END.length)).replace('<div id="root">', '<div id="root" data-ssr="">');
 }
 
-export function homeHtml(template: string, season: Season): string {
-  return fillRoot(template, renderToString(<App season={season} />));
+/** The homepage, with the simulated chances rendered and embedded (null leaves them out). */
+export function homeHtml(template: string, season: Season, chances: Readonly<Record<string, number>> | null = null): string {
+  const json = JSON.stringify({ chances }).replace(/</g, '\\u003c');
+  return fillRoot(template, renderToString(<App season={season} chances={chances} />)).replace(
+    '<!--data-->',
+    () => `<script id="page-data" type="application/json">${json}</script>`,
+  );
 }
 
 /** "Iga Swiatek's 2026 season: 48–15, 2 titles (Toronto, Doha), 3 finals. Every match, round by round." */

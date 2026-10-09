@@ -64,4 +64,7 @@ describe('hydration', () => {
     });
     expect(errors).toEqual([]);
   });
+  it('the homepage hydrates cleanly with chances embedded', async () => {
+    expect(await hydrationErrors(<App season={season} chances={{ ana: 1, bea: 0.42, cat: 0 }} />)).toEqual([]);
+  });
 });

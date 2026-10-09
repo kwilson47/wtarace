@@ -22,6 +22,12 @@ describe('prerendered pages', () => {
     expect(html).toContain('<script id="page-data" type="application/json">{"playerId":"ana","matches":[]}</script>');
   });
 
+  it('embeds the chances in the homepage and renders the column', () => {
+    const html = homeHtml(HOME.replace('</body>', '<!--data--></body>'), season, { ana: 1, bea: 0.42, cat: 0 });
+    expect(html).toContain('<script id="page-data" type="application/json">{"chances":{"ana":1,"bea":0.42,"cat":0}}</script>');
+    expect(html).toContain('>Chance</th>');
+  });
+
   it('refuses a template without the markers', () => {
     expect(() => homeHtml('<html></html>', season)).toThrow(/markers/);
   });

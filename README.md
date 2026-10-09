@@ -18,6 +18,14 @@ npm run test:e2e   # Playwright, against the built site: run `npm run build` fir
 
 On tournament pages for live events, and upcoming ones whose draw is out, visitors pick match winners in the bracket and the earlier-round lists. A "Race impact" panel shows the race top 10 under those picks. The picks join the homepage's scenario in `?s=`. Picks for players outside the tracked 40 are stored as `w<WTA id>` keys, e.g. `w328120.beijing-2026.F`; the race ignores them, and reconciliation drops them once the event is completed.
 
+The standings' **Chance** column is each player's chance of qualifying. It comes from simulating the rest of the season 10,000 times at build time (1,000 times on the dev server), with seed `20261009`, so the same data gives the same numbers.
+- **Ratings:** each match is decided by Elo ratings, replayed from `data/matches/` with starting values from WTA rankings.
+- **Who plays:** a player plays the upcoming events whose published entry list includes her, so a withdrawal moves the numbers once the list changes.
+- **Draws:** events with a draw use the real one; others get a seeded random draw filled out with field players.
+- **Scoring:** the existing engine scores each run, tiebreakers and the Grand Slam champion place included.
+
+The code is in `src/sim/`. Its tests include a calibration check: on this season's matches, the ratings beat a coin flip, with a Brier score of about 0.20 against 0.25.
+
 ## Updating the data
 
 **Automatic (normal case).** The `Update data` workflow (`.github/workflows/update.yml`) runs every hour. It reads the official WTA feeds and refreshes:
