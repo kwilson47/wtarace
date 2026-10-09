@@ -14,7 +14,7 @@ npm test           # unit + component tests
 npm run test:e2e   # Playwright, against the built site: run `npm run build` first
 ```
 
-`npm run dev` serves the homepage, and a player's season page at `/player.html?id=<player id>`. `npm run build` prerenders the real pages into `dist/` via `scripts/prerender.ts`: the homepage, and `players/<id>/index.html` for every tracked player. Each player page shows her season from `data/matches/<id>.json`: record, splits, and every tournament round by round.
+`npm run dev` serves the homepage and each player's season page at `/players/<player id>/`, the same addresses as the built site. `npm run preview` serves the last `npm run build` exactly as it deploys. `npm run build` prerenders the real pages into `dist/` via `scripts/prerender.ts`: the homepage, and `players/<id>/index.html` for every tracked player. Each player page shows her season from `data/matches/<id>.json`: record, splits, and every tournament round by round.
 
 ## Updating the data
 

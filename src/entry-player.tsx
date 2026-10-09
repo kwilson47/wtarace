@@ -6,7 +6,7 @@ import { PlayerPage } from './ui/PlayerPage';
 import './ui/styles.css';
 
 const root = document.getElementById('root')!;
-// Development only: /player.html?id=<player> loads her match file directly.
+// Development only: /players/<id>/ (or /player.html?id=<id>) loads her match file directly.
 const devFiles: Record<string, () => Promise<{ default: MatchRecord[] }>> = import.meta.env.DEV
   ? import.meta.glob<{ default: MatchRecord[] }>('../data/matches/*.json')
   : {};
@@ -16,7 +16,7 @@ async function start() {
   const data: { playerId: string; matches: MatchRecord[] | null } = embedded
     ? JSON.parse(embedded.textContent ?? '{}')
     : await (async () => {
-        const requested = new URLSearchParams(window.location.search).get('id') ?? '';
+        const requested = /^\/players\/([a-z0-9-]+)/.exec(window.location.pathname)?.[1] ?? new URLSearchParams(window.location.search).get('id') ?? '';
         const playerId = season.players.some((p) => p.id === requested) ? requested : season.players[0]!.id;
         const load = devFiles[`../data/matches/${playerId}.json`];
         return { playerId, matches: load ? (await load()).default : null };
