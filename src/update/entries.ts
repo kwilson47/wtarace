@@ -1,10 +1,10 @@
-import { nameOf, sameMembers, singlesList, type Ctx } from './shared';
+import { nameOf, sameMembers, singlesEntrants, type Ctx } from './shared';
 
-/** Entry lists for upcoming events. A list that vanishes or more than halves is treated as taken down. */
+/** Entry lists (main draw and qualifying) for upcoming events. A list that vanishes or more than halves is treated as taken down. */
 export function updateEntries(ctx: Ctx): void {
   for (const t of ctx.raw.tournaments) {
     if (t.status !== 'upcoming' || t.wtaId === undefined) continue;
-    const list = singlesList(ctx, t);
+    const list = singlesEntrants(ctx, t);
     const listed = new Set(list.map((ep) => ep.players[0]?.id));
     const entries = ctx.raw.players.filter((p) => p.wtaId !== undefined && listed.has(p.wtaId)).map((p) => p.id);
     const before = t.entries;

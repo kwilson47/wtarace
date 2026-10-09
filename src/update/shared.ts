@@ -28,6 +28,10 @@ export const calendarEvent = (ctx: Ctx, t: RawTournament): CalendarEvent | undef
 export const mainSinglesMatches = (ctx: Ctx, t: RawTournament): LiveMatch[] =>
   (ctx.snap.eventMatches[String(t.wtaId)] ?? []).filter((m) => m.DrawMatchType === 'S' && m.DrawLevelType === 'M');
 
+/** Everyone listed for singles, main draw and qualifying: who has entered. */
+export const singlesEntrants = (ctx: Ctx, t: RawTournament): EventPlayer[] =>
+  (ctx.snap.eventPlayers[String(t.wtaId)]?.events ?? []).filter((e) => e.eventTypeCode === 'LS' || e.eventTypeCode === 'RS').flatMap((e) => e.eventPlayers);
+
 /** The singles main-draw list: the entry list before the draw, the draw order after. */
 export const singlesList = (ctx: Ctx, t: RawTournament): EventPlayer[] =>
   ctx.snap.eventPlayers[String(t.wtaId)]?.events.find((e) => e.eventTypeCode === 'LS')?.eventPlayers ?? [];

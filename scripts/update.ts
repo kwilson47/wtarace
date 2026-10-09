@@ -25,20 +25,25 @@ function finish(report: Report): void {
 
 const at = new Date().toISOString();
 const raw = readData(dir);
+// Only a failed fetch counts as a feed outage (quiet; the next hour retries). Anything after that is
+// reported as blocked, so it reaches the data-update issue instead of stalling silently.
+let snapshot;
 try {
-  const result = updateSeason(raw, await fetchSnapshot(raw));
-  const base = { at, changes: result.changes, notes: result.notes, problems: result.problems };
-  if (result.problems.length) finish({ status: 'blocked', ...base });
-  else if (!result.changed) finish({ status: 'unchanged', ...base });
-  else {
-    if (!dryRun) {
-      result.raw.meta.lastUpdated = `${at.slice(0, 16)}:00Z`;
-      writeData(dir, result.raw);
-      const messageFile = option('--message');
-      if (messageFile) writeFileSync(messageFile, `data: automatic update\n\n${result.changes.map((c) => `- ${c}`).join('\n')}\n`);
-    }
-    finish({ status: 'changed', ...base });
-  }
+  snapshot = await fetchSnapshot(raw);
 } catch (error) {
   finish({ status: 'feed-error', at, changes: [], notes: [], problems: [], message: String(error) });
+  process.exit(0);
+}
+const result = updateSeason(raw, snapshot);
+const base = { at, changes: result.changes, notes: result.notes, problems: result.problems };
+if (result.problems.length) finish({ status: 'blocked', ...base });
+else if (!result.changed) finish({ status: 'unchanged', ...base });
+else {
+  if (!dryRun) {
+    result.raw.meta.lastUpdated = `${at.slice(0, 16)}:00Z`;
+    writeData(dir, result.raw);
+    const messageFile = option('--message');
+    if (messageFile) writeFileSync(messageFile, `data: automatic update\n\n${result.changes.map((c) => `- ${c}`).join('\n')}\n`);
+  }
+  finish({ status: 'changed', ...base });
 }

@@ -7,7 +7,9 @@ const LETTER_ROUNDS: Record<string, string> = { Q: 'QF', S: 'SF', F: 'F' };
 export function roundIndex(roundId: string | number, table: { round: string }[]): number {
   const id = String(roundId).trim();
   const letter = LETTER_ROUNDS[id];
-  return letter ? table.findIndex((r) => r.round === letter) : Number(id) - 1;
+  const index = letter ? table.findIndex((r) => r.round === letter) : /^\d+$/.test(id) ? Number(id) - 1 : -1;
+  if (index < 0 || index >= table.length) throw new Error(`unknown round id "${id}" in a match feed`);
+  return index;
 }
 
 const involves = (m: LiveMatch, wtaId: number) => String(m.PlayerIDA) === String(wtaId) || String(m.PlayerIDB) === String(wtaId);
@@ -28,14 +30,21 @@ export function liveState(matches: LiveMatch[], wtaId: number, table: { round: s
 }
 
 /**
- * Tracked players in the draw with no first-round match. Only trusted when the first round is complete
- * in the feed: the bracket's empty slots are the byes, so (size − byes) / 2 first-round matches.
+ * Tracked players in the draw with no first-round match. Only trusted when the feed's first round is
+ * complete and fits the bracket exactly: (size − byes) / 2 matches, and exactly `bracket − size` players
+ * in the draw without one. Otherwise (a withdrawal replaced by a lucky loser, a partial feed) nothing is
+ * inferred.
  */
 function setByes(ctx: Ctx, t: RawTournament, matches: LiveMatch[], drawIds: string[]): void {
   const firstRound = matches.filter((m) => String(m.RoundID).trim() === '1');
   const bracket = 2 ** Math.ceil(Math.log2(drawIds.length));
-  if (firstRound.length !== (drawIds.length - (bracket - drawIds.length)) / 2) return;
+  const expectedByes = bracket - drawIds.length;
+  if (firstRound.length !== (drawIds.length - expectedByes) / 2) return;
   const playing = new Set(firstRound.flatMap((m) => [String(m.PlayerIDA), String(m.PlayerIDB)]));
+  if (drawIds.filter((id) => !playing.has(id)).length !== expectedByes) {
+    ctx.notes.push(`${t.name}: the first round doesn't match the draw list, so byes weren't updated.`);
+    return;
+  }
   const byes = ctx.raw.players
     .filter((p) => p.wtaId !== undefined && drawIds.includes(String(p.wtaId)) && !playing.has(String(p.wtaId)))
     .map((p) => p.id);
@@ -61,6 +70,22 @@ function updatePlayerAt(ctx: Ctx, p: RawPlayer, t: RawTournament, s: LiveState, 
   if (before !== `${s.state}:${s.round}`) {
     ctx.changes.push(`${t.name}: ${p.name} ${s.state === 'alive' ? `alive in ${s.round}` : `out in ${s.round}`}`);
   }
+}
+
+/** A tracked player who lost in qualifying at an event under way: her result is `Q<round>`, 0 points until credited. */
+function recordQualifyingLoss(ctx: Ctx, p: RawPlayer, t: RawTournament): void {
+  const mine = (ctx.snap.eventMatches[String(t.wtaId)] ?? []).filter(
+    (m) => m.DrawMatchType === 'S' && m.DrawLevelType === 'Q' && involves(m, p.wtaId!),
+  );
+  if (mine.length === 0) return;
+  const last = mine.reduce((a, b) => (Number(b.RoundID) > Number(a.RoundID) ? b : a));
+  if (last.MatchState !== 'F' || wonBy(last, p.wtaId!)) return; // still in qualifying, or through to the main draw
+  const round = `Q${Number(last.RoundID)}`;
+  const result = p.results.find((r) => r.tournamentId === t.id);
+  if (result?.round === round) return;
+  if (result) result.round = round;
+  else p.results.push({ tournamentId: t.id, round, points: 0 });
+  ctx.changes.push(`${t.name}: ${p.name} lost in qualifying (${round})`);
 }
 
 /** Event status, draw size, byes, and every tracked player's live round at events under way. */
@@ -91,7 +116,15 @@ export function updateEvents(ctx: Ctx): void {
     }
     const table = tableOf(ctx, t);
     for (const p of ctx.raw.players) {
-      if (p.wtaId === undefined || !drawIds.includes(String(p.wtaId))) continue;
+      if (p.wtaId === undefined) continue;
+      if (!drawIds.includes(String(p.wtaId))) {
+        if (p.live?.some((l) => l.tournamentId === t.id)) {
+          ctx.problems.push(`${t.name}: ${p.name} has a result there but isn't in the draw any more.`);
+        } else {
+          recordQualifyingLoss(ctx, p, t);
+        }
+        continue;
+      }
       const bye = (t.byes ?? []).includes(p.id);
       updatePlayerAt(ctx, p, t, liveState(matches, p.wtaId, table, bye), drawIds.indexOf(String(p.wtaId)) + 1);
     }

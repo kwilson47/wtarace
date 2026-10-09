@@ -35,9 +35,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - id: status
         run: echo "status=$(node -p "require('$RUNNER_TEMP/update-result.json').status")" >> "$GITHUB_OUTPUT"
-      - name: Check before committing
+      - name: Check before committing (the same checks as CI)
         if: steps.status.outputs.status == 'changed'
-        run: npm run typecheck && npm test && npm run validate
+        run: |
+          npm run typecheck
+          npm test
+          npm run build
+          npx playwright install --with-deps chromium
+          npm run test:e2e
       - id: push
         if: steps.status.outputs.status == 'changed'
         name: Commit and push

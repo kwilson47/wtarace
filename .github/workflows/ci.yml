@@ -49,12 +49,28 @@ jobs:
     needs: check
     if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || inputs.ref != ''
     runs-on: ubuntu-latest
+    # One deploy at a time, and only the commit that is still the head of main: an older run that
+    # finishes late must not overwrite a newer deploy (the newer commit's own run deploys it).
+    concurrency:
+      group: deploy-pages
+      cancel-in-progress: false
     steps:
-      - uses: actions/download-artifact@v8
+      - id: latest
+        name: Check this is still the head of main
+        run: |
+          head=$(git ls-remote "https://github.com/${{ github.repository }}" refs/heads/main | cut -f1)
+          if [ "$head" = "${{ inputs.ref || github.sha }}" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "main has moved on to $head; that commit's own run deploys it."
+          fi
+      - if: steps.latest.outputs.deploy == 'true'
+        uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
-      - uses: cloudflare/wrangler-action@v4
+      - if: steps.latest.outputs.deploy == 'true'
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

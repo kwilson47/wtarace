@@ -22,15 +22,22 @@ export interface UpdateResult {
 /** Refreshes a copy of the raw season from a snapshot of the WTA feeds. Pure: no I/O. */
 export function updateSeason(raw: RawSeason, snap: FeedSnapshot): UpdateResult {
   const ctx: Ctx = { raw: structuredClone(raw), snap, changes: [], notes: [], problems: [] };
-  updateTotals(ctx);
-  addNewPlayers(ctx);
-  updateEvents(ctx);
-  updateEntries(ctx);
-  creditFinished(ctx);
+  try {
+    updateTotals(ctx);
+    updateEvents(ctx);
+    updateEntries(ctx);
+    // Credit before adding new players: a player often enters the top 40 when an event is credited.
+    creditFinished(ctx);
+    addNewPlayers(ctx);
+    updateEvents(ctx); // live rounds for anyone just added
+  } catch (error) {
+    ctx.problems.push(`The updater hit an error: ${error instanceof Error ? error.message : String(error)}`);
+  }
   if (ctx.problems.length === 0) ctx.problems.push(...validateSeason(ctx.raw));
+  const unique = (lines: string[]) => [...new Set(lines)];
   const changed = JSON.stringify(ctx.raw) !== JSON.stringify(raw);
   if (changed && ctx.changes.length === 0) ctx.changes.push('Data refresh');
-  return { raw: ctx.raw, changed, changes: ctx.changes, notes: ctx.notes, problems: ctx.problems };
+  return { raw: ctx.raw, changed, changes: unique(ctx.changes), notes: unique(ctx.notes), problems: unique(ctx.problems) };
 }
 
 /** WTA player ids whose match feeds the update needs: new top-40 players, and players at finished events. */

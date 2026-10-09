@@ -202,3 +202,65 @@ describe('playerFeedsNeeded', () => {
     expect(playerFeedsNeeded(raw, snap).sort()).toEqual([1, 2, 4]);
   });
 });
+
+describe('updateSeason: review fixes', () => {
+  it('adds a new player whose points came from an event credited in the same run', () => {
+    // Dee (untracked) reached the Live Masters final; the WTA has now credited the event (ana won it).
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = liveMatches([match('Q', 1, 105, 1), match('S', 1, 111, 1), match('F', 1, 4, 1)]);
+    snap.race = raceRows(raw, { ana: 1220 });
+    snap.race.push({ ranking: 4, points: 41, tournamentsPlayed: 2, player: { id: 4, fullName: 'Dee Delta', countryCode: 'FRA' } });
+    snap.playerMatches = {
+      '1': [playerMatch({ tourn_nbr: '905', player_1: '1', points_champ_1: 100 })],
+      '2': [playerMatch({ tourn_nbr: '905', player_1: '2', points_champ_1: 5 })],
+      '4': [
+        playerMatch({ tourn_nbr: '903', player_1: '4', round_name: 'R32', winner: 2, points_champ_1: 1, StartDate: '2026-04-06T00:00:00+00:00' }),
+        playerMatch({ tourn_nbr: '905', player_1: '4', round_name: 'F', tourn_round: '5', winner: 2, points_champ_1: 40, StartDate: '2026-10-05T00:00:00+00:00' }),
+      ],
+    };
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(player(result.raw, 'dee-delta').results).toEqual([
+      { tournamentId: 'c500', round: 'R32', points: 1 },
+      { tournamentId: 'live', round: 'F', points: 40 },
+    ]);
+  });
+
+  it('turns an internal error into a problem instead of throwing', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = liveMatches([match('QX', 1, 105)]);
+    const result = updateSeason(raw, snap);
+    expect(result.problems.some((p) => p.startsWith('The updater hit an error'))).toBe(true);
+  });
+
+  it('flags a tracked player who has dropped out of a draw under way', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventPlayers[TOURNAMENT_IDS.live!] = { events: [{ eventTypeCode: 'LS', eventPlayers: drawList(32, { 9: 2 }) }] };
+    expect(updateSeason(raw, snap).problems).toContain("Live Masters: Ana Alpha has a result there but isn't in the draw any more.");
+  });
+
+  it('does not infer byes when the count does not fit the bracket', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    // ana withdrew and a lucky loser (777) took her first-round match; the players feed still lists ana.
+    // The first round still has 16 matches, so only the bye count against the bracket can catch it.
+    snap.eventMatches[TOURNAMENT_IDS.live!] = liveMatches().map((m) => (String(m.RoundID) === '1' && m.PlayerIDA === '1' ? { ...m, PlayerIDA: '777', Winner: '2' } : m));
+    const result = updateSeason(raw, snap);
+    expect(result.raw.tournaments.find((t) => t.id === 'live')!.byes).toEqual([]);
+  });
+
+  it('records a qualifying loss at an event under way, and counts qualifying entrants as entered', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    const q = (round: number, a: number, b: number, winner: number) => ({ ...match(round, a, b, winner), DrawLevelType: 'Q' });
+    snap.eventMatches[TOURNAMENT_IDS.live!] = [...liveMatches(), q(1, 3, 501, 3), q(2, 3, 502, 502)];
+    snap.eventPlayers[TOURNAMENT_IDS.next!] = { events: [{ eventTypeCode: 'RS', eventPlayers: drawList(2, { 1: 2 }) }, { eventTypeCode: 'LS', eventPlayers: drawList(1, { 1: 1 }) }] };
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(player(result.raw, 'cat').results.find((r) => r.tournamentId === 'live')).toEqual({ tournamentId: 'live', round: 'Q2', points: 0 });
+    expect(result.raw.tournaments.find((t) => t.id === 'next')!.entries).toEqual(['ana', 'bea']);
+  });
+});
