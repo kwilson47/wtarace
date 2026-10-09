@@ -214,27 +214,30 @@ export function raceSearch(players: Player[], tournaments: Tournament[], rules: 
       if (r === 'unknown') unknown = true;
       return r === 'unknown' ? null : r;
     };
+    // Each branch tries the knockout needing the fewest players above her first, so examples built from
+    // the result are as simple as possible. Whether any knockout exists doesn't depend on the order.
     if (!x.champion) {
-      // Every place taken by players above her…
-      const all = found(above(target, places, others()));
-      if (all) return all;
-      // …or the direct places taken, and the champion place going to a champion who finishes below her.
+      // The direct places taken, and the champion place going to a champion who finishes below her…
       for (const c of info) {
         if (c === x || !c.canBeChampion || !(c.eligibleNow || c.canBeEligible) || c.floor > target) continue;
         const direct = found(above(target, directPlaces, others(c.id)));
         if (direct) return direct;
       }
+      // …or every place taken by players above her.
+      const all = found(above(target, places, others()));
+      if (all) return all;
       return unknown ? 'unknown' : null;
     }
-    // A champion misses only by dropping out of the champion window…
-    const window = found(above(target, championPlace.toRank, others()));
-    if (window) return window;
-    // …or when another champion finishes above her but outside the direct places, taking the champion place.
+    // A champion misses when another champion finishes above her but outside the direct places, taking the
+    // champion place…
     for (const c of info) {
       if (c === x || !c.canBeChampion || !(c.eligibleNow || c.canBeEligible)) continue;
       const taken = found(above(Math.max(c.floor, target), directPlaces + 1, others(), c.id));
       if (taken) return taken;
     }
+    // …or by dropping out of the champion window.
+    const window = found(above(target, championPlace.toRank, others()));
+    if (window) return window;
     return unknown ? 'unknown' : null;
   };
 

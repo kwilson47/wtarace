@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Season } from '../data/schema';
-import { bracketSeason, season } from '../test/fixtures';
+import { bracketSeason, rawSeason, season } from '../test/fixtures';
+import { parseOrThrow } from '../data/schema';
 import { checkScenario } from './checkScenario';
 import { playerOutlook, type Outlook } from './outlook';
 import { projectStandings } from './standings';
@@ -62,5 +63,32 @@ describe('playerOutlook', () => {
     const o = open(outlook(s, 'cara'));
     expect(o.safeAt).toBe(981);
     expect(o.guaranteedRoute).toEqual({ 'cara|live': 'F' });
+  });
+
+  it('builds the miss example from the fewest passers, using the champion place when it takes fewer', () => {
+    // 3 places; the 3rd goes to a Grand Slam champion ranked 3rd-6th. xen (500) is 2nd. cham, a champion
+    // on 100, is certain to stay inside the window, so one passer is enough to push xen to 3rd, where cham
+    // takes the place. Filling all three places above her instead would need two passers.
+    const raw = rawSeason();
+    raw.rules.maxCountedResults = 10;
+    raw.rules.trackedPlayerCount = 6;
+    raw.rules.qualification = { places: 3, championPlace: { categories: ['GS'], fromRank: 3, toRank: 6 }, minEvents: null };
+    raw.tournaments = raw.tournaments.filter((t) => t.status !== 'in-progress');
+    const player = (id: string, results: { tournamentId: string; round: string; points: number }[]) =>
+      ({ id, name: id.toUpperCase(), country: 'US', officialRaceTotal: 0, results });
+    raw.players = [
+      player('top', [{ tournamentId: 'slam', round: 'F', points: 2000 }]),
+      player('xen', [{ tournamentId: 'slam', round: 'F', points: 500 }]),
+      player('p1', [{ tournamentId: 'slam', round: 'F', points: 470 }]),
+      player('p2', [{ tournamentId: 'slam', round: 'F', points: 469 }]),
+      player('p3', [{ tournamentId: 'slam', round: 'F', points: 468 }]),
+      player('cham', [{ tournamentId: 'slam', round: 'W', points: 100 }]),
+    ];
+    const s = parseOrThrow(raw);
+    const o = open(outlook(s, 'xen'));
+    expect(o.missExample).not.toBeNull();
+    const passers = new Set(Object.keys(o.missExample!).map((k) => k.split('|')[0]));
+    expect([...passers]).toHaveLength(1);
+    shows(s, o.missExample!, 'xen', false);
   });
 });
