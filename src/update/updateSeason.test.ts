@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { raceRows, snapshot, updaterSeason } from './testFeeds';
+import { drawList, liveMatches, match, raceRows, snapshot, TOURNAMENT_IDS, updaterSeason } from './testFeeds';
 import { updateSeason } from './updateSeason';
 
 describe('updateSeason: totals', () => {
@@ -31,5 +31,67 @@ describe('updateSeason: totals', () => {
     const copy = structuredClone(raw);
     updateSeason(raw, snapshot(raw));
     expect(raw).toEqual(copy);
+  });
+});
+
+const player = (raw: ReturnType<typeof updaterSeason>, id: string) => raw.players.find((p) => p.id === id)!;
+const liveOf = (raw: ReturnType<typeof updaterSeason>, id: string, t: string) => player(raw, id).live?.find((l) => l.tournamentId === t);
+
+describe('updateSeason: events in progress', () => {
+  it('records the draw size and each alive player position', () => {
+    const result = updateSeason(updaterSeason(), snapshot());
+    expect(result.problems).toEqual([]);
+    expect(result.raw.tournaments.find((t) => t.id === 'live')!.drawSize).toBe(32);
+    expect(liveOf(result.raw, 'ana', 'live')).toEqual({ tournamentId: 'live', state: 'alive', round: 'QF', drawPosition: 1 });
+    expect(liveOf(result.raw, 'bea', 'live')).toEqual({ tournamentId: 'live', state: 'eliminated', round: 'R16' });
+  });
+
+  it('moves a winner on and keeps credited points', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = liveMatches([match('Q', 1, 105, 1)]);
+    const result = updateSeason(raw, snap);
+    expect(liveOf(result.raw, 'ana', 'live')).toMatchObject({ state: 'alive', round: 'SF' });
+    expect(player(result.raw, 'ana').results.find((r) => r.tournamentId === 'live')).toEqual({ tournamentId: 'live', round: 'SF', points: 10 });
+    expect(result.changes).toContain('Live Masters: Ana Alpha alive in SF');
+  });
+
+  it('marks a loser out, without a draw position', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = liveMatches([match('Q', 1, 105, 105)]);
+    const result = updateSeason(raw, snap);
+    expect(liveOf(result.raw, 'ana', 'live')).toEqual({ tournamentId: 'live', state: 'eliminated', round: 'QF' });
+    expect(result.changes).toContain('Live Masters: Ana Alpha out in QF');
+  });
+
+  it('starts an event: status, byes, draw, live rounds and 0-point results', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.calendar.find((c) => c.tournamentGroup.id === TOURNAMENT_IDS.next)!.status = 'live';
+    // A 28 draw: byes at 1, 8, 21 and 28; ana (1) has one, cat (5) plays and wins her first round.
+    snap.eventPlayers[TOURNAMENT_IDS.next!] = { events: [{ eventTypeCode: 'LS', eventPlayers: drawList(28, { 1: 1, 5: 3 }) }] };
+    const playing = [...Array(28).keys()].map((i) => i + 1).filter((p) => ![1, 8, 21, 28].includes(p));
+    const id = (p: number) => (p === 1 ? 1 : p === 5 ? 3 : 100 + p);
+    snap.eventMatches[TOURNAMENT_IDS.next!] = Array.from({ length: 12 }, (_, i) => {
+      const a = id(playing[2 * i]!);
+      const b = id(playing[2 * i + 1]!);
+      return match(1, a, b, b === 3 ? 3 : a);
+    });
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    const next = result.raw.tournaments.find((t) => t.id === 'next')!;
+    expect(next).toMatchObject({ status: 'in-progress', drawSize: 28, byes: ['ana'] });
+    expect(next.entries).toBeUndefined();
+    expect(liveOf(result.raw, 'ana', 'next')).toEqual({ tournamentId: 'next', state: 'alive', round: 'R16', drawPosition: 1 });
+    expect(liveOf(result.raw, 'cat', 'next')).toEqual({ tournamentId: 'next', state: 'alive', round: 'R16', drawPosition: 5 });
+    expect(player(result.raw, 'cat').results.find((r) => r.tournamentId === 'next')).toEqual({ tournamentId: 'next', round: 'R16', points: 0 });
+  });
+
+  it('reports an in-progress event whose draw is missing', () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = [];
+    expect(updateSeason(raw, snap).problems).toContain("Live Masters is in progress but its draw isn't in the feeds.");
   });
 });
