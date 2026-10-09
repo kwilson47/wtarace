@@ -11,8 +11,10 @@ nvm use            # Node 24
 npm install
 npm run dev
 npm test           # unit + component tests
-npm run test:e2e   # Playwright
+npm run test:e2e   # Playwright, against the built site: run `npm run build` first
 ```
+
+`npm run dev` serves the homepage, and a player page at `/player.html?id=<player id>`. `npm run build` prerenders the real pages into `dist/`: the homepage, and `players/<id>/index.html` for every tracked player (with her chances worked out at build time), via `scripts/prerender.ts`.
 
 ## Updating the data
 
@@ -51,7 +53,7 @@ Rule values and their sources are recorded in `data/SOURCES.md`.
 
 ## Search and link previews
 
-`index.html` holds the page title, description, canonical URL, link-preview tags and a static intro, which the app replaces when it loads. `public/` holds `robots.txt`, the favicon and `og.png`, the link-preview image. Regenerate the image with `node scripts/og-image.mjs` after editing `scripts/og-image.html`. `sitemap.xml` is written at build time, dated from `data/meta.json`. `public/_headers` keeps the `pages.dev` copies out of search results.
+`index.html` holds the page title, description, canonical URL, link-preview tags and a static intro, which the app replaces when it loads. `public/` holds `robots.txt`, the favicon and `og.png`, the link-preview image. Regenerate the image with `node scripts/og-image.mjs` after editing `scripts/og-image.html`. `scripts/prerender.ts` writes `sitemap.xml` (the homepage and every player page, dated from `data/meta.json`), and gives each player page its own title, description (her standing and what she needs), canonical URL and link-preview tags. `public/_headers` keeps the `pages.dev` copies out of search results.
 
 ## Deployment setup (one-time)
 

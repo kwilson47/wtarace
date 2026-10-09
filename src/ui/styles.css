@@ -98,3 +98,4 @@ a.button { display: inline-block; padding: 6px 12px; border: 1px solid var(--lin
 .player-page h2 { font-size: 1.1rem; margin: 20px 0 8px; }
 .schedule ul { margin: 0; padding-left: 20px; }
 .profile-link { margin: 6px 0 0; font-size: 0.9rem; }
+.player-page .outlook h3 { font-size: 1.1rem; margin-bottom: 8px; }
