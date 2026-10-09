@@ -1,6 +1,7 @@
 [
   {
     "id": "elena-rybakina",
+    "wtaId": 324166,
     "name": "Elena Rybakina",
     "country": "KZ",
     "officialRaceTotal": 7492,
@@ -102,6 +103,7 @@
   },
   {
     "id": "aryna-sabalenka",
+    "wtaId": 320760,
     "name": "Aryna Sabalenka",
     "country": "BY",
     "officialRaceTotal": 6485,
@@ -203,6 +205,7 @@
   },
   {
     "id": "jessica-pegula",
+    "wtaId": 316956,
     "name": "Jessica Pegula",
     "country": "US",
     "officialRaceTotal": 5825,
@@ -293,6 +296,7 @@
   },
   {
     "id": "mirra-andreeva",
+    "wtaId": 331809,
     "name": "Mirra Andreeva",
     "country": "RU",
     "officialRaceTotal": 5722,
@@ -405,6 +409,7 @@
   },
   {
     "id": "coco-gauff",
+    "wtaId": 328560,
     "name": "Coco Gauff",
     "country": "US",
     "officialRaceTotal": 5654,
@@ -506,6 +511,7 @@
   },
   {
     "id": "elina-svitolina",
+    "wtaId": 316738,
     "name": "Elina Svitolina",
     "country": "UA",
     "officialRaceTotal": 4809,
@@ -612,6 +618,7 @@
   },
   {
     "id": "karolina-muchova",
+    "wtaId": 322191,
     "name": "Karolina Muchova",
     "country": "CZ",
     "officialRaceTotal": 4400,
@@ -713,6 +720,7 @@
   },
   {
     "id": "linda-noskova",
+    "wtaId": 329668,
     "name": "Linda Noskova",
     "country": "CZ",
     "officialRaceTotal": 4234,
@@ -814,6 +822,7 @@
   },
   {
     "id": "marta-kostyuk",
+    "wtaId": 326482,
     "name": "Marta Kostyuk",
     "country": "UA",
     "officialRaceTotal": 3910,
@@ -904,6 +913,7 @@
   },
   {
     "id": "iga-swiatek",
+    "wtaId": 326408,
     "name": "Iga Swiatek",
     "country": "PL",
     "officialRaceTotal": 3584,
@@ -1005,6 +1015,7 @@
   },
   {
     "id": "iva-jovic",
+    "wtaId": 332285,
     "name": "Iva Jovic",
     "country": "US",
     "officialRaceTotal": 2731,
@@ -1121,6 +1132,7 @@
   },
   {
     "id": "victoria-mboko",
+    "wtaId": 331006,
     "name": "Victoria Mboko",
     "country": "CA",
     "officialRaceTotal": 2393,
@@ -1206,6 +1218,7 @@
   },
   {
     "id": "sorana-cirstea",
+    "wtaId": 312469,
     "name": "Sorana Cirstea",
     "country": "RO",
     "officialRaceTotal": 2390,
@@ -1311,6 +1324,7 @@
   },
   {
     "id": "diana-shnaider",
+    "wtaId": 330482,
     "name": "Diana Shnaider",
     "country": "RU",
     "officialRaceTotal": 2344,
@@ -1427,6 +1441,7 @@
   },
   {
     "id": "alexandra-eala",
+    "wtaId": 330332,
     "name": "Alexandra Eala",
     "country": "PH",
     "officialRaceTotal": 2181,
@@ -1552,6 +1567,7 @@
   },
   {
     "id": "naomi-osaka",
+    "wtaId": 319998,
     "name": "Naomi Osaka",
     "country": "JP",
     "officialRaceTotal": 2177,
@@ -1653,6 +1669,7 @@
   },
   {
     "id": "elise-mertens",
+    "wtaId": 317964,
     "name": "Elise Mertens",
     "country": "BE",
     "officialRaceTotal": 2160,
@@ -1770,6 +1787,7 @@
   },
   {
     "id": "madison-keys",
+    "wtaId": 316959,
     "name": "Madison Keys",
     "country": "US",
     "officialRaceTotal": 2095,
@@ -1870,6 +1888,7 @@
   },
   {
     "id": "belinda-bencic",
+    "wtaId": 319001,
     "name": "Belinda Bencic",
     "country": "CH",
     "officialRaceTotal": 2087,
@@ -1966,6 +1985,7 @@
   },
   {
     "id": "anna-kalinskaya",
+    "wtaId": 323942,
     "name": "Anna Kalinskaya",
     "country": "RU",
     "officialRaceTotal": 1967,
@@ -2082,6 +2102,7 @@
   },
   {
     "id": "amanda-anisimova",
+    "wtaId": 326384,
     "name": "Amanda Anisimova",
     "country": "US",
     "officialRaceTotal": 1963,
@@ -2152,6 +2173,7 @@
   },
   {
     "id": "anastasia-potapova",
+    "wtaId": 325601,
     "name": "Anastasia Potapova",
     "country": "AT",
     "officialRaceTotal": 1807,
@@ -2268,6 +2290,7 @@
   },
   {
     "id": "emma-navarro",
+    "wtaId": 325410,
     "name": "Emma Navarro",
     "country": "US",
     "officialRaceTotal": 1805,
@@ -2383,6 +2406,7 @@
   },
   {
     "id": "maja-chwalinska",
+    "wtaId": 325639,
     "name": "Maja Chwalinska",
     "country": "PL",
     "officialRaceTotal": 1745,
@@ -2454,6 +2478,7 @@
   },
   {
     "id": "marie-bouzkova",
+    "wtaId": 320983,
     "name": "Marie Bouzkova",
     "country": "CZ",
     "officialRaceTotal": 1708,
@@ -2575,6 +2600,7 @@
   },
   {
     "id": "leylah-fernandez",
+    "wtaId": 326735,
     "name": "Leylah Fernandez",
     "country": "CA",
     "officialRaceTotal": 1649,
@@ -2715,6 +2741,7 @@
   },
   {
     "id": "sara-bejlek",
+    "wtaId": 330375,
     "name": "Sara Bejlek",
     "country": "CZ",
     "officialRaceTotal": 1472,
@@ -2835,6 +2862,7 @@
   },
   {
     "id": "jelena-ostapenko",
+    "wtaId": 319939,
     "name": "Jelena Ostapenko",
     "country": "LV",
     "officialRaceTotal": 1463,
@@ -2950,6 +2978,7 @@
   },
   {
     "id": "maria-sakkari",
+    "wtaId": 318312,
     "name": "Maria Sakkari",
     "country": "GR",
     "officialRaceTotal": 1404,
@@ -3070,6 +3099,7 @@
   },
   {
     "id": "diane-parry",
+    "wtaId": 327077,
     "name": "Diane Parry",
     "country": "FR",
     "officialRaceTotal": 1389,
@@ -3190,6 +3220,7 @@
   },
   {
     "id": "jasmine-paolini",
+    "wtaId": 319280,
     "name": "Jasmine Paolini",
     "country": "IT",
     "officialRaceTotal": 1324,
@@ -3295,6 +3326,7 @@
   },
   {
     "id": "peyton-stearns",
+    "wtaId": 327573,
     "name": "Peyton Stearns",
     "country": "US",
     "officialRaceTotal": 1316,
@@ -3415,6 +3447,7 @@
   },
   {
     "id": "ann-li",
+    "wtaId": 326096,
     "name": "Ann Li",
     "country": "US",
     "officialRaceTotal": 1298,
@@ -3555,6 +3588,7 @@
   },
   {
     "id": "xinyu-wang",
+    "wtaId": 326376,
     "name": "Xinyu Wang",
     "country": "CN",
     "officialRaceTotal": 1288,
@@ -3680,6 +3714,7 @@
   },
   {
     "id": "ekaterina-alexandrova",
+    "wtaId": 319007,
     "name": "Ekaterina Alexandrova",
     "country": "RU",
     "officialRaceTotal": 1279,
@@ -3815,6 +3850,7 @@
   },
   {
     "id": "cristina-bucsa",
+    "wtaId": 321158,
     "name": "Cristina Bucsa",
     "country": "ES",
     "officialRaceTotal": 1231,
@@ -3935,6 +3971,7 @@
   },
   {
     "id": "kimberly-birrell",
+    "wtaId": 320728,
     "name": "Kimberly Birrell",
     "country": "AU",
     "officialRaceTotal": 1228,
@@ -4065,6 +4102,7 @@
   },
   {
     "id": "nikola-bartunkova",
+    "wtaId": 330364,
     "name": "Nikola Bartunkova",
     "country": "CZ",
     "officialRaceTotal": 1177,
@@ -4171,6 +4209,7 @@
   },
   {
     "id": "hailey-baptiste",
+    "wtaId": 327101,
     "name": "Hailey Baptiste",
     "country": "US",
     "officialRaceTotal": 1153,
@@ -4250,6 +4289,7 @@
   },
   {
     "id": "liudmila-samsonova",
+    "wtaId": 322222,
     "name": "Liudmila Samsonova",
     "country": "RU",
     "officialRaceTotal": 1124,

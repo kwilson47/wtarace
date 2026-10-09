@@ -85,6 +85,7 @@ Primary sources:
   - Seoul (1024).
 
   The feed's group name for the 2026 Canadian Open is "MONTREAL", but its title says "Toronto, CAN", and its dates match `toronto-2026`.
+- **`wtaId`** (2026-10-09): the WTA's own ids, used by the automatic updater. Players were matched by exact full name in the race ranking feed; tournaments by start date and level in the calendar feed (`tournamentGroup.id`). The `zp-*` placeholders have none.
 - **Placeholder tournaments** `zp-wta500-1` and `zp-wta500-2` stand for zero-pointers whose event is not published. Their dates span the Race Year. They are allowed under **controller Ruling 8a**, which needs both of these, and not that today's total requires the zero-pointer:
   - the official `tournamentsPlayed` is higher than the player's stored events;
   - WTA 500 commitment zero-pointers must count (R §VIII.A.4.a.i(c), p.144; RR p.3), so they will take a counting slot once a player passes 18 results.
@@ -109,6 +110,7 @@ Primary sources:
     - Baptiste is not in the draw.
     - Seeds among them were added to `byes`.
   - Eliminated: Svitolina QF, Swiatek QF, Muchova QF, Rybakina R64 (after a bye), Sabalenka R32, Gauff R16, Noskova R16, Jovic R16, Shnaider R32, Osaka R16, Bencic R32, Kalinskaya R64 (retired), Potapova R64 (retired), Chwalinska R64, Bouzkova R32.
+- **`wtaId`** (2026-10-09): the WTA's own ids, used by the automatic updater. Players were matched by exact full name in the race ranking feed; tournaments by start date and level in the calendar feed (`tournamentGroup.id`). The `zp-*` placeholders have none.
 - **`qualified`:** true for Rybakina and Sabalenka only. Source: WTA press release, 2026-09-28, https://www.wtatennis.com/news/4583238/aryna-sabalenka-qualifies-for-wta-finals-indian-wells-for-sixth-consecutive-season ("Sabalenka joins PIF WTA World No. 1 Elena Rybakina, who qualified earlier this month"). No other singles qualification had been announced.
 - **`eventMinimumWaived`:** false for everyone. The WTA has announced no long-term-injury exemption.
 

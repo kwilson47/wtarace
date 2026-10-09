@@ -112,6 +112,14 @@ describe('parseSeason', () => {
     expect(errorsFor((raw) => { raw.tournaments[4]!.entries = ['ana']; })).toContain('Tournament live: entries are only for upcoming events');
   });
 
+  it('accepts WTA ids on players and tournaments', () => {
+    expect(errorsFor((raw) => { raw.players[0]!.wtaId = 1; raw.tournaments[0]!.wtaId = 901; })).toBe('');
+  });
+
+  it('rejects a WTA id used twice', () => {
+    expect(errorsFor((raw) => { raw.players[0]!.wtaId = 1; raw.players[1]!.wtaId = 1; })).toContain('Duplicate player wtaId 1');
+  });
+
   it('reports field-level problems with their path', () => {
     expect(errorsFor((raw) => { raw.meta.lastUpdated = 'yesterday'; })).toContain('meta.lastUpdated');
   });

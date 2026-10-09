@@ -1,6 +1,7 @@
 [
   {
     "id": "hong-kong-2025",
+    "wtaId": 1074,
     "name": "Hong Kong",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -31,6 +32,7 @@
   },
   {
     "id": "chennai-2025",
+    "wtaId": 1148,
     "name": "Chennai",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -41,6 +43,7 @@
   },
   {
     "id": "jiujiang-2025",
+    "wtaId": 1077,
     "name": "Jiujiang",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -51,6 +54,7 @@
   },
   {
     "id": "united-cup-2026",
+    "wtaId": 2084,
     "name": "United Cup",
     "category": "WTA500",
     "drawType": "united-cup",
@@ -61,6 +65,7 @@
   },
   {
     "id": "brisbane-2026",
+    "wtaId": 800,
     "name": "Brisbane",
     "category": "WTA500",
     "drawType": "wta500-48",
@@ -71,6 +76,7 @@
   },
   {
     "id": "auckland-2026",
+    "wtaId": 1049,
     "name": "Auckland",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -81,6 +87,7 @@
   },
   {
     "id": "adelaide-2026",
+    "wtaId": 2014,
     "name": "Adelaide",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -91,6 +98,7 @@
   },
   {
     "id": "hobart-2026",
+    "wtaId": 1050,
     "name": "Hobart",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -101,6 +109,7 @@
   },
   {
     "id": "australian-open-2026",
+    "wtaId": 901,
     "name": "Australian Open",
     "category": "GS",
     "drawType": "gs-128",
@@ -111,6 +120,7 @@
   },
   {
     "id": "abu-dhabi-2026",
+    "wtaId": 2088,
     "name": "Abu Dhabi",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -121,6 +131,7 @@
   },
   {
     "id": "cluj-napoca-2026",
+    "wtaId": 2050,
     "name": "Cluj-Napoca",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -131,6 +142,7 @@
   },
   {
     "id": "ostrava-2026",
+    "wtaId": 1154,
     "name": "Ostrava",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -141,6 +153,7 @@
   },
   {
     "id": "doha-2026",
+    "wtaId": 1003,
     "name": "Doha",
     "category": "WTA1000",
     "drawType": "wta1000-56",
@@ -151,6 +164,7 @@
   },
   {
     "id": "dubai-2026",
+    "wtaId": 718,
     "name": "Dubai",
     "category": "WTA1000",
     "drawType": "wta1000-56",
@@ -161,6 +175,7 @@
   },
   {
     "id": "austin-2026",
+    "wtaId": 2082,
     "name": "Austin",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -171,6 +186,7 @@
   },
   {
     "id": "merida-2026",
+    "wtaId": 2085,
     "name": "Mérida",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -181,6 +197,7 @@
   },
   {
     "id": "indian-wells-2026",
+    "wtaId": 609,
     "name": "Indian Wells",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
@@ -191,6 +208,7 @@
   },
   {
     "id": "miami-2026",
+    "wtaId": 902,
     "name": "Miami",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
@@ -201,6 +219,7 @@
   },
   {
     "id": "bogota-2026",
+    "wtaId": 894,
     "name": "Bogotá",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -211,6 +230,7 @@
   },
   {
     "id": "charleston-2026",
+    "wtaId": 804,
     "name": "Charleston",
     "category": "WTA500",
     "drawType": "wta500-48",
@@ -221,6 +241,7 @@
   },
   {
     "id": "linz-2026",
+    "wtaId": 528,
     "name": "Linz",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -231,6 +252,7 @@
   },
   {
     "id": "rouen-2026",
+    "wtaId": 2066,
     "name": "Rouen",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -241,6 +263,7 @@
   },
   {
     "id": "stuttgart-2026",
+    "wtaId": 1051,
     "name": "Stuttgart",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -251,6 +274,7 @@
   },
   {
     "id": "madrid-2026",
+    "wtaId": 1038,
     "name": "Madrid",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
@@ -261,6 +285,7 @@
   },
   {
     "id": "rome-2026",
+    "wtaId": 709,
     "name": "Rome",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
@@ -271,6 +296,7 @@
   },
   {
     "id": "strasbourg-2026",
+    "wtaId": 406,
     "name": "Strasbourg",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -281,6 +307,7 @@
   },
   {
     "id": "roland-garros-2026",
+    "wtaId": 903,
     "name": "French Open",
     "category": "GS",
     "drawType": "gs-128",
@@ -291,6 +318,7 @@
   },
   {
     "id": "queens-2026",
+    "wtaId": 1111,
     "name": "Queen's",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -301,6 +329,7 @@
   },
   {
     "id": "s-hertogenbosch-2026",
+    "wtaId": 822,
     "name": "'s-Hertogenbosch",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -311,6 +340,7 @@
   },
   {
     "id": "berlin-2026",
+    "wtaId": 2012,
     "name": "Berlin",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -321,6 +351,7 @@
   },
   {
     "id": "nottingham-2026",
+    "wtaId": 1080,
     "name": "Nottingham",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -331,6 +362,7 @@
   },
   {
     "id": "bad-homburg-2026",
+    "wtaId": 2017,
     "name": "Bad Homburg",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -341,6 +373,7 @@
   },
   {
     "id": "eastbourne-2026",
+    "wtaId": 710,
     "name": "Eastbourne",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -351,6 +384,7 @@
   },
   {
     "id": "wimbledon-2026",
+    "wtaId": 904,
     "name": "Wimbledon",
     "category": "GS",
     "drawType": "gs-128",
@@ -361,6 +395,7 @@
   },
   {
     "id": "athens-2026",
+    "wtaId": 1175,
     "name": "Athens",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -371,6 +406,7 @@
   },
   {
     "id": "prague-2026",
+    "wtaId": 1082,
     "name": "Prague",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -381,6 +417,7 @@
   },
   {
     "id": "washington-dc-2026",
+    "wtaId": 1045,
     "name": "Washington",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -391,6 +428,7 @@
   },
   {
     "id": "memphis-2026",
+    "wtaId": 1167,
     "name": "Memphis",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -401,6 +439,7 @@
   },
   {
     "id": "toronto-2026",
+    "wtaId": 806,
     "name": "Toronto",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
@@ -411,6 +450,7 @@
   },
   {
     "id": "cincinnati-2026",
+    "wtaId": 1017,
     "name": "Cincinnati",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
@@ -421,6 +461,7 @@
   },
   {
     "id": "monterrey-2026",
+    "wtaId": 1039,
     "name": "Monterrey",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -431,6 +472,7 @@
   },
   {
     "id": "us-open-2026",
+    "wtaId": 905,
     "name": "US Open",
     "category": "GS",
     "drawType": "gs-128",
@@ -441,6 +483,7 @@
   },
   {
     "id": "guadalajara-2026",
+    "wtaId": 2075,
     "name": "Guadalajara",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -451,6 +494,7 @@
   },
   {
     "id": "singapore-2026",
+    "wtaId": 1152,
     "name": "Singapore",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -461,6 +505,7 @@
   },
   {
     "id": "seoul-2026",
+    "wtaId": 1024,
     "name": "Seoul",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -471,6 +516,7 @@
   },
   {
     "id": "beijing-2026",
+    "wtaId": 1020,
     "name": "Beijing",
     "category": "WTA1000C",
     "drawType": "wta1000-96",
@@ -513,6 +559,7 @@
   },
   {
     "id": "wuhan-2026",
+    "wtaId": 1075,
     "name": "Wuhan",
     "category": "WTA1000",
     "drawType": "wta1000-56",
@@ -557,6 +604,7 @@
   },
   {
     "id": "ningbo-2026",
+    "wtaId": 2092,
     "name": "Ningbo",
     "category": "WTA500",
     "drawType": "wta500-28",
@@ -590,6 +638,7 @@
   },
   {
     "id": "osaka-2026",
+    "wtaId": 405,
     "name": "Osaka",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -607,6 +656,7 @@
   },
   {
     "id": "guangzhou-2026",
+    "wtaId": 1023,
     "name": "Guangzhou",
     "category": "WTA250",
     "drawType": "wta250-32",
@@ -620,6 +670,7 @@
   },
   {
     "id": "tokyo-2026",
+    "wtaId": 1056,
     "name": "Tokyo",
     "category": "WTA500",
     "drawType": "wta500-28",

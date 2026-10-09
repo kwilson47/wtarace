@@ -56,6 +56,8 @@ export const tournamentSchema = z.object({
   drawSize: z.number().int().positive().optional(),
   /** Tracked players on an upcoming event's entry list (main draw or qualifying), once published. Display only. */
   entries: z.array(id).optional(),
+  /** The WTA's own id (calendar `tournamentGroup.id` for tournaments), used by the automatic updater. */
+  wtaId: z.number().int().positive().optional(),
 });
 
 const resultSchema = z.object({ tournamentId: id, round: roundCode, points: z.number().int().nonnegative() });
@@ -69,6 +71,8 @@ const liveSchema = z.object({
 
 export const playerSchema = z.object({
   id,
+  /** The WTA's own id (calendar `tournamentGroup.id` for tournaments), used by the automatic updater. */
+  wtaId: z.number().int().positive().optional(),
   name: z.string().min(1),
   country: z.string().regex(/^[A-Z]{2}$/, 'must be an ISO 3166-1 alpha-2 code'),
   officialRaceTotal: z.number().int().nonnegative(),
@@ -94,6 +98,13 @@ export const seasonSchema = z
 
     duplicates(s.tournaments.map((t) => t.id), 'tournament');
     duplicates(s.players.map((p) => p.id), 'player');
+    // Tournament WTA ids repeat across years (Hong Kong 2025 and 2026), so only player ids must be unique.
+    const wtaIds = new Set<number>();
+    for (const p of s.players) {
+      if (p.wtaId === undefined) continue;
+      if (wtaIds.has(p.wtaId)) issue(`Duplicate player wtaId ${p.wtaId}`);
+      wtaIds.add(p.wtaId);
+    }
     if (s.players.length !== s.rules.trackedPlayerCount) {
       issue(`players.json has ${s.players.length} players but rules.trackedPlayerCount is ${s.rules.trackedPlayerCount}`);
     }
