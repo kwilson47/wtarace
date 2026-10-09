@@ -64,7 +64,14 @@ interface Props {
 
 export function PlayerOutlook({ player, outlook, players, season, onLoad }: Props) {
   let body: ReactNode;
-  if (outlook === null) body = <p className="muted">Working out her chances…</p>;
+  if (outlook === null) {
+    body = (
+      <p className="muted" role="status">
+        Working out her chances
+        <span className="working-dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span>
+      </p>
+    );
+  }
   else if (outlook === 'failed') body = <p>We couldn't work out her chances.</p>;
   else if (outlook.status === 'qualified') body = <p>{`${player.name} has qualified for the WTA Finals.`}</p>;
   else if (outlook.status === 'out') body = <p>{`${player.name} can no longer qualify.`}</p>;
