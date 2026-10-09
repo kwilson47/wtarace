@@ -29,6 +29,8 @@ export interface PickedMatch extends BracketMatch {
   conflict: boolean;
   /** Undecided, with both players known: either can be picked. */
   pickable: boolean;
+  /** The players real results put in this match (before picks). */
+  drawn: [Slot, Slot];
 }
 
 const decided = (m: BracketMatch) => m.outcome !== 'pending' && m.outcome !== 'scheduled';
@@ -47,7 +49,8 @@ export function applyPicks(bracket: Bracket, picks: Map<number, number>): Picked
       round.map((m, i): PickedMatch => {
         const top: Slot = m.top ?? previous?.[2 * i]?.winner ?? null;
         const bottom: Slot = m.bottom ?? previous?.[2 * i + 1]?.winner ?? null;
-        if (m.outcome === 'bye' || decided(m)) return { ...m, top, bottom, picked: false, conflict: false, pickable: false };
+        const drawn: [Slot, Slot] = [m.top, m.bottom];
+        if (m.outcome === 'bye' || decided(m)) return { ...m, top, bottom, picked: false, conflict: false, pickable: false, drawn };
         const known = typeof top === 'number' && typeof bottom === 'number';
         const reach = (s: Slot) => (typeof s === 'number' ? picks.get(s) : undefined);
         const a = reach(top);
@@ -59,7 +62,7 @@ export function applyPicks(bracket: Bracket, picks: Map<number, number>): Picked
           if (aOn) winner = top as number;
           else if (bOn) winner = bottom as number;
         }
-        return { ...m, top, bottom, winner, picked: winner !== null, conflict: aOn && bOn, pickable: known };
+        return { ...m, top, bottom, winner, picked: winner !== null, conflict: aOn && bOn, pickable: known, drawn };
       }),
     );
   });
@@ -68,7 +71,7 @@ export function applyPicks(bracket: Bracket, picks: Map<number, number>): Picked
 
 /**
  * The scenario after clicking `winner` in `match`: she goes through (keeping any deeper pick she has) and
- * her opponent is out here. Clicking a picked winner again clears both picks.
+ * her opponent is out here. Clicking a picked winner again undoes just this match.
  */
 export function pickWinner(scenario: Scenario, season: Season, t: Tournament, match: PickedMatch, winner: number): Scenario {
   const loser = match.top === winner ? match.bottom : match.top;
@@ -78,8 +81,11 @@ export function pickWinner(scenario: Scenario, season: Season, t: Tournament, ma
   const winnerKey = drawPickKey(season, winner, t.id);
   const loserKey = drawPickKey(season, loser, t.id);
   if (match.picked && match.winner === winner) {
-    delete next[winnerKey];
-    delete next[loserKey];
+    // Undo just this match: both players are back to having reached it. Results already put someone here, so she needs no pick.
+    for (const [id, key] of [[winner, winnerKey], [loser, loserKey]] as const) {
+      if (match.drawn.includes(id)) delete next[key];
+      else next[key] = table[match.round - 1]!.round;
+    }
     return next;
   }
   const already = table.findIndex((r) => r.round === next[winnerKey]) + 1;

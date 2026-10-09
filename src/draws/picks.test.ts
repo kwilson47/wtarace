@@ -54,4 +54,17 @@ describe('bracket picks', () => {
     expect(deeper['w3|live']).toBe('QF');
     expect(clearTournamentPicks({ 'w3|live': 'QF', 'ana|next': 'W' }, 'live')).toEqual({ 'ana|next': 'W' });
   });
+  it('un-picking a later match keeps how both players got there', () => {
+    const s = season();
+    const t = live();
+    // 4 beat 3, then won the final over 1.
+    const scenario = { 'w4|live': 'QF', 'w3|live': 'R32', 'ana|live': 'R16' };
+    const final = applyPicks(buildBracket(draw)!, pickedRounds(s, t, draw, scenario))[1]![0]!;
+    expect(final).toMatchObject({ winner: 4, picked: true });
+    const after = pickWinner(scenario, s, t, final, 4);
+    expect(after).toEqual({ 'w4|live': 'R16', 'w3|live': 'R32' }); // ana is in the final for real: no pick needed
+    const replayed = applyPicks(buildBracket(draw)!, pickedRounds(s, t, draw, after));
+    expect(replayed[0]![1]).toMatchObject({ winner: 4, picked: true });
+    expect(replayed[1]![0]).toMatchObject({ winner: null, pickable: true });
+  });
 });
