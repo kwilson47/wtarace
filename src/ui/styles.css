@@ -107,3 +107,4 @@ select { font: inherit; max-width: 100%; }
 .matches tr.lost .wl { color: var(--down); }
 .matches tr.won .wl { color: var(--up); }
 .matches .score { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.player-page .matches a, .player-page .player-status a { color: var(--accent-text); }

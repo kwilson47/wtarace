@@ -14,12 +14,13 @@ npm test           # unit + component tests
 npm run test:e2e   # Playwright, against the built site: run `npm run build` first
 ```
 
-`npm run dev` serves the homepage, and a player page at `/player.html?id=<player id>`. `npm run build` prerenders the real pages into `dist/`: the homepage, and `players/<id>/index.html` for every tracked player (with her chances worked out at build time), via `scripts/prerender.ts`.
+`npm run dev` serves the homepage, and a player's season page at `/player.html?id=<player id>`. `npm run build` prerenders the real pages into `dist/` via `scripts/prerender.ts`: the homepage, and `players/<id>/index.html` for every tracked player. Each player page shows her season from `data/matches/<id>.json`: record, splits, and every tournament round by round.
 
 ## Updating the data
 
 **Automatic (normal case).** The `Update data` workflow (`.github/workflows/update.yml`) runs every hour. It reads the official WTA feeds and refreshes:
 - race totals;
+- every tracked player's match results (`data/matches/`; see `data/SOURCES.md`);
 - live rounds, draw sizes, draw positions and byes at events under way;
 - entry lists;
 - crediting finished events once the WTA posts their points;
@@ -40,7 +41,7 @@ If every official total still reproduces and all checks pass, it commits (as `gi
    - When a draw comes out: fill that tournament's `byes` with tracked player ids.
    - When an upcoming event's entry list is published or changes: set its `entries` to the tracked player ids on it (main draw or qualifying), from `https://api.wtatennis.com/tennis/tournaments/{id}/{year}/players`. An empty list means none of them entered; leave the field out until a list is published. It only affects how the scenario editor orders and tags players.
    - While an event is in progress: set its `drawSize` and give each alive tracked player's `live` entry a `drawPosition`, both from the draw order in `https://api.wtatennis.com/tennis/tournaments/{id}/{year}/players` (1-based). The qualification check uses them to know who can meet whom; without them it is more cautious and may show Q later.
-2. `npm run validate`. It must print `Data OK`. Never change an `officialRaceTotal` to make it pass. A mismatch means a data or rules error.
+2. `npm run validate`. It must print `Data OK`. It also checks the match files. Never change an `officialRaceTotal` to make it pass. A mismatch means a data or rules error.
 3. Commit and push. CI runs every check and deploys only if they all pass. A failing push leaves the live site unchanged.
 
 Data rules to keep in mind:
@@ -53,7 +54,7 @@ Rule values and their sources are recorded in `data/SOURCES.md`.
 
 ## Search and link previews
 
-`index.html` holds the page title, description, canonical URL, link-preview tags and a static intro, which the app replaces when it loads. `public/` holds `robots.txt`, the favicon and `og.png`, the link-preview image. Regenerate the image with `node scripts/og-image.mjs` after editing `scripts/og-image.html`. `scripts/prerender.ts` writes `sitemap.xml` (the homepage and every player page, dated from `data/meta.json`), and gives each player page its own title, description (her standing and what she needs), canonical URL and link-preview tags. `public/_headers` keeps the `pages.dev` copies out of search results.
+`index.html` holds the page title, description, canonical URL and link-preview tags. At build time its static intro is replaced by the prerendered homepage. Each player page gets its own title ("<Name>: 2026 season results"), description (her record and titles), canonical URL and link-preview tags. `public/` holds `robots.txt`, the favicon and `og.png`, the link-preview image. Regenerate the image with `node scripts/og-image.mjs` after editing `scripts/og-image.html`. `scripts/prerender.ts` writes `sitemap.xml` (the homepage and every player page, dated from `data/meta.json`), and gives each player page its own title, description (her standing and what she needs), canonical URL and link-preview tags. `public/_headers` keeps the `pages.dev` copies out of search results.
 
 ## Deployment setup (one-time)
 

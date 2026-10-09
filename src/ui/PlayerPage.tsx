@@ -28,7 +28,7 @@ function Tournament({ t, season }: { t: TournamentBlock; season: Season }) {
     <section className="tournament" aria-label={t.name}>
       <h3>{t.name}</h3>
       <p className="meta">{`${t.team ? 'Team event' : levelLabel(t)} · ${surface} · ${dates(t.startDate, t.endDate)}`}</p>
-      <p className="result">{`${t.result}${t.points !== null ? ` · ${formatPoints(t.points)} pts` : ''}`}</p>
+      <p className="result">{`${t.result}${t.points !== null ? ` · ${formatPoints(t.points)} ${t.points === 1 ? 'pt' : 'pts'}` : ''}`}</p>
       <table className="matches">
         <tbody>
           {t.matches.map((m) => (

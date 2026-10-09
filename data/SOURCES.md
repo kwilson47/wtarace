@@ -76,6 +76,20 @@ It follows the conventions in this file and publishes only when every official t
   - Byes are tracked players in the draw with no first-round match. They're only recorded once the whole first round is in the feed.
   - A finished event is marked completed in the first run whose official totals include its points.
 
+## Match results (`data/matches/`)
+
+One file per tracked player, `data/matches/<player id>.json`, filled by the automatic updater from 2026-10-09. These files are published fact: they are never checked against official totals and never block an update.
+
+- **Source:** the player match feed, `https://api.wtatennis.com/tennis/players/{wtaId}/matches?page=N&pageSize=100&sort=desc&type=S`, read until it passes the race year's start. It lists an event's matches only some time after the event ends. Until then, finished matches at events under way come from the event's own feed, `tournaments/{id}/{year}/matches`.
+- **Window:** the race year, from the week of 2025-10-27 to the last race event. It includes every level: Grand Slams, WTA 1000/500/250/125, ITF, team events (United Cup), and qualifying.
+- **Left out:**
+  - byes (feed `reason_code` `B`);
+  - the 2025 WTA Finals (level `Finals`), which belongs to the 2025 season.
+- **Reason codes:** `R` is a retirement (listed and counted); `D` is a walkover (listed, but not counted in win–loss, as on the WTA's site).
+- **Scores** are winner-first, as both feeds publish them.
+- **Points** are ranking points as published. They're absent while an event is under way.
+- **Names:** an event we track uses our short name. Others use the feed's city, or the event name when the city is blank.
+
 ## Tournaments (`tournaments.json`)
 
 - **Completed events:** the name, dates and draw size come from the `tournament` object in the official WTA match feed (below). Sponsor suffixes such as "presented by …" are trimmed.
