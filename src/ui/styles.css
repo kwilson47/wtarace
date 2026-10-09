@@ -108,3 +108,19 @@ select { font: inherit; max-width: 100%; }
 .matches tr.won .wl { color: var(--up); }
 .matches .score { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .player-page .matches a, .player-page .player-status a { color: var(--accent-text); }
+.tournament-page h2 { font-size: 1.1rem; margin: 20px 0 8px; }
+.champion { margin: 0 0 6px; font-weight: 600; }
+.our-players { margin: 0; padding-left: 20px; }
+.our-players a, .tournament-page .bracket a, .round-list a { color: var(--accent-text); }
+.bracket { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+.bracket-round { display: flex; flex-direction: column; min-width: 180px; }
+.bracket-round h3 { margin: 0 0 6px; font-size: 0.85rem; color: var(--muted); }
+.bracket-matches { display: flex; flex-direction: column; justify-content: space-around; flex: 1; gap: 6px; }
+.match { border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; font-size: 0.85rem; }
+.match .line { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.match .line.winner { font-weight: 600; }
+.match .score { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.match .bye, .match .tbd { color: var(--muted); }
+.tournament-page details { margin: 8px 0; }
+.tournament-page summary { cursor: pointer; font-weight: 600; }
+.round-list { margin: 4px 0; padding-left: 20px; font-size: 0.9rem; }

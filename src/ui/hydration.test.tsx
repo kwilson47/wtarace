@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { season } from '../test/fixtures';
 import { App } from './App';
 import { PlayerPage } from './PlayerPage';
+import { TournamentPage } from './TournamentPage';
 
 /** Renders `element` as the build would (a clean URL, no stored preferences), then hydrates it in a browser-like state. */
 export async function hydrationErrors(element: ReactElement, browser: () => void = () => {}): Promise<unknown[]> {
@@ -52,5 +53,9 @@ describe('hydration', () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  it('a tournament page hydrates cleanly', async () => {
+    expect(await hydrationErrors(<TournamentPage season={season} tournamentId="next" draw={null} />)).toEqual([]);
   });
 });

@@ -1,0 +1,82 @@
+import { render, screen, within } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import type { DrawFile, DrawMatch } from '../draws/drawSchema';
+import type { Season } from '../data/schema';
+import { season } from '../test/fixtures';
+import { TournamentPage } from './TournamentPage';
+
+const p = (wtaId: number, name: string, seed: number | null = null) => ({ wtaId, name, country: null, seed, entry: null });
+const played = (round: number, a: number, b: number, winner: number, score = '6-1 6-1'): DrawMatch => ({ round, a, b, winner, score, outcome: 'played' });
+// The fixture's d32 table has 5 rounds before W, so use a 32-line draw: 4 named players (ana=1, bea=2) and fillers.
+const players = [p(1, 'Ana Alpha', 1), p(2, 'Bea Beta', 2), ...Array.from({ length: 30 }, (_, i) => p(100 + i, `Filler ${i}`))];
+const withIds = (): Season => {
+  const s = structuredClone(season);
+  s.players.find((x) => x.id === 'ana')!.wtaId = 1;
+  s.players.find((x) => x.id === 'bea')!.wtaId = 2;
+  return s;
+};
+
+/** Every match in a 32 draw, with ana winning the title and bea the runner-up. */
+function completedDraw(): DrawFile {
+  // ana tops the draw; bea tops the bottom half, so the final is ana v bea.
+  const order = [players[0]!, ...players.slice(2, 17), players[1]!, ...players.slice(17)];
+  const matches: DrawMatch[] = [];
+  let alive = order.map((x) => x.wtaId);
+  for (let round = 1; alive.length > 1; round++) {
+    const next: number[] = [];
+    for (let i = 0; i < alive.length; i += 2) {
+      const [a, b] = [alive[i]!, alive[i + 1]!];
+      const winner = a === 1 || a === 2 ? a : b === 1 || b === 2 ? b : a;
+      matches.push(played(round, a, b, winner, round === 5 ? '6-3 6-4' : '6-1 6-1'));
+      next.push(winner);
+    }
+    alive = next;
+  }
+  return { drawSize: 32, players: order, matches };
+}
+
+describe('TournamentPage', () => {
+  it('shows a completed event: header, champion, our players and the full bracket', () => {
+    const s = withIds();
+    const draw = completedDraw();
+    render(<TournamentPage season={s} tournamentId="c500" draw={draw} />);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('City 500 2026');
+    expect(screen.getByText(/WTA 500 · Completed/)).toBeInTheDocument();
+    expect(screen.getByText('Champion: Ana Alpha · Runner-up: Bea Beta · 6-3 6-4')).toBeInTheDocument();
+    const ours = screen.getByRole('region', { name: 'Our players' });
+    expect(within(ours).getByRole('link', { name: 'Ana Alpha' })).toHaveAttribute('href', '/players/ana/');
+    expect(ours).toHaveTextContent('Ana Alpha — Winner · 100 pts');
+    const bracket = screen.getByRole('region', { name: 'Draw' });
+    expect(within(bracket).getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual(['R32', 'R16', 'QF', 'SF', 'F']);
+  });
+
+  it('shows an event under way with a bracket from the quarterfinals and the earlier rounds as lists', () => {
+    const s = withIds();
+    const full = completedDraw();
+    const draw = { ...full, matches: full.matches.filter((m) => m.round <= 2) };
+    render(<TournamentPage season={s} tournamentId="live" draw={draw} />);
+    expect(screen.getByText(/In progress/)).toBeInTheDocument();
+    const region = screen.getByRole('region', { name: 'Draw' });
+    expect(within(region).getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual(['QF', 'SF', 'F']);
+    expect(within(region).getByText('R16 (8 matches)')).toBeInTheDocument();
+    expect(within(region).getByText('R32 (16 matches)')).toBeInTheDocument();
+  });
+
+  it("says when the draw hasn't been made, listing our entrants", () => {
+    const s = withIds();
+    s.tournaments.find((t) => t.id === 'next')!.entries = ['cat'];
+    render(<TournamentPage season={s} tournamentId="next" draw={null} />);
+    expect(screen.getByText("The draw hasn't been made yet.")).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Our players' })).toHaveTextContent('Cat Gamma — Entered');
+  });
+
+  it('explains that a team event has no singles draw', () => {
+    const s = withIds();
+    s.tournaments.find((t) => t.id === 'c500')!.drawType = 'd32';
+    const team = structuredClone(s);
+    team.rules.pointsTables['united-cup'] = team.rules.pointsTables.d32!;
+    team.tournaments.find((t) => t.id === 'c250')!.drawType = 'united-cup';
+    render(<TournamentPage season={team} tournamentId="c250" draw={null} />);
+    expect(screen.getByText("A team event: there's no singles draw.")).toBeInTheDocument();
+  });
+});
