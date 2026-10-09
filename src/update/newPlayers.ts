@@ -4,7 +4,7 @@ import type { PlayerMatch } from './feedTypes';
 import { TOP, yearOf, type Ctx, type RawTournament } from './shared';
 
 /** IOC codes the WTA displays → ISO 3166-1 alpha-2 (RUS/BLR are shown for players without a flag). */
-const IOC_TO_ISO: Record<string, string> = {
+export const IOC_TO_ISO: Record<string, string> = {
   AND: 'AD', ARG: 'AR', ARM: 'AM', AUS: 'AU', AUT: 'AT', BEL: 'BE', BIH: 'BA', BLR: 'BY', BRA: 'BR', BUL: 'BG', CAN: 'CA',
   CHN: 'CN', COL: 'CO', CRO: 'HR', CZE: 'CZ', DEN: 'DK', EGY: 'EG', ESP: 'ES', EST: 'EE', FIN: 'FI', FRA: 'FR', GBR: 'GB',
   GEO: 'GE', GER: 'DE', GRE: 'GR', HKG: 'HK', HUN: 'HU', INA: 'ID', IND: 'IN', IRL: 'IE', ISR: 'IL', ITA: 'IT', JPN: 'JP',
@@ -20,7 +20,7 @@ const REQUIRED_CATEGORIES = ['GS', 'WTA1000C', 'WTA1000'];
 
 export const slug = (s: string) =>
   s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const titleCase = (s: string) => s.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (_, before: string, letter: string) => before + letter.toUpperCase());
+export const titleCase = (s: string) => s.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (_, before: string, letter: string) => before + letter.toUpperCase());
 
 /** Draw types by level and draw size (data/SOURCES.md), falling back to the season's 32-draw table. */
 function drawTypeFor(ctx: Ctx, level: string, size: number): string | undefined {

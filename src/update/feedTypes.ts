@@ -46,11 +46,15 @@ export interface LiveMatch {
 }
 
 export interface PlayerMatchTournament {
-  tournamentGroup: { id: number; name: string };
+  tournamentGroup: { id: number; name: string; level?: string };
   year: number;
   title: string;
   city: string;
-  level: string;
+  /** Missing for some events (e.g. Eastbourne 2025); fall back to tournamentGroup.level. */
+  level?: string;
+  surface?: string;
+  /** 'I' indoor, 'O' outdoor. */
+  inOutdoor?: string;
   startDate: string;
   endDate: string;
   singlesDrawSize: number;
@@ -76,6 +80,20 @@ export interface PlayerMatch {
   TournamentName: string;
   TournamentLevel?: string | null;
   tournament?: PlayerMatchTournament;
+  /** 'W' normal, 'R' retirement, 'D' walkover, 'B' bye. */
+  reason_code?: string | null;
+  scores?: string | null;
+  Surface?: string | null;
+  city?: string | null;
+  entry_type_1?: string | null;
+  entry_type_2?: string | null;
+  seed_1?: number | string | null;
+  seed_2?: number | string | null;
+  rank_1?: number | string | null;
+  rank_2?: number | string | null;
+  points_1?: number | null;
+  points_2?: number | null;
+  opponent?: { id: number; fullName: string; countryCode: string | null } | null;
 }
 
 export interface FeedSnapshot {
