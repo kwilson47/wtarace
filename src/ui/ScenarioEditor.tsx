@@ -88,6 +88,7 @@ function ByTournament({ tournaments, players, ...rest }: PanelProps) {
           {tournaments.map((t) => <option key={t.id} value={t.id}>{eventOption(t)}</option>)}
         </select>
       </label>
+      <a className="tournament-link" href={`/tournaments/${tournament.id}/`}>Tournament page →</a>
       <ClearButton
         label={`Clear picks for ${tournament.name}`}
         picks={players.map((p) => ({ playerId: p.id, tournamentId: tournament.id }))}

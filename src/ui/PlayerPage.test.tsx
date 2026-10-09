@@ -54,4 +54,11 @@ describe('PlayerPage', () => {
     render(<PlayerPage season={season} playerId="ana" matches={null} />);
     expect(screen.getByText("Match results aren't available yet.")).toBeInTheDocument();
   });
+
+  it('links a tracked tournament to its page', () => {
+    const s = structuredClone(season);
+    s.tournaments.find((t) => t.id === 'c500')!.wtaId = 903;
+    render(<PlayerPage season={s} playerId="ana" matches={matches} />);
+    expect(within(screen.getByRole('region', { name: 'City 500' })).getByRole('link', { name: 'City 500' })).toHaveAttribute('href', '/tournaments/c500/');
+  });
 });

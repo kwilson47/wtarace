@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { season } from '../test/fixtures';
-import { homeHtml, playerHtml, sitemapXml } from './pages';
+import { homeHtml, playerHtml, sitemapXml, tournamentHtml } from './pages';
 
 const HOME = '<html><head><title>T</title></head><body><div id="root"><!--app-start-->static<!--app-end--></div></body></html>';
 const PLAYER = '<html><head><!--head--></head><body><div id="root"><!--app-start--><!--app-end--></div><!--data--></body></html>';
@@ -31,5 +31,17 @@ describe('prerendered pages', () => {
     expect(xml).toContain('<loc>https://finalsrace.win/</loc>');
     for (const p of season.players) expect(xml).toContain(`<loc>https://finalsrace.win/players/${p.id}/</loc>`);
     expect(xml).toContain('<lastmod>2026-10-07</lastmod>');
+  });
+
+  it('writes a tournament page with its own title, description and embedded draw', () => {
+    const html = tournamentHtml(PLAYER, season, 'next', null);
+    expect(html).toContain('<title>Next Open 2026: draw and results</title>');
+    expect(html).toContain('<link rel="canonical" href="https://finalsrace.win/tournaments/next/" />');
+    expect(html).toContain('<script id="page-data" type="application/json">{"tournamentId":"next","draw":null}</script>');
+    expect(html).toContain('The draw hasn&#x27;t been made yet.');
+  });
+
+  it('lists tournament pages in the sitemap', () => {
+    expect(sitemapXml(season)).toContain('<loc>https://finalsrace.win/tournaments/next/</loc>');
   });
 });

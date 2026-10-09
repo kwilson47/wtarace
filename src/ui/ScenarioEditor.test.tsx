@@ -126,4 +126,9 @@ describe('ScenarioEditor', () => {
       expect(clash).not.toHaveTextContent('Entered');
     });
   });
+
+  it('links the selected tournament to its page', () => {
+    setup();
+    expect(screen.getByRole('link', { name: 'Tournament page →' })).toHaveAttribute('href', `/tournaments/${screen.getByRole('combobox', { name: 'Tournament' }).getAttribute('value') ?? 'live'}/`);
+  });
 });

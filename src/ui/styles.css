@@ -124,3 +124,5 @@ select { font: inherit; max-width: 100%; }
 .tournament-page details { margin: 8px 0; }
 .tournament-page summary { cursor: pointer; font-weight: 600; }
 .round-list { margin: 4px 0; padding-left: 20px; font-size: 0.9rem; }
+.tournament-link { display: inline-block; margin: 0 12px 12px 0; color: var(--accent-text); }
+.player-page .tournament h3 a { color: inherit; }
