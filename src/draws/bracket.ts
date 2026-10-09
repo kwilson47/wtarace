@@ -56,6 +56,15 @@ export function buildBracket(draw: DrawFile): Bracket | null {
         if (top === null) top = found.a === bottom ? found.b : found.a;
         if (bottom === null) bottom = found.a === top ? found.b : found.a;
       }
+      if (!found && typeof top === 'number' && typeof bottom === 'number') {
+        // The feed never published this match (an unreported walkover), but the next round shows who went through.
+        const through = draw.matches.find((m) => m.round === round + 1 && [top, bottom].some((id) => id === m.a || id === m.b));
+        const winner = through ? ([top, bottom].find((id) => id === through.a || id === through.b) ?? null) : null;
+        if (winner !== null) {
+          matches.push({ round, top, bottom, winner, score: '', outcome: 'walkover' });
+          continue;
+        }
+      }
       matches.push({ round, top, bottom, winner: found?.winner ?? null, score: found?.score ?? '', outcome: found?.outcome ?? 'pending' });
     }
     rounds.push(matches);

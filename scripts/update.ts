@@ -1,9 +1,10 @@
 // Refreshes data/ from the official WTA feeds.
 // Usage: tsx scripts/update.ts [--dry-run] [--out result.json] [--message commit-message.txt]
 import { writeFileSync } from 'node:fs';
-import { updateDrawFiles } from '../src/update/draws';
+import { drawFeedKey, updateDrawFiles } from '../src/update/draws';
 import { fetchEventFeeds, fetchSnapshot } from '../src/update/feeds';
 import { updateSeason } from '../src/update/updateSeason';
+import type { EventPlayersFeed, LiveMatch } from '../src/update/feedTypes';
 import { updateMatchFiles } from '../src/update/matches';
 import { readData, readDrawFiles, readMatchFiles, writeData, writeDrawFiles, writeMatchFiles } from '../src/update/writeData';
 
@@ -42,16 +43,26 @@ const matchUpdate = result.problems.length
   ? { files: {}, changes: [], notes: [] }
   : updateMatchFiles(result.raw, snapshot.playerMatches, snapshot.playerFeedErrors ?? [], readMatchFiles(dir), snapshot);
 const existingDraws = readDrawFiles(dir);
-const drawFeeds = { players: { ...snapshot.eventPlayers }, matches: { ...snapshot.eventMatches } };
+// The snapshot's event feeds are keyed by WTA id; draws key them by id and year.
+const drawFeeds: { players: Record<string, EventPlayersFeed>; matches: Record<string, LiveMatch[]> } = { players: {}, matches: {} };
+for (const t of raw.tournaments) {
+  if (t.wtaId === undefined || t.status === 'completed') continue;
+  const players = snapshot.eventPlayers[String(t.wtaId)];
+  const matches = snapshot.eventMatches[String(t.wtaId)];
+  if (players && matches) {
+    drawFeeds.players[drawFeedKey(t)] = players;
+    drawFeeds.matches[drawFeedKey(t)] = matches;
+  }
+}
 const drawFailures: string[] = [];
 if (!result.problems.length) {
   // Completed events are fetched once, for their first draw file.
   for (const t of result.raw.tournaments) {
-    if (t.wtaId === undefined || t.status !== 'completed' || existingDraws[t.id] || drawFeeds.matches[String(t.wtaId)]) continue;
+    if (t.wtaId === undefined || t.status !== 'completed' || existingDraws[t.id] || drawFeeds.matches[drawFeedKey(t)]) continue;
     try {
       const feeds = await fetchEventFeeds(t);
-      drawFeeds.players[String(t.wtaId)] = feeds.players;
-      drawFeeds.matches[String(t.wtaId)] = feeds.matches;
+      drawFeeds.players[drawFeedKey(t)] = feeds.players;
+      drawFeeds.matches[drawFeedKey(t)] = feeds.matches;
     } catch {
       drawFailures.push(t.id);
     }

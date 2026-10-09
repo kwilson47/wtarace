@@ -38,3 +38,12 @@ describe('buildBracket', () => {
     expect(buildBracket({ ...six, matches: [] })).toBeNull();
   });
 });
+
+describe('buildBracket: a match the feed never published', () => {
+  it('fills it in as a walkover when the next round shows who went through', () => {
+    // 4 → 6's match is missing, but 6 plays the final.
+    const draw: DrawFile = { ...six, matches: six.matches.filter((m) => !(m.round === 2 && m.a === 4)) };
+    const bracket = buildBracket(draw)!;
+    expect(bracket.rounds[1]![1]).toMatchObject({ top: 4, bottom: 6, winner: 6, outcome: 'walkover', score: '' });
+  });
+});

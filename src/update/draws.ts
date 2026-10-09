@@ -51,10 +51,13 @@ export function toDrawFile(table: { round: string }[], playersFeed: EventPlayers
   return { drawSize: players.length, players, matches: draw.sort((x, y) => x.round - y.round) };
 }
 
+/** Draw feeds are keyed by WTA id and year: ids repeat every year (Hong Kong 2025 and 2026). */
+export const drawFeedKey = (t: { wtaId?: number; startDate: string }) => `${t.wtaId}-${t.startDate.slice(0, 4)}`;
+
 /**
  * New draw files for tracked events whose draws changed, plus commit-message lines. `feeds` are keyed by
- * WTA tournament id. An event in `failed` (tournament ids) keeps its previous file. Draws are published
- * fact: they never block an update.
+ * `drawFeedKey`. An event in `failed` (tournament ids), or whose feed can't be read or comes back short,
+ * keeps its previous file. Draws are published fact: they never block an update.
  */
 export function updateDrawFiles(
   raw: RawSeason,
@@ -71,10 +74,22 @@ export function updateDrawFiles(
       notes.push(`${t.name}: its draw feeds didn't load, so the previous draw was kept.`);
       continue;
     }
-    const playersFeed = feeds.players[String(t.wtaId)];
-    const matches = feeds.matches[String(t.wtaId)];
+    const playersFeed = feeds.players[drawFeedKey(t)];
+    const matches = feeds.matches[drawFeedKey(t)];
     if (!playersFeed || !matches || !isDrawOut(matches)) continue;
-    const next = toDrawFile(raw.rules.pointsTables[t.drawType]!, playersFeed, matches);
+    let next: DrawFile;
+    try {
+      next = toDrawFile(raw.rules.pointsTables[t.drawType]!, playersFeed, matches);
+    } catch {
+      notes.push(`${t.name}: its draw feed had something unexpected, so the previous draw was kept.`);
+      continue;
+    }
+    // The players feed sometimes drops the main-draw list (it did for Wuhan's qualifying week).
+    const inFirstRound = new Set(next.matches.filter((x) => x.round === 1).flatMap((x) => [x.a, x.b]).filter((x) => x !== null));
+    if (next.players.length === 0 || next.players.length < inFirstRound.size) {
+      notes.push(`${t.name}: its draw list came back empty or short, so the previous draw was kept.`);
+      continue;
+    }
     const previous = existing[t.id];
     if (previous && JSON.stringify(previous) === JSON.stringify(next)) continue;
     const valid = drawFileSchema.safeParse(next);

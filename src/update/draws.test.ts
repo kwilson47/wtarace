@@ -60,7 +60,7 @@ describe('rounds of upcoming matches', () => {
 
 describe('updateDrawFiles', () => {
   const raw = updaterSeason();
-  const feeds = (matches: LiveMatch[]) => ({ players: { '905': players }, matches: { '905': matches } });
+  const feeds = (matches: LiveMatch[]) => ({ players: { '905-2026': players }, matches: { '905-2026': matches } });
 
   it('writes a draw once it is out, and only when it changes', () => {
     expect(updateDrawFiles(raw, feeds([]), {}, []).files).toEqual({});
@@ -76,5 +76,30 @@ describe('updateDrawFiles', () => {
     const out = updateDrawFiles(raw, { players: {}, matches: {} }, { live: { drawSize: 0, players: [], matches: [] } }, ['live']);
     expect(out.files).toEqual({});
     expect(out.notes).toEqual(["Live Masters: its draw feeds didn't load, so the previous draw was kept."]);
+  });
+});
+
+describe('updateDrawFiles: review fixes', () => {
+  const key = '905-2026';
+
+  it("never uses another year's feed for an event that shares its WTA id", () => {
+    const raw = updaterSeason();
+    const other = { players: { '905-2025': players }, matches: { '905-2025': [m({ Winner: '3', ScoreString: '6-4,6-4' })] } };
+    expect(updateDrawFiles(raw, other, {}, []).files).toEqual({});
+  });
+
+  it('keeps the previous draw when an event feed has something it cannot read', () => {
+    const raw = updaterSeason();
+    const out = updateDrawFiles(raw, { players: { [key]: players }, matches: { [key]: [m({ RoundID: 'X', MatchID: undefined, Winner: '3' })] } }, {}, []);
+    expect(out.files).toEqual({});
+    expect(out.notes[0]).toMatch(/^Live Masters: its draw feed had something unexpected/);
+  });
+
+  it('keeps the previous draw when the draw list comes back empty or short', () => {
+    const raw = updaterSeason();
+    const empty = { events: [{ eventTypeCode: 'RS', eventPlayers: [] }] };
+    const out = updateDrawFiles(raw, { players: { [key]: empty }, matches: { [key]: [m({ Winner: '3', ScoreString: '6-4,6-4' })] } }, { live: { drawSize: 3, players: [], matches: [] } }, []);
+    expect(out.files).toEqual({});
+    expect(out.notes[0]).toMatch(/^Live Masters: its draw list came back empty or short/);
   });
 });
