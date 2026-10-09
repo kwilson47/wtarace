@@ -1,5 +1,7 @@
 # Player pages: design
 
+> **Superseded** by `2026-10-09-player-season-pages-design.md`. The user decided this race-focused page repeated the homepage. Its build-time prerendering groundwork is kept.
+
 Approved in conversation on 2026-10-09. This is the second of four sub-projects. The first was automatic data updates. Still to come: tournament pages with a bracket picker, and qualification percentages.
 
 ## Goal
