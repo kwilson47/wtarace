@@ -150,3 +150,44 @@ describe('updateSeason: a finished event', () => {
     expect(result.changes).toContain('Live Masters: points credited, event completed');
   });
 });
+
+describe('updateSeason: a new player in the top 40', () => {
+  const withDee = (played: number) => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.race.push({ ranking: 4, points: 101, tournamentsPlayed: played, player: { id: 4, fullName: 'Dee Delta', countryCode: 'FRA' } });
+    snap.playerMatches['4'] = [
+      playerMatch({ tourn_nbr: '903', player_1: '4', round_name: 'R32', tourn_round: '1', winner: 2, points_champ_1: 1, StartDate: '2026-04-06T00:00:00+00:00' }),
+      playerMatch({
+        tourn_nbr: '908', player_1: '4', round_name: 'F', tourn_round: '5', winner: 1, points_champ_1: 100, StartDate: '2026-06-01T00:00:00+00:00',
+        tournament: { tournamentGroup: { id: 908, name: 'NEWTOWN' }, year: 2026, title: 'Newtown Open - Newtown', city: 'NEWTOWN', level: 'WTA 250', startDate: '2026-06-01', endDate: '2026-06-07', singlesDrawSize: 32 },
+      }),
+    ];
+    return { raw, snap };
+  };
+
+  it('adds her season, and any event we did not track, when her total and event count reproduce', () => {
+    const { raw, snap } = withDee(2);
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    const dee = player(result.raw, 'dee-delta');
+    expect(dee).toMatchObject({ wtaId: 4, name: 'Dee Delta', country: 'FR', officialRaceTotal: 101 });
+    expect(dee.results).toEqual([
+      { tournamentId: 'c500', round: 'R32', points: 1 },
+      { tournamentId: 'newtown-2026', round: 'W', points: 100 },
+    ]);
+    expect(result.raw.tournaments.find((t) => t.id === 'newtown-2026')).toMatchObject({
+      wtaId: 908, name: 'Newtown', category: 'WTA250', drawType: 'd32', startDate: '2026-06-01', endDate: '2026-06-07', status: 'completed', byes: [],
+    });
+    expect(result.raw.rules.trackedPlayerCount).toBe(4);
+    expect(result.changes).toContain('New player: Dee Delta (race #4, 101 points)');
+  });
+
+  it('stops with the likely zero-pointers when her event count does not reproduce', () => {
+    const { raw, snap } = withDee(3);
+    const result = updateSeason(raw, snap);
+    expect(result.raw.players.some((p) => p.wtaId === 4)).toBe(false);
+    expect(result.problems[0]).toContain('Dee Delta: her results add up to 101 from 2 events, but the WTA shows 101 from 3.');
+    expect(result.problems[0]).toContain('Slam Open');
+  });
+});

@@ -4,6 +4,7 @@ import type { Ctx, RawSeason } from './shared';
 import { creditFinished } from './credit';
 import { updateEntries } from './entries';
 import { updateEvents } from './events';
+import { addNewPlayers } from './newPlayers';
 import { updateTotals } from './totals';
 
 export interface UpdateResult {
@@ -22,6 +23,7 @@ export interface UpdateResult {
 export function updateSeason(raw: RawSeason, snap: FeedSnapshot): UpdateResult {
   const ctx: Ctx = { raw: structuredClone(raw), snap, changes: [], notes: [], problems: [] };
   updateTotals(ctx);
+  addNewPlayers(ctx);
   updateEvents(ctx);
   updateEntries(ctx);
   creditFinished(ctx);
