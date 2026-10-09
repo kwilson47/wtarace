@@ -1,7 +1,7 @@
 import { act, type ReactElement } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { season } from '../test/fixtures';
 import { App } from './App';
 import { PlayerPage } from './PlayerPage';
@@ -38,5 +38,19 @@ describe('hydration', () => {
 
   it('a player page hydrates cleanly', async () => {
     expect(await hydrationErrors(<PlayerPage season={season} playerId="ana" outlook={{ status: 'qualified' }} />)).toEqual([]);
+  });
+
+  it('hydrates cleanly when the visitor opens it in a later year than the build', async () => {
+    // Built in 2026 from 2026 data, opened in 2027: the first render must not depend on today's date.
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2026-11-08T12:00:00Z'));
+    try {
+      const errors = await hydrationErrors(<PlayerPage season={season} playerId="ana" outlook={{ status: 'qualified' }} />, () => {
+        vi.setSystemTime(new Date('2027-01-05T12:00:00Z'));
+      });
+      expect(errors).toEqual([]);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
