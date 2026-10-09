@@ -70,7 +70,7 @@ function TrackedPlayers({ season, t }: { season: Season; t: Tournament }) {
   const rows = season.players.flatMap((p) => {
     const result = p.results.find((r) => r.tournamentId === t.id);
     const live = p.live.find((l) => l.tournamentId === t.id);
-    if (t.status === 'in-progress' && live) return [{ p, text: live.round === 'W' && live.state === 'alive' ? 'Winner' : `${live.state === 'alive' ? 'Alive in' : 'Out in'} ${live.round}`, depth: table.findIndex((r) => r.round === live.round) }];
+    if (t.status === 'in-progress' && live) return [{ p, text: live.round === 'W' && live.state === 'alive' ? 'Winner' : live.state === 'alive' ? `Alive in ${live.round}` : live.round, depth: table.findIndex((r) => r.round === live.round) }];
     if (result) return [{ p, text: `${label(result.round)}${result.round === 'ZP' ? '' : ` · ${formatPoints(result.points)} pts`}`, depth: result.round === 'ZP' ? -1 : table.findIndex((r) => r.round === result.round) }];
     if (t.entries?.includes(p.id)) return [{ p, text: 'Entered', depth: -2 }];
     return [];
