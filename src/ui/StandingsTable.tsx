@@ -121,7 +121,7 @@ export function StandingsTable({ rows, eliminated = NONE, clinched = NONE, maxPo
           {breakdownOf && expanded.has(r.playerId) && (
             <tr className="breakdown-row">
               <td colSpan={8}>
-                <ResultsBreakdown name={r.name} breakdown={breakdownOf(r.playerId)} />
+                <ResultsBreakdown name={r.name} breakdown={breakdownOf(r.playerId)} profileHref={`/players/${r.playerId}/`} />
               </td>
             </tr>
           )}

@@ -119,6 +119,25 @@ describe('App', () => {
     expect(screen.getByRole('region', { name: "Cat Gamma's results" })).toHaveTextContent('Slam Open zero-pointer 0');
   });
 
+  it('opens the scenario builder on a player named in ?player=', async () => {
+    window.history.replaceState(null, '', '/?player=bea');
+    render(<App season={season} />);
+    expect(screen.getByRole('tab', { name: 'By player' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('combobox', { name: 'Player' })).toHaveValue('bea');
+  });
+
+  it('ignores ?player= for a player it does not track', () => {
+    window.history.replaceState(null, '', '/?player=zed');
+    render(<App season={season} />);
+    expect(screen.getByRole('tab', { name: 'By tournament' })).toHaveAttribute('aria-selected', 'true');
+  });
+
+  it("links the expanded row to the player's profile page", async () => {
+    render(<App season={season} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Ana Alpha' }));
+    expect(screen.getByRole('link', { name: 'Player Profile' })).toHaveAttribute('href', '/players/ana/');
+  });
+
   it('updates the projection and the URL when a pick is made', async () => {
     render(<App season={season} />);
     await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Ana Alpha at Live Masters' }), 'W');

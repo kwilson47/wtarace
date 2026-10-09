@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Season } from '../data/schema';
 import { playerBreakdown } from '../engine/breakdown';
 import { checkScenario } from '../engine/checkScenario';
@@ -35,6 +35,12 @@ export function App({ season }: { season: Season }) {
     [players, tournaments, rules],
   );
   const clinched = useClinched(season);
+  // ?player=<id> opens the scenario builder on her (read after the first render, like the other URL state).
+  const [focusPlayer, setFocusPlayer] = useState<string | undefined>();
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get('player');
+    if (id && players.some((p) => p.id === id)) setFocusPlayer(id);
+  }, [players]);
   const breakdownOf = useCallback(
     (id: string) => playerBreakdown(players.find((p) => p.id === id)!, scenario, tournaments, rules),
     [players, scenario, tournaments, rules],
@@ -50,7 +56,7 @@ export function App({ season }: { season: Season }) {
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
         <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} breakdownOf={breakdownOf} />
-        <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} onLoad={load} />
+        <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} onLoad={load} focusPlayer={focusPlayer} />
       </main>
     </div>
   );

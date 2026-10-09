@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import type { Player, Rules, Season, Tournament } from '../data/schema';
 import type { Warning } from '../engine/checkScenario';
 import { pickKey, type Scenario } from '../engine/types';
@@ -18,6 +18,8 @@ interface Props {
   warnings: Warning[];
   onPick: OnPick;
   onLoad: (scenario: Scenario) => void;
+  /** Opens the By player tab on this player (from ?player=). */
+  focusPlayer?: string;
 }
 
 interface PanelProps {
@@ -109,8 +111,8 @@ function ByTournament({ tournaments, players, ...rest }: PanelProps) {
   );
 }
 
-function ByPlayer({ season, onLoad, tournaments, players, ...rest }: PanelProps & { season: Season; onLoad: (scenario: Scenario) => void }) {
-  const [id, setId] = useState(players[0]?.id ?? '');
+function ByPlayer({ season, onLoad, initialId, tournaments, players, ...rest }: PanelProps & { season: Season; onLoad: (scenario: Scenario) => void; initialId?: string }) {
+  const [id, setId] = useState(initialId ?? players[0]?.id ?? '');
   const player = players.find((p) => p.id === id) ?? players[0];
   const outlook = useOutlook(season, player?.id ?? '');
   if (!player) return null;
@@ -144,8 +146,14 @@ function ByPlayer({ season, onLoad, tournaments, players, ...rest }: PanelProps 
   );
 }
 
-export function ScenarioEditor({ season, players, scenario, warnings, onPick, onLoad }: Props) {
+export function ScenarioEditor({ season, players, scenario, warnings, onPick, onLoad, focusPlayer }: Props) {
   const [tab, setTab] = useState<'tournament' | 'player'>('tournament');
+  const sectionRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!focusPlayer) return;
+    setTab('player');
+    sectionRef.current?.scrollIntoView?.({ block: 'start' });
+  }, [focusPlayer]);
   const remaining = useMemo(
     () => season.tournaments.filter((t) => t.status !== 'completed').sort((a, b) => a.startDate.localeCompare(b.startDate)),
     [season],
@@ -153,17 +161,17 @@ export function ScenarioEditor({ season, players, scenario, warnings, onPick, on
   const messages = useMemo(() => warningsByPick(warnings, season), [warnings, season]);
 
   if (remaining.length === 0) {
-    return <section className="editor" aria-label="Scenario editor"><p>No tournaments remain before the Finals.</p></section>;
+    return <section className="editor" aria-label="Scenario editor" ref={sectionRef}><p>No tournaments remain before the Finals.</p></section>;
   }
   const panelProps: PanelProps = { tournaments: remaining, players, rules: season.rules, scenario, messages, onPick };
   return (
-    <section className="editor" aria-label="Scenario editor">
+    <section className="editor" aria-label="Scenario editor" ref={sectionRef}>
       <h2>Your scenario</h2>
       <div role="tablist" className="tabs">
         <button type="button" role="tab" aria-selected={tab === 'tournament'} onClick={() => setTab('tournament')}>By tournament</button>
         <button type="button" role="tab" aria-selected={tab === 'player'} onClick={() => setTab('player')}>By player</button>
       </div>
-      {tab === 'tournament' ? <ByTournament {...panelProps} /> : <ByPlayer {...panelProps} season={season} onLoad={onLoad} />}
+      {tab === 'tournament' ? <ByTournament {...panelProps} /> : <ByPlayer {...panelProps} season={season} onLoad={onLoad} initialId={focusPlayer} />}
       <div className="footnotes">
         <p>Projections never add zero-pointers for skipped mandatory events. Those depend on WTA rulings such as injury exemptions.</p>
         <p>Without draw data we can't tell when two players you've picked would have to meet earlier in the draw.</p>

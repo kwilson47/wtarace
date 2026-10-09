@@ -16,7 +16,7 @@ function Entry({ e }: { e: BreakdownEntry }) {
 }
 
 /** A player's results grouped by event type, marking which count toward her total. */
-export function ResultsBreakdown({ name, breakdown }: { name: string; breakdown: Breakdown }) {
+export function ResultsBreakdown({ name, breakdown, profileHref }: { name: string; breakdown: Breakdown; profileHref?: string }) {
   const groups = new Map<string, BreakdownEntry[]>();
   for (const e of breakdown.entries) {
     const label = categoryLabel(e.category);
@@ -41,6 +41,7 @@ export function ResultsBreakdown({ name, breakdown }: { name: string; breakdown:
           </div>
         ))}
       </dl>
+      {profileHref && <p className="profile-link"><a href={profileHref}>Player Profile</a></p>}
       <p className="note">
         {`Counting ${breakdown.countedResults} of ${breakdown.maxCountedResults} results`}
         {minEvents &&
