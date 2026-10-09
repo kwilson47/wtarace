@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { drawList, liveMatches, match, raceRows, snapshot, TOURNAMENT_IDS, updaterSeason } from './testFeeds';
+import { drawList, liveMatches, match, playerMatch, raceRows, snapshot, TOURNAMENT_IDS, updaterSeason } from './testFeeds';
 import { updateSeason } from './updateSeason';
 
 describe('updateSeason: totals', () => {
@@ -111,5 +111,42 @@ describe('updateSeason: entry lists', () => {
     const result = updateSeason(raw, snap);
     expect(result.raw.tournaments.find((t) => t.id === 'next')!.entries).toEqual(['ana', 'bea', 'cat']);
     expect(result.notes).toContain('Next Open: the entry list came back with 0 of our 3 entrants, so the previous list was kept.');
+  });
+});
+
+describe('updateSeason: a finished event', () => {
+  const finalPlayed = () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    snap.eventMatches[TOURNAMENT_IDS.live!] = liveMatches([match('Q', 1, 105, 1), match('S', 1, 111, 1), match('F', 1, 117, 1)]);
+    return { raw, snap };
+  };
+
+  it('waits while the WTA has not credited it: still in progress, the champion alive in W', () => {
+    const { raw, snap } = finalPlayed();
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(result.raw.tournaments.find((t) => t.id === 'live')!.status).toBe('in-progress');
+    expect(liveOf(result.raw, 'ana', 'live')).toMatchObject({ state: 'alive', round: 'W' });
+    expect(result.notes).toContain('Live Masters: finished; waiting for the WTA to credit its points.');
+  });
+
+  it('credits it once the official totals include it, leaving every other stored result alone', () => {
+    const { raw, snap } = finalPlayed();
+    snap.race = raceRows(raw, { ana: 1220 });
+    snap.playerMatches = {
+      '1': [playerMatch({ tourn_nbr: ' 905', player_1: '1', points_champ_1: 100 })],
+      '2': [playerMatch({ tourn_nbr: '905', player_1: '2', points_champ_1: 5 })],
+    };
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(result.raw.tournaments.find((t) => t.id === 'live')!.status).toBe('completed');
+    expect(player(result.raw, 'ana').results.find((r) => r.tournamentId === 'live')).toEqual({ tournamentId: 'live', round: 'W', points: 100 });
+    expect(player(result.raw, 'ana').live).toEqual([]);
+    for (const id of ['ana', 'bea', 'cat']) {
+      const completed = (rs: { tournamentId: string }[]) => rs.filter((r) => r.tournamentId !== 'live' && r.tournamentId !== 'next');
+      expect(completed(player(result.raw, id).results)).toEqual(completed(player(raw, id).results));
+    }
+    expect(result.changes).toContain('Live Masters: points credited, event completed');
   });
 });
