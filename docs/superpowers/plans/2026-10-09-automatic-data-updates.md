@@ -102,7 +102,9 @@ export function formatUpdated(iso: string, options: { timeZone?: string; locale?
     minute: '2-digit',
     timeZoneName: 'short',
     timeZone,
-  }).format(date);
+  })
+    .format(date)
+    .replace(/\u202f/g, ' '); // newer ICU puts a narrow no-break space before AM/PM
 }
 ```
 
@@ -150,11 +152,10 @@ In `superRefine`, after the existing duplicate checks:
         seen.add(value);
       }
     };
-    duplicateWtaIds(s.tournaments.map((t) => `${t.wtaId}-${t.startDate.slice(0, 4)}`).map(() => undefined), 'tournament');
     duplicateWtaIds(s.players.map((p) => p.wtaId), 'player');
 ```
 
-Tournament ids repeat across years (Hong Kong 2025 and 2026), so tournaments aren't checked for duplicates. The line above is a deliberate no-op; delete it rather than keep it. Keep only the player check.
+Tournament ids repeat across years (Hong Kong 2025 and 2026), so only player ids are checked for duplicates.
 
 - [ ] **Step 3: Backfill the data.** This is a one-off script in the scratchpad, not committed. Match players by exact `fullName` from the race feed (`pageSize=100`). Match tournaments by `startDate` and level from the paged calendar, narrowing by city or title when more than one matches. The `zp-*` placeholders get no id.
   - Insert `wtaId` right after `id` in each object.
@@ -285,8 +286,7 @@ export interface FeedSnapshot {
 - [ ] **Step 2: `src/update/shared.ts`:**
 
 ```ts
-import type { Rules, SeasonInput } from '../data/schema';
-import { pointsTable } from '../engine/lookup';
+import type { SeasonInput } from '../data/schema';
 import type { CalendarEvent, EventPlayer, FeedSnapshot, LiveMatch } from './feedTypes';
 
 export type RawSeason = SeasonInput;
@@ -307,7 +307,7 @@ export const TOP = 40;
 
 export const yearOf = (t: { startDate: string }) => Number(t.startDate.slice(0, 4));
 
-export const tableOf = (ctx: Ctx, t: RawTournament) => pointsTable(ctx.raw.rules as Rules, t.drawType);
+export const tableOf = (ctx: Ctx, t: RawTournament) => ctx.raw.rules.pointsTables[t.drawType]!;
 
 export const calendarEvent = (ctx: Ctx, t: RawTournament): CalendarEvent | undefined =>
   ctx.snap.calendar.find((c) => c.tournamentGroup.id === t.wtaId && c.year === yearOf(t));
