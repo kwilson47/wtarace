@@ -16,7 +16,7 @@ Show each tracked player's chance of qualifying for the WTA Finals as a percenta
 ## Ratings
 
 - **Who is rated:** every tracked player, and every opponent they met in the race year, keyed by WTA id. The data is `data/matches/<id>.json`.
-- **Starting value:** from the player's WTA ranking at her first match in the data (the opponent's `rank`, or the player's own ranking on her match records). The prior is `1500 + 400 · (1 − log₂(rank) / log₂(200))`, clamped to ranks 1–500. That's about 1,900 at rank 1 and 1,500 at rank 200. A player with no known ranking starts at the field value for the level of her first match (see below).
+- **Starting value:** from the player's WTA ranking at her first match in the data. Match records only carry the opponent's `rank`, so a tracked player's own ranking comes from other tracked players' records of matches against her. The prior is `1500 + 400 · (1 − log₂(rank) / log₂(200))`, clamped to ranks 1–500. That's about 1,900 at rank 1 and 1,500 at rank 200. A player with no known ranking starts at the field value for the level of her first match (see below).
 - **Updates:** matches are replayed in date order, using the start date of each event and then the round. A match between two tracked players appears in both files but counts once. Each match uses the standard Elo update with `K = 250 / (n + 5)^0.4`, where `n` is the player's matches so far.
   - Walkovers are skipped.
   - Retirements count as a win for the winner.
@@ -40,7 +40,7 @@ Each run plays out every event not yet completed.
 1. **Events with a draw in `data/draws/`** (live, or upcoming once the draw is out): start from `buildBracket(draw)` and its actual results. Only the undecided matches are simulated. Byes, played results, walkovers and retirements stand.
 2. **Events without a draw:**
    - **Size:** the bracket has `2^⌈log₂ n⌉` lines, where `n` is the draw size from the points table (e.g. 56 → 64 lines, 8 byes).
-   - **Seeds:** the seed count is 16 for draws over 32 players and 8 otherwise. The tracked entrants, ordered by their latest WTA ranking from their match files, take seed places in order. Byes go to the top seeds.
+   - **Seeds:** the seed count is 16 for draws over 32 players and 8 otherwise. The tracked entrants, ordered by their latest known WTA ranking (from other tracked players' records of her; unknown rankings go last, by rating), take seed places in order. Byes go to the top seeds.
    - **Seed positions:**
      - seed 1 at the top line, seed 2 at the bottom;
      - seeds 3–4 at random to the remaining half-ends;
