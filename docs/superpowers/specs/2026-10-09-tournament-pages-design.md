@@ -82,14 +82,41 @@ Published fact, like match data. It's never checked against totals and never blo
 
 ## Phase 2: the bracket picker (separate plan)
 
-- **Picking a winner.** Clicking a player in an undecided match advances her: her pick becomes the next round. The opponent's pick becomes this round, meaning she lost here.
-  - Played matches are fixed.
-  - Changing a pick clears downstream picks that no longer fit. Those are picks for players who would have to have won the match she just lost.
-- **One scenario.**
-  - **Tracked players** use their ids (`iga-swiatek.wuhan-2026.SF`).
-  - **Untracked players** use `w<wtaId>` (`w317964.wuhan-2026.F`). This fits the existing `?s=` format. The race engine ignores keys that aren't tracked player ids, and reconciliation keeps `w<id>` keys whose player is in that event's draw.
-  - **Homepage picks** for tracked players appear in the bracket. Picks that clash with each other or with the draw are highlighted using the existing warnings.
-- **Sharing:** the page uses the same `useScenario` (URL `?s=`) as the homepage, so its links are shareable. "See the standings with these picks" carries the scenario over.
+Agreed in conversation on 2026-10-09.
+
+### Where picking happens
+
+On live events, and on upcoming events whose draw is out. Completed events stay read-only.
+
+### Picking
+
+- **Clicking a player** in an undecided match makes her the winner:
+  - her pick becomes the next round;
+  - her opponent's pick becomes this round (out here).
+
+  Clicking the current winner again clears both picks.
+- **Played matches are fixed.**
+- **A match still waiting on an earlier result** shows "—" until that's decided. This applies to an actual result or a pick.
+- **The earlier-round lists are pickable** for rounds that aren't fully played.
+- **Picking a winner keeps any deeper pick she already has.** The loser is set to "out here", which clears whatever later picks depended on her.
+- **A conflict** is two entrants both picked past the same match, e.g. from homepage picks. The match is outlined and neither advances.
+
+### One scenario
+
+- **Tracked players** use their ids (`iga-swiatek.wuhan-2026.SF`).
+- **Untracked players** use `w<wtaId>` (`w317964.wuhan-2026.F`), in the existing `?s=` format. The race engine and the homepage editor ignore keys that aren't tracked player ids.
+- **Reconciliation** keeps a `w<digits>` key when its tournament exists, isn't completed, and the round is in that event's points table. The homepage has no draws loaded, so draw membership isn't checked; the bracket simply ignores keys for players not in the draw.
+- **Homepage picks** for tracked players appear in the bracket.
+
+### The race impact panel
+
+Beside the bracket on desktop, below it on phones. It shows:
+- the race top 10 under the current scenario: rank, name (linked), projected points with the change from today, rank movement, and the qualifiers highlighted, with the cutoff line and the Grand Slam champion badge;
+- "Full standings with these picks →", to the homepage with the same `?s=` (or `/` when there are no picks);
+- **Share these picks**, which copies the link;
+- **Clear picks for this event**, which removes every key for this tournament.
+
+The page reads and writes `?s=` with the same `useScenario` as the homepage, so its links are shareable.
 
 ## Structure (phase 1)
 
