@@ -1,33 +1,48 @@
-import type { Player, Season } from '../data/schema';
-import { playerBreakdown } from '../engine/breakdown';
-import { pointsTable } from '../engine/lookup';
-import type { Outlook } from '../engine/outlook';
+import type { Season } from '../data/schema';
 import { projectStandings } from '../engine/standings';
+import { roundLabel, type MatchRecord } from '../season/matchSchema';
+import { levelLabel, seasonSummary, type Split, type TournamentBlock } from '../season/seasonSummary';
 import { flagEmoji, formatPoints } from './format';
-import { PlayerOutlook } from './PlayerOutlook';
-import { scenarioLink } from './playerSummary';
-import { ResultsBreakdown } from './ResultsBreakdown';
 import { UpdatedTime } from './UpdatedTime';
 
-/** Her current round at events under way, and the upcoming events she has entered. */
-function Schedule({ season, player }: { season: Season; player: Player }) {
-  const lines = season.tournaments
-    .filter((t) => t.status !== 'completed')
-    .sort((a, b) => a.startDate.localeCompare(b.startDate))
-    .flatMap((t) => {
-      const live = player.live.find((l) => l.tournamentId === t.id);
-      if (t.status === 'in-progress' && live) {
-        if (live.state === 'alive' && live.round === 'W') return [`${t.name}: won the title`];
-        const label = pointsTable(season.rules, t.drawType).find((r) => r.round === live.round)?.label ?? live.round;
-        return [`${t.name}: ${live.state === 'alive' ? 'alive' : 'out'} in the ${label}`];
-      }
-      if (t.status === 'upcoming' && t.entries?.includes(player.id)) return [`${t.name}: entered`];
-      return [];
-    });
+const day = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const dates = (start: string, end: string) => `${day.format(new Date(`${start}T00:00:00Z`))} – ${day.format(new Date(`${end}T00:00:00Z`))}`;
+const record = (s: Pick<Split, 'wins' | 'losses'>) => `${s.wins}–${s.losses}`;
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+function Opponent({ m, season }: { m: MatchRecord; season: Season }) {
+  const tracked = m.opponent.id === null ? undefined : season.players.find((p) => p.wtaId === m.opponent.id);
+  const tag = m.opponent.seed !== null ? ` [${m.opponent.seed}]` : m.opponent.entry ? ` (${m.opponent.entry})` : '';
   return (
-    <section className="schedule" aria-label="Schedule">
-      <h2>Schedule</h2>
-      {lines.length ? <ul>{lines.map((l) => <li key={l}>{l}</li>)}</ul> : <p>No remaining events entered.</p>}
+    <>
+      {m.opponent.country && <span aria-hidden="true">{flagEmoji(m.opponent.country)} </span>}
+      {tracked ? <a href={`/players/${tracked.id}/`}>{m.opponent.name}</a> : m.opponent.name}
+      {tag}
+    </>
+  );
+}
+
+function Tournament({ t, season }: { t: TournamentBlock; season: Season }) {
+  const surface = `${t.surface}${t.indoor ? ' (indoor)' : ''}`;
+  return (
+    <section className="tournament" aria-label={t.name}>
+      <h3>{t.name}</h3>
+      <p className="meta">{`${t.team ? 'Team event' : levelLabel(t)} · ${surface} · ${dates(t.startDate, t.endDate)}`}</p>
+      <p className="result">{`${t.result}${t.points !== null ? ` · ${formatPoints(t.points)} pts` : ''}`}</p>
+      <table className="matches">
+        <tbody>
+          {t.matches.map((m) => (
+            <tr key={`${m.qualifying}-${m.round}`} className={m.won ? 'won' : 'lost'}>
+              <td className="round">{roundLabel(m)}</td>
+              <td className="wl">{m.won ? 'W' : 'L'}</td>
+              <td className="opponent"><Opponent m={m} season={season} /></td>
+              <td className="score">
+                {m.outcome === 'walkover' ? 'w/o' : `${m.score}${m.outcome === 'retired' ? ' ret.' : ''}`}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 }
@@ -35,21 +50,24 @@ function Schedule({ season, player }: { season: Season; player: Player }) {
 interface Props {
   season: Season;
   playerId: string;
-  /** Worked out at build time and embedded in the page. */
-  outlook: Outlook;
+  /** Her race-year matches; null if not fetched yet. */
+  matches: MatchRecord[] | null;
 }
 
-/** A read-only page for one player: where she stands, what she needs, her results and her schedule. */
-export function PlayerPage({ season, playerId, outlook }: Props) {
+/** A player's season: her record, splits and every tournament, round by round. */
+export function PlayerPage({ season, playerId, matches }: Props) {
   const { players, tournaments, rules } = season;
   const player = players.find((p) => p.id === playerId)!;
-  const rows = projectStandings(players, {}, tournaments, rules);
-  const row = rows.find((r) => r.playerId === playerId)!;
-  const byRank = [...players].sort(
-    (a, b) => rows.find((r) => r.playerId === a.id)!.currentRank - rows.find((r) => r.playerId === b.id)!.currentRank,
-  );
-  const qualified = player.qualified || outlook.status === 'qualified';
-  const status = qualified ? 'Qualified' : outlook.status === 'out' ? 'Out' : 'Still in contention';
+  const rank = projectStandings(players, {}, tournaments, rules).find((r) => r.playerId === playerId)!.currentRank;
+  const summary = matches ? seasonSummary(matches, season.meta.lastUpdated.slice(0, 10)) : null;
+  const line = summary
+    ? [
+        `${rules.season} season`,
+        record(summary),
+        ...(summary.titles.length ? [`${plural(summary.titles.length, 'title')} (${summary.titles.join(', ')})`] : []),
+        ...(summary.finals ? [plural(summary.finals, 'final')] : []),
+      ].join(' · ')
+    : `${rules.season} season`;
   return (
     <div className="app player-page">
       <nav className="crumbs"><a href="/">← Full standings</a></nav>
@@ -58,19 +76,31 @@ export function PlayerPage({ season, playerId, outlook }: Props) {
           <span aria-hidden="true">{flagEmoji(player.country)}</span> {player.name}
         </h1>
         <p className="player-status">
-          {`#${row.currentRank} in the Race to the WTA Finals ${rules.season} · ${formatPoints(row.currentTotal)} points · `}
-          <span className={`status status-${status === 'Qualified' ? 'in' : status === 'Out' ? 'out' : 'open'}`}>{status}</span>
-          {qualified && <span className="badge" title="Qualified">Q</span>}
+          {`${line} · `}
+          <a href="/">{`Race #${rank}`}</a>
         </p>
         <UpdatedTime iso={season.meta.lastUpdated} />
       </header>
       <main>
-        <PlayerOutlook player={player} outlook={outlook} players={byRank} season={season} heading="What she needs" scenarioHref={scenarioLink} />
-        <section aria-label="Results">
-          <h2>Results</h2>
-          <ResultsBreakdown name={player.name} breakdown={playerBreakdown(player, {}, tournaments, rules)} />
-        </section>
-        <Schedule season={season} player={player} />
+        {summary ? (
+          <>
+            <section className="season-summary" aria-label="Season summary">
+              <h2>Season summary</h2>
+              <dl>
+                <div><dt>Surface</dt><dd>{[...summary.surfaces, ...(summary.indoor ? [summary.indoor] : [])].map((s) => `${s.label} ${record(s)}`).join(' · ')}</dd></div>
+                <div><dt>Level</dt><dd>{summary.levels.map((s) => `${s.label} ${record(s)}`).join(' · ')}</dd></div>
+                <div><dt>Top-10 wins</dt><dd>{summary.top10Wins}</dd></div>
+              </dl>
+            </section>
+            <section aria-label="Tournaments">
+              <h2>Tournaments</h2>
+              {summary.tournaments.map((t) => <Tournament key={t.key} t={t} season={season} />)}
+            </section>
+          </>
+        ) : (
+          <p>Match results aren't available yet.</p>
+        )}
+        <p className="note">The season follows the Race to the WTA Finals year, so it starts with events in late October 2025.</p>
         <p className="explore">
           <a href={`/?player=${player.id}`}>{`Explore scenarios for ${player.name}`}</a>
         </p>

@@ -1,15 +1,15 @@
 import { renderToString } from 'react-dom/server';
 import type { Season } from '../data/schema';
-import type { Outlook } from '../engine/outlook';
+import type { MatchRecord } from '../season/matchSchema';
+import { seasonSummary, type SeasonSummary } from '../season/seasonSummary';
 import { App } from '../ui/App';
 import { PlayerPage } from '../ui/PlayerPage';
-import { playerSummary } from '../ui/playerSummary';
 
 export const SITE = 'https://finalsrace.win';
 const START = '<!--app-start-->';
 const END = '<!--app-end-->';
 
-const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 /** Puts the rendered app between the template's markers and flags the root for hydration. */
 function fillRoot(template: string, app: string): string {
@@ -23,10 +23,20 @@ export function homeHtml(template: string, season: Season): string {
   return fillRoot(template, renderToString(<App season={season} />));
 }
 
-export function playerHtml(template: string, season: Season, playerId: string, outlook: Outlook, rank: number): string {
+/** "Iga Swiatek's 2026 season: 48–15, 2 titles (Toronto, Doha), 3 finals. Every match, round by round." */
+export function seasonDescription(name: string, year: number, summary: SeasonSummary | null): string {
+  if (!summary) return `${name}'s ${year} season, match by match.`;
+  const parts = [`${summary.wins}–${summary.losses}`];
+  if (summary.titles.length) parts.push(`${summary.titles.length} title${summary.titles.length === 1 ? '' : 's'} (${summary.titles.join(', ')})`);
+  if (summary.finals) parts.push(`${summary.finals} final${summary.finals === 1 ? '' : 's'}`);
+  return `${name}'s ${year} season: ${parts.join(', ')}. Every match, round by round.`;
+}
+
+export function playerHtml(template: string, season: Season, playerId: string, matches: MatchRecord[] | null): string {
   const player = season.players.find((p) => p.id === playerId)!;
-  const title = `${player.name}: Race to the WTA Finals ${season.rules.season} chances`;
-  const description = playerSummary(season, playerId, rank, outlook);
+  const title = `${player.name}: ${season.rules.season} season results`;
+  const summary = matches ? seasonSummary(matches, season.meta.lastUpdated.slice(0, 10)) : null;
+  const description = seasonDescription(player.name, season.rules.season, summary);
   const url = `${SITE}/players/${playerId}/`;
   const head = [
     `<title>${escapeHtml(title)}</title>`,
@@ -40,12 +50,14 @@ export function playerHtml(template: string, season: Season, playerId: string, o
     `<meta property="og:image" content="${SITE}/og.png" />`,
     '<meta property="og:image:width" content="1200" />',
     '<meta property="og:image:height" content="630" />',
+    `<meta property="og:image:alt" content="${escapeHtml(title)}" />`,
     '<meta name="twitter:card" content="summary_large_image" />',
   ].join('\n    ');
-  const data = JSON.stringify({ playerId, outlook }).replace(/</g, '\\u003c');
-  return fillRoot(template, renderToString(<PlayerPage season={season} playerId={playerId} outlook={outlook} />))
-    .replace('<!--head-->', head)
-    .replace('<!--data-->', `<script id="page-data" type="application/json">${data}</script>`);
+  const data = JSON.stringify({ playerId, matches }).replace(/</g, '\\u003c');
+  // Function replacements, so a "$" in the data can't be read as a replacement pattern.
+  return fillRoot(template, renderToString(<PlayerPage season={season} playerId={playerId} matches={matches} />))
+    .replace('<!--head-->', () => head)
+    .replace('<!--data-->', () => `<script id="page-data" type="application/json">${data}</script>`);
 }
 
 export function sitemapXml(season: Season): string {

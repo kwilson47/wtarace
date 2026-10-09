@@ -37,7 +37,7 @@ describe('hydration', () => {
   });
 
   it('a player page hydrates cleanly', async () => {
-    expect(await hydrationErrors(<PlayerPage season={season} playerId="ana" outlook={{ status: 'qualified' }} />)).toEqual([]);
+    expect(await hydrationErrors(<PlayerPage season={season} playerId="ana" matches={[]} />)).toEqual([]);
   });
 
   it('hydrates cleanly when the visitor opens it in a later year than the build', async () => {
@@ -45,7 +45,7 @@ describe('hydration', () => {
     vi.useFakeTimers({ toFake: ['Date'] });
     vi.setSystemTime(new Date('2026-11-08T12:00:00Z'));
     try {
-      const errors = await hydrationErrors(<PlayerPage season={season} playerId="ana" outlook={{ status: 'qualified' }} />, () => {
+      const errors = await hydrationErrors(<PlayerPage season={season} playerId="ana" matches={[]} />, () => {
         vi.setSystemTime(new Date('2027-01-05T12:00:00Z'));
       });
       expect(errors).toEqual([]);

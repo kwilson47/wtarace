@@ -14,13 +14,12 @@ describe('prerendered pages', () => {
     expect(html).not.toContain('<!--app-start-->');
   });
 
-  it('writes a player page with its own title, description, canonical URL and embedded outlook', () => {
-    const html = playerHtml(PLAYER, season, 'ana', { status: 'qualified' }, 1);
-    expect(html).toContain('<title>Ana Alpha: Race to the WTA Finals 2026 chances</title>');
-    expect(html).toContain('<meta name="description" content="Ana Alpha is #1 in the 2026 Race to the WTA Finals with 1,160 points. She has qualified for the WTA Finals." />');
+  it('writes a player page with its own title, description, canonical URL and embedded matches', () => {
+    const html = playerHtml(PLAYER, season, 'ana', []);
+    expect(html).toContain('<title>Ana Alpha: 2026 season results</title>');
+    expect(html).toContain('<meta name="description" content="Ana Alpha&#39;s 2026 season: 0–0. Every match, round by round." />');
     expect(html).toContain('<link rel="canonical" href="https://finalsrace.win/players/ana/" />');
-    expect(html).toContain('<script id="page-data" type="application/json">{"playerId":"ana","outlook":{"status":"qualified"}}</script>');
-    expect(html).toContain('Ana Alpha has qualified for the WTA Finals.');
+    expect(html).toContain('<script id="page-data" type="application/json">{"playerId":"ana","matches":[]}</script>');
   });
 
   it('refuses a template without the markers', () => {
