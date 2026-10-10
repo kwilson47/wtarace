@@ -2746,11 +2746,6 @@
     "officialRaceTotal": 1472,
     "results": [
       {
-        "tournamentId": "zp-wta500-1",
-        "round": "ZP",
-        "points": 0
-      },
-      {
         "tournamentId": "auckland-2026",
         "round": "R16",
         "points": 30
@@ -2779,6 +2774,11 @@
         "tournamentId": "charleston-2026",
         "round": "R16",
         "points": 60
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "ZP",
+        "points": 0
       },
       {
         "tournamentId": "rome-2026",
@@ -4434,6 +4434,11 @@
         "points": 120
       },
       {
+        "tournamentId": "dubai-2026",
+        "round": "ZP",
+        "points": 0
+      },
+      {
         "tournamentId": "indian-wells-2026",
         "round": "R64",
         "points": 10
@@ -4505,11 +4510,6 @@
       },
       {
         "tournamentId": "australian-open-2026",
-        "round": "ZP",
-        "points": 0
-      },
-      {
-        "tournamentId": "zp-wta500-1",
         "round": "ZP",
         "points": 0
       }
