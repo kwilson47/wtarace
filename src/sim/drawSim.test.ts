@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { buildBracket } from '../draws/bracket';
 import type { DrawFile } from '../draws/drawSchema';
-import { bracketFromLines, randomDraw, seedPositions, simulateBracket } from './drawSim';
+import { bracketFromLines, fillOpenLines, randomDraw, seedPositions, simulateBracket } from './drawSim';
 import { mulberry32 } from './random';
 
 describe('simulated draws', () => {
@@ -60,5 +60,16 @@ describe('simulated draws', () => {
     const rng = mulberry32(9);
     for (let i = 0; i < 1000; i++) if (simulateBracket(b, (id) => (id === 1 ? 2400 : 1600), rng).get(1) === 2) wins++;
     expect(wins).toBeGreaterThan(980);
+  });
+
+  it('fills open qualifier slots in a real draw with field players, so nobody walks through them', () => {
+    const bracket = buildBracket({ drawSize: 6, players: [1, 2].map((wtaId) => ({ wtaId, name: '', country: null, seed: null, entry: null })), matches: [], lines: [1, 'bye', 2, null, null, null, 'bye', null] })!;
+    let next = -1;
+    const filled = fillOpenLines(bracket, () => next--);
+    expect(filled.rounds[0]!.map((m) => [m.top, m.bottom])).toEqual([[1, 'bye'], [2, -1], [-2, -3], ['bye', -4]]);
+    expect(filled.rounds[0]![3]!.winner).toBe(-4);
+    expect(bracket.rounds[0]![1]!.bottom).toBeNull(); // the original is untouched
+    const finish = simulateBracket(filled, () => 1500, mulberry32(1));
+    expect(finish.has(2)).toBe(true);
   });
 });

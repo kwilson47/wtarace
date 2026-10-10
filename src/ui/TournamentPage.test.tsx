@@ -115,3 +115,13 @@ describe('TournamentPage: picking', () => {
     expect(screen.queryAllByRole('button', { name: /Ana Alpha/ })).toEqual([]);
   });
 });
+
+describe('TournamentPage: a draw made before qualifying ends', () => {
+  it('shows open lines as Qualifier', () => {
+    const lines = [1, 'bye', 105, null, ...players.slice(3, 31).map((x) => x.wtaId)] as DrawFile['lines'];
+    const draw: DrawFile = { drawSize: 31, players: players.filter((x) => lines!.includes(x.wtaId)), matches: [], lines };
+    render(<TournamentPage season={withIds()} tournamentId="next" draw={draw} />);
+    expect(screen.getAllByText('Qualifier').length).toBeGreaterThan(0);
+  });
+});
+

@@ -5,7 +5,7 @@ import { pointsTable } from '../engine/lookup';
 import { projectStandings } from '../engine/standings';
 import { pickKey, type Scenario } from '../engine/types';
 import type { MatchRecord } from '../season/matchSchema';
-import { randomDraw, simulateBracket } from './drawSim';
+import { fillOpenLines, randomDraw, simulateBracket } from './drawSim';
 import { buildField, levelOf, sampleField, type Field } from './field';
 import { mulberry32, type Rng } from './random';
 import { buildRatings, type Ratings } from './ratings';
@@ -67,7 +67,15 @@ export function simulateRun(sim: Simulation, season: Season, rng: Rng): { scenar
     const level = levelOf(e.t.category);
     let bracket = e.real;
     let field = new Map<number, number>();
-    if (!bracket) {
+    if (bracket) {
+      // Qualifier lines not filled yet get field players, so the seeds beside them don't walk through.
+      let next = -1;
+      const placed = field;
+      bracket = fillOpenLines(bracket, () => {
+        placed.set(next, sampleField(sim.field, level, rng));
+        return next--;
+      });
+    } else {
       const d = randomDraw(e.lines, e.drawSize, e.entrants, () => sampleField(sim.field, level, rng), rng);
       bracket = d.bracket;
       field = d.field;

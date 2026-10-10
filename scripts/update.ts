@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs';
 import { drawFeedKey, updateDrawFiles } from '../src/update/draws';
 import { fetchEventFeeds, fetchSnapshot } from '../src/update/feeds';
 import { updateSeason } from '../src/update/updateSeason';
-import type { EventPlayersFeed, LiveMatch } from '../src/update/feedTypes';
+import type { DrawFeed, EventPlayersFeed, LiveMatch } from '../src/update/feedTypes';
 import { updateMatchFiles } from '../src/update/matches';
 import { readData, readDrawFiles, readMatchFiles, writeData, writeDrawFiles, writeMatchFiles } from '../src/update/writeData';
 
@@ -44,7 +44,7 @@ const matchUpdate = result.problems.length
   : updateMatchFiles(result.raw, snapshot.playerMatches, snapshot.playerFeedErrors ?? [], readMatchFiles(dir), snapshot);
 const existingDraws = readDrawFiles(dir);
 // The snapshot's event feeds are keyed by WTA id; draws key them by id and year.
-const drawFeeds: { players: Record<string, EventPlayersFeed>; matches: Record<string, LiveMatch[]> } = { players: {}, matches: {} };
+const drawFeeds: { players: Record<string, EventPlayersFeed>; matches: Record<string, LiveMatch[]>; draws: Record<string, DrawFeed> } = { players: {}, matches: {}, draws: {} };
 for (const t of raw.tournaments) {
   if (t.wtaId === undefined || t.status === 'completed') continue;
   const players = snapshot.eventPlayers[String(t.wtaId)];
@@ -53,6 +53,8 @@ for (const t of raw.tournaments) {
     drawFeeds.players[drawFeedKey(t)] = players;
     drawFeeds.matches[drawFeedKey(t)] = matches;
   }
+  const sheets = snapshot.eventDraws?.[String(t.wtaId)];
+  if (sheets) drawFeeds.draws[drawFeedKey(t)] = sheets;
 }
 const drawFailures: string[] = [];
 if (!result.problems.length) {
@@ -63,6 +65,7 @@ if (!result.problems.length) {
       const feeds = await fetchEventFeeds(t);
       drawFeeds.players[drawFeedKey(t)] = feeds.players;
       drawFeeds.matches[drawFeedKey(t)] = feeds.matches;
+      if (feeds.draw) drawFeeds.draws[drawFeedKey(t)] = feeds.draw;
     } catch {
       drawFailures.push(t.id);
     }

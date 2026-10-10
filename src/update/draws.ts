@@ -1,5 +1,5 @@
-import { drawFileSchema, type DrawFile } from '../draws/drawSchema';
-import type { EventPlayersFeed, LiveMatch } from './feedTypes';
+import { drawFileSchema, type DrawFile, type DrawMatch, type DrawPlayer } from '../draws/drawSchema';
+import type { DrawFeed, EventPlayersFeed, LiveMatch } from './feedTypes';
 import { ENTRY, num, positive } from './matches';
 import { IOC_TO_ISO } from './newPlayers';
 import type { RawSeason } from './shared';
@@ -9,6 +9,55 @@ const mainSingles = (matches: LiveMatch[]) => matches.filter((m) => m.DrawMatchT
 
 /** The draw is out once the event's main-draw singles matches are listed (before that, LS is only the entry list). */
 export const isDrawOut = (matches: LiveMatch[]) => mainSingles(matches).length > 0;
+
+interface FeedDrawLine {
+  DisplayLine?: string;
+  EntryType?: string;
+  Seed?: string | number;
+  Players?: { Player?: { id?: number | string; FirstName?: string; SurName?: string; Country?: string } | unknown[] };
+}
+
+/**
+ * The main singles draw lines from a /draw feed, in draw order: a player, a bye, or an open line (a
+ * qualifier still to come). Null when the feed has no readable main singles draw.
+ */
+export function linesFromDrawFeed(feed: DrawFeed): { line: number | 'bye' | null; player?: DrawPlayer }[] | null {
+  try {
+    const info = JSON.parse(feed.drawInfo[0] ?? '') as { Draws?: { Events?: { Event?: unknown } } };
+    const raw = info.Draws?.Events?.Event;
+    const events = (Array.isArray(raw) ? raw : [raw]) as { EventTypeCode?: string; Draw?: { DrawLine?: FeedDrawLine[] } }[];
+    const lines = events.find((e) => e?.EventTypeCode === 'LS')?.Draw?.DrawLine;
+    if (!Array.isArray(lines) || lines.length === 0) return null;
+    return lines.map((l) => {
+      const p = Array.isArray(l.Players?.Player) ? undefined : l.Players?.Player;
+      const id = positive(p?.id);
+      if (l.DisplayLine === 'Bye') return { line: 'bye' as const };
+      if (id === null) return { line: null };
+      return {
+        line: id,
+        player: {
+          wtaId: id,
+          name: l.DisplayLine || `${p?.FirstName ?? ''} ${p?.SurName ?? ''}`.trim(),
+          country: p?.Country ? IOC_TO_ISO[p.Country] ?? null : null,
+          seed: positive(l.Seed),
+          entry: ENTRY[String(l.EntryType ?? '').trim()] ?? null,
+        },
+      };
+    });
+  } catch {
+    return null;
+  }
+}
+
+/** An event's main singles draw from its draw lines and matches feed. */
+export function drawFileFromLines(table: { round: string }[], lines: NonNullable<ReturnType<typeof linesFromDrawFeed>>, matches: LiveMatch[]): DrawFile {
+  return {
+    drawSize: lines.filter((l) => l.line !== 'bye').length,
+    players: lines.flatMap((l) => (l.player ? [l.player] : [])),
+    matches: drawMatches(table, matches),
+    lines: lines.map((l) => l.line),
+  };
+}
 
 /** An event's main singles draw from its players and matches feeds. `table` is its points table (first round first). */
 export function toDrawFile(table: { round: string }[], playersFeed: EventPlayersFeed, matches: LiveMatch[]): DrawFile {
@@ -25,6 +74,11 @@ export function toDrawFile(table: { round: string }[], playersFeed: EventPlayers
         entry: ENTRY[String(ep.entryType ?? '').trim()] ?? null,
       };
     });
+  return { drawSize: players.length, players, matches: drawMatches(table, matches) };
+}
+
+/** Every main-draw singles match in a matches feed, first round first. */
+function drawMatches(table: { round: string }[], matches: LiveMatch[]): DrawMatch[] {
   const draw = mainSingles(matches).map((m) => {
     // Match ids count down from the final (LS001), so they give the round even for matches not yet played,
     // which the feed can publish with a different RoundID.
@@ -48,7 +102,7 @@ export function toDrawFile(table: { round: string }[], playersFeed: EventPlayers
       outcome: !finished ? ('scheduled' as const) : code === 4 || code === 5 ? ('retired' as const) : score === '' ? ('walkover' as const) : ('played' as const),
     };
   });
-  return { drawSize: players.length, players, matches: draw.sort((x, y) => x.round - y.round) };
+  return draw.sort((x, y) => x.round - y.round);
 }
 
 /** Draw feeds are keyed by WTA id and year: ids repeat every year (Hong Kong 2025 and 2026). */
@@ -61,7 +115,7 @@ export const drawFeedKey = (t: { wtaId?: number; startDate: string }) => `${t.wt
  */
 export function updateDrawFiles(
   raw: RawSeason,
-  feeds: { players: Record<string, EventPlayersFeed>; matches: Record<string, LiveMatch[]> },
+  feeds: { players: Record<string, EventPlayersFeed>; matches: Record<string, LiveMatch[]>; draws?: Record<string, DrawFeed> },
   existing: Record<string, DrawFile | undefined>,
   failed: string[],
 ): { files: Record<string, DrawFile>; changes: string[]; notes: string[] } {
@@ -75,18 +129,23 @@ export function updateDrawFiles(
       continue;
     }
     const playersFeed = feeds.players[drawFeedKey(t)];
-    const matches = feeds.matches[drawFeedKey(t)];
-    if (!playersFeed || !matches || !isDrawOut(matches)) continue;
+    const matches = feeds.matches[drawFeedKey(t)] ?? [];
+    const drawFeed = feeds.draws?.[drawFeedKey(t)];
+    // The draw lines are published as soon as the draw is made; the matches feed lists main-draw matches later.
+    const lines = drawFeed ? linesFromDrawFeed(drawFeed) : null;
+    const table = raw.rules.pointsTables[t.drawType]!;
+    const fromLines = lines !== null && lines.length === 2 ** (table.length - 1);
+    if (!fromLines && (!playersFeed || !isDrawOut(matches))) continue;
     let next: DrawFile;
     try {
-      next = toDrawFile(raw.rules.pointsTables[t.drawType]!, playersFeed, matches);
+      next = fromLines ? drawFileFromLines(table, lines, matches) : toDrawFile(table, playersFeed!, matches);
     } catch {
       notes.push(`${t.name}: its draw feed had something unexpected, so the previous draw was kept.`);
       continue;
     }
     // The players feed sometimes drops the main-draw list (it did for Wuhan's qualifying week).
     const inFirstRound = new Set(next.matches.filter((x) => x.round === 1).flatMap((x) => [x.a, x.b]).filter((x) => x !== null));
-    if (next.players.length === 0 || next.players.length < inFirstRound.size) {
+    if (next.players.length === 0 || (!fromLines && next.players.length < inFirstRound.size)) {
       notes.push(`${t.name}: its draw list came back empty or short, so the previous draw was kept.`);
       continue;
     }

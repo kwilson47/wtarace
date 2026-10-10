@@ -70,6 +70,19 @@ export function randomDraw(lines: number, drawSize: number, entrants: readonly n
   return { bracket: bracketFromLines(slots), field, byes };
 }
 
+/** A copy of a real bracket with its open first-round lines (qualifiers still to come) given to field players. */
+export function fillOpenLines(bracket: Bracket, fieldPlayer: () => number): Bracket {
+  const first = bracket.rounds[0]!.map((m): BracketMatch => {
+    if (m.top !== null && m.bottom !== null) return m;
+    const top = m.top ?? fieldPlayer();
+    const bottom = m.bottom ?? fieldPlayer();
+    if (m.outcome !== 'bye') return { ...m, top, bottom };
+    const through = top === 'bye' ? bottom : top;
+    return { ...m, top, bottom, winner: typeof through === 'number' ? through : null };
+  });
+  return { ...bracket, rounds: [first, ...bracket.rounds.slice(1)] };
+}
+
 const decided = (m: BracketMatch) => m.outcome !== 'pending' && m.outcome !== 'scheduled' && m.winner !== null;
 
 /**

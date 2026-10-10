@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { EventPlayersFeed, LiveMatch } from './feedTypes';
-import { isDrawOut, toDrawFile, updateDrawFiles } from './draws';
+import type { DrawFeed, EventPlayersFeed, LiveMatch } from './feedTypes';
+import { isDrawOut, linesFromDrawFeed, toDrawFile, updateDrawFiles } from './draws';
 import { updaterSeason } from './testFeeds';
 
 const table = [{ round: 'R32' }, { round: 'R16' }, { round: 'QF' }, { round: 'SF' }, { round: 'F' }, { round: 'W' }];
@@ -103,3 +103,53 @@ describe('updateDrawFiles: review fixes', () => {
     expect(out.notes[0]).toMatch(/^Live Masters: its draw list came back empty or short/);
   });
 });
+
+/** A /draw response: the main singles draw lines, as the WTA nests them (JSON inside a string). */
+export function drawFeed(lines: [number, string, string, string][]): DrawFeed {
+  const line = ([id, name, seed, entry]: [number, string, string, string], i: number) => ({
+    DisplayLine: name, EntryType: entry, Pos: i + 1, Seed: seed, Rank: '',
+    Players: { Player: { id, FirstName: name.split(' ')[0], SurName: name.split(' ')[1] ?? '', Country: id ? 'USA' : '' } },
+  });
+  const info = { Draws: { Events: { Event: [{ EventTypeCode: 'RS', Draw: { DrawLine: [] } }, { EventTypeCode: 'LS', Draw: { DrawLine: lines.map(line) } }] } } };
+  return { drawInfo: [JSON.stringify(info)] };
+}
+
+describe('draws from the published draw lines', () => {
+  const lines = drawFeed([[1, 'Ana Alpha', '1', ''], [0, 'Bye', '', ''], [2, 'Bea Beta', '', 'WC'], [0, 'Qualifier', '', 'Q']]);
+
+  it('reads the lines: players, byes and open qualifier slots', () => {
+    expect(linesFromDrawFeed(lines)).toEqual([
+      { line: 1, player: { wtaId: 1, name: 'Ana Alpha', country: 'US', seed: 1, entry: null } },
+      { line: 'bye' },
+      { line: 2, player: { wtaId: 2, name: 'Bea Beta', country: 'US', seed: null, entry: 'WC' } },
+      { line: null },
+    ]);
+    expect(linesFromDrawFeed({ drawInfo: [] })).toBeNull();
+    expect(linesFromDrawFeed({ drawInfo: ['not json'] })).toBeNull();
+  });
+
+  it('writes a draw as soon as its lines are out, before any main-draw match is listed', () => {
+    const raw = updaterSeason();
+    // The fixture's live event is a 32 draw: two players, a bye and 29 qualifier lines still open.
+    const full = drawFeed([[1, 'Ana Alpha', '1', ''], [0, 'Bye', '', ''], [2, 'Bea Beta', '', 'WC'], ...Array.from({ length: 29 }, (): [number, string, string, string] => [0, 'Qualifier', '', 'Q'])]);
+    const out = updateDrawFiles(raw, { players: { '905-2026': players }, matches: { '905-2026': [] }, draws: { '905-2026': full } }, {}, []);
+    expect(out.files.live).toEqual({
+      drawSize: 31,
+      players: [
+        { wtaId: 1, name: 'Ana Alpha', country: 'US', seed: 1, entry: null },
+        { wtaId: 2, name: 'Bea Beta', country: 'US', seed: null, entry: 'WC' },
+      ],
+      matches: [],
+      lines: [1, 'bye', 2, ...Array<null>(29).fill(null)],
+    });
+    expect(out.changes).toEqual(['Draw: Live Masters added']);
+  });
+
+  it('falls back to the players and matches feeds when the draw lines are missing or unreadable', () => {
+    const raw = updaterSeason();
+    const out = updateDrawFiles(raw, { players: { '905-2026': players }, matches: { '905-2026': [m({ Winner: '3', ScoreString: '6-4,6-4' })] }, draws: { '905-2026': { drawInfo: ['{}'] } } }, {}, []);
+    expect(out.files.live?.lines).toBeUndefined();
+    expect(out.files.live?.players).toHaveLength(3);
+  });
+});
+

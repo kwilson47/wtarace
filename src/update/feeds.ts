@@ -1,5 +1,5 @@
 import type { SeasonInput } from '../data/schema';
-import type { CalendarEvent, EventPlayersFeed, FeedSnapshot, LiveMatch, PlayerMatch, RaceRow } from './feedTypes';
+import type { CalendarEvent, DrawFeed, EventPlayersFeed, FeedSnapshot, LiveMatch, PlayerMatch, RaceRow } from './feedTypes';
 import { playerFeedsNeeded } from './updateSeason';
 
 const API = 'https://api.wtatennis.com/tennis';
@@ -35,14 +35,17 @@ export async function fetchSnapshot(raw: SeasonInput, get: GetJson = getJson): P
   }
   const eventPlayers: Record<string, EventPlayersFeed> = {};
   const eventMatches: Record<string, LiveMatch[]> = {};
+  const eventDraws: Record<string, DrawFeed> = {};
   for (const t of real.filter((x) => x.status !== 'completed')) {
     const base = `${API}/tournaments/${t.wtaId}/${t.startDate.slice(0, 4)}`;
     const players = await get(`${base}/players`);
     if (!Array.isArray((players as EventPlayersFeed | null)?.events)) throw new Error(`Unexpected response from ${base}/players`);
     eventPlayers[String(t.wtaId)] = players as EventPlayersFeed;
     eventMatches[String(t.wtaId)] = await fetchArray<LiveMatch>(`${base}/matches`, 'matches');
+    const draw = await drawSheets(base, get);
+    if (draw) eventDraws[String(t.wtaId)] = draw;
   }
-  const partial: FeedSnapshot = { race, calendar, eventPlayers, eventMatches, playerMatches: {}, playerFeedErrors: [] };
+  const partial: FeedSnapshot = { race, calendar, eventPlayers, eventMatches, eventDraws, playerMatches: {}, playerFeedErrors: [] };
   const raceStart = from!;
   const playerFeed = async (id: number) => {
     const all: PlayerMatch[] = [];
@@ -68,10 +71,24 @@ export async function fetchSnapshot(raw: SeasonInput, get: GetJson = getJson): P
   return partial;
 }
 
-/** One event's players and matches feeds. */
-export async function fetchEventFeeds(t: { wtaId?: number; startDate: string }, get: GetJson = getJson): Promise<{ players: EventPlayersFeed; matches: LiveMatch[] }> {
+/** An event's draw sheets, or undefined if they don't load: draws then fall back to the players and matches feeds. */
+async function drawSheets(base: string, get: GetJson): Promise<DrawFeed | undefined> {
+  try {
+    const body = await get(`${base}/draw`);
+    return Array.isArray((body as DrawFeed | null)?.drawInfo) ? (body as DrawFeed) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/** One event's players, matches and draw feeds. */
+export async function fetchEventFeeds(
+  t: { wtaId?: number; startDate: string },
+  get: GetJson = getJson,
+): Promise<{ players: EventPlayersFeed; matches: LiveMatch[]; draw?: DrawFeed }> {
   const base = `${API}/tournaments/${t.wtaId}/${t.startDate.slice(0, 4)}`;
   const players = await get(`${base}/players`);
   if (!Array.isArray((players as EventPlayersFeed | null)?.events)) throw new Error(`Unexpected response from ${base}/players`);
-  return { players: players as EventPlayersFeed, matches: arrayOf<LiveMatch>(await get(`${base}/matches`), 'matches', `${base}/matches`) };
+  const matches = arrayOf<LiveMatch>(await get(`${base}/matches`), 'matches', `${base}/matches`);
+  return { players: players as EventPlayersFeed, matches, draw: await drawSheets(base, get) };
 }

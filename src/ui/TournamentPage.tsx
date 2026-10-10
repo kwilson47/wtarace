@@ -13,10 +13,11 @@ const day = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', t
 const dates = (t: Tournament) => `${day.format(new Date(`${t.startDate}T00:00:00Z`))} – ${day.format(new Date(`${t.endDate}T00:00:00Z`))}`;
 const STATUS = { completed: 'Completed', 'in-progress': 'In progress', upcoming: 'Upcoming' } as const;
 
-/** `plain` leaves a tracked player's name unlinked, for use inside a button. */
-function Name({ wtaId, draw, season, plain = false }: { wtaId: Slot; draw: DrawFile; season: Season; plain?: boolean }) {
+/** `plain` leaves a tracked player's name unlinked, for use inside a button. `round` labels open first-round lines. */
+function Name({ wtaId, draw, season, plain = false, round }: { wtaId: Slot; draw: DrawFile; season: Season; plain?: boolean; round?: number }) {
   if (wtaId === 'bye') return <span className="bye">Bye</span>;
-  if (wtaId === null) return <span className="tbd">—</span>;
+  // A published draw's open first-round line is a qualifier still to come.
+  if (wtaId === null) return <span className="tbd">{round === 1 && draw.lines ? 'Qualifier' : '—'}</span>;
   const p = draw.players.find((x) => x.wtaId === wtaId);
   const tracked = season.players.find((x) => x.wtaId === wtaId);
   const label = p?.name ?? String(wtaId);
@@ -42,7 +43,7 @@ function MatchBox({ m, draw, season, onPick }: { m: PickedMatch; draw: DrawFile;
     }
     return (
       <div className={`line${won ? ' winner' : ''}`}>
-        <Name wtaId={slot} draw={draw} season={season} />
+        <Name wtaId={slot} draw={draw} season={season} round={m.round} />
       </div>
     );
   };
@@ -98,7 +99,7 @@ function RoundList({ label, matches, draw, season, open, onPick }: RoundListProp
           }
           return (
             <li key={i}>
-              <Name wtaId={m.top} draw={draw} season={season} /> vs <Name wtaId={m.bottom} draw={draw} season={season} />
+              <Name wtaId={m.top} draw={draw} season={season} round={m.round} /> vs <Name wtaId={m.bottom} draw={draw} season={season} round={m.round} />
             </li>
           );
         })}

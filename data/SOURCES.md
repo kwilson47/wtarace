@@ -96,7 +96,8 @@ One file per tracked event, `data/draws/<tournament id>.json`, filled by the aut
 
 - **Source:** the event's `tournaments/{id}/{year}/players` feed (`LS` event, in draw order) and `tournaments/{id}/{year}/matches` feed (main-draw singles).
 - **When a file is written:** only once the draw is out, meaning the main-draw singles matches are listed; before that, `LS` is only the entry list. Live and upcoming events are refreshed every run. Completed events are fetched once, and finally in the run that credits them.
-- **Byes:** the draw order doesn't count them. The bracket (`src/draws/bracket.ts`) has `2^⌈log2 n⌉` lines. A player with no first-round match takes a whole first-round pair with her bye; everyone else takes one line.
+- **Draw lines:** from 2026-10-10, draws come from the WTA's `tournaments/{id}/{year}/draw` sheets once they're published, before any main-draw match is listed. Each line is a player, a bye, or a qualifier slot still to fill, stored in draw order as `lines`. The matches feed adds the results. If the sheets don't load, the draw falls back to the `players` and `matches` feeds as before.
+- **Byes (draws without `lines`):** the draw order doesn't count them. The bracket (`src/draws/bracket.ts`) has `2^⌈log2 n⌉` lines. A player with no first-round match takes a whole first-round pair with her bye; everyone else takes one line.
 - **Rounds** come from the match id, which counts down from the final (`LS001` = final, `LS002`–`003` = semifinals, …). The feed can publish an upcoming match with a different `RoundID`; Beijing 2026's scheduled semifinals said "2".
 - **Winner codes:** even means player A won (2, or 4 on retirement); odd means player B (3 or 5).
 - **Scores** are winner-first.

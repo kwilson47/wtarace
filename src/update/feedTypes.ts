@@ -114,12 +114,19 @@ export interface PlayerMatch {
   opponent?: { id: number; fullName: string; countryCode: string | null } | null;
 }
 
+/** `tournaments/{id}/{year}/draw`: the draw sheets, as JSON nested inside strings. */
+export interface DrawFeed {
+  drawInfo: string[];
+}
+
 export interface FeedSnapshot {
   race: RaceRow[];
   calendar: CalendarEvent[];
   /** Keyed by WTA tournament id. */
   eventPlayers: Record<string, EventPlayersFeed>;
   eventMatches: Record<string, LiveMatch[]>;
+  /** Draw sheets, keyed by WTA tournament id; missing when the feed failed (draws then come from the other two). */
+  eventDraws?: Record<string, DrawFeed>;
   /** Keyed by WTA player id: every tracked player, plus new top-40 players. */
   playerMatches: Record<string, PlayerMatch[]>;
   /** Tracked players whose match feed failed to load (their match files are kept). */

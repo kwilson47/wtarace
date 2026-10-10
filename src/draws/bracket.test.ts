@@ -46,4 +46,13 @@ describe('buildBracket: a match the feed never published', () => {
     const bracket = buildBracket(draw)!;
     expect(bracket.rounds[1]![1]).toMatchObject({ top: 4, bottom: 6, winner: 6, outcome: 'walkover', score: '' });
   });
+
+  it('uses published lines when the draw has them: byes and open qualifier slots, before any match is listed', () => {
+    const drawn: DrawFile = { drawSize: 6, players: [1, 2, 3, 6].map(player), matches: [], lines: [1, 'bye', 2, null, 3, null, 'bye', 6] };
+    const bracket = buildBracket(drawn)!;
+    expect(bracket.size).toBe(8);
+    expect(bracket.rounds[0]!.map((m) => [m.top, m.bottom, m.winner, m.outcome])).toEqual([
+      [1, 'bye', 1, 'bye'], [2, null, null, 'pending'], [3, null, null, 'pending'], ['bye', 6, 6, 'bye'],
+    ]);
+  });
 });

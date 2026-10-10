@@ -19,13 +19,8 @@ export interface Bracket {
   rounds: BracketMatch[][];
 }
 
-/**
- * Rebuilds the bracket from the draw order. The bracket's empty lines are byes: walking the draw order,
- * a player with no first-round match takes a whole first-round pair (with her bye). Everyone else takes
- * one line. Later rounds pair the winners. Returns null if the draw and its first round don't fit
- * together (e.g. the draw is out but no first-round matches are listed yet).
- */
-export function buildBracket(draw: DrawFile): Bracket | null {
+/** The first-round lines from the draw order and first-round matches, for draws without published lines. */
+function inferLines(draw: DrawFile): Slot[] | null {
   const ids = draw.players.map((p) => p.wtaId);
   const size = 2 ** Math.ceil(Math.log2(Math.max(2, ids.length)));
   const byes = size - ids.length;
@@ -35,7 +30,20 @@ export function buildBracket(draw: DrawFile): Bracket | null {
     if (byes > 0 && !playing.has(id)) lines.push(id, 'bye');
     else lines.push(id);
   }
-  if (lines.length !== size) return null;
+  return lines.length === size ? lines : null;
+}
+
+/**
+ * Rebuilds the bracket from the published lines, or else from the draw order. The bracket's empty lines are byes: walking the draw order,
+ * a player with no first-round match takes a whole first-round pair (with her bye). Everyone else takes
+ * one line. Later rounds pair the winners. Returns null if the draw and its first round don't fit
+ * together (e.g. the draw is out but no first-round matches are listed yet).
+ */
+export function buildBracket(draw: DrawFile): Bracket | null {
+  const lines = draw.lines ?? inferLines(draw);
+  if (!lines) return null;
+  const size = lines.length;
+  if (size < 2 || 2 ** Math.round(Math.log2(size)) !== size) return null;
 
   const rounds: BracketMatch[][] = [];
   let entrants: Slot[] = lines;
