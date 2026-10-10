@@ -63,10 +63,10 @@ Primary sources:
 ## Automatic updates
 
 From 2026-10-09, an hourly job (`scripts/update.ts`, run by `.github/workflows/update.yml`, started each hour by the Cloudflare Worker in `trigger/` because GitHub's own schedule is unreliable) refreshes the data from the feeds already cited here:
-- the race ranking feed (totals, the top 40);
+- the race ranking feed (totals; with points from events under way, the live top 40 that decides who is tracked);
 - the calendar feed (event status);
-- each remaining event's `players` and `matches` feeds (draws, byes, live rounds, draw positions, entry lists);
-- player match feeds (race points for credited events, and the seasons of new top-40 players).
+- each remaining event's `players`, `matches` and `draw` feeds (draw sheets, byes, live rounds, draw positions, entry lists);
+- player match feeds (race points for credited events, and the seasons of new live top-40 players).
 
 It follows the conventions in this file and publishes only when every official total is reproduced.
 

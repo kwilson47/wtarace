@@ -1,3 +1,4 @@
+import { linesFromDrawFeed } from './draws';
 import type { LiveMatch } from './feedTypes';
 import { calendarEvent, mainSinglesMatches, sameMembers, singlesList, tableOf, type Ctx, type RawPlayer, type RawTournament } from './shared';
 
@@ -48,6 +49,25 @@ function setByes(ctx: Ctx, t: RawTournament, matches: LiveMatch[], drawIds: stri
   const byes = ctx.raw.players
     .filter((p) => p.wtaId !== undefined && drawIds.includes(String(p.wtaId)) && !playing.has(String(p.wtaId)))
     .map((p) => p.id);
+  saveByes(ctx, t, byes);
+}
+
+/** The event's draw-sheet lines, when published and the right size for its draw type. */
+function sheetLines(ctx: Ctx, t: RawTournament) {
+  const feed = t.wtaId === undefined ? undefined : ctx.snap.eventDraws?.[String(t.wtaId)];
+  const lines = feed ? linesFromDrawFeed(feed) : null;
+  return lines && lines.length === 2 ** (tableOf(ctx, t).length - 1) ? lines : null;
+}
+
+/** Byes from the draw sheet: the tracked players whose line is paired with a bye. Known as soon as the draw is made. */
+function setByesFromLines(ctx: Ctx, t: RawTournament, lines: NonNullable<ReturnType<typeof sheetLines>>): void {
+  const byes = ctx.raw.players
+    .filter((p) => p.wtaId !== undefined && lines.some((l, i) => l.line === p.wtaId && lines[i ^ 1]?.line === 'bye'))
+    .map((p) => p.id);
+  saveByes(ctx, t, byes);
+}
+
+function saveByes(ctx: Ctx, t: RawTournament, byes: string[]): void {
   if (sameMembers(t.byes ?? [], byes)) return;
   t.byes = byes;
   ctx.changes.push(`${t.name}: byes ${byes.length ? byes.map((id) => ctx.raw.players.find((p) => p.id === id)!.name).join(', ') : 'none'}`);
@@ -104,7 +124,9 @@ export function updateEvents(ctx: Ctx): void {
       delete t.entries;
       ctx.changes.push(`${t.name}: under way`);
     }
-    if (matches.length > 0) setByes(ctx, t, matches, drawIds);
+    const sheet = sheetLines(ctx, t);
+    if (sheet) setByesFromLines(ctx, t, sheet);
+    else if (matches.length > 0) setByes(ctx, t, matches, drawIds);
     if (t.status !== 'in-progress') continue;
     if (matches.length === 0 || drawIds.length === 0) {
       ctx.problems.push(`${t.name} is in progress but its draw isn't in the feeds.`);

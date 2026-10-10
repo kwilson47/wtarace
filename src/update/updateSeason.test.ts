@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { drawList, liveMatches, match, playerMatch, raceRows, snapshot, TOURNAMENT_IDS, updaterSeason } from './testFeeds';
+import { drawFeed, drawList, liveMatches, match, playerMatch, raceRows, snapshot, TOURNAMENT_IDS, updaterSeason } from './testFeeds';
 import { playerFeedsNeeded, updateSeason } from './updateSeason';
 
 describe('updateSeason: totals', () => {
@@ -264,3 +264,32 @@ describe('updateSeason: review fixes', () => {
     expect(result.raw.tournaments.find((t) => t.id === 'next')!.entries).toEqual(['ana', 'bea']);
   });
 });
+
+describe('updateSeason: draw sheets and live newcomers', () => {
+  it("takes byes from the draw sheet before the first round is listed", () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    // Next Open (32 lines): bea seeded on line 31 with the bye on line 32; ana (who the fixture gives a bye) now plays.
+    const lines: [number, string, string, string][] = Array.from({ length: 32 }, (_, i) => [200 + i, `Player ${200 + i}`, '', '']);
+    lines[0] = [1, 'Ana Alpha', '', ''];
+    lines[30] = [0, 'Bye', '', ''];
+    lines[31] = [2, 'Bea Beta', '1', ''];
+    snap.eventDraws = { [TOURNAMENT_IDS.next!]: drawFeed(lines) };
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(result.raw.tournaments.find((t) => t.id === 'next')!.byes).toEqual(['bea']);
+  });
+
+  it("notes, but doesn't block on, a player in only the live top 40 whose season doesn't reproduce", () => {
+    const raw = updaterSeason();
+    const snap = snapshot(raw);
+    // Player 105 (through to the live event's quarterfinals) is 50th in the race feed, but 9,000 + 10 puts her in the live top 40.
+    snap.race.push({ ranking: 50, points: 9000, tournamentsPlayed: 5, player: { id: 105, fullName: 'Eve Echo', countryCode: 'FRA' } });
+    snap.playerMatches['105'] = [];
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(result.raw.players.some((p) => p.wtaId === 105)).toBe(false);
+    expect(result.notes.join(' ')).toContain('Eve Echo');
+  });
+});
+

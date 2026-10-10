@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import type { DrawFeed, EventPlayersFeed, LiveMatch } from './feedTypes';
+import type { EventPlayersFeed, LiveMatch } from './feedTypes';
 import { isDrawOut, linesFromDrawFeed, toDrawFile, updateDrawFiles } from './draws';
-import { updaterSeason } from './testFeeds';
+import { drawFeed, updaterSeason } from './testFeeds';
 
 const table = [{ round: 'R32' }, { round: 'R16' }, { round: 'QF' }, { round: 'SF' }, { round: 'F' }, { round: 'W' }];
 const players: EventPlayersFeed = {
@@ -104,16 +104,6 @@ describe('updateDrawFiles: review fixes', () => {
   });
 });
 
-/** A /draw response: the main singles draw lines, as the WTA nests them (JSON inside a string). */
-export function drawFeed(lines: [number, string, string, string][]): DrawFeed {
-  const line = ([id, name, seed, entry]: [number, string, string, string], i: number) => ({
-    DisplayLine: name, EntryType: entry, Pos: i + 1, Seed: seed, Rank: '',
-    Players: { Player: { id, FirstName: name.split(' ')[0], SurName: name.split(' ')[1] ?? '', Country: id ? 'USA' : '' } },
-  });
-  const info = { Draws: { Events: { Event: [{ EventTypeCode: 'RS', Draw: { DrawLine: [] } }, { EventTypeCode: 'LS', Draw: { DrawLine: lines.map(line) } }] } } };
-  return { drawInfo: [JSON.stringify(info)] };
-}
-
 describe('draws from the published draw lines', () => {
   const lines = drawFeed([[1, 'Ana Alpha', '1', ''], [0, 'Bye', '', ''], [2, 'Bea Beta', '', 'WC'], [0, 'Qualifier', '', 'Q']]);
 
@@ -151,5 +141,12 @@ describe('draws from the published draw lines', () => {
     expect(out.files.live?.lines).toBeUndefined();
     expect(out.files.live?.players).toHaveLength(3);
   });
-});
 
+  it("keeps a draw read from the sheets when one hour's sheets don't load, instead of rewriting it without its lines", () => {
+    const raw = updaterSeason();
+    const full = drawFeed([[1, 'Ana Alpha', '1', ''], [0, 'Bye', '', ''], [2, 'Bea Beta', '', 'WC'], ...Array.from({ length: 29 }, (): [number, string, string, string] => [0, 'Qualifier', '', 'Q'])]);
+    const first = updateDrawFiles(raw, { players: { '905-2026': players }, matches: { '905-2026': [] }, draws: { '905-2026': full } }, {}, []);
+    const later = updateDrawFiles(raw, { players: { '905-2026': players }, matches: { '905-2026': [m({ Winner: '3', ScoreString: '6-4,6-4' })] } }, first.files, []);
+    expect(later.files).toEqual({});
+  });
+});

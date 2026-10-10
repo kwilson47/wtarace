@@ -136,6 +136,8 @@ export function updateDrawFiles(
     const table = raw.rules.pointsTables[t.drawType]!;
     const fromLines = lines !== null && lines.length === 2 ** (table.length - 1);
     if (!fromLines && (!playersFeed || !isDrawOut(matches))) continue;
+    // A draw read from the sheets is kept when one run's sheets don't load, rather than rewritten without its lines.
+    if (!fromLines && existing[t.id]?.lines) continue;
     let next: DrawFile;
     try {
       next = fromLines ? drawFileFromLines(table, lines, matches) : toDrawFile(table, playersFeed!, matches);

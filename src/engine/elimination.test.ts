@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { eliminatedPlayers, maxUntrackedPassers, raceBounds, remainingWeeks } from './elimination';
+import { eliminatedPlayers, maxUntrackedPassers, raceBounds, remainingWeeks, untrackedModel } from './elimination';
 import { rawSeason, season } from '../test/fixtures';
 import { parseOrThrow, type Rules, type Season, type SeasonInput } from '../data/schema';
 
@@ -97,3 +97,15 @@ describe('maxUntrackedPassers', () => {
     expect(maxUntrackedPassers(weeks, 0, 7)).toBe(7);
   });
 });
+
+describe('untrackedModel', () => {
+  it("bounds outsiders by the 40th-highest tracked total: the tracked list covers the race's top 40 and can grow past it", () => {
+    const raw = rawSeason();
+    const one = raw.players.find((p) => p.id === 'cat')!;
+    raw.players = Array.from({ length: 41 }, (_, i) => ({ ...one, id: `p${i + 1}`, name: `P ${i + 1}`, officialRaceTotal: i + 1, results: [{ tournamentId: 'c250', round: 'W', points: i + 1 }], live: [] }));
+    raw.rules.trackedPlayerCount = 41;
+    const s = parseOrThrow(raw);
+    expect(untrackedModel(s.players, s.tournaments, s.rules).base).toBe(2);
+  });
+});
+

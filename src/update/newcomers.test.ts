@@ -26,4 +26,10 @@ describe('newcomers', () => {
     const { raw, snap } = withPlayer105(1, 3);
     expect(newcomers(raw, snap, 4).map((r) => r.player.id)).toEqual([105]);
   });
+
+  it("counts an event's played matches even before our data marks it under way, so both callers agree", () => {
+    const { raw, snap } = withPlayer105(135);
+    raw.tournaments.find((t) => t.id === 'live')!.status = 'upcoming';
+    expect(newcomers(raw, snap, 3).map((r) => r.player.id)).toEqual([105]);
+  });
 });

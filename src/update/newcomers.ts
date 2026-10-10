@@ -3,7 +3,7 @@ import type { FeedSnapshot, RaceRow } from './feedTypes';
 import { TOP, type RawSeason } from './shared';
 
 /**
- * Points each player has already earned at events under way, by WTA id: the round she has reached, from the
+ * Points each player has already earned at events under way (not yet credited), by WTA id: the round she has reached, from the
  * event's matches feed. The race feed only adds them once the event is credited, a week or more later.
  */
 export function livePoints(raw: RawSeason, snap: FeedSnapshot): Map<number, number> {
@@ -11,7 +11,8 @@ export function livePoints(raw: RawSeason, snap: FeedSnapshot): Map<number, numb
   for (const t of raw.tournaments) {
     const table = raw.rules.pointsTables[t.drawType];
     const matches = t.wtaId === undefined ? undefined : snap.eventMatches[String(t.wtaId)];
-    if (t.status !== 'in-progress' || !table || !matches) continue;
+    // Any event not yet credited, whatever our saved status: an upcoming event has no played main-draw matches.
+    if (t.status === 'completed' || !table || !matches) continue;
     let draw;
     try {
       draw = drawMatches(table, matches);

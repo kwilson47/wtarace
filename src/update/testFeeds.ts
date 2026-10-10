@@ -1,7 +1,7 @@
 // SYNTHETIC TEST FEEDS that agree with src/test/fixtures.ts (with WTA ids added). Not real WTA data.
 import type { SeasonInput } from '../data/schema';
 import { rawSeason } from '../test/fixtures';
-import type { CalendarEvent, EventPlayer, FeedSnapshot, LiveMatch, PlayerMatch, RaceRow } from './feedTypes';
+import type { CalendarEvent, DrawFeed, EventPlayer, FeedSnapshot, LiveMatch, PlayerMatch, RaceRow } from './feedTypes';
 
 export const TOURNAMENT_IDS: Record<string, number> = { slam: 901, m1000: 902, c500: 903, c250: 904, live: 905, next: 906, clash: 907 };
 export const PLAYER_IDS: Record<string, number> = { ana: 1, bea: 2, cat: 3 };
@@ -102,4 +102,14 @@ export function playerMatch(over: Partial<PlayerMatch> & Pick<PlayerMatch, 'tour
     TournamentName: 'X',
     ...over,
   };
+}
+
+/** A /draw response: the main singles draw lines, as the WTA nests them (JSON inside a string). */
+export function drawFeed(lines: [number, string, string, string][]): DrawFeed {
+  const line = ([id, name, seed, entry]: [number, string, string, string], i: number) => ({
+    DisplayLine: name, EntryType: entry, Pos: i + 1, Seed: seed, Rank: '',
+    Players: { Player: { id, FirstName: name.split(' ')[0], SurName: name.split(' ')[1] ?? '', Country: id ? 'USA' : '' } },
+  });
+  const info = { Draws: { Events: { Event: [{ EventTypeCode: 'RS', Draw: { DrawLine: [] } }, { EventTypeCode: 'LS', Draw: { DrawLine: lines.map(line) } }] } } };
+  return { drawInfo: [JSON.stringify(info)] };
 }

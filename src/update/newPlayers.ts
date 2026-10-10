@@ -137,20 +137,25 @@ function candidates(ctx: Ctx, results: Result[], official: number, missing: numb
  */
 export function addNewPlayers(ctx: Ctx): void {
   for (const row of newcomers(ctx.raw, ctx.snap)) {
+    // Someone in only the live top 40 is added once her season reproduces; until then she's a note, not a block.
+    const report = (problem: string): void => {
+      if (row.ranking > TOP) ctx.notes.push(`Not tracked yet (live top ${TOP} only): ${problem}`);
+      else ctx.problems.push(problem);
+    };
     const name = row.player.fullName;
     const feed = ctx.snap.playerMatches[String(row.player.id)];
     const country = IOC_TO_ISO[row.player.countryCode];
     if (!feed) {
-      ctx.problems.push(`${name} entered the top ${TOP}, but her match feed wasn't fetched.`);
+      report(`${name} entered the top ${TOP}, but her match feed wasn't fetched.`);
       continue;
     }
     if (!country) {
-      ctx.problems.push(`${name}: country code ${row.player.countryCode} isn't in the IOC→ISO table (src/update/newPlayers.ts).`);
+      report(`${name}: country code ${row.player.countryCode} isn't in the IOC→ISO table (src/update/newPlayers.ts).`);
       continue;
     }
     const built = buildResults(ctx, row.player.id, feed);
     if (built.problems.length) {
-      ctx.problems.push(...built.problems.map((p) => `${name}: ${p}`));
+      built.problems.forEach((p) => report(`${name}: ${p}`));
       continue;
     }
     const tournaments = insertTournaments(ctx.raw.tournaments, built.created);
@@ -160,7 +165,7 @@ export function addNewPlayers(ctx: Ctx): void {
       const fits = built.results.length < row.tournamentsPlayed
         ? candidates({ ...ctx, raw: { ...ctx.raw, tournaments } }, built.results, row.points, row.tournamentsPlayed - built.results.length)
         : [];
-      ctx.problems.push(
+      report(
         `${name}: her results add up to ${total} from ${built.results.length} events, but the WTA shows ${row.points} from ${row.tournamentsPlayed}.` +
           (fits.length ? ` Zero-pointers that would fit (each needs a source, see data/SOURCES.md): ${fits.join('; ')}.` : ''),
       );

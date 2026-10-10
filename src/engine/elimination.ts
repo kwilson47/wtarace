@@ -88,13 +88,17 @@ export function raceInfo(players: Player[], tournaments: Tournament[], rules: Ru
 }
 export type RaceInfo = ReturnType<typeof raceInfo>[number];
 
+/** The tracked list always includes the official race's top 40 (src/update/shared.ts `TOP`); it can grow past it. */
+const OFFICIAL_TOP = 40;
+
 /**
- * Players outside the tracked list: at most the lowest tracked official total each (the tracked
- * players are the race's top `trackedPlayerCount`), competing for the remaining events' places.
+ * Players outside the tracked list: at most the 40th-highest tracked official total each (everyone in the
+ * race's top 40 is tracked), competing for the remaining events' places.
  */
 export function untrackedModel(players: Player[], tournaments: Tournament[], rules: Rules) {
+  const totals = players.map((p) => officialRace(p.results, tournaments, rules).total).sort((a, b) => b - a);
   return {
-    base: Math.min(...players.map((p) => officialRace(p.results, tournaments, rules).total)),
+    base: totals[Math.min(OFFICIAL_TOP, totals.length) - 1]!,
     slots: remainingWeeks(tournaments).map((w) => w.flatMap((t) => eventSlots(t, rules))),
   };
 }
