@@ -179,6 +179,7 @@ News sources cited:
 - **T-CINCY:** tennis365, 2026-08-14, https://www.tennis365.com/tennis-features/cincinnati-open-withdrawal-list-2026-17-players-out-alcaraz-sinner-osaka . It names Muchova.
 - **W-WIMB:** wtatennis.com, 2026-06-12, https://www.wtatennis.com/news/4518167/mboko-withdraws-from-wimbledon-due-to-knee-injury
 - **T-PAOLINI-TOR:** tennisuptodate, https://tennisuptodate.com/wta/jasmine-paolini-withdraws-from-canadian-open-as-injury-list-continues-to-grow ("withdraw from Washington and Toronto").
+- **W-ZHENG-AO:** wtatennis.com, https://www.wtatennis.com/news/4430881/qinwen-zheng-withdraws-from-2026-australian-open-kudermetova-main-draw
 - **W-CINCY:** wtatennis.com, https://www.wtatennis.com/news/4556337/karolina-muchova-2025-finalist-jasmine-paolini-to-miss-cincinnati-open-with-injuries
 - **P-BUCSA:** puntodebreak, 2026-06-22, https://www.puntodebreak.com/en/2026/06/22/official-cristina-bucsa-will-not-be-able-to-compete-in-wimbledon-2026 . The main-draw spot went to Jimenez Kasintseva.
 - **TT-BAPTISTE:** tennistonic, https://tennistonic.com/tennis-news/1004362/hailey-baptiste-faces-long-recovery-after-roland-garros-injury-with-acl-and-meniscus-issues
@@ -206,6 +207,7 @@ News sources cited:
 | Paolini | 17 | 14 | toronto, cincinnati, zp-wta500-1 | Toronto: T-PAOLINI-TOR. Cincinnati: W-CINCY. The 3rd: all other Grand Slams and WTA 1000s were played or attributed, and she also withdrew from Washington (500), so it is a WTA 500 shortfall. Total 1324 under every attribution. |
 | Baptiste | 14 | 12 | wimbledon, us-open | A Long-Term Injury from Roland Garros on (ACL; TT-BAPTISTE): Grand Slam zero-pointers must count, WTA 1000 ones during the injury need not (R §VIII.A.4.a.ii(c), p.145). That leaves exactly Wimbledon and the US Open, the same reasoning as Mboko. Total 1153 under any attribution. |
 | Bejlek | 20 | 19 | zp-wta500-1 | **Unattributed (controller ruling, 2026-10-08).** No source names the missing event. Doha, Indian Wells, Madrid and a WTA 500 shortfall all reproduce 1472, so it is stored as the existing labelled placeholder. Replace it if a source turns up. |
+| Zheng | 16 | 14 | australian-open, zp-wta500-1 | Added 2026-10-10, when the live top 40 (her Beijing run) brought her in. Australian Open: W-ZHENG-AO (elbow recovery). **The 2nd is unattributed (user ruling, 2026-10-10).** No source names it: she is neither in the Cincinnati draw nor among its withdrawals (MDS 1017, T-CINCY), so it is stored as the labelled WTA 500 placeholder, as for Bejlek. Total 1018 under every attribution. |
 
 **Mboko** (an interpretation; flagged in the report):
 - Dubai (MDS 718, "Right elbow injury"), Rome (MDS 709, "gastrointestinal illness") and Wimbledon (W-WIMB) are cited withdrawals after acceptance.
