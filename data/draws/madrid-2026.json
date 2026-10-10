@@ -1256,8 +1256,8 @@
       "a": 329668,
       "b": 322222,
       "winner": 329668,
-      "score": "W/O",
-      "outcome": "played"
+      "score": "",
+      "outcome": "walkover"
     },
     {
       "round": 3,

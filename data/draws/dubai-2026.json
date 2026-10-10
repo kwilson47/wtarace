@@ -600,8 +600,8 @@
       "a": 318314,
       "b": 326384,
       "winner": 326384,
-      "score": "W/O",
-      "outcome": "played"
+      "score": "",
+      "outcome": "walkover"
     },
     {
       "round": 2,
@@ -632,16 +632,16 @@
       "a": 331809,
       "b": 322082,
       "winner": 331809,
-      "score": "W/O",
-      "outcome": "played"
+      "score": "",
+      "outcome": "walkover"
     },
     {
       "round": 2,
       "a": 319001,
       "b": 330375,
       "winner": 319001,
-      "score": "W/O",
-      "outcome": "played"
+      "score": "",
+      "outcome": "walkover"
     },
     {
       "round": 2,

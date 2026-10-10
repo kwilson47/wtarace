@@ -92,7 +92,9 @@ export function drawMatches(table: { round: string }[], matches: LiveMatch[]): D
     const b = positive(m.PlayerIDB);
     const finished = m.MatchState === 'F' && m.Winner !== undefined && m.Winner !== null && m.Winner !== '';
     const code = num(m.Winner);
-    const score = finished ? (m.ScoreString ?? '').replace(/\s*Ret'?d\.?\s*$/i, '').split(',').map((s) => s.trim()).filter(Boolean).join(' ') : '';
+    const published = finished ? (m.ScoreString ?? '').replace(/\s*Ret'?d\.?\s*$/i, '').split(',').map((s) => s.trim()).filter(Boolean).join(' ') : '';
+    // Some feeds publish a walkover as the score "W/O" rather than leaving it empty.
+    const score = /^w\/?o$/i.test(published) ? '' : published;
     return {
       round,
       a,

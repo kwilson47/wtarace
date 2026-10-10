@@ -44,6 +44,8 @@ describe('toDrawFile', () => {
   it('marks a walkover, and knows when the draw is out', () => {
     const draw = toDrawFile(table, players, [m({ Winner: '2', ScoreString: '' })]);
     expect(draw.matches[0]).toMatchObject({ winner: 2, outcome: 'walkover' });
+    // Some feeds publish a walkover's score as "W/O" rather than leaving it empty (Singapore 2026).
+    expect(toDrawFile(table, players, [m({ Winner: '2', ScoreString: 'W/O' })]).matches[0]).toMatchObject({ winner: 2, score: '', outcome: 'walkover' });
     expect(isDrawOut([])).toBe(false);
     expect(isDrawOut([m({ DrawLevelType: 'Q' })])).toBe(false);
     expect(isDrawOut([m({ MatchState: 'U' })])).toBe(true);
