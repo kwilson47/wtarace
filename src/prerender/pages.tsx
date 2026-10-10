@@ -8,6 +8,9 @@ import type { DrawFile } from '../draws/drawSchema';
 import { categoryLabel } from '../ui/format';
 import { PlayerPage } from '../ui/PlayerPage';
 import { TournamentPage } from '../ui/TournamentPage';
+import type { TournamentFact } from '../draws/facts';
+import { PlayersIndex } from '../ui/PlayersIndex';
+import { TournamentsIndex } from '../ui/TournamentsIndex';
 
 export const SITE = 'https://finalsrace.win';
 const START = '<!--app-start-->';
@@ -110,9 +113,21 @@ export function tournamentHtml(template: string, season: Season, tournamentId: s
   );
 }
 
+export function tournamentsIndexHtml(template: string, season: Season, facts: Record<string, TournamentFact>): string {
+  const title = `Tournaments: ${season.rules.season} Race to the WTA Finals`;
+  const description = `Every event in the ${season.rules.season} Race to the WTA Finals: live, upcoming and completed, with draws, results and champions.`;
+  return fillPage(template, renderToString(<TournamentsIndex season={season} facts={facts} />), headTags(title, description, `${SITE}/tournaments/`, 'website'), { page: 'tournaments', facts });
+}
+
+export function playersIndexHtml(template: string, season: Season): string {
+  const title = `Players: ${season.rules.season} Race to the WTA Finals`;
+  const description = `Every player we track in the ${season.rules.season} Race to the WTA Finals, in race order, with her season match by match.`;
+  return fillPage(template, renderToString(<PlayersIndex season={season} />), headTags(title, description, `${SITE}/players/`, 'website'), { page: 'players' });
+}
+
 export function sitemapXml(season: Season): string {
   const lastmod = season.meta.lastUpdated.slice(0, 10);
-  const urls = ['/', ...season.players.map((p) => `/players/${p.id}/`), ...season.tournaments.filter((t) => !t.id.startsWith('zp-')).map((t) => `/tournaments/${t.id}/`)];
+  const urls = ['/', '/tournaments/', '/players/', ...season.players.map((p) => `/players/${p.id}/`), ...season.tournaments.filter((t) => !t.id.startsWith('zp-')).map((t) => `/tournaments/${t.id}/`)];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url>\n    <loc>${SITE}${u}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>daily</changefreq>\n  </url>`).join('\n')}

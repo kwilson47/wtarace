@@ -2,7 +2,8 @@
 // embedded), and the sitemap. Runs after `vite build`; reads the built HTML templates from dist/.
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { season } from '../src/data/season';
-import { homeHtml, playerHtml, sitemapXml, tournamentHtml } from '../src/prerender/pages';
+import { tournamentFacts } from '../src/draws/facts';
+import { homeHtml, playerHtml, playersIndexHtml, sitemapXml, tournamentHtml, tournamentsIndexHtml } from '../src/prerender/pages';
 import { FULL_RUNS, SEED, simulateChances } from '../src/sim/chances';
 import { readDrawFiles, readMatchFiles } from '../src/update/writeData';
 
@@ -33,7 +34,11 @@ for (const t of tracked) {
   mkdirSync(`${dist}tournaments/${t.id}`, { recursive: true });
   writeFileSync(`${dist}tournaments/${t.id}/index.html`, tournamentHtml(tournamentTemplate, season, t.id, draws[t.id] ?? null));
 }
+const listTemplate = readFileSync(`${dist}list.html`, 'utf8');
+writeFileSync(`${dist}tournaments/index.html`, tournamentsIndexHtml(listTemplate, season, tournamentFacts(season, draws)));
+writeFileSync(`${dist}players/index.html`, playersIndexHtml(listTemplate, season));
+rmSync(`${dist}list.html`);
 rmSync(`${dist}player.html`); // the templates themselves are not pages
 rmSync(`${dist}tournament.html`);
 writeFileSync(`${dist}sitemap.xml`, sitemapXml(season));
-console.log(`Prerendered the homepage, ${season.players.length} player pages and ${tracked.length} tournament pages in ${((Date.now() - started) / 1000).toFixed(1)}s.`);
+console.log(`Prerendered the homepage, the two index pages, ${season.players.length} player pages and ${tracked.length} tournament pages in ${((Date.now() - started) / 1000).toFixed(1)}s.`);

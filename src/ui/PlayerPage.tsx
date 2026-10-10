@@ -4,6 +4,7 @@ import { roundLabel, type MatchRecord } from '../season/matchSchema';
 import { levelLabel, seasonSummary, type Split, type TournamentBlock } from '../season/seasonSummary';
 import { flagEmoji, formatPoints } from './format';
 import { UpdatedTime } from './UpdatedTime';
+import { SiteNav } from './SiteNav';
 
 const day = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 const dates = (start: string, end: string) => `${day.format(new Date(`${start}T00:00:00Z`))} – ${day.format(new Date(`${end}T00:00:00Z`))}`;
@@ -72,7 +73,7 @@ export function PlayerPage({ season, playerId, matches }: Props) {
     : `${rules.season} season`;
   return (
     <div className="app player-page">
-      <nav className="crumbs"><a href="/">← Full standings</a></nav>
+      <SiteNav current="players" />
       <header className="header">
         <h1>
           <span aria-hidden="true">{flagEmoji(player.country)}</span> {player.name}

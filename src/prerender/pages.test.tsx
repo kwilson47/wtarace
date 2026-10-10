@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { season } from '../test/fixtures';
-import { homeHtml, playerHtml, sitemapXml, tournamentHtml } from './pages';
+import { homeHtml, playerHtml, playersIndexHtml, sitemapXml, tournamentHtml, tournamentsIndexHtml } from './pages';
 
 const HOME = '<html><head><title>T</title></head><body><div id="root"><!--app-start-->static<!--app-end--></div></body></html>';
 const PLAYER = '<html><head><!--head--></head><body><div id="root"><!--app-start--><!--app-end--></div><!--data--></body></html>';
@@ -35,6 +35,8 @@ describe('prerendered pages', () => {
   it('lists the homepage and every player page in the sitemap', () => {
     const xml = sitemapXml(season);
     expect(xml).toContain('<loc>https://finalsrace.win/</loc>');
+    expect(xml).toContain('<loc>https://finalsrace.win/tournaments/</loc>');
+    expect(xml).toContain('<loc>https://finalsrace.win/players/</loc>');
     for (const p of season.players) expect(xml).toContain(`<loc>https://finalsrace.win/players/${p.id}/</loc>`);
     expect(xml).toContain('<lastmod>2026-10-07</lastmod>');
   });
@@ -49,5 +51,17 @@ describe('prerendered pages', () => {
 
   it('lists tournament pages in the sitemap', () => {
     expect(sitemapXml(season)).toContain('<loc>https://finalsrace.win/tournaments/next/</loc>');
+  });
+
+  it('writes the tournaments and players index pages with their own titles and embedded data', () => {
+    const t = tournamentsIndexHtml(PLAYER, season, { slam: { champion: 'Ana Alpha', round: null, drawOut: false } });
+    expect(t).toContain('<title>Tournaments: 2026 Race to the WTA Finals</title>');
+    expect(t).toContain('<link rel="canonical" href="https://finalsrace.win/tournaments/" />');
+    expect(t).toContain('"page":"tournaments"');
+    expect(t).toContain('Champion: Ana Alpha');
+    const p = playersIndexHtml(PLAYER, season);
+    expect(p).toContain('<title>Players: 2026 Race to the WTA Finals</title>');
+    expect(p).toContain('<link rel="canonical" href="https://finalsrace.win/players/" />');
+    expect(p).toContain('<script id="page-data" type="application/json">{"page":"players"}</script>');
   });
 });

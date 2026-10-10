@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 
-/** In development, /players/<id>/ and /tournaments/<id>/ (built by scripts/prerender.ts for real) serve their templates. */
+/** In development, /players/, /tournaments/ and their pages (built by scripts/prerender.ts for real) serve their templates. */
 function devPlayerPages(): Plugin {
   return {
     name: 'dev-player-pages',
@@ -15,14 +15,15 @@ function devPlayerPages(): Plugin {
         const tournament = /^\/tournaments\/([a-z0-9-]+)\/?$/.exec(path);
         if (player) req.url = `/player.html?id=${player[1]}`;
         else if (tournament) req.url = `/tournament.html?id=${tournament[1]}`;
+        else if (/^\/(players|tournaments)\/?$/.test(path)) req.url = `/list.html?page=${path.includes('players') ? 'players' : 'tournaments'}`;
         next();
       });
     },
   };
 }
 
-// Two page templates: the homepage and the player page. scripts/prerender.ts fills them after the build
-// (and writes the sitemap).
+// Page templates: the homepage, player pages, tournament pages and the two index pages (list.html).
+// scripts/prerender.ts fills them after the build (and writes the sitemap).
 export default defineConfig({
   plugins: [react(), devPlayerPages()],
   build: {
@@ -31,6 +32,7 @@ export default defineConfig({
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         player: fileURLToPath(new URL('./player.html', import.meta.url)),
         tournament: fileURLToPath(new URL('./tournament.html', import.meta.url)),
+        list: fileURLToPath(new URL('./list.html', import.meta.url)),
       },
     },
   },

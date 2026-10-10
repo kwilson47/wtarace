@@ -50,3 +50,10 @@ export function formatChance(p: number): string {
   if (p < 0.005) return '<1%';
   return `${Math.round(p * 100)}%`;
 }
+
+const day = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+
+/** "Sep 30 – Oct 11". */
+export function formatDates(t: { startDate: string; endDate: string }): string {
+  return `${day.format(new Date(`${t.startDate}T00:00:00Z`))} – ${day.format(new Date(`${t.endDate}T00:00:00Z`))}`;
+}

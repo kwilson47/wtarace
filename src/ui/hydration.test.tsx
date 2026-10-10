@@ -6,6 +6,8 @@ import { season } from '../test/fixtures';
 import { App } from './App';
 import { PlayerPage } from './PlayerPage';
 import { TournamentPage } from './TournamentPage';
+import { PlayersIndex } from './PlayersIndex';
+import { TournamentsIndex } from './TournamentsIndex';
 
 /** Renders `element` as the build would (a clean URL, no stored preferences), then hydrates it in a browser-like state. */
 export async function hydrationErrors(element: ReactElement, browser: () => void = () => {}): Promise<unknown[]> {
@@ -66,5 +68,10 @@ describe('hydration', () => {
   });
   it('the homepage hydrates cleanly with chances embedded', async () => {
     expect(await hydrationErrors(<App season={season} chances={{ ana: 1, bea: 0.42, cat: 0 }} />)).toEqual([]);
+  });
+
+  it('the tournaments and players index pages hydrate cleanly', async () => {
+    expect(await hydrationErrors(<TournamentsIndex season={season} facts={{}} />)).toEqual([]);
+    expect(await hydrationErrors(<PlayersIndex season={season} />)).toEqual([]);
   });
 });

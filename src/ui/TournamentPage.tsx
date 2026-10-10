@@ -5,12 +5,11 @@ import { applyPicks, clearTournamentPicks, pickedRounds, pickWinner, type Picked
 import { pointsTable } from '../engine/lookup';
 import { encodeScenario } from '../scenario/url';
 import { useScenario } from '../scenario/useScenario';
-import { categoryLabel, flagEmoji, formatPoints } from './format';
+import { categoryLabel, flagEmoji, formatDates, formatPoints } from './format';
 import { RaceImpact } from './RaceImpact';
+import { SiteNav } from './SiteNav';
 import { UpdatedTime } from './UpdatedTime';
 
-const day = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
-const dates = (t: Tournament) => `${day.format(new Date(`${t.startDate}T00:00:00Z`))} – ${day.format(new Date(`${t.endDate}T00:00:00Z`))}`;
 const STATUS = { completed: 'Completed', 'in-progress': 'In progress', upcoming: 'Upcoming' } as const;
 
 /** `plain` leaves a tracked player's name unlinked, for use inside a button. `round` labels open first-round lines. */
@@ -174,11 +173,11 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
   };
   return (
     <div className="app tournament-page">
-      <nav className="crumbs"><a href="/">← Full standings</a></nav>
+      <SiteNav current="tournaments" />
       <header className="header">
         <h1>{`${t.name} ${year}`}</h1>
         <p className="player-status">
-          {`${categoryLabel(t.category)} · ${STATUS[t.status]} · ${dates(t)}${draw ? ` · ${draw.drawSize}-player draw` : ''}`}
+          {`${categoryLabel(t.category)} · ${STATUS[t.status]} · ${formatDates(t)}${draw ? ` · ${draw.drawSize}-player draw` : ''}`}
         </p>
         {final?.champion != null && (
           <p className="champion">{`Champion: ${nameOf(final.champion)} · Runner-up: ${nameOf(final.runnerUp)}${final.score ? ` · ${final.score}` : ''}`}</p>

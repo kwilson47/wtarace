@@ -89,8 +89,19 @@ select { font: inherit; max-width: 100%; }
 .working-dots span:nth-child(3) { animation-delay: 0.4s; }
 @keyframes working-dot { 0%, 80%, 100% { opacity: 0.15; } 40% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .working-dots span { animation: none; } }
-.crumbs { padding-top: 16px; font-size: 0.9rem; }
-.crumbs a, .explore a, .profile-link a { color: var(--accent-text); }
+.site-nav { display: flex; gap: 18px; padding-top: 14px; font-size: 0.95rem; }
+.site-nav a { color: var(--accent-text); text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+.site-nav a:hover { border-bottom-color: var(--line); }
+.site-nav a[aria-current='page'] { color: var(--fg); font-weight: 600; border-bottom-color: var(--accent); }
+.explore a, .profile-link a { color: var(--accent-text); }
+.event-list { list-style: none; padding: 0; margin: 0 0 12px; }
+.event-list li { padding: 5px 0; border-bottom: 1px solid var(--line); }
+.event-list a, .player-list a { color: var(--accent-text); font-weight: 600; }
+.list-page h3 { font-size: 0.95rem; color: var(--muted); margin: 16px 0 4px; }
+.player-list { width: 100%; max-width: 520px; border-collapse: collapse; }
+.player-list th, .player-list td { padding: 5px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+.player-list .num { text-align: right; font-variant-numeric: tabular-nums; }
+.list-page input[type='search'] { font: inherit; padding: 6px 8px; width: 100%; max-width: 320px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
 .player-status { margin: 0 0 6px; }
 .player-page h2 { font-size: 1.1rem; margin: 20px 0 8px; }
 .profile-link { margin: 6px 0 0; font-size: 0.9rem; }

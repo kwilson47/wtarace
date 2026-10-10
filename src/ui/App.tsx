@@ -8,6 +8,7 @@ import { useScenario } from '../scenario/useScenario';
 import type { IgnoredPick } from '../scenario/reconcile';
 import { Header } from './Header';
 import { ScenarioEditor } from './ScenarioEditor';
+import { SiteNav } from './SiteNav';
 import { StandingsTable } from './StandingsTable';
 import { useClinched } from './useClinched';
 
@@ -52,6 +53,7 @@ export function App({ season, chances = null }: { season: Season; chances?: Read
 
   return (
     <div className="app">
+      <SiteNav current="standings" />
       <Header season={rules.season} lastUpdated={season.meta.lastUpdated} onReset={reset} />
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
