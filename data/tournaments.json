@@ -566,7 +566,16 @@
     "startDate": "2026-10-12",
     "endDate": "2026-10-18",
     "status": "upcoming",
-    "byes": [],
+    "byes": [
+      "aryna-sabalenka",
+      "jessica-pegula",
+      "mirra-andreeva",
+      "elina-svitolina",
+      "karolina-muchova",
+      "linda-noskova",
+      "marta-kostyuk",
+      "iga-swiatek"
+    ],
     "entries": [
       "aryna-sabalenka",
       "jessica-pegula",
@@ -598,7 +607,8 @@
       "cristina-bucsa",
       "kimberly-birrell",
       "nikola-bartunkova",
-      "liudmila-samsonova"
+      "liudmila-samsonova",
+      "qinwen-zheng"
     ]
   },
   {
@@ -650,7 +660,8 @@
       "ann-li",
       "kimberly-birrell",
       "nikola-bartunkova",
-      "liudmila-samsonova"
+      "liudmila-samsonova",
+      "qinwen-zheng"
     ]
   },
   {
@@ -702,7 +713,8 @@
       "cristina-bucsa",
       "kimberly-birrell",
       "nikola-bartunkova",
-      "liudmila-samsonova"
+      "liudmila-samsonova",
+      "qinwen-zheng"
     ]
   }
 ]
