@@ -2,7 +2,9 @@ name: Update data
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    # Backup only: a Cloudflare Worker (trigger/) starts this at :07 every hour, because GitHub's
+    # scheduler is best-effort and skipped most hours on 2026-10-09/10.
+    - cron: '37 * * * *'
   workflow_dispatch:
 
 permissions:

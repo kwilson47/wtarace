@@ -28,6 +28,8 @@ The code is in `src/sim/`. Its tests include a calibration check: on this season
 
 ## Updating the data
 
+The `Update data` workflow runs every hour. A small Cloudflare Worker (`trigger/`, setup in `trigger/README.md`) starts it at :07, because GitHub's own scheduler is best-effort; GitHub's schedule at :37 is the backup.
+
 **Automatic (normal case).** The `Update data` workflow (`.github/workflows/update.yml`) runs every hour. It reads the official WTA feeds and refreshes:
 - race totals;
 - every tracked player's match results (`data/matches/`) and every tracked event's draw (`data/draws/`); see `data/SOURCES.md`;

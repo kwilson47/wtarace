@@ -1,0 +1,13 @@
+name = "finalsrace-hourly-update"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+
+[triggers]
+crons = ["7 * * * *"]
+
+[vars]
+REPO = "kwilson47/wtarace"
+
+[observability]
+enabled = true

@@ -62,7 +62,7 @@ Primary sources:
 
 ## Automatic updates
 
-From 2026-10-09, an hourly job (`scripts/update.ts`, run by `.github/workflows/update.yml`) refreshes the data from the feeds already cited here:
+From 2026-10-09, an hourly job (`scripts/update.ts`, run by `.github/workflows/update.yml`, started each hour by the Cloudflare Worker in `trigger/` because GitHub's own schedule is unreliable) refreshes the data from the feeds already cited here:
 - the race ranking feed (totals, the top 40);
 - the calendar feed (event status);
 - each remaining event's `players` and `matches` feeds (draws, byes, live rounds, draw positions, entry lists);
