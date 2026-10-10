@@ -1,6 +1,7 @@
 import { parseOrThrow, type Result } from '../data/schema';
 import { officialRace } from '../engine/countRace';
 import type { PlayerMatch } from './feedTypes';
+import { newcomers } from './newcomers';
 import { TOP, yearOf, type Ctx, type RawTournament } from './shared';
 
 /** IOC codes the WTA displays → ISO 3166-1 alpha-2 (RUS/BLR are shown for players without a flag). */
@@ -130,11 +131,12 @@ function candidates(ctx: Ctx, results: Result[], official: number, missing: numb
   return found;
 }
 
-/** Adds every race top-40 player we don't track yet, when her whole season reproduces exactly. */
+/**
+ * Adds every player in the race's top 40 we don't track yet, counting points from events under way, when her
+ * whole season reproduces exactly. Players are never removed during a season.
+ */
 export function addNewPlayers(ctx: Ctx): void {
-  const tracked = new Set(ctx.raw.players.map((p) => p.wtaId));
-  const fresh = ctx.snap.race.filter((r) => r.ranking <= TOP && !tracked.has(r.player.id)).sort((a, b) => a.ranking - b.ranking);
-  for (const row of fresh) {
+  for (const row of newcomers(ctx.raw, ctx.snap)) {
     const name = row.player.fullName;
     const feed = ctx.snap.playerMatches[String(row.player.id)];
     const country = IOC_TO_ISO[row.player.countryCode];
@@ -170,7 +172,6 @@ export function addNewPlayers(ctx: Ctx): void {
     for (const t of built.created) ctx.changes.push(`New tournament: ${t.name} ${yearOf(t)} (${t.category})`);
     ctx.raw.players.push({ id, wtaId: row.player.id, name, country, officialRaceTotal: row.points, results: built.results, live: [] });
     ctx.raw.rules.trackedPlayerCount = ctx.raw.players.length;
-    tracked.add(row.player.id);
-    ctx.changes.push(`New player: ${name} (race #${row.ranking}, ${row.points} points)`);
+    ctx.changes.push(`New player: ${name} (race #${row.ranking}, ${row.points} points${row.ranking > TOP ? `; ${row.live} with the event under way` : ''})`);
   }
 }

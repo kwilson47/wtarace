@@ -78,7 +78,7 @@ export function toDrawFile(table: { round: string }[], playersFeed: EventPlayers
 }
 
 /** Every main-draw singles match in a matches feed, first round first. */
-function drawMatches(table: { round: string }[], matches: LiveMatch[]): DrawMatch[] {
+export function drawMatches(table: { round: string }[], matches: LiveMatch[]): DrawMatch[] {
   const draw = mainSingles(matches).map((m) => {
     // Match ids count down from the final (LS001), so they give the round even for matches not yet played,
     // which the feed can publish with a different RoundID.
