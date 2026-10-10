@@ -1376,5 +1376,31 @@
     "score": "7-6(0) 6-3",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 1020,
+    "year": 2026,
+    "tournament": "Beijing",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-09-30",
+    "endDate": "2026-10-11",
+    "qualifying": false,
+    "round": 6,
+    "roundName": "S",
+    "opponent": {
+      "id": 328120,
+      "name": "Qinwen Zheng",
+      "country": "CN",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "7-5 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]

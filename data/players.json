@@ -1778,9 +1778,8 @@
     "live": [
       {
         "tournamentId": "beijing-2026",
-        "state": "alive",
-        "round": "SF",
-        "drawPosition": 36
+        "state": "eliminated",
+        "round": "SF"
       }
     ],
     "qualified": false
