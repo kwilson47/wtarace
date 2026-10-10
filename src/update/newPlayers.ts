@@ -38,7 +38,7 @@ function drawTypeFor(ctx: Ctx, level: string, size: number): string | undefined 
 interface Built { results: Result[]; created: RawTournament[]; problems: string[] }
 
 /** Her race-year results from her match feed, using the conventions in data/SOURCES.md. */
-function buildResults(ctx: Ctx, wtaId: number, feed: PlayerMatch[]): Built {
+export function buildResults(ctx: Ctx, wtaId: number, feed: PlayerMatch[]): Built {
   const real = ctx.raw.tournaments.filter((t) => t.wtaId !== undefined);
   const start = real.map((t) => t.startDate).sort()[0]!;
   const end = real.map((t) => t.endDate).sort().at(-1)!;
@@ -102,7 +102,7 @@ function buildResults(ctx: Ctx, wtaId: number, feed: PlayerMatch[]): Built {
 }
 
 /** Inserts tournaments in date order, after any placeholders that share a position. */
-function insertTournaments(list: RawTournament[], created: RawTournament[]): RawTournament[] {
+export function insertTournaments(list: RawTournament[], created: RawTournament[]): RawTournament[] {
   const out = [...list];
   for (const t of created) {
     const at = out.findIndex((x) => !x.id.startsWith('zp-') && x.startDate > t.startDate);
@@ -112,7 +112,7 @@ function insertTournaments(list: RawTournament[], created: RawTournament[]): Raw
 }
 
 /** Zero-pointer attributions of `missing` events that would reproduce `official`. */
-function candidates(ctx: Ctx, results: Result[], official: number, missing: number): string[] {
+export function candidates(ctx: Ctx, results: Result[], official: number, missing: number): string[] {
   const season = parseOrThrow(ctx.raw);
   const free = season.tournaments.filter(
     (t) => t.status === 'completed' && (REQUIRED_CATEGORIES.includes(t.category) || t.id.startsWith('zp-')) && !results.some((r) => r.tournamentId === t.id),
