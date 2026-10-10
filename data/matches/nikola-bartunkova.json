@@ -1532,5 +1532,31 @@
     "score": "6-3 6-0",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 1020,
+    "year": 2026,
+    "tournament": "Beijing",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-09-30",
+    "endDate": "2026-10-11",
+    "qualifying": false,
+    "round": 6,
+    "roundName": "S",
+    "opponent": {
+      "id": 331809,
+      "name": "Mirra Andreeva",
+      "country": "RU",
+      "seed": 4,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-2 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]

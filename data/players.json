@@ -393,7 +393,7 @@
       },
       {
         "tournamentId": "beijing-2026",
-        "round": "SF",
+        "round": "F",
         "points": 0
       }
     ],
@@ -401,7 +401,7 @@
       {
         "tournamentId": "beijing-2026",
         "state": "alive",
-        "round": "SF",
+        "round": "F",
         "drawPosition": 72
       }
     ],
@@ -4201,9 +4201,8 @@
     "live": [
       {
         "tournamentId": "beijing-2026",
-        "state": "alive",
-        "round": "SF",
-        "drawPosition": 91
+        "state": "eliminated",
+        "round": "SF"
       }
     ]
   },
