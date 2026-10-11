@@ -25,6 +25,14 @@ describe('ScenarioEditor', () => {
     ]);
   });
 
+  it("leaves out a live event with nothing left to pick (finished, waiting for its points)", () => {
+    const raw = rawSeason();
+    raw.players.find((p) => p.id === 'ana')!.live = [{ tournamentId: 'live', state: 'alive', round: 'W' }];
+    setup({}, parseOrThrow(raw));
+    const options = screen.getAllByRole('option').filter((o) => o.closest('select')?.getAttribute('id') === 'tournament-select');
+    expect(options.map((o) => o.textContent)).toEqual(['Next Open (WTA 500)', 'Clash Cup (WTA 250)']);
+  });
+
   it('by player: labels each event with its type', async () => {
     setup();
     await userEvent.click(screen.getByRole('tab', { name: 'By player' }));

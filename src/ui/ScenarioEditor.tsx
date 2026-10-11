@@ -7,6 +7,7 @@ import { PickSelect } from './PickSelect';
 import { PlayerOutlook } from './PlayerOutlook';
 import { useOutlook } from './useOutlook';
 import { warningsByPick } from './warningText';
+import { pickOptions } from '../engine/picks';
 
 type OnPick = (playerId: string, tournamentId: string, round: string | null) => void;
 
@@ -156,7 +157,12 @@ export function ScenarioEditor({ season, players, scenario, warnings, onPick, on
     sectionRef.current?.scrollIntoView?.({ block: 'start' });
   }, [focusPlayer]);
   const remaining = useMemo(
-    () => season.tournaments.filter((t) => t.status !== 'completed').sort((a, b) => a.startDate.localeCompare(b.startDate)),
+    () =>
+      season.tournaments
+        // A live event stays listed only while someone still has a pick to make: once it's finished and waiting
+        // for its points to be credited, every player is out or its champion.
+        .filter((t) => t.status === 'upcoming' || (t.status === 'in-progress' && season.players.some((p) => pickOptions(p, t, season.rules).kind === 'open')))
+        .sort((a, b) => a.startDate.localeCompare(b.startDate)),
     [season],
   );
   const messages = useMemo(() => warningsByPick(warnings, season), [warnings, season]);
