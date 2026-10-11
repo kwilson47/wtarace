@@ -28,6 +28,14 @@ describe('pickOptions', () => {
     expect(pickOptions(player('bea'), tournament('live'), rules)).toEqual({ kind: 'locked', label: 'Out in Round of 16' });
   });
 
+  it("locks the champion of an event that's finished but not yet credited, and keeps a matching pick valid", () => {
+    // Beijing 2026: the final was played on Sunday, but the event stays in progress until the WTA credits it.
+    const champion = { ...player('ana'), live: [{ tournamentId: 'live', state: 'alive' as const, round: 'W' }] };
+    expect(pickOptions(champion, tournament('live'), rules)).toEqual({ kind: 'locked', label: 'Winner' });
+    expect(pickProblem(champion, tournament('live'), 'W', rules)).toBeNull();
+    expect(pickProblem(champion, tournament('live'), 'F', rules)).toBe('below-current-round');
+  });
+
   it('locks a player not in the draw of an in-progress event', () => {
     expect(pickOptions(player('cat'), tournament('live'), rules)).toEqual({ kind: 'locked', label: 'Not in draw' });
   });

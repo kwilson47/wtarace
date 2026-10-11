@@ -20,6 +20,8 @@ export function pickOptions(player: Player, tournament: Tournament, rules: Rules
   const index = roundIndex(table, live.round);
   const current = table[index];
   if (live.state === 'eliminated') return { kind: 'locked', label: `Out in ${current.label}` };
+  // She has already won it (the event stays in progress until the WTA credits its points): nothing left to pick.
+  if (index === table.length - 1) return { kind: 'locked', label: current.label };
   return { kind: 'open', allowNone: false, currentRound: current, rounds: table.slice(index) };
 }
 
@@ -27,7 +29,10 @@ export function pickProblem(player: Player, tournament: Tournament, round: strin
   if (tournament.status === 'completed') return 'completed';
   const options = pickOptions(player, tournament, rules);
   if (options.kind === 'locked') {
-    return player.live.some((l) => l.tournamentId === tournament.id) ? 'eliminated' : 'not-in-draw';
+    const live = player.live.find((l) => l.tournamentId === tournament.id);
+    if (!live) return 'not-in-draw';
+    if (live.state === 'alive') return live.round === round ? null : 'below-current-round'; // the champion: only her title stands
+    return 'eliminated';
   }
   if (options.rounds.some((r) => r.round === round)) return null;
   const inTable = roundIndex(pointsTable(rules, tournament.drawType), round) >= 0;

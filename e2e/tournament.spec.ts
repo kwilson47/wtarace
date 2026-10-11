@@ -27,8 +27,10 @@ test('picking a winner moves the race impact and carries over to the standings',
     if ((await page.getByRole('region', { name: 'Race impact' }).count()) === 0) continue;
     const pick = page.locator('.match button.line, .round-list button.pick').first();
     if ((await pick.count()) === 0) continue;
+    // Picking her can open her next match, so the first pickable button may then be someone else's: check hers.
+    const name = (await pick.textContent())!.trim();
     await pick.click();
-    await expect(pick).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[aria-pressed="true"]', { hasText: name }).first()).toBeVisible();
     await expect(page).toHaveURL(/[?&]s=/);
     const s = new URL(page.url()).searchParams.get('s')!;
     await page.getByRole('link', { name: 'Full standings with these picks →' }).click();
