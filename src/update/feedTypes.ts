@@ -4,6 +4,8 @@ export interface RaceRow {
   points: number;
   tournamentsPlayed: number;
   player: { id: number; fullName: string; countryCode: string };
+  /** The list's published date (ISO); historical rows report tournamentsPlayed 0. */
+  rankedAt?: string;
 }
 
 export interface CalendarEvent {

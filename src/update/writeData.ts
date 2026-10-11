@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { join } from 'node:path';
 import type { SeasonInput } from '../data/schema';
 import type { DrawFile } from '../draws/drawSchema';
+import type { RaceHistory } from '../history/historySchema';
 import type { MatchRecord } from '../season/matchSchema';
 
 const NAMES = { rules: 'rules.json', tournaments: 'tournaments.json', players: 'players.json', meta: 'meta.json' } as const;
@@ -56,4 +57,20 @@ export function writeDrawFiles(dir: string, files: Record<string, DrawFile>): vo
   const folder = join(dir, 'draws');
   mkdirSync(folder, { recursive: true });
   for (const [id, draw] of Object.entries(files)) writeFileSync(join(folder, `${id}.json`), `${JSON.stringify(draw, null, 2)}\n`);
+}
+
+const HISTORY = 'race-history.json';
+
+export function readHistory(dir: string): RaceHistory | null {
+  const path = join(dir, HISTORY);
+  return existsSync(path) ? (JSON.parse(readFileSync(path, 'utf8')) as RaceHistory) : null;
+}
+
+/** One player per line keeps diffs readable. */
+export function writeHistory(dir: string, h: RaceHistory): void {
+  const players = Object.entries(h.players)
+    .map(([id, weeks]) => `    ${JSON.stringify(id)}: ${JSON.stringify(weeks)}`)
+    .join(',\n');
+  const text = `{\n  "dates": ${JSON.stringify(h.dates)},\n  "eighth": ${JSON.stringify(h.eighth)},\n  "players": {\n${players}\n  }\n}\n`;
+  writeFileSync(join(dir, HISTORY), text);
 }
