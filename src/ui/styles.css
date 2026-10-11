@@ -160,3 +160,21 @@ select { font: inherit; max-width: 100%; }
 .match button.line[aria-pressed='true'], .round-list button.pick[aria-pressed='true'] { font-weight: 600; background: var(--qualifier-bg); }
 .match.conflict { border-color: var(--warn); }
 .match .pick-note { color: var(--accent-text); font-size: 0.75rem; }
+
+/* Race history chart */
+.race-chart { position: relative; margin: 8px 0 16px; }
+.race-chart svg { width: 100%; height: auto; display: block; }
+.race-chart .tick line { stroke: var(--line); }
+.race-chart .tick text, .race-chart .month { fill: var(--muted); font-size: 11px; }
+.race-chart path.series { fill: none; stroke-width: 2; }
+.race-chart path.reference { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.race-chart .reference-label { fill: var(--muted); font-size: 11px; }
+.race-chart .end-label { font-size: 11px; font-weight: 600; }
+.race-chart .qualifying-band { fill: var(--qualifier-bg); }
+.race-chart .cursor { stroke: var(--muted); stroke-width: 1; }
+.race-chart .weeks { position: absolute; left: 0; right: 0; top: 0; bottom: 8%; }
+.race-chart .week { position: absolute; top: 0; bottom: 0; width: 14px; margin-left: -7px; border: 0; background: transparent; cursor: pointer; padding: 0; }
+.race-chart .week:focus-visible { outline: 2px solid var(--accent); }
+.chart-tip { font-size: 0.85rem; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; background: var(--bg); margin-top: 6px; }
+.chart-tip ul { list-style: none; margin: 4px 0 0; padding: 0; columns: 2; }
+.chart-tip .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
