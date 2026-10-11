@@ -86,7 +86,7 @@ export function PlayerPage({ season, playerId, matches, history = null }: Props)
       <RaceChart
         dates={history.dates}
         view="points"
-        series={[{ id: player.id, name: player.name, color: PALETTE[0]!, values: history.weeks.map((w) => (w ? w[1] : null)) }]}
+        series={[{ id: player.id, name: player.name, color: PALETTE[0]!, values: history.weeks.map((w) => (w ? w[1] : null)), weeks: history.weeks }]}
         reference={{ label: '8th place', values: history.eighth }}
       />
       <p className="explore"><a href={`/race-history/?p=${player.id}`}>Compare with others →</a></p>

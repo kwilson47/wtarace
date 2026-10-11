@@ -172,7 +172,11 @@ select { font: inherit; max-width: 100%; }
 .race-chart .end-label { font-size: 11px; font-weight: 600; }
 .race-chart .qualifying-band { fill: var(--qualifier-bg); }
 .race-chart .cursor { stroke: var(--muted); stroke-width: 1; }
+.race-chart .plot { position: relative; }
 .race-chart .weeks { position: absolute; left: 0; right: 0; top: 0; bottom: 8%; }
+.chart-legend { display: flex; align-items: center; gap: 6px; margin: 2px 0 0; font-size: 0.8rem; color: var(--muted); }
+.chart-legend .dash { width: 18px; border-top: 2px dashed var(--muted); }
+.chart-tip .reference-row { color: var(--muted); }
 .race-chart .week { position: absolute; top: 0; bottom: 0; border: 0; background: transparent; cursor: pointer; padding: 0; }
 .race-chart .week:focus-visible { outline: 2px solid var(--accent); }
 .chart-tip { font-size: 0.85rem; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; background: var(--bg); margin-top: 6px; }

@@ -55,7 +55,7 @@ export function RaceHistoryPage({ season, history }: { season: Season; history: 
         series={chosen.map((id) => {
           const r = known.find((x) => x.playerId === id)!;
           const weeks = history.players[id]!;
-          return { id, name: r.name, color: PALETTE[chosen.indexOf(id) % PALETTE.length]!, values: weeks.map((w) => (w ? (view === 'points' ? w[1] : w[0]) : null)) };
+          return { id, name: r.name, color: PALETTE[chosen.indexOf(id) % PALETTE.length]!, values: weeks.map((w) => (w ? (view === 'points' ? w[1] : w[0]) : null)), weeks };
         })}
       />
       <section aria-label="Players" className="history-players">

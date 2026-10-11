@@ -8,6 +8,8 @@ export interface Series {
   name: string;
   color: string;
   values: (number | null)[];
+  /** [position, points] each week, when known: the week panel then shows both. */
+  weeks?: ([number, number] | null)[];
 }
 
 interface Props {
@@ -75,9 +77,10 @@ export function RaceChart({ dates, series, view, reference }: Props) {
     view === 'points'
       ? PAD.top + (1 - v / bottom) * (H - PAD.top - PAD.bottom)
       : PAD.top + ((v - top) / Math.max(1, bottom - top)) * (H - PAD.top - PAD.bottom);
+  const rankStep = [5, 10, 20, 25, 50, 100].find((s) => bottom / s <= 6) ?? 200;
   const ticks = view === 'points'
     ? Array.from({ length: Math.floor(bottom / niceStep(bottom)) + 1 }, (_, i) => i * niceStep(bottom))
-    : [1, ...Array.from({ length: Math.floor(bottom / 5) }, (_, i) => (i + 1) * 5)].filter((t) => t <= bottom);
+    : [1, ...Array.from({ length: Math.floor(bottom / rankStep) }, (_, i) => (i + 1) * rankStep)].filter((t) => t <= bottom);
   // The first week of each month, skipping any label that would crowd the one before it.
   const months: { d: string; i: number }[] = [];
   dates.forEach((d, i) => {
@@ -99,9 +102,15 @@ export function RaceChart({ dates, series, view, reference }: Props) {
   const edges = xs.map((x, i) => (i === 0 ? x - (xs.length > 1 ? (xs[1]! - x) / 2 : 8) : (xs[i - 1]! + x) / 2));
   const lastEdge = xs.length > 1 ? xs.at(-1)! + (xs.at(-1)! - xs.at(-2)!) / 2 : xs[0]! + 8;
   const strip = (i: number) => ({ left: `${(edges[i]! / W) * 100}%`, width: `${(((edges[i + 1] ?? lastEdge) - edges[i]!) / W) * 100}%` });
-  const show = (v: number | null) => (v === null ? '—' : view === 'points' ? formatPoints(v) : `#${v}`);
+  const show = (s: Series, i: number) => {
+    const week = s.weeks?.[i];
+    if (week) return `#${week[0]} · ${formatPoints(week[1])}`;
+    const v = s.values[i] ?? null;
+    return v === null ? '—' : view === 'points' ? formatPoints(v) : `#${v}`;
+  };
   return (
     <figure className="race-chart" ref={figure}>
+      <div className="plot">
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Race ${view === 'points' ? 'points' : 'positions'} by week`}>
         {view === 'rank' && bottom >= 8 && (
           <rect className="qualifying-band" x={PAD.left} y={y(1) - 4} width={W - PAD.left - PAD.right} height={y(8) - y(1) + 8} />
@@ -146,6 +155,13 @@ export function RaceChart({ dates, series, view, reference }: Props) {
           />
         ))}
       </div>
+      </div>
+      {narrow && ref && (
+        <p className="chart-legend">
+          <span className="dash" aria-hidden="true" />
+          <span>{ref.label}</span>
+        </p>
+      )}
       {selected !== null && (
         <div className="chart-tip" role="status">
           <strong>{long.format(new Date(`${dates[selected]}T00:00:00Z`))}</strong>
@@ -153,9 +169,12 @@ export function RaceChart({ dates, series, view, reference }: Props) {
             {series.map((s) => (
               <li key={s.id}>
                 <span className="swatch" style={{ background: s.color }} aria-hidden="true" />
-                {`${s.name}: ${show(s.values[selected] ?? null)}`}
+                {`${s.name}: ${show(s, selected)}`}
               </li>
             ))}
+            {ref && ref.values[selected] != null && (
+              <li className="reference-row">{`${ref.label}: ${formatPoints(ref.values[selected]!)}`}</li>
+            )}
           </ul>
         </div>
       )}

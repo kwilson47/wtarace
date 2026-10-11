@@ -35,3 +35,54 @@ export function fillPlayer(h: RaceHistory, playerId: string, wtaId: number, list
   const weeks = h.dates.map((d, i) => (listsByDate[d] ? entryFor(listsByDate[d]!, wtaId) : (current[i] ?? null)));
   return { ...h, players: { ...h.players, [playerId]: weeks } };
 }
+
+const reason = (error: unknown) => (error instanceof Error ? error.message : String(error));
+
+/**
+ * The hourly stage: appends the race list if it's newer than the last stored week, then fills the past weeks of any
+ * tracked player who had none. Who needs filling is decided before the append, because a player added on a new list
+ * gets that week from the append. Each past list is fetched once, however many players need it. Never throws.
+ */
+export async function updateHistory(
+  h: RaceHistory,
+  current: RaceRow[],
+  tracked: { id: string; wtaId?: number; name?: string }[],
+  fetchList: (at?: string) => Promise<RaceRow[]>,
+): Promise<{ history: RaceHistory; changes: string[]; notes: string[] }> {
+  const changes: string[] = [];
+  const notes: string[] = [];
+  // Players new to the file (a player whose fill failed was left out, so she's retried as new).
+  const needFill = tracked.filter((p) => p.wtaId !== undefined && !(p.id in h.players));
+  let history = h;
+  const date = listDate(current);
+  if (date && date > (history.dates.at(-1) ?? '')) {
+    try {
+      const appended = appendWeek(history, await fetchList(), tracked);
+      if (appended) {
+        history = appended;
+        changes.push(`Race history: week of ${date} added`);
+      }
+    } catch (error) {
+      notes.push(`Race history: the new race list didn't load (${reason(error)}), so the history was kept.`);
+      return { history: h, changes: [], notes };
+    }
+  }
+  if (needFill.length) {
+    const lists: Record<string, RaceRow[]> = {};
+    try {
+      for (const d of history.dates) {
+        if (needFill.some((p) => !history.players[p.id]?.[history.dates.indexOf(d)])) lists[d] = await fetchList(d);
+      }
+      for (const p of needFill) {
+        history = fillPlayer(history, p.id, p.wtaId!, lists);
+        if (history.players[p.id]!.some((w) => w !== null)) changes.push(`Race history: ${p.name ?? p.id}'s past weeks filled`);
+      }
+    } catch (error) {
+      const players = { ...history.players };
+      for (const p of needFill) delete players[p.id];
+      history = { ...history, players };
+      notes.push(`Race history: past weeks for ${needFill.map((p) => p.name ?? p.id).join(', ')} couldn't be filled (${reason(error)}); the next run will try again.`);
+    }
+  }
+  return { history, changes, notes };
+}

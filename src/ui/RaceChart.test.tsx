@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { RaceChart } from './RaceChart';
 
 const dates = ['2026-01-05', '2026-01-19', '2026-03-02', '2026-03-16'];
@@ -58,5 +58,39 @@ describe('RaceChart', () => {
     // Nov 24 and Dec 1 are a week apart: on a chart spanning ten months, "Dec" would sit on top of "Nov".
     const { container } = render(<RaceChart dates={['2025-11-24', '2025-12-01', '2026-09-28']} series={[{ ...series[0]!, values: [1, 2, 3] }]} view="points" />);
     expect([...container.querySelectorAll('text.month')].map((t) => t.textContent)).toEqual(['Nov', 'Sep']);
+  });
+
+  it("shows a week's position and points, and the 8th-place figure", () => {
+    render(<RaceChart dates={dates} series={[{ ...series[0]!, weeks: [[9, 100], [4, 300], [1, 900], [2, 1200]] }]} view="points" reference={{ label: '8th place', values: [50, 150, 600, 800] }} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Week of Mar 2, 2026' }));
+    const panel = screen.getByRole('status');
+    expect(panel).toHaveTextContent('Ana Alpha: #1 · 900');
+    expect(panel).toHaveTextContent('8th place: 600');
+  });
+
+  it('keeps the tap targets to the plot, so the week panel can be used', () => {
+    const { container } = render(<RaceChart dates={dates} series={series} view="points" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Week of Mar 2, 2026' }));
+    expect(container.querySelector('.plot .chart-tip')).toBeNull();
+    expect(container.querySelector('.plot .weeks')).not.toBeNull();
+  });
+
+  it('keeps the position axis to a handful of ticks however far down the players are', () => {
+    const { container } = render(<RaceChart dates={dates} series={[{ ...series[0]!, values: [134, 90, 40, 12] }]} view="rank" />);
+    expect(container.querySelectorAll('g.tick').length).toBeLessThanOrEqual(8);
+  });
+
+  describe('on a narrow screen', () => {
+    afterEach(() => vi.unstubAllGlobals());
+    it('drops the end labels but names the reference line in a legend', async () => {
+      vi.stubGlobal('ResizeObserver', class {
+        constructor(private cb: (e: { contentRect: { width: number } }[]) => void) {}
+        observe() { this.cb([{ contentRect: { width: 360 } }]); }
+        disconnect() {}
+      });
+      const { container } = render(<RaceChart dates={dates} series={series} view="points" reference={{ label: '8th place', values: [50, 150, 600, 800] }} />);
+      await screen.findByText('8th place', { selector: '.chart-legend *' });
+      expect(container.querySelector('text.end-label')).toBeNull();
+    });
   });
 });
