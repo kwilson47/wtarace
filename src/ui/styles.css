@@ -93,6 +93,7 @@ select { font: inherit; max-width: 100%; }
 .site-nav a { color: var(--accent-text); text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid transparent; }
 .site-nav a:hover { border-bottom-color: var(--line); }
 .site-nav a[aria-current='page'] { color: var(--fg); font-weight: 600; border-bottom-color: var(--accent); }
+.site-nav .feedback { margin-left: auto; }
 .explore a, .profile-link a { color: var(--accent-text); }
 .event-list { list-style: none; padding: 0; margin: 0 0 12px; }
 .event-list li { padding: 5px 0; border-bottom: 1px solid var(--line); }

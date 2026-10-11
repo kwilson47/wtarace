@@ -12,6 +12,10 @@ describe('SiteNav', () => {
     expect(within(nav).getByRole('link', { name: 'Standings' })).toHaveAttribute('href', '/');
     expect(within(nav).getByRole('link', { name: 'Tournaments' })).toHaveAttribute('href', '/tournaments/');
     expect(within(nav).getByRole('link', { name: 'Players' })).toHaveAttribute('aria-current', 'page');
+    const feedback = within(nav).getByRole('link', { name: /Feedback/ });
+    expect(feedback).toHaveAttribute('href', 'https://tally.so/r/Zj4zlV');
+    expect(feedback).toHaveAttribute('target', '_blank');
+    expect(feedback).toHaveAttribute('rel', 'noopener');
   });
 });
 
