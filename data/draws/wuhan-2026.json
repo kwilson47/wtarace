@@ -30,13 +30,6 @@
       "entry": null
     },
     {
-      "wtaId": 327182,
-      "name": "Oleksandra Oliynykova",
-      "country": "UA",
-      "seed": null,
-      "entry": null
-    },
-    {
       "wtaId": 327845,
       "name": "Daria Snigur",
       "country": "UA",
@@ -345,7 +338,7 @@
     326096,
     328120,
     328818,
-    327182,
+    null,
     327845,
     317964,
     319001,
