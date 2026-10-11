@@ -3,9 +3,9 @@
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { season } from '../src/data/season';
 import { tournamentFacts } from '../src/draws/facts';
-import { homeHtml, playerHtml, playersIndexHtml, sitemapXml, tournamentHtml, tournamentsIndexHtml } from '../src/prerender/pages';
+import { homeHtml, playerHistory, playerHtml, playersIndexHtml, raceHistoryHtml, sitemapXml, tournamentHtml, tournamentsIndexHtml } from '../src/prerender/pages';
 import { FULL_RUNS, SEED, simulateChances } from '../src/sim/chances';
-import { readDrawFiles, readMatchFiles } from '../src/update/writeData';
+import { readDrawFiles, readHistory, readMatchFiles } from '../src/update/writeData';
 
 const dist = new URL('../dist/', import.meta.url).pathname;
 const started = Date.now();
@@ -14,6 +14,7 @@ const playerTemplate = readFileSync(`${dist}player.html`, 'utf8');
 const dataDir = new URL('../data/', import.meta.url).pathname;
 const matches = readMatchFiles(dataDir);
 const draws = readDrawFiles(dataDir);
+const history = readHistory(dataDir);
 let chances: Record<string, number> | null = null;
 const simStarted = Date.now();
 try {
@@ -26,7 +27,7 @@ writeFileSync(`${dist}index.html`, homeHtml(homeTemplate, season, chances));
 
 for (const p of season.players) {
   mkdirSync(`${dist}players/${p.id}`, { recursive: true });
-  writeFileSync(`${dist}players/${p.id}/index.html`, playerHtml(playerTemplate, season, p.id, matches[p.id] ?? null));
+  writeFileSync(`${dist}players/${p.id}/index.html`, playerHtml(playerTemplate, season, p.id, matches[p.id] ?? null, playerHistory(history, p.id)));
 }
 const tournamentTemplate = readFileSync(`${dist}tournament.html`, 'utf8');
 const tracked = season.tournaments.filter((t) => !t.id.startsWith('zp-')); // placeholders aren't events
@@ -37,8 +38,10 @@ for (const t of tracked) {
 const listTemplate = readFileSync(`${dist}list.html`, 'utf8');
 writeFileSync(`${dist}tournaments/index.html`, tournamentsIndexHtml(listTemplate, season, tournamentFacts(season, draws)));
 writeFileSync(`${dist}players/index.html`, playersIndexHtml(listTemplate, season));
+mkdirSync(`${dist}race-history`, { recursive: true });
+writeFileSync(`${dist}race-history/index.html`, raceHistoryHtml(listTemplate, season, history));
 rmSync(`${dist}list.html`);
 rmSync(`${dist}player.html`); // the templates themselves are not pages
 rmSync(`${dist}tournament.html`);
 writeFileSync(`${dist}sitemap.xml`, sitemapXml(season));
-console.log(`Prerendered the homepage, the two index pages, ${season.players.length} player pages and ${tracked.length} tournament pages in ${((Date.now() - started) / 1000).toFixed(1)}s.`);
+console.log(`Prerendered the homepage, the two index pages, the race history, ${season.players.length} player pages and ${tracked.length} tournament pages in ${((Date.now() - started) / 1000).toFixed(1)}s.`);

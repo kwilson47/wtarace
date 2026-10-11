@@ -10,6 +10,9 @@ import { PlayerPage } from '../ui/PlayerPage';
 import { TournamentPage } from '../ui/TournamentPage';
 import type { TournamentFact } from '../draws/facts';
 import { PlayersIndex } from '../ui/PlayersIndex';
+import type { RaceHistory } from '../history/historySchema';
+import { RaceHistoryPage } from '../ui/RaceHistoryPage';
+import type { PlayerHistory } from '../ui/PlayerPage';
 import { TournamentsIndex } from '../ui/TournamentsIndex';
 
 export const SITE = 'https://finalsrace.win';
@@ -72,16 +75,22 @@ function fillPage(template: string, app: string, head: string, data: unknown): s
     .replace('<!--data-->', () => `<script id="page-data" type="application/json">${json}</script>`);
 }
 
-export function playerHtml(template: string, season: Season, playerId: string, matches: MatchRecord[] | null): string {
+/** One player's slice of the race history, for her page. */
+export function playerHistory(history: RaceHistory | null, playerId: string): PlayerHistory | null {
+  const weeks = history?.players[playerId];
+  return history && weeks ? { dates: history.dates, weeks, eighth: history.eighth } : null;
+}
+
+export function playerHtml(template: string, season: Season, playerId: string, matches: MatchRecord[] | null, history: PlayerHistory | null = null): string {
   const player = season.players.find((p) => p.id === playerId)!;
   const title = `${player.name}: ${season.rules.season} season results`;
   const summary = matches ? seasonSummary(matches, season.meta.lastUpdated.slice(0, 10)) : null;
   const description = seasonDescription(player.name, season.rules.season, summary);
   return fillPage(
     template,
-    renderToString(<PlayerPage season={season} playerId={playerId} matches={matches} />),
+    renderToString(<PlayerPage season={season} playerId={playerId} matches={matches} history={history} />),
     headTags(title, description, `${SITE}/players/${playerId}/`, 'profile'),
-    { playerId, matches },
+    { playerId, matches, history },
   );
 }
 
@@ -125,9 +134,16 @@ export function playersIndexHtml(template: string, season: Season): string {
   return fillPage(template, renderToString(<PlayersIndex season={season} />), headTags(title, description, `${SITE}/players/`, 'website'), { page: 'players' });
 }
 
+export function raceHistoryHtml(template: string, season: Season, history: RaceHistory | null): string {
+  const year = season.rules.season;
+  const title = `Race over time: ${year} Race to the WTA Finals`;
+  const description = `How the ${year} Race to the WTA Finals unfolded week by week: race points and positions from the WTA's published lists.`;
+  return fillPage(template, renderToString(<RaceHistoryPage season={season} history={history} />), headTags(title, description, `${SITE}/race-history/`, 'website'), { page: 'history', history });
+}
+
 export function sitemapXml(season: Season): string {
   const lastmod = season.meta.lastUpdated.slice(0, 10);
-  const urls = ['/', '/tournaments/', '/players/', ...season.players.map((p) => `/players/${p.id}/`), ...season.tournaments.filter((t) => !t.id.startsWith('zp-')).map((t) => `/tournaments/${t.id}/`)];
+  const urls = ['/', '/tournaments/', '/players/', '/race-history/', ...season.players.map((p) => `/players/${p.id}/`), ...season.tournaments.filter((t) => !t.id.startsWith('zp-')).map((t) => `/tournaments/${t.id}/`)];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url>\n    <loc>${SITE}${u}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>daily</changefreq>\n  </url>`).join('\n')}

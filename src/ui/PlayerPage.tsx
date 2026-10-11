@@ -5,6 +5,7 @@ import { levelLabel, seasonSummary, type Split, type TournamentBlock } from '../
 import { flagEmoji, formatPoints } from './format';
 import { UpdatedTime } from './UpdatedTime';
 import { SiteNav } from './SiteNav';
+import { PALETTE, RaceChart } from './RaceChart';
 
 const day = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 const dates = (start: string, end: string) => `${day.format(new Date(`${start}T00:00:00Z`))} – ${day.format(new Date(`${end}T00:00:00Z`))}`;
@@ -55,10 +56,18 @@ interface Props {
   playerId: string;
   /** Her race-year matches; null if not fetched yet. */
   matches: MatchRecord[] | null;
+  /** Her race position and points on each published week, with the 8th-place points; null if there's no history. */
+  history?: PlayerHistory | null;
+}
+
+export interface PlayerHistory {
+  dates: string[];
+  weeks: ([number, number] | null)[];
+  eighth: (number | null)[];
 }
 
 /** A player's season: her record, splits and every tournament, round by round. */
-export function PlayerPage({ season, playerId, matches }: Props) {
+export function PlayerPage({ season, playerId, matches, history = null }: Props) {
   const { players, tournaments, rules } = season;
   const player = players.find((p) => p.id === playerId)!;
   const rank = projectStandings(players, {}, tournaments, rules).find((r) => r.playerId === playerId)!.currentRank;
@@ -71,6 +80,18 @@ export function PlayerPage({ season, playerId, matches }: Props) {
         ...(summary.finals ? [plural(summary.finals, 'final')] : []),
       ].join(' · ')
     : `${rules.season} season`;
+  const raceSection = history && history.weeks.some((w) => w !== null) && (
+    <section aria-label="Race over time">
+      <h2>Race over time</h2>
+      <RaceChart
+        dates={history.dates}
+        view="points"
+        series={[{ id: player.id, name: player.name, color: PALETTE[0]!, values: history.weeks.map((w) => (w ? w[1] : null)) }]}
+        reference={{ label: '8th place', values: history.eighth }}
+      />
+      <p className="explore"><a href={`/race-history/?p=${player.id}`}>Compare with others →</a></p>
+    </section>
+  );
   return (
     <div className="app player-page">
       <SiteNav current="players" />
@@ -95,13 +116,17 @@ export function PlayerPage({ season, playerId, matches }: Props) {
                 <div><dt>Top-10 wins</dt><dd>{summary.top10Wins}</dd></div>
               </dl>
             </section>
+            {raceSection}
             <section aria-label="Tournaments">
               <h2>Tournaments</h2>
               {summary.tournaments.map((t) => <Tournament key={t.key} t={t} season={season} />)}
             </section>
           </>
         ) : (
-          <p>Match results aren't available yet.</p>
+          <>
+            <p>Match results aren't available yet.</p>
+            {raceSection}
+          </>
         )}
         <p className="note">The season follows the Race to the WTA Finals year, so it starts with events in late October 2025.</p>
         <p className="explore">

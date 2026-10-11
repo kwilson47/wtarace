@@ -41,4 +41,22 @@ describe('RaceChart', () => {
     expect(panel).toHaveTextContent('900');
     expect(panel).toHaveTextContent('1,000');
   });
+
+  it('keeps the 8th-place label clear of a player label ending at the same height', () => {
+    render(<RaceChart dates={dates} series={[series[0]!]} view="points" reference={{ label: '8th place', values: [100, 300, 900, 1200] }} />);
+    const y = (text: string) => Number(screen.getByText(text).getAttribute('y'));
+    expect(Math.abs(y('8th place') - y('Ana Alpha'))).toBeGreaterThanOrEqual(13);
+  });
+
+  it("gives each week a tap target that doesn't overlap its neighbours, however close the weeks are", () => {
+    render(<RaceChart dates={dates} series={series} view="points" />);
+    const strips = screen.getAllByRole('button', { name: /^Week of/ }).map((b) => ({ left: parseFloat(b.style.left), width: parseFloat(b.style.width) }));
+    for (let i = 1; i < strips.length; i++) expect(strips[i]!.left).toBeCloseTo(strips[i - 1]!.left + strips[i - 1]!.width, 6);
+  });
+
+  it('skips a month label that would crowd the one before it', () => {
+    // Nov 24 and Dec 1 are a week apart: on a chart spanning ten months, "Dec" would sit on top of "Nov".
+    const { container } = render(<RaceChart dates={['2025-11-24', '2025-12-01', '2026-09-28']} series={[{ ...series[0]!, values: [1, 2, 3] }]} view="points" />);
+    expect([...container.querySelectorAll('text.month')].map((t) => t.textContent)).toEqual(['Nov', 'Sep']);
+  });
 });

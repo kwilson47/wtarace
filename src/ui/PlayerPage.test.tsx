@@ -61,4 +61,17 @@ describe('PlayerPage', () => {
     render(<PlayerPage season={s} playerId="ana" matches={matches} />);
     expect(within(screen.getByRole('region', { name: 'City 500' })).getByRole('link', { name: 'City 500' })).toHaveAttribute('href', '/tournaments/c500/');
   });
+
+  it('charts her race over time against 8th place, with a link to compare', () => {
+    render(<PlayerPage season={season} playerId="ana" matches={[]} history={{ dates: ['2026-03-02', '2026-03-16'], weeks: [[1, 900], [1, 1160]], eighth: [100, 200] }} />);
+    const section = screen.getByRole('region', { name: 'Race over time' });
+    expect(section.querySelector('path.series')).not.toBeNull();
+    expect(section.querySelector('path.reference')).not.toBeNull();
+    expect(screen.getByRole('link', { name: 'Compare with others →' })).toHaveAttribute('href', '/race-history/?p=ana');
+  });
+
+  it('leaves the chart out without history', () => {
+    render(<PlayerPage season={season} playerId="ana" matches={[]} />);
+    expect(screen.queryByRole('region', { name: 'Race over time' })).toBeNull();
+  });
 });

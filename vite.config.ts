@@ -16,6 +16,7 @@ function devPlayerPages(): Plugin {
         if (player) req.url = `/player.html?id=${player[1]}`;
         else if (tournament) req.url = `/tournament.html?id=${tournament[1]}`;
         else if (/^\/(players|tournaments)\/?$/.test(path)) req.url = `/list.html?page=${path.includes('players') ? 'players' : 'tournaments'}`;
+        else if (/^\/race-history\/?$/.test(path)) req.url = '/list.html?page=history';
         next();
       });
     },

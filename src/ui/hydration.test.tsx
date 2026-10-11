@@ -8,6 +8,7 @@ import { PlayerPage } from './PlayerPage';
 import { TournamentPage } from './TournamentPage';
 import { PlayersIndex } from './PlayersIndex';
 import { TournamentsIndex } from './TournamentsIndex';
+import { RaceHistoryPage } from './RaceHistoryPage';
 
 /** Renders `element` as the build would (a clean URL, no stored preferences), then hydrates it in a browser-like state. */
 export async function hydrationErrors(element: ReactElement, browser: () => void = () => {}): Promise<unknown[]> {
@@ -73,5 +74,14 @@ describe('hydration', () => {
   it('the tournaments and players index pages hydrate cleanly', async () => {
     expect(await hydrationErrors(<TournamentsIndex season={season} facts={{}} />)).toEqual([]);
     expect(await hydrationErrors(<PlayersIndex season={season} />)).toEqual([]);
+  });
+
+  it('the race history page hydrates cleanly, including with a shared choice in the URL', async () => {
+    const history = { dates: ['2026-03-02', '2026-03-16'], eighth: [100, 200], players: { ana: [[1, 900], [1, 1160]] as [number, number][], bea: [[2, 500], [2, 765]] as [number, number][] } };
+    expect(await hydrationErrors(<RaceHistoryPage season={season} history={history} />)).toEqual([]);
+    const errors = await hydrationErrors(<RaceHistoryPage season={season} history={history} />, () => {
+      window.history.replaceState(null, '', '/race-history/?p=bea&view=rank');
+    });
+    expect(errors).toEqual([]);
   });
 });

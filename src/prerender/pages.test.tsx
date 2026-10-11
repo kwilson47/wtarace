@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { season } from '../test/fixtures';
-import { homeHtml, playerHtml, playersIndexHtml, sitemapXml, tournamentHtml, tournamentsIndexHtml } from './pages';
+import { homeHtml, playerHtml, playersIndexHtml, raceHistoryHtml, sitemapXml, tournamentHtml, tournamentsIndexHtml } from './pages';
 
 const HOME = '<html><head><title>T</title></head><body><div id="root"><!--app-start-->static<!--app-end--></div></body></html>';
 const PLAYER = '<html><head><!--head--></head><body><div id="root"><!--app-start--><!--app-end--></div><!--data--></body></html>';
@@ -19,7 +19,7 @@ describe('prerendered pages', () => {
     expect(html).toContain('<title>Ana Alpha: 2026 season results</title>');
     expect(html).toContain('<meta name="description" content="Ana Alpha&#39;s 2026 season: 0–0. Every match, round by round." />');
     expect(html).toContain('<link rel="canonical" href="https://finalsrace.win/players/ana/" />');
-    expect(html).toContain('<script id="page-data" type="application/json">{"playerId":"ana","matches":[]}</script>');
+    expect(html).toContain('<script id="page-data" type="application/json">{"playerId":"ana","matches":[],"history":null}</script>');
   });
 
   it('embeds the chances in the homepage and renders the column', () => {
@@ -63,5 +63,13 @@ describe('prerendered pages', () => {
     expect(p).toContain('<title>Players: 2026 Race to the WTA Finals</title>');
     expect(p).toContain('<link rel="canonical" href="https://finalsrace.win/players/" />');
     expect(p).toContain('<script id="page-data" type="application/json">{"page":"players"}</script>');
+  });
+
+  it('writes the race history page and lists it in the sitemap', () => {
+    const html = raceHistoryHtml(PLAYER, season, { dates: ['2026-03-02'], eighth: [1], players: { ana: [[1, 9]] } });
+    expect(html).toContain('<title>Race over time: 2026 Race to the WTA Finals</title>');
+    expect(html).toContain('<link rel="canonical" href="https://finalsrace.win/race-history/" />');
+    expect(html).toContain('"page":"history"');
+    expect(sitemapXml(season)).toContain('<loc>https://finalsrace.win/race-history/</loc>');
   });
 });

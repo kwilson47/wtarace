@@ -173,8 +173,14 @@ select { font: inherit; max-width: 100%; }
 .race-chart .qualifying-band { fill: var(--qualifier-bg); }
 .race-chart .cursor { stroke: var(--muted); stroke-width: 1; }
 .race-chart .weeks { position: absolute; left: 0; right: 0; top: 0; bottom: 8%; }
-.race-chart .week { position: absolute; top: 0; bottom: 0; width: 14px; margin-left: -7px; border: 0; background: transparent; cursor: pointer; padding: 0; }
+.race-chart .week { position: absolute; top: 0; bottom: 0; border: 0; background: transparent; cursor: pointer; padding: 0; }
 .race-chart .week:focus-visible { outline: 2px solid var(--accent); }
 .chart-tip { font-size: 0.85rem; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; background: var(--bg); margin-top: 6px; }
 .chart-tip ul { list-style: none; margin: 4px 0 0; padding: 0; columns: 2; }
 .chart-tip .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.history-link { margin: 4px 0 8px; font-size: 0.9rem; }
+.history-link a { color: var(--accent-text); }
+.view-toggle { border: 0; padding: 0; margin: 0 0 4px; display: flex; gap: 14px; font-size: 0.9rem; }
+.player-picks { list-style: none; padding: 0; columns: 2; font-size: 0.9rem; }
+.player-picks .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin: 0 6px 0 4px; }
+@media (max-width: 520px) { .player-picks { columns: 1; } }

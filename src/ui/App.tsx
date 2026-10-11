@@ -57,6 +57,7 @@ export function App({ season, chances = null }: { season: Season; chances?: Read
       <Header season={rules.season} lastUpdated={season.meta.lastUpdated} onReset={reset} />
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
+        <p className="history-link"><a href="/race-history/">Race over time →</a></p>
         <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} breakdownOf={breakdownOf} chances={chances ?? undefined} />
         <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} onLoad={load} focusPlayer={focusPlayer} />
       </main>
