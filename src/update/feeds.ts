@@ -20,6 +20,18 @@ function arrayOf<T>(body: unknown, key: string, url: string): T[] {
   throw new Error(`Unexpected response from ${url}`);
 }
 
+/** A whole race list (every page, in ranking order): the current one, or the one published on or before `at`. */
+export async function fetchRaceList(at?: string, get: GetJson = getJson): Promise<RaceRow[]> {
+  const rows: RaceRow[] = [];
+  for (let page = 0; page < 20; page++) {
+    const url = `${API}/players/ranked?page=${page}&pageSize=100&type=rankSingles&sort=asc&metric=CHAMPSINGLES&name=${at ? `&at=${at}` : ''}`;
+    const batch = arrayOf<RaceRow>(await get(url), 'content', url);
+    rows.push(...batch);
+    if (batch.length < 100) break;
+  }
+  return rows.sort((a, b) => a.ranking - b.ranking);
+}
+
 /** Everything one update reads. Throws on any failed or malformed response, so the run changes nothing. */
 export async function fetchSnapshot(raw: SeasonInput, get: GetJson = getJson): Promise<FeedSnapshot> {
   const fetchArray = async <T>(url: string, key: string) => arrayOf<T>(await get(url), key, url);

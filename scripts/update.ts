@@ -2,11 +2,12 @@
 // Usage: tsx scripts/update.ts [--dry-run] [--out result.json] [--message commit-message.txt]
 import { writeFileSync } from 'node:fs';
 import { drawFeedKey, updateDrawFiles } from '../src/update/draws';
-import { fetchEventFeeds, fetchSnapshot } from '../src/update/feeds';
+import { fetchEventFeeds, fetchRaceList, fetchSnapshot } from '../src/update/feeds';
+import { appendWeek, fillPlayer, listDate } from '../src/update/history';
 import { updateSeason } from '../src/update/updateSeason';
-import type { DrawFeed, EventPlayersFeed, LiveMatch } from '../src/update/feedTypes';
+import type { DrawFeed, EventPlayersFeed, LiveMatch, RaceRow } from '../src/update/feedTypes';
 import { updateMatchFiles } from '../src/update/matches';
-import { readData, readDrawFiles, readMatchFiles, writeData, writeDrawFiles, writeMatchFiles } from '../src/update/writeData';
+import { readData, readDrawFiles, readHistory, readMatchFiles, writeData, writeDrawFiles, writeHistory, writeMatchFiles } from '../src/update/writeData';
 
 const args = process.argv.slice(2);
 const option = (name: string) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
@@ -72,11 +73,37 @@ if (!result.problems.length) {
   }
 }
 const drawUpdate = result.problems.length ? { files: {}, changes: [], notes: [] } : updateDrawFiles(result.raw, drawFeeds, existingDraws, drawFailures);
-const changed = result.changed || Object.keys(matchUpdate.files).length > 0 || Object.keys(drawUpdate.files).length > 0;
+// Race history: published fact, never blocks. Appends each newly published race list; fills new players' past weeks.
+let history = readHistory(dir);
+const historyChanges: string[] = [];
+const historyNotes: string[] = [];
+if (history && !result.problems.length) {
+  try {
+    const date = listDate(snapshot.race);
+    if (date && date > (history.dates.at(-1) ?? '')) {
+      const appended = appendWeek(history, await fetchRaceList(), result.raw.players);
+      if (appended) {
+        history = appended;
+        historyChanges.push(`Race history: week of ${date} added`);
+      }
+    }
+    for (const p of result.raw.players) {
+      const weeks = history.players[p.id];
+      if (p.wtaId === undefined || (weeks && weeks.some((w) => w !== null))) continue;
+      const lists: Record<string, RaceRow[]> = {};
+      for (const d of history.dates) lists[d] = await fetchRaceList(d);
+      history = fillPlayer(history, p.id, p.wtaId, lists);
+      historyChanges.push(`Race history: ${p.name}'s past weeks filled`);
+    }
+  } catch {
+    historyNotes.push("Race history: the race list didn't load, so the history was kept.");
+  }
+}
+const changed = result.changed || Object.keys(matchUpdate.files).length > 0 || Object.keys(drawUpdate.files).length > 0 || historyChanges.length > 0;
 const base = {
   at,
-  changes: [...result.changes, ...matchUpdate.changes, ...drawUpdate.changes],
-  notes: [...result.notes, ...matchUpdate.notes, ...drawUpdate.notes],
+  changes: [...result.changes, ...matchUpdate.changes, ...drawUpdate.changes, ...historyChanges],
+  notes: [...result.notes, ...matchUpdate.notes, ...drawUpdate.notes, ...historyNotes],
   problems: result.problems,
 };
 if (result.problems.length) finish({ status: 'blocked', ...base });
@@ -87,6 +114,7 @@ else {
     writeData(dir, result.raw);
     writeMatchFiles(dir, matchUpdate.files);
     writeDrawFiles(dir, drawUpdate.files);
+    if (history && historyChanges.length) writeHistory(dir, history);
     const messageFile = option('--message');
     if (messageFile) writeFileSync(messageFile, `data: automatic update\n\n${base.changes.map((c) => `- ${c}`).join('\n')}\n`);
   }

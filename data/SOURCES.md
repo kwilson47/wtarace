@@ -90,6 +90,15 @@ One file per tracked player, `data/matches/<player id>.json`, filled by the auto
 - **Points** are ranking points as published. They're absent while an event is under way.
 - **Names:** an event we track uses our short name. Others use the feed's city, or the event name when the city is blank.
 
+## Race history (`data/race-history.json`)
+
+Each tracked player's race position and points on every date the WTA published a race list, plus the 8th-place points that week. Filled on 2026-10-11 by `scripts/backfill-race-history.ts`; the hourly updater appends each newly published list.
+- **Source:** the race ranking feed with `&at=<date>` (`players/ranked?…&metric=CHAMPSINGLES&at=YYYY-MM-DD`), which returns the list published on or before that date, with its `rankedAt`.
+- **Dates:** the 2026 race list starts on 2025-11-17 (earlier dates return the frozen 2025 race). The WTA doesn't publish a new list in the second week of two-week events, and the off-season weeks repeat the same list; each published date is kept once.
+- **`eighth`:** the list's 8th row, with no adjustment for the Grand Slam champion place or the event minimum.
+- Historical rows report 0 events played, so event counts aren't stored.
+- Published fact: never checked against totals, and it never blocks an update.
+
 ## Draws (`data/draws/`)
 
 One file per tracked event, `data/draws/<tournament id>.json`, filled by the automatic updater from 2026-10-09. Like match data, draws are published fact: never checked against totals, and they never block an update.
