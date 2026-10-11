@@ -1214,12 +1214,12 @@
       "country": "AU",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 140
     },
     "won": true,
     "score": "6-3 7-5",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1020,
@@ -1240,11 +1240,11 @@
       "country": "JP",
       "seed": 12,
       "entry": null,
-      "rank": null
+      "rank": 17
     },
     "won": false,
     "score": "7-6(4) 6-4",
     "outcome": "played",
-    "points": null
+    "points": 65
   }
 ]
