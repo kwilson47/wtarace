@@ -30,6 +30,13 @@
       "entry": null
     },
     {
+      "wtaId": 329009,
+      "name": "Aoi Ito",
+      "country": "JP",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 327845,
       "name": "Daria Snigur",
       "country": "UA",
@@ -44,10 +51,10 @@
       "entry": null
     },
     {
-      "wtaId": 319001,
-      "name": "Belinda Bencic",
-      "country": "CH",
-      "seed": 9,
+      "wtaId": 323942,
+      "name": "Anna Kalinskaya",
+      "country": "RU",
+      "seed": 17,
       "entry": null
     },
     {
@@ -65,11 +72,18 @@
       "entry": null
     },
     {
-      "wtaId": 323942,
-      "name": "Anna Kalinskaya",
-      "country": "RU",
+      "wtaId": 326929,
+      "name": "Mananchaya Sawangkaew",
+      "country": "TH",
       "seed": null,
-      "entry": null
+      "entry": "Q"
+    },
+    {
+      "wtaId": 320277,
+      "name": "Magdalena Frech",
+      "country": "PL",
+      "seed": null,
+      "entry": "LL"
     },
     {
       "wtaId": 326408,
@@ -205,6 +219,13 @@
       "entry": null
     },
     {
+      "wtaId": 327391,
+      "name": "Katie Volynets",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 323087,
       "name": "Hanyu Guo",
       "country": "CN",
@@ -261,10 +282,10 @@
       "entry": null
     },
     {
-      "wtaId": 329668,
-      "name": "Linda Noskova",
-      "country": "CZ",
-      "seed": 4,
+      "wtaId": 319001,
+      "name": "Belinda Bencic",
+      "country": "CH",
+      "seed": 9,
       "entry": null
     },
     {
@@ -275,11 +296,32 @@
       "entry": null
     },
     {
+      "wtaId": 325725,
+      "name": "Caty McNally",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 325338,
       "name": "Yuliia Starodubtseva",
       "country": "UA",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 317683,
+      "name": "Yulia Putintseva",
+      "country": "KZ",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 326907,
+      "name": "Zeynep Sonmez",
+      "country": "TR",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 319125,
@@ -303,6 +345,13 @@
       "entry": null
     },
     {
+      "wtaId": 329824,
+      "name": "Han Shi",
+      "country": "CN",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 319007,
       "name": "Ekaterina Alexandrova",
       "country": "RU",
@@ -315,6 +364,13 @@
       "country": "CA",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 322082,
+      "name": "Daria Kasatkina",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 319939,
@@ -435,15 +491,15 @@
     326096,
     328120,
     328818,
-    null,
+    329009,
     327845,
     317964,
-    319001,
+    323942,
     311779,
     327077,
-    323942,
     null,
-    null,
+    326929,
+    320277,
     "bye",
     326408,
     331809,
@@ -467,7 +523,7 @@
     320301,
     322222,
     320728,
-    null,
+    327391,
     323087,
     312469,
     319280,
@@ -477,20 +533,20 @@
     320567,
     329918,
     "bye",
-    329668,
+    319001,
     322191,
     "bye",
-    null,
+    325725,
     325338,
-    null,
-    null,
+    317683,
+    326907,
     319125,
     330482,
     330332,
-    null,
+    329824,
     319007,
     326735,
-    null,
+    322082,
     319939,
     "bye",
     316956
