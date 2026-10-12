@@ -12,6 +12,8 @@ describe('fetchRaceList', () => {
     const rows = await fetchRaceList('2026-03-02', get);
     expect(rows.map((r) => r.ranking).slice(0, 3)).toEqual([1, 2, 3]);
     expect(rows).toHaveLength(103);
-    expect(urls.every((u) => u.endsWith('&at=2026-03-02'))).toBe(true);
+    expect(urls.every((u) => u.endsWith('&at=2026-03-02') && u.includes('metric=CHAMPSINGLES'))).toBe(true);
+    await fetchRaceList('2026-03-02', get, 'SINGLES');
+    expect(urls.at(-1)).toContain('metric=SINGLES');
   });
 });

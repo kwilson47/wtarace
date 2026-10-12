@@ -4,6 +4,7 @@ import { countRace, officialRace, type CountedRace } from './countRace';
 import { findTournament } from './lookup';
 import { eventsShort, isChampion, isEligible, selectQualifiers, type QualifierKind } from './qualification';
 import type { Scenario } from './types';
+import { expectedZeroPointers } from './expected';
 
 export interface RankEntry {
   id: string;
@@ -55,7 +56,8 @@ function ranks(entries: RankEntry[], tournaments: Tournament[], rules: Rules): M
 
 export function projectStandings(players: Player[], scenario: Scenario, tournaments: Tournament[], rules: Rules): StandingRow[] {
   const current = players.map((p) => ({ id: p.id, race: officialRace(p.results, tournaments, rules) }));
-  const projectedResults = players.map((p) => applyScenario(p, scenario, tournaments, rules));
+  // Projections include zero-pointers committed players are about to get; the current (official) totals don't.
+  const projectedResults = players.map((p) => [...applyScenario(p, scenario, tournaments, rules), ...expectedZeroPointers(p, tournaments)]);
   const projected = players.map((p, i) => ({
     id: p.id,
     race: countRace(projectedResults[i]!, tournaments, rules),

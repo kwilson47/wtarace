@@ -5,7 +5,8 @@ import { categoryLabel, formatPoints } from './format';
 /** Event and round, then points, then notes. Placeholder zero-pointer events (`zp-…`) already say so in their name. */
 function Entry({ e }: { e: BreakdownEntry }) {
   const round = e.round !== ZERO_POINTER_ROUND ? e.round : e.tournamentId.startsWith('zp-') ? '' : 'zero-pointer';
-  const notes = [e.source === 'pick' ? 'your pick' : e.source === 'live' ? 'in progress' : null, e.counted ? null : 'not counted'].filter(Boolean);
+  const source = { pick: 'your pick', live: 'in progress', expected: 'expected', result: null }[e.source];
+  const notes = [source, e.counted ? null : 'not counted'].filter(Boolean);
   return (
     <>
       {`${e.tournamentName}${round ? ` ${round}` : ''} `}

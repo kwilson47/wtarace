@@ -58,6 +58,11 @@ export const tournamentSchema = z.object({
   entries: z.array(id).optional(),
   /** The WTA's own id (calendar `tournamentGroup.id` for tournaments), used by the automatic updater. */
   wtaId: z.number().int().positive().optional(),
+  /**
+   * WTA 1000s and Grand Slams: tracked players who were committed (ranked within the direct-entry places at the
+   * entry deadline), with that ranking. Filled by the updater once the draw is known.
+   */
+  commitment: z.object({ deadline: isoDate, ranks: z.record(id, z.number().int().positive()) }).optional(),
 });
 
 const resultSchema = z.object({ tournamentId: id, round: roundCode, points: z.number().int().nonnegative() });
@@ -76,6 +81,8 @@ export const playerSchema = z.object({
   name: z.string().min(1),
   country: z.string().regex(/^[A-Z]{2}$/, 'must be an ISO 3166-1 alpha-2 code'),
   officialRaceTotal: z.number().int().nonnegative(),
+  /** A Long-Term Injury (R §VIII.A.4.a.ii): WTA 1000 zero-pointers during it don't count. Source in data/SOURCES.md. */
+  longTermInjury: z.object({ from: isoDate, to: isoDate.optional() }).optional(),
   results: z.array(resultSchema),
   live: z.array(liveSchema).default([]),
   qualified: z.boolean().default(false),
@@ -115,6 +122,9 @@ export const seasonSchema = z
       if (!s.rules.pointsTables[t.drawType]) issue(`Tournament ${t.id}: drawType "${t.drawType}" has no points table`);
       if (t.startDate > t.endDate) issue(`Tournament ${t.id}: startDate is after endDate`);
       if (t.entries && t.status !== 'upcoming') issue(`Tournament ${t.id}: entries are only for upcoming events`);
+      for (const id of Object.keys(t.commitment?.ranks ?? {})) {
+        if (!s.players.some((p) => p.id === id)) issue(`Tournament ${t.id}: commitment lists unknown player ${id}`);
+      }
       for (const e of t.entries ?? []) {
         if (!s.players.some((p) => p.id === e)) issue(`Tournament ${t.id}: entries lists unknown player "${e}"`);
       }

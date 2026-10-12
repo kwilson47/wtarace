@@ -1,4 +1,6 @@
+import type { Player, Tournament } from '../data/schema';
 import { validateSeason } from '../data/validateSeason';
+import { expectedZeroPointers } from '../engine/expected';
 import { mainSinglesMatches, yearOf, type Ctx, type RawPlayer, type RawSeason, type RawTournament } from './shared';
 
 /** Events we still store as in progress whose final has been played. */
@@ -17,19 +19,36 @@ function postedPoints(ctx: Ctx, p: RawPlayer, t: RawTournament): number | undefi
   return points.length ? Math.max(...points) : undefined;
 }
 
-/** Marks `t` completed in `raw` with every player's posted points; false if any player's points aren't posted. */
-function credit(ctx: Ctx, raw: RawSeason, t: RawTournament): boolean {
+/** Her stored events as the WTA counts them: results at completed events, plus zero-pointers. */
+const storedEvents = (raw: RawSeason, p: RawPlayer) =>
+  p.results.filter((r) => r.round === 'ZP' || raw.tournaments.find((x) => x.id === r.tournamentId)?.status === 'completed').length;
+
+/**
+ * Marks `t` completed in `raw` with every player's posted points, and adds the zero-pointers the WTA confirmed
+ * (committed, not in the draw, and one more event in the official count). Returns the change lines, or null if
+ * any player's points aren't posted.
+ */
+function credit(ctx: Ctx, raw: RawSeason, t: RawTournament): string[] | null {
+  const lines: string[] = [];
+  for (const p of raw.players) {
+    const expected = expectedZeroPointers({ ...p, live: p.live ?? [] } as Player, [{ ...t, byes: t.byes ?? [] } as Tournament]);
+    if (!expected.length) continue;
+    const row = ctx.snap.race.find((r) => r.player.id === p.wtaId);
+    if (!row || row.tournamentsPlayed !== storedEvents(raw, p) + 1) continue;
+    p.results.push(...expected);
+    lines.push(`${t.name}: zero-pointer for ${p.name} (committed, #${t.commitment!.ranks[p.id]} at the ${t.commitment!.deadline} deadline; not in the draw)`);
+  }
   for (const p of raw.players) {
     const result = p.results.find((r) => r.tournamentId === t.id);
     if (!result) continue;
     p.live = (p.live ?? []).filter((l) => l.tournamentId !== t.id);
     if (result.round === 'ZP') continue; // a zero-pointer: no match played, so no posted points; it's 0 already
     const points = postedPoints(ctx, p, t);
-    if (points === undefined) return false;
+    if (points === undefined) return null;
     result.points = points;
   }
   raw.tournaments.find((x) => x.id === t.id)!.status = 'completed';
-  return true;
+  return lines;
 }
 
 const subsets = <T>(items: T[]): T[][] =>
@@ -45,10 +64,12 @@ export function creditFinished(ctx: Ctx): void {
   if (events.length === 0) return;
   for (const chosen of subsets(events)) {
     const raw = structuredClone(ctx.raw);
-    if (!chosen.every((t) => credit(ctx, raw, t))) continue;
+    const lines: string[] = [];
+    if (!chosen.every((t) => { const l = credit(ctx, raw, t); if (l) lines.push(...l); return l !== null; })) continue;
     if (validateSeason(raw).length > 0) continue;
     ctx.raw = raw;
     for (const t of chosen) ctx.changes.push(`${t.name}: points credited, event completed`);
+    ctx.changes.push(...lines);
     for (const t of events.filter((e) => !chosen.includes(e))) ctx.notes.push(`${t.name}: finished; waiting for the WTA to credit its points.`);
     return;
   }
