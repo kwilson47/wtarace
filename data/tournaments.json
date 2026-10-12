@@ -576,7 +576,47 @@
       "iva-jovic",
       "belinda-bencic"
     ],
-    "drawSize": 56
+    "drawSize": 56,
+    "commitment": {
+      "deadline": "2026-09-14",
+      "ranks": {
+        "elena-rybakina": 1,
+        "aryna-sabalenka": 2,
+        "jessica-pegula": 3,
+        "mirra-andreeva": 5,
+        "coco-gauff": 4,
+        "elina-svitolina": 7,
+        "karolina-muchova": 8,
+        "linda-noskova": 6,
+        "marta-kostyuk": 10,
+        "iga-swiatek": 9,
+        "iva-jovic": 16,
+        "victoria-mboko": 14,
+        "sorana-cirstea": 15,
+        "diana-shnaider": 13,
+        "alexandra-eala": 18,
+        "naomi-osaka": 17,
+        "elise-mertens": 19,
+        "madison-keys": 23,
+        "belinda-bencic": 12,
+        "anna-kalinskaya": 22,
+        "amanda-anisimova": 11,
+        "anastasia-potapova": 25,
+        "emma-navarro": 24,
+        "maja-chwalinska": 26,
+        "marie-bouzkova": 27,
+        "leylah-fernandez": 31,
+        "sara-bejlek": 28,
+        "jelena-ostapenko": 32,
+        "maria-sakkari": 33,
+        "diane-parry": 30,
+        "jasmine-paolini": 20,
+        "ann-li": 29,
+        "ekaterina-alexandrova": 21,
+        "nikola-bartunkova": 34,
+        "hailey-baptiste": 39
+      }
+    }
   },
   {
     "id": "ningbo-2026",
