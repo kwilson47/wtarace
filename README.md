@@ -36,6 +36,7 @@ The `Update data` workflow runs every hour. A small Cloudflare Worker (`trigger/
 - live rounds, draw sizes, draw positions and byes at events under way;
 - entry lists;
 - crediting finished events once the WTA posts their points;
+- (Q and Out allow for zero-pointers a player could still pick up — withdrawing from a WTA 1000 or Grand Slam she hasn't played a match at, or missing the remaining WTA 500s she needs — because a zero-pointer can push a real result out and lower a total; projections don't assume them)
 - who was committed to each WTA 1000 and Grand Slam (ranking at its entry deadline): a committed player who isn't in the draw has an expected zero-pointer in projections, added to her results automatically once the WTA credits the event and her official event count confirms it;
 - new players entering the live race top 40 (race points plus points from events under way). Someone in only the live top 40 whose season doesn't reproduce yet is noted, not a block; anyone in the official top 40 must reproduce.
 

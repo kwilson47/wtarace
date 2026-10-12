@@ -32,13 +32,18 @@ describe('remainingWeeks', () => {
 describe('raceBounds', () => {
   const bounds = (id: string) => raceBounds(season.players.find((p) => p.id === id)!, season.tournaments, season.rules);
 
-  it('floor keeps current points; ceiling wins every playable event, one per week', () => {
-    // ana: live W replaces QF 10, plus next W; best 2 open of (100, 100, 100, 40).
-    expect(bounds('ana')).toEqual({ floor: 1160, ceiling: 1220 });
-    // bea is out of live; next or clash W adds 100, replacing her weakest counted result (live 5).
-    expect(bounds('bea')).toEqual({ floor: 765, ceiling: 860 });
-    // cat is not in the live draw; one W in the overlapping week.
-    expect(bounds('cat')).toEqual({ floor: 140, ceiling: 240 });
+  it('floor allows for zero-pointers she could still get; ceiling wins every playable event, one per week', () => {
+    // ana: floor 1160 today, but she has played one WTA 500 this year and one 500 week remains (Next Open): missing
+    // it gives a shortfall zero-pointer that must count, pushing out her 40 → 1120. Ceiling: live W replaces QF 10,
+    // plus next W; best 2 open of (100, 100, 100, 40).
+    expect(bounds('ana')).toEqual({ floor: 1120, ceiling: 1220 });
+    // bea is out of live; next or clash W adds 100, replacing her weakest counted result (live 5). Her floor: a
+    // shortfall zero-pointer for missing Next Open (the one 500 week left) pushes out that 5 → 760.
+    expect(bounds('bea')).toEqual({ floor: 760, ceiling: 860 });
+    // cat is not in the live draw; one W in the overlapping week. Her floor: with no commitment record she might be
+    // committed to the live WTA 1000 (a zero-pointer), and might miss Next Open (a shortfall): both must count,
+    // pushing out her c250 100 → 40.
+    expect(bounds('cat')).toEqual({ floor: 40, ceiling: 240 });
   });
 });
 

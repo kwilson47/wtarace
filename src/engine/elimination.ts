@@ -5,6 +5,7 @@ import { pointsTable } from './lookup';
 import { pickOptions } from './picks';
 import { eventsShort, isChampion } from './qualification';
 import { pickKey, type Scenario } from './types';
+import { zeroPointerFloor } from './zeroPointerFloor';
 
 /** One finishing position at a remaining event: its points and how many players can finish there. */
 export interface Slot {
@@ -13,7 +14,10 @@ export interface Slot {
 }
 
 export interface RaceBounds {
-  /** Total if she earns nothing more (keeps points already banked at in-progress events). */
+  /**
+   * The lowest total she could finish with: nothing more earned, and any zero-pointers she could still pick up
+   * (which can push a real result out). Used for Q and Out, so it errs low.
+   */
   floor: number;
   /** Total if she wins every remaining event she can still play, one per week. */
   ceiling: number;
@@ -51,7 +55,7 @@ export function raceBounds(player: Player, tournaments: Tournament[], rules: Rul
     for (const t of options[week]!) visit(week + 1, { ...scenario, [pickKey(player.id, t.id)]: winnerRound(t, rules) });
   };
   visit(0, {});
-  return { floor: total({}), ceiling };
+  return { floor: Math.min(total({}), zeroPointerFloor(player, tournaments, rules)), ceiling };
 }
 
 /** How many players finish in a round, counted from the top: 1 W, 1 F, 2 SF, 4 QF, … */
