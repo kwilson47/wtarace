@@ -5,7 +5,9 @@ import { maxUntrackedPassers, raceInfo, remainingWeeks, roundCapacity, untracked
 import { pointsTable } from './lookup';
 import { pickOptions } from './picks';
 import { eventsShort } from './qualification';
+import { winsEveryTie } from './ties';
 import { pickKey, type Scenario } from './types';
+import { zeroPointerWorstCase } from './zeroPointerFloor';
 
 /** One finishing round at one remaining event. `fromTop`: 0 = winner, 1 = final, 2 = semifinal, … */
 export interface Finish {
@@ -251,5 +253,21 @@ export function raceSearch(players: Player[], tournaments: Tournament[], rules: 
  */
 export function clinchedPlayers(players: Player[], tournaments: Tournament[], rules: Rules): Set<string> {
   const search = raceSearch(players, tournaments, rules);
-  return new Set(search.info.filter((x) => x.eligibleNow && search.missPath(x, x.floor) === null).map((x) => x.id));
+  const untracked = untrackedModel(players, tournaments, rules);
+  const untrackedCeiling = untracked.base + untracked.slots.reduce((sum, week) => sum + Math.max(0, ...week.map((s) => s.points)), 0);
+  /**
+   * The search counts every tie against her. When her only way to miss is a rival finishing exactly level with
+   * her worst case, settle those ties with the tiebreak rules: she's safe if she wins every one.
+   */
+  const winsTiesAtFloor = (x: RaceInfo) => {
+    if (search.missPath(x, x.floor + 1) !== null || untrackedCeiling >= x.floor) return false;
+    const worst = zeroPointerWorstCase(x.player, tournaments, rules);
+    const now = countRace(applyScenario(x.player, {}, tournaments, rules), tournaments, rules);
+    const own = worst.race.total <= now.total ? worst : { race: now, tournaments };
+    if (own.race.total !== x.floor) return false;
+    return winsEveryTie({ id: x.id, race: own.race }, own.tournaments, players.filter((p) => p.id !== x.id), tournaments, rules);
+  };
+  return new Set(
+    search.info.filter((x) => x.eligibleNow && (search.missPath(x, x.floor) === null || winsTiesAtFloor(x))).map((x) => x.id),
+  );
 }

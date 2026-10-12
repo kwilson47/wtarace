@@ -1,6 +1,6 @@
 import { ZERO_POINTER_ROUND, type Player, type Result, type Rules, type Tournament } from '../data/schema';
 import { applyScenario } from './applyScenario';
-import { countRace } from './countRace';
+import { countRace, type CountedRace } from './countRace';
 import { remainingWeeks } from './elimination';
 import { pointsTable } from './lookup';
 
@@ -17,6 +17,11 @@ const zp = (tournamentId: string): Result => ({ tournamentId, round: ZERO_POINTE
  * hasn't played a match at yet, and may miss each remaining WTA 500 she still needs for the most demanding commitment.
  */
 export function zeroPointerFloor(player: Player, tournaments: Tournament[], rules: Rules): number {
+  return zeroPointerWorstCase(player, tournaments, rules).race.total;
+}
+
+/** Her worst case itself: the counted results behind the floor, and the events they refer to (with any possible WTA 500 shortfalls). */
+export function zeroPointerWorstCase(player: Player, tournaments: Tournament[], rules: Rules): { race: CountedRace; tournaments: Tournament[] } {
   const results = applyScenario(player, {}, tournaments, rules);
   const byEvent = new Map(results.map((r) => [r.tournamentId, r]));
   for (const t of tournaments) {
@@ -48,5 +53,6 @@ export function zeroPointerFloor(player: Player, tournaments: Tournament[], rule
     status: 'completed',
     byes: [],
   }));
-  return countRace([...byEvent.values(), ...extra.map((t) => zp(t.id))], [...tournaments, ...extra], rules).total;
+  const all = [...tournaments, ...extra];
+  return { race: countRace([...byEvent.values(), ...extra.map((t) => zp(t.id))], all, rules), tournaments: all };
 }
