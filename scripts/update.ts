@@ -3,6 +3,7 @@
 import { writeFileSync } from 'node:fs';
 import { drawFeedKey, updateDrawFiles } from '../src/update/draws';
 import { fetchEventFeeds, fetchRaceList, fetchSnapshot } from '../src/update/feeds';
+import { commitmentFor, entryDeadline } from '../src/update/commitment';
 import { updateHistory } from '../src/update/history';
 import { updateSeason } from '../src/update/updateSeason';
 import type { DrawFeed, EventPlayersFeed, LiveMatch } from '../src/update/feedTypes';
@@ -73,6 +74,23 @@ if (!result.problems.length) {
   }
 }
 const drawUpdate = result.problems.length ? { files: {}, changes: [], notes: [] } : updateDrawFiles(result.raw, drawFeeds, existingDraws, drawFailures);
+// Commitment: who was committed to each WTA 1000 or Grand Slam whose draw is known. Never blocks.
+const commitmentChanges: string[] = [];
+const commitmentNotes: string[] = [];
+if (!result.problems.length) {
+  const drawsNow = { ...existingDraws, ...drawUpdate.files };
+  for (const t of result.raw.tournaments) {
+    if (t.status === 'completed' || t.commitment || !['GS', 'WTA1000C', 'WTA1000'].includes(t.category)) continue;
+    const draw = drawsNow[t.id];
+    if (!draw) continue;
+    try {
+      t.commitment = commitmentFor(t, draw, await fetchRaceList(entryDeadline(t), undefined, 'SINGLES'), result.raw.players);
+      commitmentChanges.push(`${t.name}: commitment recorded (${Object.keys(t.commitment.ranks).length} tracked players, deadline ${t.commitment.deadline})`);
+    } catch (error) {
+      commitmentNotes.push(`${t.name}: the ranking at its entry deadline didn't load (${error instanceof Error ? error.message : String(error)}); the next run will try again.`);
+    }
+  }
+}
 // Race history: published fact, never blocks. Appends each newly published race list; fills new players' past weeks.
 let history = readHistory(dir);
 let historyChanges: string[] = [];
@@ -83,11 +101,11 @@ if (history && !result.problems.length) {
   historyChanges = out.changes;
   historyNotes = out.notes;
 }
-const changed = result.changed || Object.keys(matchUpdate.files).length > 0 || Object.keys(drawUpdate.files).length > 0 || historyChanges.length > 0;
+const changed = result.changed || Object.keys(matchUpdate.files).length > 0 || Object.keys(drawUpdate.files).length > 0 || historyChanges.length > 0 || commitmentChanges.length > 0;
 const base = {
   at,
-  changes: [...result.changes, ...matchUpdate.changes, ...drawUpdate.changes, ...historyChanges],
-  notes: [...result.notes, ...matchUpdate.notes, ...drawUpdate.notes, ...historyNotes],
+  changes: [...result.changes, ...matchUpdate.changes, ...drawUpdate.changes, ...commitmentChanges, ...historyChanges],
+  notes: [...result.notes, ...matchUpdate.notes, ...drawUpdate.notes, ...commitmentNotes, ...historyNotes],
   problems: result.problems,
 };
 if (result.problems.length) finish({ status: 'blocked', ...base });

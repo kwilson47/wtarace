@@ -20,11 +20,14 @@ function arrayOf<T>(body: unknown, key: string, url: string): T[] {
   throw new Error(`Unexpected response from ${url}`);
 }
 
-/** A whole race list (every page, in ranking order): the current one, or the one published on or before `at`. */
-export async function fetchRaceList(at?: string, get: GetJson = getJson): Promise<RaceRow[]> {
+/**
+ * A whole ranking list (every page, in ranking order): the current one, or the one published on or before `at`.
+ * `metric` is CHAMPSINGLES for the race, SINGLES for the WTA ranking.
+ */
+export async function fetchRaceList(at?: string, get: GetJson = getJson, metric = 'CHAMPSINGLES'): Promise<RaceRow[]> {
   const rows: RaceRow[] = [];
   for (let page = 0; page < 20; page++) {
-    const url = `${API}/players/ranked?page=${page}&pageSize=100&type=rankSingles&sort=asc&metric=CHAMPSINGLES&name=${at ? `&at=${at}` : ''}`;
+    const url = `${API}/players/ranked?page=${page}&pageSize=100&type=rankSingles&sort=asc&metric=${metric}&name=${at ? `&at=${at}` : ''}`;
     const batch = arrayOf<RaceRow>(await get(url), 'content', url);
     rows.push(...batch);
     if (batch.length < 100) break;
