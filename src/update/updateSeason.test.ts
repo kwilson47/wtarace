@@ -150,6 +150,34 @@ describe('updateSeason: a finished event', () => {
     expect(result.changes).toContain('Live Masters: points credited, event completed');
   });
 
+  it('adds a confirmed zero-pointer for a committed player who did not play, when her event count rose by one', () => {
+    const { raw, snap } = finalPlayed();
+    raw.tournaments.find((t) => t.id === 'live')!.commitment = { deadline: '2026-09-07', ranks: { cat: 12 } };
+    snap.race = raceRows(raw, { ana: 1220 });
+    snap.race.find((r) => r.player.id === 3)!.tournamentsPlayed += 1; // cat: one more event, no result
+    snap.playerMatches = {
+      '1': [playerMatch({ tourn_nbr: '905', player_1: '1', points_champ_1: 100 })],
+      '2': [playerMatch({ tourn_nbr: '905', player_1: '2', points_champ_1: 5 })],
+    };
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(player(result.raw, 'cat').results).toContainEqual({ tournamentId: 'live', round: 'ZP', points: 0 });
+    expect(result.changes).toContain('Live Masters: zero-pointer for Cat Gamma (committed, #12 at the 2026-09-07 deadline; not in the draw)');
+  });
+
+  it('adds no zero-pointer when her event count did not rise', () => {
+    const { raw, snap } = finalPlayed();
+    raw.tournaments.find((t) => t.id === 'live')!.commitment = { deadline: '2026-09-07', ranks: { cat: 12 } };
+    snap.race = raceRows(raw, { ana: 1220 });
+    snap.playerMatches = {
+      '1': [playerMatch({ tourn_nbr: '905', player_1: '1', points_champ_1: 100 })],
+      '2': [playerMatch({ tourn_nbr: '905', player_1: '2', points_champ_1: 5 })],
+    };
+    const result = updateSeason(raw, snap);
+    expect(player(result.raw, 'cat').results.some((r) => r.tournamentId === 'live')).toBe(false);
+    expect(result.raw.tournaments.find((t) => t.id === 'live')!.status).toBe('completed');
+  });
+
   it("credits it when a player has a zero-pointer there: she played no match, so she has no posted points", () => {
     // Beijing 2026: seven players who withdrew before the draw got zero-pointers.
     const { raw, snap } = finalPlayed();
