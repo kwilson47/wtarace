@@ -1266,12 +1266,12 @@
       "country": "US",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 73
     },
     "won": true,
     "score": "6-4 6-2",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1020,
@@ -1292,12 +1292,12 @@
       "country": "CH",
       "seed": 9,
       "entry": null,
-      "rank": null
+      "rank": 12
     },
     "won": true,
     "score": "6-4 6-3",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1020,
@@ -1318,11 +1318,11 @@
       "country": "UA",
       "seed": 6,
       "entry": null,
-      "rank": null
+      "rank": 7
     },
     "won": false,
     "score": "6-2 6-3",
     "outcome": "played",
-    "points": null
+    "points": 120
   }
 ]

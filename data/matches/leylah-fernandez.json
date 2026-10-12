@@ -1292,10 +1292,36 @@
       "country": "UZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 76
     },
     "won": false,
     "score": "6-2 4-6 6-3",
+    "outcome": "played",
+    "points": 10
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R64",
+    "opponent": {
+      "id": 319007,
+      "name": "Ekaterina Alexandrova",
+      "country": "RU",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-4 3-6 6-3",
     "outcome": "played",
     "points": null
   }

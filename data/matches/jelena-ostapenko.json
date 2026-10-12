@@ -1084,12 +1084,12 @@
       "country": "ES",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 59
     },
     "won": true,
     "score": "7-6(5) 7-5",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1020,
@@ -1110,11 +1110,11 @@
       "country": "BE",
       "seed": 13,
       "entry": null,
-      "rank": null
+      "rank": 19
     },
     "won": false,
     "score": "6-2 3-6 6-3",
     "outcome": "played",
-    "points": null
+    "points": 65
   }
 ]

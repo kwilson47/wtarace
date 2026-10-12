@@ -1292,12 +1292,12 @@
       "country": "AU",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 41
     },
     "won": true,
     "score": "6-4 6-4",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1020,
@@ -1317,12 +1317,38 @@
       "name": "Qinwen Zheng",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 54
     },
     "won": false,
     "score": "7-6(3) 4-6 7-5",
     "outcome": "played",
+    "points": 65
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R64",
+    "opponent": {
+      "id": 327793,
+      "name": "Clara Tauson",
+      "country": "DK",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-1 2-0",
+    "outcome": "retired",
     "points": null
   }
 ]

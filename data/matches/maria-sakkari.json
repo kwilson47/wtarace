@@ -1084,12 +1084,12 @@
       "country": "AU",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 182
     },
     "won": true,
     "score": "6-2 6-2",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1020,
@@ -1110,10 +1110,36 @@
       "country": "UA",
       "seed": 6,
       "entry": null,
-      "rank": null
+      "rank": 7
     },
     "won": false,
     "score": "6-4 7-5",
+    "outcome": "played",
+    "points": 65
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R64",
+    "opponent": {
+      "id": 318516,
+      "name": "Donna Vekic",
+      "country": "HR",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-4 6-2",
     "outcome": "played",
     "points": null
   }

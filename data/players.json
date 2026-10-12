@@ -4,7 +4,7 @@
     "wtaId": 324166,
     "name": "Elena Rybakina",
     "country": "KZ",
-    "officialRaceTotal": 7492,
+    "officialRaceTotal": 7502,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -89,16 +89,10 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
-        "points": 0
+        "points": 10
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
-      }
-    ],
+    "live": [],
     "qualified": true
   },
   {
@@ -106,7 +100,7 @@
     "wtaId": 320760,
     "name": "Aryna Sabalenka",
     "country": "BY",
-    "officialRaceTotal": 6485,
+    "officialRaceTotal": 6550,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -191,14 +185,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R32"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 1
       }
     ],
     "qualified": true
@@ -294,9 +294,21 @@
         "tournamentId": "beijing-2026",
         "round": "ZP",
         "points": 0
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 56
+      }
+    ],
     "qualified": false
   },
   {
@@ -304,7 +316,7 @@
     "wtaId": 331809,
     "name": "Mirra Andreeva",
     "country": "RU",
-    "officialRaceTotal": 5722,
+    "officialRaceTotal": 6371,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -399,16 +411,10 @@
       {
         "tournamentId": "beijing-2026",
         "round": "F",
-        "points": 0
+        "points": 650
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "F"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -416,7 +422,7 @@
     "wtaId": 328560,
     "name": "Coco Gauff",
     "country": "US",
-    "officialRaceTotal": 5654,
+    "officialRaceTotal": 5774,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -501,16 +507,10 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R16",
-        "points": 0
+        "points": 120
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -518,7 +518,7 @@
     "wtaId": 316738,
     "name": "Elina Svitolina",
     "country": "UA",
-    "officialRaceTotal": 4809,
+    "officialRaceTotal": 5024,
     "results": [
       {
         "tournamentId": "auckland-2026",
@@ -608,14 +608,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "QF"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 29
       }
     ],
     "qualified": false
@@ -625,7 +631,7 @@
     "wtaId": 322191,
     "name": "Karolina Muchova",
     "country": "CZ",
-    "officialRaceTotal": 4400,
+    "officialRaceTotal": 4615,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -710,14 +716,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "QF"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 43
       }
     ],
     "qualified": false
@@ -727,7 +739,7 @@
     "wtaId": 329668,
     "name": "Linda Noskova",
     "country": "CZ",
-    "officialRaceTotal": 4234,
+    "officialRaceTotal": 4354,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -812,16 +824,10 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R16",
-        "points": 0
+        "points": 120
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -915,9 +921,21 @@
         "tournamentId": "beijing-2026",
         "round": "ZP",
         "points": 0
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 28
+      }
+    ],
     "qualified": false
   },
   {
@@ -925,7 +943,7 @@
     "wtaId": 326408,
     "name": "Iga Swiatek",
     "country": "PL",
-    "officialRaceTotal": 3584,
+    "officialRaceTotal": 3799,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -1010,14 +1028,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "QF"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 14
       }
     ],
     "qualified": false
@@ -1027,7 +1051,7 @@
     "wtaId": 332285,
     "name": "Iva Jovic",
     "country": "US",
-    "officialRaceTotal": 2731,
+    "officialRaceTotal": 2841,
     "results": [
       {
         "tournamentId": "auckland-2026",
@@ -1127,14 +1151,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R16"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 15
       }
     ],
     "qualified": false
@@ -1230,7 +1260,7 @@
     "wtaId": 312469,
     "name": "Sorana Cirstea",
     "country": "RO",
-    "officialRaceTotal": 2390,
+    "officialRaceTotal": 2380,
     "results": [
       {
         "tournamentId": "hong-kong-2025",
@@ -1331,9 +1361,21 @@
         "tournamentId": "beijing-2026",
         "round": "ZP",
         "points": 0
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 35
+      }
+    ],
     "qualified": false
   },
   {
@@ -1341,7 +1383,7 @@
     "wtaId": 330482,
     "name": "Diana Shnaider",
     "country": "RU",
-    "officialRaceTotal": 2344,
+    "officialRaceTotal": 2408,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -1441,14 +1483,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R32"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 49
       }
     ],
     "qualified": false
@@ -1458,7 +1506,7 @@
     "wtaId": 330332,
     "name": "Alexandra Eala",
     "country": "PH",
-    "officialRaceTotal": 2181,
+    "officialRaceTotal": 2151,
     "results": [
       {
         "tournamentId": "hong-kong-2025",
@@ -1579,9 +1627,21 @@
         "tournamentId": "beijing-2026",
         "round": "ZP",
         "points": 0
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 50
+      }
+    ],
     "qualified": false
   },
   {
@@ -1589,7 +1649,7 @@
     "wtaId": 319998,
     "name": "Naomi Osaka",
     "country": "JP",
-    "officialRaceTotal": 2177,
+    "officialRaceTotal": 2297,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -1674,16 +1734,10 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R16",
-        "points": 0
+        "points": 120
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -1691,7 +1745,7 @@
     "wtaId": 317964,
     "name": "Elise Mertens",
     "country": "BE",
-    "officialRaceTotal": 2160,
+    "officialRaceTotal": 2540,
     "results": [
       {
         "tournamentId": "united-cup-2026",
@@ -1791,14 +1845,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "SF"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 7
       }
     ],
     "qualified": false
@@ -1808,7 +1868,7 @@
     "wtaId": 316959,
     "name": "Madison Keys",
     "country": "US",
-    "officialRaceTotal": 2095,
+    "officialRaceTotal": 2094,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -1914,7 +1974,7 @@
     "wtaId": 319001,
     "name": "Belinda Bencic",
     "country": "CH",
-    "officialRaceTotal": 2087,
+    "officialRaceTotal": 2152,
     "results": [
       {
         "tournamentId": "hong-kong-2025",
@@ -1994,14 +2054,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R32"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 42
       }
     ],
     "qualified": false
@@ -2111,16 +2177,10 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
-        "points": 0
+        "points": 10
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -2204,7 +2264,7 @@
     "wtaId": 325601,
     "name": "Anastasia Potapova",
     "country": "AT",
-    "officialRaceTotal": 1807,
+    "officialRaceTotal": 1816,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -2304,16 +2364,10 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
-        "points": 0
+        "points": 10
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -2321,7 +2375,7 @@
     "wtaId": 325410,
     "name": "Emma Navarro",
     "country": "US",
-    "officialRaceTotal": 1805,
+    "officialRaceTotal": 1804,
     "results": [
       {
         "tournamentId": "auckland-2026",
@@ -2442,7 +2496,7 @@
     "wtaId": 325639,
     "name": "Maja Chwalinska",
     "country": "PL",
-    "officialRaceTotal": 1745,
+    "officialRaceTotal": 1755,
     "results": [
       {
         "tournamentId": "auckland-2026",
@@ -2497,14 +2551,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 21
       }
     ],
     "qualified": false
@@ -2514,7 +2574,7 @@
     "wtaId": 320983,
     "name": "Marie Bouzkova",
     "country": "CZ",
-    "officialRaceTotal": 1708,
+    "officialRaceTotal": 1763,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -2619,14 +2679,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R32"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 19
       }
     ],
     "qualified": false
@@ -2761,14 +2827,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 53
       }
     ]
   },
@@ -2777,7 +2849,7 @@
     "wtaId": 330375,
     "name": "Sara Bejlek",
     "country": "CZ",
-    "officialRaceTotal": 1472,
+    "officialRaceTotal": 1536,
     "results": [
       {
         "tournamentId": "auckland-2026",
@@ -2882,14 +2954,19 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
+        "tournamentId": "wuhan-2026",
         "state": "eliminated",
-        "round": "R32"
+        "round": "R64"
       }
     ]
   },
@@ -2898,7 +2975,7 @@
     "wtaId": 319939,
     "name": "Jelena Ostapenko",
     "country": "LV",
-    "officialRaceTotal": 1463,
+    "officialRaceTotal": 1527,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -2998,14 +3075,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R32"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 55
       }
     ]
   },
@@ -3014,7 +3097,7 @@
     "wtaId": 318312,
     "name": "Maria Sakkari",
     "country": "GR",
-    "officialRaceTotal": 1404,
+    "officialRaceTotal": 1468,
     "results": [
       {
         "tournamentId": "united-cup-2026",
@@ -3119,14 +3202,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R32"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 26
       }
     ]
   },
@@ -3135,7 +3224,7 @@
     "wtaId": 327077,
     "name": "Diane Parry",
     "country": "FR",
-    "officialRaceTotal": 1389,
+    "officialRaceTotal": 1398,
     "results": [
       {
         "tournamentId": "chennai-2025",
@@ -3240,12 +3329,17 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
+        "tournamentId": "wuhan-2026",
         "state": "eliminated",
         "round": "R64"
       }
@@ -3256,7 +3350,7 @@
     "wtaId": 319280,
     "name": "Jasmine Paolini",
     "country": "IT",
-    "officialRaceTotal": 1324,
+    "officialRaceTotal": 1334,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -3346,14 +3440,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 36
       }
     ]
   },
@@ -3467,23 +3567,22 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "Q1",
         "points": 0
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
-      }
-    ]
+    "live": []
   },
   {
     "id": "ann-li",
     "wtaId": 326096,
     "name": "Ann Li",
     "country": "US",
-    "officialRaceTotal": 1298,
+    "officialRaceTotal": 1408,
     "results": [
       {
         "tournamentId": "jiujiang-2025",
@@ -3608,14 +3707,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R16"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 2
       }
     ]
   },
@@ -3734,14 +3839,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 25
       }
     ]
   },
@@ -3750,7 +3861,7 @@
     "wtaId": 319007,
     "name": "Ekaterina Alexandrova",
     "country": "RU",
-    "officialRaceTotal": 1279,
+    "officialRaceTotal": 1493,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -3870,14 +3981,19 @@
       {
         "tournamentId": "beijing-2026",
         "round": "QF",
+        "points": 215
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
+        "tournamentId": "wuhan-2026",
         "state": "eliminated",
-        "round": "QF"
+        "round": "R64"
       }
     ]
   },
@@ -3886,7 +4002,7 @@
     "wtaId": 321158,
     "name": "Cristina Bucsa",
     "country": "ES",
-    "officialRaceTotal": 1231,
+    "officialRaceTotal": 1240,
     "results": [
       {
         "tournamentId": "hong-kong-2025",
@@ -3991,14 +4107,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 17
       }
     ]
   },
@@ -4007,7 +4129,7 @@
     "wtaId": 320728,
     "name": "Kimberly Birrell",
     "country": "AU",
-    "officialRaceTotal": 1228,
+    "officialRaceTotal": 1251,
     "results": [
       {
         "tournamentId": "chennai-2025",
@@ -4122,14 +4244,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R64"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 32
       }
     ]
   },
@@ -4138,7 +4266,7 @@
     "wtaId": 330364,
     "name": "Nikola Bartunkova",
     "country": "CZ",
-    "officialRaceTotal": 1177,
+    "officialRaceTotal": 1567,
     "results": [
       {
         "tournamentId": "chennai-2025",
@@ -4228,14 +4356,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "SF",
+        "points": 390
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "SF"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 39
       }
     ]
   },
@@ -4324,7 +4458,7 @@
     "wtaId": 322222,
     "name": "Liudmila Samsonova",
     "country": "RU",
-    "officialRaceTotal": 1124,
+    "officialRaceTotal": 1179,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -4444,14 +4578,20 @@
       {
         "tournamentId": "beijing-2026",
         "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
         "points": 0
       }
     ],
     "live": [
       {
-        "tournamentId": "beijing-2026",
-        "state": "eliminated",
-        "round": "R32"
+        "tournamentId": "wuhan-2026",
+        "state": "alive",
+        "round": "R64",
+        "drawPosition": 31
       }
     ]
   },
@@ -4460,7 +4600,7 @@
     "wtaId": 328120,
     "name": "Qinwen Zheng",
     "country": "CN",
-    "officialRaceTotal": 1018,
+    "officialRaceTotal": 2018,
     "results": [
       {
         "tournamentId": "doha-2026",
@@ -4540,7 +4680,7 @@
       {
         "tournamentId": "beijing-2026",
         "round": "W",
-        "points": 0
+        "points": 1000
       },
       {
         "tournamentId": "australian-open-2026",
@@ -4548,13 +4688,6 @@
         "points": 0
       }
     ],
-    "live": [
-      {
-        "tournamentId": "beijing-2026",
-        "state": "alive",
-        "round": "W",
-        "drawPosition": 10
-      }
-    ]
+    "live": []
   }
 ]

@@ -1578,12 +1578,12 @@
       "country": "CO",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 66
     },
     "won": true,
     "score": "7-6(4) 4-6 6-2",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1020,
@@ -1603,13 +1603,13 @@
       "name": "Xinran Sun",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 582
     },
     "won": true,
     "score": "7-5 6-1",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1020,
@@ -1630,11 +1630,11 @@
       "country": "BE",
       "seed": 13,
       "entry": null,
-      "rank": null
+      "rank": 19
     },
     "won": false,
     "score": "6-3 6-3",
     "outcome": "played",
-    "points": null
+    "points": 120
   }
 ]

@@ -1448,12 +1448,12 @@
       "country": "MX",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 94
     },
     "won": true,
     "score": "6-1 6-3",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1020,
@@ -1474,11 +1474,11 @@
       "country": "CZ",
       "seed": 26,
       "entry": null,
-      "rank": null
+      "rank": 34
     },
     "won": false,
     "score": "6-4 6-3",
     "outcome": "played",
-    "points": null
+    "points": 65
   }
 ]

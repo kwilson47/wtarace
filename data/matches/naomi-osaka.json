@@ -1058,12 +1058,12 @@
       "country": "UZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 68
     },
     "won": true,
     "score": "6-3 3-6 6-3",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1020,
@@ -1084,12 +1084,12 @@
       "country": "CZ",
       "seed": 20,
       "entry": null,
-      "rank": null
+      "rank": 29
     },
     "won": true,
     "score": "7-6(4) 6-4",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1020,
@@ -1110,11 +1110,11 @@
       "country": "CZ",
       "seed": 7,
       "entry": null,
-      "rank": null
+      "rank": 8
     },
     "won": false,
     "score": "7-5 1-6 7-6(7)",
     "outcome": "played",
-    "points": null
+    "points": 120
   }
 ]

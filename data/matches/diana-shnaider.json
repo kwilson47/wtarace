@@ -1240,12 +1240,12 @@
       "country": "ID",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 49
     },
     "won": true,
     "score": "6-0 6-4",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1020,
@@ -1266,11 +1266,11 @@
       "country": "RU",
       "seed": 19,
       "entry": null,
-      "rank": null
+      "rank": 28
     },
     "won": false,
     "score": "3-6 6-4 6-3",
     "outcome": "played",
-    "points": null
+    "points": 65
   }
 ]

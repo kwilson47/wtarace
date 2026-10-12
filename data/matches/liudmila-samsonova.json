@@ -1109,13 +1109,13 @@
       "name": "Linda Fruhvirtova",
       "country": "CZ",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 181
     },
     "won": true,
     "score": "6-2 3-6 6-3",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1020,
@@ -1136,11 +1136,11 @@
       "country": "CZ",
       "seed": 7,
       "entry": null,
-      "rank": null
+      "rank": 8
     },
     "won": false,
     "score": "4-6 6-4 6-2",
     "outcome": "played",
-    "points": null
+    "points": 65
   }
 ]

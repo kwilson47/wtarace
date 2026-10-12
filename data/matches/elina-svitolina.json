@@ -1526,12 +1526,12 @@
       "country": "CZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 55
     },
     "won": true,
     "score": "1-6 6-4 6-2",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1020,
@@ -1552,12 +1552,12 @@
       "country": "GR",
       "seed": 25,
       "entry": null,
-      "rank": null
+      "rank": 33
     },
     "won": true,
     "score": "6-4 7-5",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1020,
@@ -1578,12 +1578,12 @@
       "country": "US",
       "seed": 21,
       "entry": null,
-      "rank": null
+      "rank": 30
     },
     "won": true,
     "score": "6-2 6-3",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1020,
@@ -1603,12 +1603,12 @@
       "name": "Qinwen Zheng",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 54
     },
     "won": false,
     "score": "6-3 7-6(6)",
     "outcome": "played",
-    "points": null
+    "points": 215
   }
 ]

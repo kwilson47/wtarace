@@ -1474,11 +1474,11 @@
       "country": "UA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 111
     },
     "won": false,
     "score": "6-3 6-1",
     "outcome": "played",
-    "points": null
+    "points": 10
   }
 ]

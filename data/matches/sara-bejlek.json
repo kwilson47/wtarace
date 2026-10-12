@@ -1246,5 +1246,31 @@
     "score": "7-6(4) 6-4",
     "outcome": "played",
     "points": 65
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R64",
+    "opponent": {
+      "id": 319280,
+      "name": "Jasmine Paolini",
+      "country": "IT",
+      "seed": 15,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-3 6-4",
+    "outcome": "played",
+    "points": null
   }
 ]

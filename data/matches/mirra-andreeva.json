@@ -1603,13 +1603,13 @@
       "name": "Yue Yuan",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 135
     },
     "won": true,
     "score": "3-6 6-0 6-0",
     "outcome": "played",
-    "points": null
+    "points": 650
   },
   {
     "tournamentId": 1020,
@@ -1630,12 +1630,12 @@
       "country": "UZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 104
     },
     "won": true,
     "score": "6-4 6-1",
     "outcome": "played",
-    "points": null
+    "points": 650
   },
   {
     "tournamentId": 1020,
@@ -1656,12 +1656,12 @@
       "country": "UA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 46
     },
     "won": true,
     "score": "6-2 6-2",
     "outcome": "played",
-    "points": null
+    "points": 650
   },
   {
     "tournamentId": 1020,
@@ -1682,12 +1682,12 @@
       "country": "RU",
       "seed": 19,
       "entry": null,
-      "rank": null
+      "rank": 28
     },
     "won": true,
     "score": "7-6(4) 7-6(3)",
     "outcome": "played",
-    "points": null
+    "points": 650
   },
   {
     "tournamentId": 1020,
@@ -1708,12 +1708,12 @@
       "country": "CZ",
       "seed": 26,
       "entry": null,
-      "rank": null
+      "rank": 34
     },
     "won": true,
     "score": "6-2 6-2",
     "outcome": "played",
-    "points": null
+    "points": 650
   },
   {
     "tournamentId": 1020,
@@ -1733,12 +1733,12 @@
       "name": "Qinwen Zheng",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 54
     },
     "won": false,
     "score": "7-5 6-4",
     "outcome": "played",
-    "points": null
+    "points": 650
   }
 ]

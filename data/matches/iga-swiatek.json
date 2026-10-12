@@ -1317,13 +1317,13 @@
       "name": "Xinyu Gao",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 244
     },
     "won": true,
     "score": "6-2 6-3",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1020,
@@ -1344,12 +1344,12 @@
       "country": "HR",
       "seed": 30,
       "entry": null,
-      "rank": null
+      "rank": 40
     },
     "won": true,
     "score": "4-6 7-6(0) 6-2",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1020,
@@ -1370,12 +1370,12 @@
       "country": "US",
       "seed": 10,
       "entry": null,
-      "rank": null
+      "rank": 13
     },
     "won": true,
     "score": "6-1 6-3",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1020,
@@ -1396,11 +1396,11 @@
       "country": "BE",
       "seed": 13,
       "entry": null,
-      "rank": null
+      "rank": 19
     },
     "won": false,
     "score": "7-6(0) 6-3",
     "outcome": "played",
-    "points": null
+    "points": 215
   }
 ]

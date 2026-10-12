@@ -16,11 +16,11 @@
       "entry": null
     },
     {
-      "wtaId": 328120,
-      "name": "Qinwen Zheng",
-      "country": "CN",
+      "wtaId": 325898,
+      "name": "Camila Osorio",
+      "country": "CO",
       "seed": null,
-      "entry": null
+      "entry": "LL"
     },
     {
       "wtaId": 328818,
@@ -51,11 +51,11 @@
       "entry": null
     },
     {
-      "wtaId": 323942,
-      "name": "Anna Kalinskaya",
-      "country": "RU",
-      "seed": 17,
-      "entry": null
+      "wtaId": 329409,
+      "name": "Ashlyn Krueger",
+      "country": "US",
+      "seed": null,
+      "entry": "LL"
     },
     {
       "wtaId": 311779,
@@ -70,6 +70,13 @@
       "country": "FR",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 329651,
+      "name": "Lanlana Tararudee",
+      "country": "TH",
+      "seed": null,
+      "entry": "LL"
     },
     {
       "wtaId": 326929,
@@ -93,10 +100,10 @@
       "entry": null
     },
     {
-      "wtaId": 331809,
-      "name": "Mirra Andreeva",
-      "country": "RU",
-      "seed": 3,
+      "wtaId": 332285,
+      "name": "Iva Jovic",
+      "country": "US",
+      "seed": 10,
       "entry": null
     },
     {
@@ -142,11 +149,11 @@
       "entry": null
     },
     {
-      "wtaId": 332285,
-      "name": "Iva Jovic",
-      "country": "US",
-      "seed": 10,
-      "entry": null
+      "wtaId": 322942,
+      "name": "Anna Bondar",
+      "country": "HU",
+      "seed": null,
+      "entry": "LL"
     },
     {
       "wtaId": 334183,
@@ -392,46 +399,86 @@
       "round": 1,
       "a": 319007,
       "b": 326735,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 1,
-      "a": 327077,
-      "b": null,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 326735,
+      "score": "6-4 3-6 6-3",
+      "outcome": "played"
     },
     {
       "round": 1,
       "a": 320567,
       "b": 329918,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 329918,
+      "score": "7-5 6-3",
+      "outcome": "played"
     },
     {
       "round": 1,
-      "a": 326160,
-      "b": 326376,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "a": 327077,
+      "b": 329651,
+      "winner": 329651,
+      "score": "6-4 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 328818,
+      "b": 329009,
+      "winner": 328818,
+      "score": "6-3 6-1",
+      "outcome": "played"
     },
     {
       "round": 1,
       "a": 327793,
       "b": 320983,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 320983,
+      "score": "6-1 2-0",
+      "outcome": "retired"
+    },
+    {
+      "round": 1,
+      "a": 322942,
+      "b": 334183,
+      "winner": 334183,
+      "score": "6-1 6-3",
+      "outcome": "played"
     },
     {
       "round": 1,
       "a": 319280,
       "b": 330375,
+      "winner": 319280,
+      "score": "6-3 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 326929,
+      "b": 320277,
+      "winner": 320277,
+      "score": "6-3 7-6(5)",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 318312,
+      "b": 318516,
+      "winner": 318312,
+      "score": "6-4 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 325725,
+      "b": 325338,
+      "winner": 325725,
+      "score": "2-6 7-6(2) 6-4",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 326160,
+      "b": 326376,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -446,40 +493,112 @@
     },
     {
       "round": 1,
-      "a": 326929,
-      "b": 320277,
+      "a": 320728,
+      "b": 327391,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
     },
     {
       "round": 1,
-      "a": 332285,
-      "b": 334183,
+      "a": 324261,
+      "b": 321158,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
     },
     {
       "round": 1,
+      "a": 320301,
+      "b": 322222,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 318711,
+      "b": 325639,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 329409,
+      "b": 311779,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 323087,
+      "b": 312469,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 322082,
+      "b": 319939,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 332150,
+      "b": 330364,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 319125,
+      "b": 330482,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 317683,
+      "b": 326907,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 326096,
+      "b": 325898,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 327845,
+      "b": 317964,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 2,
+      "a": 334183,
+      "b": null,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 2,
       "a": 318312,
-      "b": 318516,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 1,
-      "a": 325725,
-      "b": 325338,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 1,
-      "a": 328818,
-      "b": 329009,
+      "b": 326482,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -489,20 +608,20 @@
     320760,
     "bye",
     326096,
-    328120,
+    325898,
     328818,
     329009,
     327845,
     317964,
-    323942,
+    329409,
     311779,
     327077,
-    null,
+    329651,
     326929,
     320277,
     "bye",
     326408,
-    331809,
+    332285,
     "bye",
     324261,
     321158,
@@ -510,7 +629,7 @@
     320983,
     318711,
     325639,
-    332285,
+    322942,
     334183,
     326160,
     326376,

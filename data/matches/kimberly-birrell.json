@@ -1604,12 +1604,12 @@
       "country": "JP",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 361
     },
     "won": true,
     "score": "6-1 6-1",
     "outcome": "played",
-    "points": null
+    "points": 35
   },
   {
     "tournamentId": 1020,
@@ -1630,11 +1630,11 @@
       "country": "CZ",
       "seed": 18,
       "entry": null,
-      "rank": null
+      "rank": 27
     },
     "won": false,
     "score": "6-4 6-4",
     "outcome": "played",
-    "points": null
+    "points": 35
   }
 ]
