@@ -18,14 +18,15 @@ test('the scenario editor links to the selected tournament page', async ({ page 
   await expect(page.getByRole('region', { name: 'Draw' })).toBeVisible();
 });
 
-test('picking a winner moves the race impact and carries over to the standings', async ({ page, request }) => {
-  // Data-independent: uses the first open event with a match to pick.
-  const sitemap = await (await request.get('/sitemap.xml')).text();
-  const paths = [...sitemap.matchAll(/finalsrace\.win(\/tournaments\/[a-z0-9-]+\/)/g)].map((m) => m[1]!);
+test('picking a winner moves the race impact and carries over to the standings', async ({ page }) => {
+  // Data-independent: uses the first live or upcoming event (from the tournaments index) with a match to pick.
+  await page.goto('/tournaments/');
+  const open = page.getByRole('region', { name: /Live now|Upcoming/ }).getByRole('link');
+  const paths = await open.evaluateAll((as) => as.map((a) => new URL((a as HTMLAnchorElement).href).pathname));
   for (const path of paths) {
     await page.goto(path);
     if ((await page.getByRole('region', { name: 'Race impact' }).count()) === 0) continue;
-    const pick = page.locator('.match button.line, .round-list button.pick').first();
+    const pick = page.locator('.match button.line:visible, .round-list button.pick:visible').first();
     if ((await pick.count()) === 0) continue;
     // Picking her can open her next match, so the first pickable button may then be someone else's: check hers.
     const name = (await pick.textContent())!.trim();

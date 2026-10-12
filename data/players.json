@@ -289,6 +289,11 @@
         "tournamentId": "us-open-2026",
         "round": "SF",
         "points": 780
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "ZP",
+        "points": 0
       }
     ],
     "live": [],
@@ -905,6 +910,11 @@
         "tournamentId": "guadalajara-2026",
         "round": "QF",
         "points": 60
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "ZP",
+        "points": 0
       }
     ],
     "live": [],
@@ -1316,6 +1326,11 @@
         "tournamentId": "us-open-2026",
         "round": "R16",
         "points": 240
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "ZP",
+        "points": 0
       }
     ],
     "live": [],
@@ -1559,6 +1574,11 @@
         "tournamentId": "singapore-2026",
         "round": "R16",
         "points": 1
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "ZP",
+        "points": 0
       }
     ],
     "live": [],
@@ -1879,6 +1899,11 @@
         "tournamentId": "us-open-2026",
         "round": "R32",
         "points": 130
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "ZP",
+        "points": 0
       }
     ],
     "live": [],
@@ -2164,6 +2189,11 @@
         "tournamentId": "us-open-2026",
         "round": "R32",
         "points": 130
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "ZP",
+        "points": 0
       }
     ],
     "live": [],
@@ -2397,6 +2427,11 @@
         "tournamentId": "us-open-2026",
         "round": "QF",
         "points": 430
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "ZP",
+        "points": 0
       }
     ],
     "live": [],

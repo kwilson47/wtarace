@@ -13,6 +13,16 @@ export function roundIndex(roundId: string | number, table: { round: string }[])
   return index;
 }
 
+/**
+ * Index into the points table of a main-draw match. Match ids count down from the final (LS001), so they give
+ * the round even for upcoming matches, which the feed sometimes publishes with the wrong RoundID (Beijing's
+ * semifinals as 2, Wuhan's first round as 6). Falls back to the RoundID.
+ */
+export function matchIndex(m: LiveMatch, table: { round: string }[]): number {
+  const number = /^LS(\d+)$/.exec(m.MatchID ?? '')?.[1];
+  return number ? table.length - 2 - Math.floor(Math.log2(Number(number))) : roundIndex(m.RoundID, table);
+}
+
 const involves = (m: LiveMatch, wtaId: number) => String(m.PlayerIDA) === String(wtaId) || String(m.PlayerIDB) === String(wtaId);
 /** Even winner codes are player A (2, or 4 on retirement); odd are player B. */
 const wonBy = (m: LiveMatch, wtaId: number) =>
@@ -24,8 +34,8 @@ export type LiveState = { state: 'alive' | 'eliminated'; round: string };
 export function liveState(matches: LiveMatch[], wtaId: number, table: { round: string }[], bye: boolean): LiveState {
   const mine = matches.filter((m) => involves(m, wtaId));
   if (mine.length === 0) return { state: 'alive', round: table[bye ? 1 : 0]!.round };
-  const last = mine.reduce((a, b) => (roundIndex(b.RoundID, table) > roundIndex(a.RoundID, table) ? b : a));
-  const index = roundIndex(last.RoundID, table);
+  const last = mine.reduce((a, b) => (matchIndex(b, table) > matchIndex(a, table) ? b : a));
+  const index = matchIndex(last, table);
   if (last.MatchState !== 'F') return { state: 'alive', round: table[index]!.round };
   return wonBy(last, wtaId) ? { state: 'alive', round: table[index + 1]!.round } : { state: 'eliminated', round: table[index]!.round };
 }
@@ -37,7 +47,14 @@ export function liveState(matches: LiveMatch[], wtaId: number, table: { round: s
  * inferred.
  */
 function setByes(ctx: Ctx, t: RawTournament, matches: LiveMatch[], drawIds: string[]): void {
-  const firstRound = matches.filter((m) => String(m.RoundID).trim() === '1');
+  const first = (m: LiveMatch) => {
+    try {
+      return matchIndex(m, tableOf(ctx, t)) === 0;
+    } catch {
+      return false;
+    }
+  };
+  const firstRound = matches.filter(first);
   const bracket = 2 ** Math.ceil(Math.log2(drawIds.length));
   const expectedByes = bracket - drawIds.length;
   if (firstRound.length !== (drawIds.length - expectedByes) / 2) return;

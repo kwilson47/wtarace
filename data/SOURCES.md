@@ -188,6 +188,8 @@ News sources cited:
 - **T-CINCY:** tennis365, 2026-08-14, https://www.tennis365.com/tennis-features/cincinnati-open-withdrawal-list-2026-17-players-out-alcaraz-sinner-osaka . It names Muchova.
 - **W-WIMB:** wtatennis.com, 2026-06-12, https://www.wtatennis.com/news/4518167/mboko-withdraws-from-wimbledon-due-to-knee-injury
 - **T-PAOLINI-TOR:** tennisuptodate, https://tennisuptodate.com/wta/jasmine-paolini-withdraws-from-canadian-open-as-injury-list-continues-to-grow ("withdraw from Washington and Toronto").
+- **T-BEIJING:** tennis365, https://www.tennis365.com/tennis-news/china-open-withdrawal-list-2026-20-players-out . It lists Pegula, Kostyuk, Anisimova, Mboko, Cirstea, Eala, Keys and Navarro among the seeds who withdrew before the draw.
+- **W-BEIJING:** wtatennis.com, https://www.wtatennis.com/news/4581969/jessica-pegula-defending-champion-amanda-anisimova-withdraw-from-china-open-with-injuries (Pegula and Anisimova).
 - **W-ZHENG-DXB:** wtatennis.com, https://www.wtatennis.com/news/4450840/qinwen-zheng-pulls-out-of-2026-dubai-duty-free-tennis-championships-with-illness (illness).
 - **W-ZHENG-AO:** wtatennis.com, https://www.wtatennis.com/news/4430881/qinwen-zheng-withdraws-from-2026-australian-open-kudermetova-main-draw
 - **W-CINCY:** wtatennis.com, https://www.wtatennis.com/news/4556337/karolina-muchova-2025-finalist-jasmine-paolini-to-miss-cincinnati-open-with-injuries
@@ -218,6 +220,8 @@ News sources cited:
 | Baptiste | 14 | 12 | wimbledon, us-open | A Long-Term Injury from Roland Garros on (ACL; TT-BAPTISTE): Grand Slam zero-pointers must count, WTA 1000 ones during the injury need not (R §VIII.A.4.a.ii(c), p.145). That leaves exactly Wimbledon and the US Open, the same reasoning as Mboko. Total 1153 under any attribution. |
 | Bejlek | 20 | 19 | madrid | T-MADRID ("world No 35 – replaced by Zeynep Sonmez"). By rank at each entry deadline (about 4 weeks out, R §II.A, p.9), she was committed to Madrid (about No. 35–40) but not to Doha or Indian Wells (about No. 93–101, before her Abu Dhabi title), so Madrid is the only missed WTA 1000 commitment. Replaced the unattributed placeholder on 2026-10-10. Total 1472. |
 | Zheng | 16 | 14 | australian-open, dubai | Added 2026-10-10, when the live top 40 (her Beijing run) brought her in. Australian Open: W-ZHENG-AO (elbow recovery; a Grand Slam zero-pointer counts even during a Long-Term Injury). Dubai: W-ZHENG-DXB (illness; ranked No. 26, so committed, R §II.A, p.9). Not Cincinnati: ranked about 120–160 at its entry deadline (she played Toronto qualifying a week earlier), so she wasn't committed, which fits her absence from MDS 1017. Total 1018. |
+
+**Beijing 2026 zero-pointers** (added 2026-10-12, when the WTA credited Beijing and the event counts below each rose by one with no result): Pegula, Kostyuk, Cirstea, Keys, Anisimova, Navarro and Eala each have `beijing-2026` ZP. All withdrew before the draw (T-BEIJING; W-BEIJING for Pegula and Anisimova). For Cirstea (−10), Keys (−1), Navarro (−1) and Eala (−30) the forced zero-pointer pushed a low result out of the best 18; for the others it fits within 18 results. Mboko also withdrew but her count didn't rise: the Long-Term Injury rule (no WTA 1000 zero-pointers during the injury), as with her other 2026 attributions.
 
 **Mboko** (an interpretation; flagged in the report):
 - Dubai (MDS 718, "Right elbow injury"), Rome (MDS 709, "gastrointestinal illness") and Wimbledon (W-WIMB) are cited withdrawals after acceptance.

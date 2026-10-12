@@ -22,10 +22,11 @@ function credit(ctx: Ctx, raw: RawSeason, t: RawTournament): boolean {
   for (const p of raw.players) {
     const result = p.results.find((r) => r.tournamentId === t.id);
     if (!result) continue;
+    p.live = (p.live ?? []).filter((l) => l.tournamentId !== t.id);
+    if (result.round === 'ZP') continue; // a zero-pointer: no match played, so no posted points; it's 0 already
     const points = postedPoints(ctx, p, t);
     if (points === undefined) return false;
     result.points = points;
-    p.live = (p.live ?? []).filter((l) => l.tournamentId !== t.id);
   }
   raw.tournaments.find((x) => x.id === t.id)!.status = 'completed';
   return true;

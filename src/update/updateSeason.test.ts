@@ -149,6 +149,21 @@ describe('updateSeason: a finished event', () => {
     }
     expect(result.changes).toContain('Live Masters: points credited, event completed');
   });
+
+  it("credits it when a player has a zero-pointer there: she played no match, so she has no posted points", () => {
+    // Beijing 2026: seven players who withdrew before the draw got zero-pointers.
+    const { raw, snap } = finalPlayed();
+    raw.players.find((p) => p.id === 'cat')!.results.push({ tournamentId: 'live', round: 'ZP', points: 0 });
+    snap.race = raceRows(raw, { ana: 1220 });
+    snap.playerMatches = {
+      '1': [playerMatch({ tourn_nbr: '905', player_1: '1', points_champ_1: 100 })],
+      '2': [playerMatch({ tourn_nbr: '905', player_1: '2', points_champ_1: 5 })],
+    };
+    const result = updateSeason(raw, snap);
+    expect(result.problems).toEqual([]);
+    expect(result.raw.tournaments.find((t) => t.id === 'live')!.status).toBe('completed');
+    expect(player(result.raw, 'cat').results.find((r) => r.tournamentId === 'live')).toEqual({ tournamentId: 'live', round: 'ZP', points: 0 });
+  });
 });
 
 describe('updateSeason: a new player in the top 40', () => {
