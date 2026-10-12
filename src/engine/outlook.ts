@@ -4,6 +4,7 @@ import { raceSearch, type Outcome, type Placement } from './clinch';
 import { eliminatedPlayers, type RaceInfo } from './elimination';
 import { projectStandings } from './standings';
 import { pickKey, type Scenario } from './types';
+import { ownWorstTotal } from './zeroPointerFloor';
 
 export type Outlook =
   | { status: 'qualified' }
@@ -49,13 +50,15 @@ const ROUTE_CHECKS = 2000;
  * with her own finishes taking their places. Any outcome reaching `safeAt` qualifies whatever, so the
  * search only needs to look below the first of those.
  */
-function guaranteedRoute(search: Search, x: RaceInfo, own: Outcome[], safeAt: number | null): Outcome | undefined {
-  const sorted = [...own].sort((a, b) => a.total - b.total || a.finishes.length - b.finishes.length);
+function guaranteedRoute(search: Search, x: RaceInfo, own: Outcome[], safeAt: number | null, tournaments: Tournament[], rules: Rules): Outcome | undefined {
+  // Her total on a route counts her own zero-pointers for the WTA 500s it skips: a route must hold at its worst.
+  const worst = (o: Outcome) => ownWorstTotal(x.player, Object.fromEntries(o.finishes.map((f) => [pickKey(x.id, f.tournamentId), f.round])), tournaments, rules);
+  const sorted = own.map((o) => ({ o, total: worst(o) })).sort((a, b) => a.total - b.total || a.o.finishes.length - b.o.finishes.length);
   let checks = 0;
-  for (const o of sorted) {
-    if (safeAt !== null && o.total >= safeAt) return o;
-    if (++checks > ROUTE_CHECKS) return safeAt === null ? undefined : sorted.find((r) => r.total >= safeAt);
-    if (search.missPath(x, o.total, false, o.finishes) === null) return o;
+  for (const { o, total } of sorted) {
+    if (safeAt !== null && total >= safeAt) return o;
+    if (++checks > ROUTE_CHECKS) return safeAt === null ? undefined : sorted.find((r) => r.total >= safeAt)?.o;
+    if (search.missPath(x, total, false, o.finishes) === null) return o;
   }
   return undefined;
 }
@@ -119,7 +122,7 @@ export function playerOutlook(playerId: string, players: Player[], tournaments: 
   }
 
   const safeAt = lowestSafeTotal(search, x);
-  const route = guaranteedRoute(search, x, own, safeAt);
+  const route = guaranteedRoute(search, x, own, safeAt, tournaments, rules);
   return {
     status: 'open',
     safeAt,

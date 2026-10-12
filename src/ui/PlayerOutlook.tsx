@@ -77,9 +77,13 @@ export function PlayerOutlook({ player, outlook, players, season, onLoad }: Prop
   else if (outlook.status === 'out') body = <p>{`${player.name} can no longer qualify.`}</p>;
   else {
     const route = outlook.guaranteedRoute && describePicks(outlook.guaranteedRoute, [player], season)[0];
+    // A route with no picks: finishing where she is now is enough, so she just has to play out her current event.
+    const current = season.tournaments.find((t) => t.status === 'in-progress' && player.live.some((l) => l.tournamentId === t.id && l.state === 'alive'));
     const own = route
       ? `She's certain to qualify with these results of her own, whatever anyone else does — ${route.picks}.`
-      : outlook.eventsLeft
+      : outlook.guaranteedRoute && current
+        ? `She's certain to qualify as long as she plays out ${current.name}, whatever anyone else does.`
+        : outlook.eventsLeft
         ? 'No results of her own are enough by themselves, so she also needs help from others.'
         : 'She has no events left, so it depends on other players.';
     body = (

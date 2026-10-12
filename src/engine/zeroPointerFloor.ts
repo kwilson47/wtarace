@@ -3,6 +3,7 @@ import { applyScenario } from './applyScenario';
 import { countRace, type CountedRace } from './countRace';
 import { remainingWeeks } from './elimination';
 import { pointsTable } from './lookup';
+import { splitPickKey, type Scenario } from './types';
 
 const COMMITMENT_CATEGORIES = ['GS', 'WTA1000C', 'WTA1000'];
 /** The WTA 500 commitment for a player accepted into six or more (R §II.A.2): the most it can be. */
@@ -35,15 +36,23 @@ export function zeroPointerWorstCase(player: Player, tournaments: Tournament[], 
     const unplayed = !live || (live.state === 'alive' && live.round === firstRound);
     if (unplayed && byEvent.get(t.id)?.round !== ZERO_POINTER_ROUND) byEvent.set(t.id, zp(t.id));
   }
-  // WTA 500 shortfall: the 500s she has played this tour year, and the shortfall zero-pointers already stored.
+  return withShortfall(player, [...byEvent.values()], {}, tournaments, rules);
+}
+
+/**
+ * Her results plus the WTA 500 shortfall zero-pointers she'd get by not playing the remaining 500 weeks that
+ * `scenario` leaves without a 500, counted. The WTA applies a shortfall zero-pointer once it's certain (those are
+ * stored), so new ones can only come from 500 weeks still to play: at most one per week.
+ */
+function withShortfall(player: Player, results: Result[], scenario: Scenario, tournaments: Tournament[], rules: Rules) {
   const year = String(rules.season);
   const category = (id: string) => tournaments.find((t) => t.id === id);
   const played500 = player.results.filter((r) => r.round !== ZERO_POINTER_ROUND && category(r.tournamentId)?.category === 'WTA500' && category(r.tournamentId)!.startDate.startsWith(year)).length;
   const stored500 = player.results.filter((r) => r.round === ZERO_POINTER_ROUND && r.tournamentId.startsWith('zp-wta500')).length;
-  // The WTA applies a shortfall zero-pointer once it's certain (those are stored), so new ones can only come from
-  // WTA 500 weeks still to play: at most one per remaining week.
-  const weeks500 = remainingWeeks(tournaments).filter((w) => w.some((t) => t.category === 'WTA500')).length;
-  const more = Math.min(weeks500, Math.max(0, WTA500_REQUIREMENT - played500 - stored500));
+  const picked = new Set(Object.keys(scenario).map((k) => splitPickKey(k).tournamentId));
+  const weeks500 = remainingWeeks(tournaments).filter((w) => w.some((t) => t.category === 'WTA500'));
+  const playing500 = weeks500.filter((w) => w.some((t) => t.category === 'WTA500' && picked.has(t.id))).length;
+  const more = Math.min(weeks500.length - playing500, Math.max(0, WTA500_REQUIREMENT - played500 - stored500 - playing500));
   const template = tournaments.find((t) => t.category === 'WTA500') ?? tournaments[0]!;
   const extra: Tournament[] = Array.from({ length: more }, (_, i) => ({
     ...template,
@@ -54,5 +63,10 @@ export function zeroPointerWorstCase(player: Player, tournaments: Tournament[], 
     byes: [],
   }));
   const all = [...tournaments, ...extra];
-  return { race: countRace([...byEvent.values(), ...extra.map((t) => zp(t.id))], all, rules), tournaments: all };
+  return { race: countRace([...results, ...extra.map((t) => zp(t.id))], all, rules), tournaments: all };
+}
+
+/** Her total with `scenario` as her own results, at worst: counting the 500 shortfall zero-pointers for 500 weeks it skips. */
+export function ownWorstTotal(player: Player, scenario: Scenario, tournaments: Tournament[], rules: Rules): number {
+  return withShortfall(player, applyScenario(player, scenario, tournaments, rules), scenario, tournaments, rules).race.total;
 }

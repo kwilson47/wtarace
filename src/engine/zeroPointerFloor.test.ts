@@ -3,7 +3,7 @@ import { parseOrThrow, type SeasonInput } from '../data/schema';
 import { rawSeason } from '../test/fixtures';
 import { countRace } from './countRace';
 import { raceBounds } from './elimination';
-import { zeroPointerFloor } from './zeroPointerFloor';
+import { ownWorstTotal, zeroPointerFloor } from './zeroPointerFloor';
 
 // The fixture's `live` event is a WTA 1000 in progress (d32: R32 1 point … W 100); c500 is a WTA 500 played in 2026.
 const season = (edit: (raw: SeasonInput) => void) => {
@@ -60,5 +60,16 @@ describe('zeroPointerFloor', () => {
     });
     expect(notCommitted).toBeGreaterThan(unknown);
     expect(injured).toBe(notCommitted);
+  });
+
+  it('totals a route of her own with a shortfall zero-pointer for each WTA 500 week it skips', () => {
+    // Cap of 3, as above: skipping Next Open (the last 500 week) costs her the 20; playing it doesn't.
+    const s = season((raw) => {
+      raw.rules.maxCountedResults = 3;
+      raw.players.find((p) => p.id === 'bea')!.officialRaceTotal = 760;
+    });
+    const bea = s.players.find((p) => p.id === 'bea')!;
+    expect(ownWorstTotal(bea, {}, s.tournaments, s.rules)).toBe(740);
+    expect(ownWorstTotal(bea, { 'bea|next': 'R16' }, s.tournaments, s.rules)).toBe(760);
   });
 });
