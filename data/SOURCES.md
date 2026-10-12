@@ -223,6 +223,8 @@ News sources cited:
 
 **Beijing 2026 zero-pointers** (added 2026-10-12, when the WTA credited Beijing and the event counts below each rose by one with no result): Pegula, Kostyuk, Cirstea, Keys, Anisimova, Navarro and Eala each have `beijing-2026` ZP. All withdrew before the draw (T-BEIJING; W-BEIJING for Pegula and Anisimova). For Cirstea (−10), Keys (−1), Navarro (−1) and Eala (−30) the forced zero-pointer pushed a low result out of the best 18; for the others it fits within 18 results. Mboko also withdrew but her count didn't rise: the Long-Term Injury rule (no WTA 1000 zero-pointers during the injury), as with her other 2026 attributions.
 
+**Long-Term Injury (`longTermInjury` in players.json, from 2026-10-12):** WTA 1000 zero-pointers during the injury don't count; Grand Slam ones do (R §VIII.A.4.a.ii(c), p.145). `from` is the start of her last tournament played. Mboko: from 2026-06-08 (Queen's, where she retired; T-USO and the note below). Baptiste: from 2026-05-24 (Roland Garros; TT-BAPTISTE). Neither has returned, so neither has a `to`.
+
 **Mboko** (an interpretation; flagged in the report):
 - Dubai (MDS 718, "Right elbow injury"), Rome (MDS 709, "gastrointestinal illness") and Wimbledon (W-WIMB) are cited withdrawals after acceptance.
 - She also withdrew from Toronto (T-TORONTO) and Cincinnati (T-CINCY), and T-USO says she is out of the US Open. Counting every one of those as a zero-pointer would give 6, but the official count allows only 4.

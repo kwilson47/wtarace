@@ -1175,6 +1175,9 @@
     "name": "Victoria Mboko",
     "country": "CA",
     "officialRaceTotal": 2393,
+    "longTermInjury": {
+      "from": "2026-06-08"
+    },
     "results": [
       {
         "tournamentId": "hong-kong-2025",
@@ -4379,6 +4382,9 @@
     "name": "Hailey Baptiste",
     "country": "US",
     "officialRaceTotal": 1153,
+    "longTermInjury": {
+      "from": "2026-05-24"
+    },
     "results": [
       {
         "tournamentId": "brisbane-2026",

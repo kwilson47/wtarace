@@ -4,6 +4,7 @@ import { countRace } from './countRace';
 import { findTournament } from './lookup';
 import { eventsPlayed } from './qualification';
 import { pickKey, type Scenario } from './types';
+import { expectedZeroPointers } from './expected';
 
 export interface BreakdownEntry {
   tournamentId: string;
@@ -13,8 +14,8 @@ export interface BreakdownEntry {
   points: number;
   /** Whether it is one of the results that make up her total. */
   counted: boolean;
-  /** 'pick': the visitor's pick. 'live': the round she has reached at an in-progress event. */
-  source: 'result' | 'pick' | 'live';
+  /** 'pick': the visitor's pick. 'live': the round she has reached at an in-progress event. 'expected': a zero-pointer she's about to get. */
+  source: 'result' | 'pick' | 'live' | 'expected';
 }
 
 export interface Breakdown {
@@ -31,10 +32,12 @@ const CATEGORY_ORDER: Record<string, number> = { GS: 0, WTA1000C: 1, WTA1000: 1,
 
 /** Where a player's projected total comes from, with the visitor's picks applied. */
 export function playerBreakdown(player: Player, scenario: Scenario, tournaments: Tournament[], rules: Rules): Breakdown {
-  const results = applyScenario(player, scenario, tournaments, rules);
+  const expected = expectedZeroPointers(player, tournaments);
+  const results = [...applyScenario(player, scenario, tournaments, rules), ...expected];
   const race = countRace(results, tournaments, rules);
   const counted = new Set(race.counted);
   const source = (tournamentId: string): BreakdownEntry['source'] => {
+    if (expected.some((e) => e.tournamentId === tournamentId)) return 'expected';
     if (scenario[pickKey(player.id, tournamentId)] !== undefined) return 'pick';
     const t = findTournament(tournaments, tournamentId);
     return t.status === 'in-progress' && player.live.some((l) => l.tournamentId === tournamentId) ? 'live' : 'result';
