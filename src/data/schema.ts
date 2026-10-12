@@ -72,6 +72,10 @@ const liveSchema = z.object({
   round: roundCode,
   /** 1-based position in the official draw order; halves, quarters and eighths are equal blocks of it. */
   drawPosition: z.number().int().positive().optional(),
+  /** She went out by withdrawing before her first match (a walkover she gave): R §VIII.C.3.b.ii. */
+  withdrew: z.literal(true).optional(),
+  /** She hasn't won a match on court here (her wins were walkovers): she gets the previous round's points, R §VIII.C.3.c.ii. */
+  walkoversOnly: z.literal(true).optional(),
 });
 
 export const playerSchema = z.object({

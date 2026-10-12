@@ -18,4 +18,24 @@ describe('liveState', () => {
   it('falls back to the round id when there is no match id', () => {
     expect(liveState([m({ RoundID: 'Q', MatchState: 'F', Winner: '3' })], 7, table, false)).toEqual({ state: 'eliminated', round: 'QF' });
   });
+
+  it("records a withdrawal before her first match (a walkover she gave, with a bye before it)", () => {
+    // Player 7 has a bye; her R32 match (LS023) went to player 8 by walkover: she withdrew.
+    const gave = m({ RoundID: 2, MatchID: 'LS023', MatchState: 'F', Winner: '3', ScoreString: '' });
+    expect(liveState([gave], 7, table, true)).toEqual({ state: 'eliminated', round: 'R32', withdrew: true, walkoversOnly: true });
+  });
+
+  it('records walkovers only, when every win so far came without playing (Mertens at Singapore)', () => {
+    // A walkover win in the R32, then a loss on court in the R16.
+    const wo = m({ RoundID: 2, MatchID: 'LS023', MatchState: 'F', Winner: '2', ScoreString: 'W/O' });
+    const lost = m({ RoundID: 3, MatchID: 'LS012', MatchState: 'F', Winner: '3', ScoreString: '6-2,6-2' });
+    expect(liveState([wo, lost], 7, table, true)).toEqual({ state: 'eliminated', round: 'R16', walkoversOnly: true });
+    expect(liveState([wo], 7, table, true)).toEqual({ state: 'alive', round: 'R16', walkoversOnly: true });
+  });
+
+  it('records neither once she has won a match on court', () => {
+    const won = m({ RoundID: 2, MatchID: 'LS023', MatchState: 'F', Winner: '2', ScoreString: '6-1,6-1' });
+    const gave = m({ RoundID: 3, MatchID: 'LS012', MatchState: 'F', Winner: '3', ScoreString: '' });
+    expect(liveState([won, gave], 7, table, true)).toEqual({ state: 'eliminated', round: 'R16' });
+  });
 });

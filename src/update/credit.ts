@@ -41,7 +41,13 @@ function credit(ctx: Ctx, raw: RawSeason, t: RawTournament): string[] | null {
   for (const p of raw.players) {
     const result = p.results.find((r) => r.tournamentId === t.id);
     if (!result) continue;
+    const withdrew = p.live?.find((l) => l.tournamentId === t.id)?.withdrew;
     p.live = (p.live ?? []).filter((l) => l.tournamentId !== t.id);
+    // Withdrew before her first match at a commitment event: a zero-pointer (R §VIII.C.3.b.ii).
+    if (withdrew && ['GS', 'WTA1000C', 'WTA1000'].includes(t.category)) {
+      result.round = 'ZP';
+      result.points = 0;
+    }
     if (result.round === 'ZP') continue; // a zero-pointer: no match played, so no posted points; it's 0 already
     const points = postedPoints(ctx, p, t);
     if (points === undefined) return null;

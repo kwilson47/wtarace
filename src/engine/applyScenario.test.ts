@@ -103,3 +103,33 @@ describe('applyScenario banks live-round points when there is no pick', () => {
     expect(r.filter((x) => x.tournamentId === 'live')).toEqual([{ tournamentId: 'live', round: 'SF', points: 20 }]);
   });
 });
+
+describe('applyScenario: walkovers and withdrawals at an event under way', () => {
+  const withLive = (id: string, live: { state: 'alive' | 'eliminated'; round: string; withdrew?: true; walkoversOnly?: true }) => {
+    const raw = rawSeason();
+    const p = raw.players.find((x) => x.id === id)!;
+    p.live = [{ tournamentId: 'live', ...live }];
+    // As the updater stores it while the event is under way: the round, with 0 points until the WTA credits it.
+    p.results = [...p.results.filter((x) => x.tournamentId !== 'live'), { tournamentId: 'live', round: live.round, points: 0 }];
+    p.officialRaceTotal = 0;
+    const s = parseOrThrow(raw);
+    return { s, p: s.players.find((x) => x.id === id)! };
+  };
+  const liveResult = (id: string, live: Parameters<typeof withLive>[1]) => {
+    const { s, p } = withLive(id, live);
+    return applyScenario(p, {}, s.tournaments, s.rules).find((r) => r.tournamentId === 'live');
+  };
+
+  it('gives the previous round\'s points to a player out without having won a match on court (R §VIII.C.3.c.ii)', () => {
+    expect(liveResult('bea', { state: 'eliminated', round: 'R16', walkoversOnly: true })).toEqual({ tournamentId: 'live', round: 'R16', points: 1 });
+  });
+
+  it('gives a zero-pointer to a player who withdrew before her first match at a WTA 1000 (R §VIII.C.3.b.ii)', () => {
+    expect(liveResult('bea', { state: 'eliminated', round: 'R32', withdrew: true, walkoversOnly: true })).toEqual({ tournamentId: 'live', round: 'ZP', points: 0 });
+  });
+
+  it('banks the previous round\'s points for a player still alive with only walkovers behind her', () => {
+    expect(liveResult('ana', { state: 'alive', round: 'QF', walkoversOnly: true })).toEqual({ tournamentId: 'live', round: 'QF', points: 5 });
+  });
+});
+

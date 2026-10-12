@@ -1,5 +1,8 @@
 import type { Player, Result, Rules, Tournament } from '../data/schema';
+import { ZERO_POINTER_ROUND } from '../data/schema';
 import { pointsTable, roundIndex } from './lookup';
+
+const COMMITMENT_CATEGORIES = ['GS', 'WTA1000C', 'WTA1000'];
 import { pickKey, type Scenario } from './types';
 
 export function projectedPoints(playerId: string, tournament: Tournament, round: string, rules: Rules): number {
@@ -31,11 +34,16 @@ export function applyScenario(player: Player, scenario: Scenario, tournaments: T
     const live = player.live.find((l) => l.tournamentId === t.id);
     if (!live) continue;
     const stored = player.results.find((r) => r.tournamentId === t.id)?.points ?? 0;
-    picked.set(t.id, {
-      tournamentId: t.id,
-      round: live.round,
-      points: Math.max(stored, projectedPoints(player.id, t, live.round, rules)),
-    });
+    // Withdrawing before a first match: a zero-pointer at a commitment event (R §VIII.C.3.b.ii).
+    if (live.state === 'eliminated' && live.withdrew) {
+      picked.set(t.id, COMMITMENT_CATEGORIES.includes(t.category) ? { tournamentId: t.id, round: ZERO_POINTER_ROUND, points: 0 } : { tournamentId: t.id, round: live.round, points: 0 });
+      continue;
+    }
+    // No match won on court yet: the previous round's points (R §VIII.C.3.c.ii).
+    const table = pointsTable(rules, t.drawType);
+    const index = roundIndex(table, live.round);
+    const banked = live.walkoversOnly ? (index > 0 ? table[index - 1]!.points : 0) : projectedPoints(player.id, t, live.round, rules);
+    picked.set(t.id, { tournamentId: t.id, round: live.round, points: Math.max(stored, banked) });
   }
   return [...player.results.filter((r) => !picked.has(r.tournamentId)), ...picked.values()];
 }

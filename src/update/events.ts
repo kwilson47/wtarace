@@ -28,7 +28,10 @@ const involves = (m: LiveMatch, wtaId: number) => String(m.PlayerIDA) === String
 const wonBy = (m: LiveMatch, wtaId: number) =>
   m.Winner !== undefined && m.Winner !== null && (Number(m.Winner) % 2 === 0) === (String(m.PlayerIDA) === String(wtaId));
 
-export type LiveState = { state: 'alive' | 'eliminated'; round: string };
+export type LiveState = { state: 'alive' | 'eliminated'; round: string; withdrew?: true; walkoversOnly?: true };
+
+/** A finished match decided without play: an empty score, or the feed's "W/O" (a missing score proves nothing). */
+const walkover = (m: LiveMatch) => typeof m.ScoreString === 'string' && /^(w\/?o)?$/i.test(m.ScoreString.trim());
 
 /** Where a player in the draw stands: her current round if she's alive, or the round she lost in. */
 export function liveState(matches: LiveMatch[], wtaId: number, table: { round: string }[], bye: boolean): LiveState {
@@ -36,8 +39,21 @@ export function liveState(matches: LiveMatch[], wtaId: number, table: { round: s
   if (mine.length === 0) return { state: 'alive', round: table[bye ? 1 : 0]!.round };
   const last = mine.reduce((a, b) => (matchIndex(b, table) > matchIndex(a, table) ? b : a));
   const index = matchIndex(last, table);
-  if (last.MatchState !== 'F') return { state: 'alive', round: table[index]!.round };
-  return wonBy(last, wtaId) ? { state: 'alive', round: table[index + 1]!.round } : { state: 'eliminated', round: table[index]!.round };
+  // Walkovers matter for points (R §VIII.C.3.b–c): going out by withdrawing before a first match, and going out
+  // (or still being alive) without having won a match on court.
+  const finished = mine.filter((m) => m.MatchState === 'F');
+  const wonOnCourt = finished.some((m) => wonBy(m, wtaId) && !walkover(m));
+  const flags = (out: boolean): Pick<LiveState, 'withdrew' | 'walkoversOnly'> => {
+    if (wonOnCourt || finished.length === 0) return {};
+    const lostLast = out && !wonBy(last, wtaId);
+    // Losing on court at the first match isn't "walkovers only" unless she'd already had a walkover win.
+    if (lostLast && !walkover(last) && finished.length === 1) return {};
+    return { ...(lostLast && walkover(last) && finished.length === 1 ? { withdrew: true as const } : {}), walkoversOnly: true };
+  };
+  if (last.MatchState !== 'F') return { state: 'alive', round: table[index]!.round, ...flags(false) };
+  return wonBy(last, wtaId)
+    ? { state: 'alive', round: table[index + 1]!.round, ...flags(false) }
+    : { state: 'eliminated', round: table[index]!.round, ...flags(true) };
 }
 
 /**
@@ -94,9 +110,18 @@ function updatePlayerAt(ctx: Ctx, p: RawPlayer, t: RawTournament, s: LiveState, 
   p.live ??= [];
   const existing = p.live.find((l) => l.tournamentId === t.id);
   const before = existing ? `${existing.state}:${existing.round}` : '';
-  const entry = { tournamentId: t.id, state: s.state, round: s.round, ...(s.state === 'alive' ? { drawPosition: position } : {}) };
+  const entry = {
+    tournamentId: t.id,
+    state: s.state,
+    round: s.round,
+    ...(s.state === 'alive' ? { drawPosition: position } : {}),
+    ...(s.withdrew ? { withdrew: true as const } : {}),
+    ...(s.walkoversOnly ? { walkoversOnly: true as const } : {}),
+  };
   if (existing) {
     delete existing.drawPosition;
+    delete existing.withdrew;
+    delete existing.walkoversOnly;
     Object.assign(existing, entry);
   } else {
     p.live.push(entry);
