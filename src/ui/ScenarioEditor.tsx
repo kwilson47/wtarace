@@ -180,8 +180,8 @@ export function ScenarioEditor({ season, players, scenario, warnings, onPick, on
       </div>
       {tab === 'tournament' ? <ByTournament {...panelProps} /> : <ByPlayer {...panelProps} season={season} onLoad={onLoad} initialId={focusPlayer} />}
       <div className="footnotes">
-        <p>Projections never add zero-pointers for skipped mandatory events. Those depend on WTA rulings such as injury exemptions.</p>
-        <p>Without draw data we can't tell when two players you've picked would have to meet earlier in the draw.</p>
+        <p>Projections add an expected zero-pointer for a player who was committed to a WTA 1000 or Grand Slam under way and isn't playing it. Other zero-pointers depend on WTA rulings, such as injury exemptions, and aren't assumed.</p>
+        <p>At an event under way, picks that send two players past the round where they would meet in the draw are flagged. Upcoming events aren't checked until they start.</p>
         <p>Projections keep each player's current commitment zero-pointers; playing extra events doesn't remove them here.</p>
       </div>
     </section>

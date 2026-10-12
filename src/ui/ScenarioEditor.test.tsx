@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { ScenarioEditor } from './ScenarioEditor';
 import { checkScenario } from '../engine/checkScenario';
 import { pickKey, type Scenario } from '../engine/types';
-import { rawSeason, season } from '../test/fixtures';
+import { bracketSeason, rawSeason, season } from '../test/fixtures';
 import { parseOrThrow, type Season } from '../data/schema';
 
 function setup(scenario: Scenario = {}, s: Season = season) {
@@ -92,9 +92,15 @@ describe('ScenarioEditor', () => {
 
   it('shows the zero-pointer and draw-conflict footnotes', () => {
     setup();
-    expect(screen.getByText(/never add zero-pointers/i)).toBeInTheDocument();
+    expect(screen.getByText(/expected zero-pointer/i)).toBeInTheDocument();
     expect(screen.getByText(/keep each player's current commitment zero-pointers/i)).toBeInTheDocument();
-    expect(screen.getByText(/draw/i, { selector: '.footnotes p' })).toBeInTheDocument();
+    expect(screen.getByText(/would meet/i, { selector: '.footnotes p' })).toBeInTheDocument();
+  });
+
+  it('warns under both dropdowns when two picks pass the round where they would meet', async () => {
+    const s = bracketSeason(1, 9);
+    setup({ [pickKey('ana', 'live')]: 'W', [pickKey('bea', 'live')]: 'F' }, s);
+    expect(screen.getAllByText("Ana Alpha and Bea Beta are in the same half of the draw: they'd meet in the Semifinal, so only one can go further.")).toHaveLength(2);
   });
 
   describe('entry lists', () => {

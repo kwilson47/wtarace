@@ -34,6 +34,12 @@ export function warningsByPick(warnings: Warning[], season: Season): Map<string,
         add(w.playerId, b, `Overlaps with ${tournament(a)?.name ?? a}.`);
         break;
       }
+      case 'draw-conflict': {
+        const [a, b] = w.playerIds.map((id) => season.players.find((p) => p.id === id)?.name ?? id);
+        const message = `${a} and ${b} are in the same ${w.section} of the draw: they'd meet in the ${roundLabel(w.tournamentId, w.round)}, so only one can go further.`;
+        for (const id of w.playerIds) add(id, w.tournamentId, message);
+        break;
+      }
       case 'pick-conflict':
         add(w.playerId, w.tournamentId, `This pick can't apply: ${describePickProblem(w.problem)}.`);
         break;

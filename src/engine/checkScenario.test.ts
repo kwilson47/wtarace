@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { checkScenario } from './checkScenario';
 import { pickKey, type Scenario } from './types';
-import { rawSeason, season } from '../test/fixtures';
+import { bracketSeason, rawSeason, season } from '../test/fixtures';
 import { parseOrThrow } from '../data/schema';
 
 const check = (scenario: Scenario, s = season) => checkScenario(scenario, s.players, s.tournaments, s.rules);
@@ -54,5 +54,16 @@ describe('checkScenario', () => {
 
   it('ignores picks for unknown players or events', () => {
     expect(check({ [pickKey('zed', 'next')]: 'W', [pickKey('ana', 'nope')]: 'W' })).toEqual([]);
+  });
+
+  it('flags two players picked past the round where their places in a live draw would meet', () => {
+    // A 32 draw: positions 1 and 9 are in the same half (they'd meet in the semifinals), so one can't win while the other reaches the final.
+    const s = bracketSeason(1, 9);
+    const picks = { [pickKey('ana', 'live')]: 'W', [pickKey('bea', 'live')]: 'F' };
+    expect(check(picks, s)).toContainEqual({ kind: 'draw-conflict', tournamentId: 'live', playerIds: ['ana', 'bea'], round: 'SF', section: 'half' });
+    // Losing in the semifinal is fine: that's where they meet.
+    expect(check({ [pickKey('ana', 'live')]: 'W', [pickKey('bea', 'live')]: 'SF' }, s).filter((w) => w.kind === 'draw-conflict')).toEqual([]);
+    // Opposite halves: they meet only in the final.
+    expect(check(picks, bracketSeason(1, 17)).filter((w) => w.kind === 'draw-conflict')).toEqual([]);
   });
 });
