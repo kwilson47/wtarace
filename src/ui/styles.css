@@ -190,3 +190,4 @@ select { font: inherit; max-width: 100%; }
 .player-picks { list-style: none; padding: 0; columns: 2; font-size: 0.9rem; }
 .player-picks .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin: 0 6px 0 4px; }
 @media (max-width: 520px) { .player-picks { columns: 1; } }
+.champion-box { border-color: var(--accent); background: var(--qualifier-bg); }

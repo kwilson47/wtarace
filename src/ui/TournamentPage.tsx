@@ -104,7 +104,16 @@ interface Props {
  * pages: tapping a tab makes that round the first column, so it stacks compactly and the later rounds line up
  * against it. Further columns scroll sideways if they don't fit.
  */
-function BracketView({ rounds, labels, start, renderMatch }: { rounds: PickedMatch[][]; labels: string[]; start: number; renderMatch: (m: PickedMatch, j: number) => ReactNode }) {
+interface BracketViewProps {
+  rounds: PickedMatch[][];
+  labels: string[];
+  start: number;
+  renderMatch: (m: PickedMatch, j: number) => ReactNode;
+  /** The champion's box after the final: the winner, a picked winner, or a dash. */
+  champion: ReactNode;
+}
+
+function BracketView({ rounds, labels, start, renderMatch, champion }: BracketViewProps) {
   const [active, setActive] = useState(start);
   const box = useRef<HTMLDivElement>(null);
   return (
@@ -131,6 +140,12 @@ function BracketView({ rounds, labels, start, renderMatch }: { rounds: PickedMat
             <div className="bracket-matches">{round.map((m, j) => renderMatch(m, j))}</div>
           </div>
         ))}
+        <div className="bracket-round champion-round">
+          <h3>Champion</h3>
+          <div className="bracket-matches">
+            <div className="match champion-box" role="group" aria-label="Champion">{champion}</div>
+          </div>
+        </div>
       </div>
     </>
   );
@@ -189,6 +204,16 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
                   labels={applied.map((_, i) => roundLabel(i + 1))}
                   start={start}
                   renderMatch={(m, j) => <MatchBox key={j} m={m} draw={draw} season={season} onPick={onPick && ((wtaId) => onPick(m, wtaId))} />}
+                  champion={(() => {
+                    const final = applied.at(-1)![0]!;
+                    if (final.winner === null) return <span className="tbd">—</span>;
+                    return (
+                      <>
+                        <div className="line winner"><Name wtaId={final.winner} draw={draw} season={season} /></div>
+                        {final.picked && <div className="pick-note">your pick</div>}
+                      </>
+                    );
+                  })()}
                 />
               </div>
               {interactive && (
