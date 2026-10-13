@@ -1480,5 +1480,31 @@
     "score": "6-3 6-1",
     "outcome": "played",
     "points": 10
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R64",
+    "opponent": {
+      "id": 318711,
+      "name": "Mayar Sherif",
+      "country": "EG",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-3 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]
