@@ -1194,5 +1194,31 @@
     "score": "4-6 6-2 7-5",
     "outcome": "played",
     "points": 60
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 2,
+    "roundName": "R32",
+    "opponent": {
+      "id": 318312,
+      "name": "Maria Sakkari",
+      "country": "GR",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "4-6 6-2 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]
