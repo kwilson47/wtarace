@@ -646,7 +646,7 @@
     {
       "round": 2,
       "a": 320760,
-      "b": null,
+      "b": 326096,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -710,7 +710,7 @@
     {
       "round": 2,
       "a": 328818,
-      "b": null,
+      "b": 327845,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
