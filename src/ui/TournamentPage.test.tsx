@@ -51,16 +51,31 @@ describe('TournamentPage', () => {
     expect(within(bracket).getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual(['R32', 'R16', 'QF', 'SF', 'F']);
   });
 
-  it('shows an event under way with a bracket from the quarterfinals and the earlier rounds as lists', () => {
+  it('shows an event under way from the round under way, with tabs for every round', () => {
     const s = withIds();
     const full = completedDraw();
     const draw = { ...full, matches: full.matches.filter((m) => m.round <= 2) };
     render(<TournamentPage season={s} tournamentId="live" draw={draw} />);
     expect(screen.getByText(/In progress/)).toBeInTheDocument();
     const region = screen.getByRole('region', { name: 'Draw' });
+    // Rounds 1–2 are played, so it opens on the quarterfinals, with the earlier rounds a tap away.
     expect(within(region).getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual(['QF', 'SF', 'F']);
-    expect(within(region).getByText('R16 (8 matches)')).toBeInTheDocument();
-    expect(within(region).getByText('R32 (16 matches)')).toBeInTheDocument();
+    const tabs = within(region).getByRole('navigation', { name: 'Rounds' });
+    expect(within(tabs).getAllByRole('button').map((b) => b.textContent)).toEqual(['R32', 'R16', 'QF', 'SF', 'F']);
+    expect(within(tabs).getByRole('button', { name: 'QF' })).toHaveAttribute('aria-current', 'true');
+  });
+
+  it('makes the tapped round the first column, and can go back to earlier rounds', async () => {
+    render(<TournamentPage season={withIds()} tournamentId="c500" draw={completedDraw()} />);
+    const region = screen.getByRole('region', { name: 'Draw' });
+    const tabs = within(region).getByRole('navigation', { name: 'Rounds' });
+    const columns = () => within(region).getAllByRole('heading', { level: 3 }).map((h) => h.textContent);
+    expect(columns()).toEqual(['R32', 'R16', 'QF', 'SF', 'F']); // a completed event opens at the start
+    await userEvent.click(within(tabs).getByRole('button', { name: 'SF' }));
+    expect(within(tabs).getByRole('button', { name: 'SF' })).toHaveAttribute('aria-current', 'true');
+    expect(columns()).toEqual(['SF', 'F']);
+    await userEvent.click(within(tabs).getByRole('button', { name: 'R16' }));
+    expect(columns()).toEqual(['R16', 'QF', 'SF', 'F']);
   });
 
   it("says when the draw hasn't been made, listing our entrants", () => {

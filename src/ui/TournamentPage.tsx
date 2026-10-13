@@ -1,3 +1,4 @@
+import { useRef, useState, type ReactNode } from 'react';
 import type { Season, Tournament } from '../data/schema';
 import { buildBracket, finalists, type Slot } from '../draws/bracket';
 import type { DrawFile } from '../draws/drawSchema';
@@ -58,55 +59,6 @@ function MatchBox({ m, draw, season, onPick }: { m: PickedMatch; draw: DrawFile;
   );
 }
 
-interface RoundListProps {
-  label: string;
-  matches: PickedMatch[];
-  draw: DrawFile;
-  season: Season;
-  open: boolean;
-  onPick?: (m: PickedMatch, wtaId: number) => void;
-}
-
-function RoundList({ label, matches, draw, season, open, onPick }: RoundListProps) {
-  return (
-    <details open={open}>
-      <summary>{`${label} (${matches.length} matches)`}</summary>
-      <ul className="round-list">
-        {matches.map((m, i) => {
-          const pick = (slot: Slot) =>
-            typeof slot === 'number' ? (
-              <button type="button" className="pick" aria-pressed={m.winner === slot} onClick={() => onPick!(m, slot)}>
-                <Name wtaId={slot} draw={draw} season={season} plain />
-              </button>
-            ) : null;
-          if (m.winner !== null && !m.picked) {
-            const loser = m.winner === m.top ? m.bottom : m.top;
-            return (
-              <li key={i}>
-                <Name wtaId={m.winner} draw={draw} season={season} /> d. <Name wtaId={loser} draw={draw} season={season} />
-                {` ${m.outcome === 'walkover' ? 'w/o' : `${m.score}${m.outcome === 'retired' ? ' ret.' : ''}`}`}
-              </li>
-            );
-          }
-          if (onPick && m.pickable) {
-            return (
-              <li key={i}>
-                {pick(m.top)} vs {pick(m.bottom)}
-                {m.picked && ' (your pick)'}
-              </li>
-            );
-          }
-          return (
-            <li key={i}>
-              <Name wtaId={m.top} draw={draw} season={season} round={m.round} /> vs <Name wtaId={m.bottom} draw={draw} season={season} round={m.round} />
-            </li>
-          );
-        })}
-      </ul>
-    </details>
-  );
-}
-
 /** Tracked players at this event: result and points, current round, or entered. */
 function TrackedPlayers({ season, t }: { season: Season; t: Tournament }) {
   const table = pointsTable(season.rules, t.drawType);
@@ -147,7 +99,44 @@ interface Props {
   draw: DrawFile | null;
 }
 
-/** An event: header, its draw (full bracket once completed; from the quarterfinals while live), then our tracked players. */
+/**
+ * The bracket from the chosen round on, one column per round, with tabs for every round, like the WTA's draw
+ * pages: tapping a tab makes that round the first column, so it stacks compactly and the later rounds line up
+ * against it. Further columns scroll sideways if they don't fit.
+ */
+function BracketView({ rounds, labels, start, renderMatch }: { rounds: PickedMatch[][]; labels: string[]; start: number; renderMatch: (m: PickedMatch, j: number) => ReactNode }) {
+  const [active, setActive] = useState(start);
+  const box = useRef<HTMLDivElement>(null);
+  return (
+    <>
+      <nav className="round-tabs" aria-label="Rounds">
+        {labels.map((label, i) => (
+          <button
+            key={label}
+            type="button"
+            aria-current={active === i ? true : undefined}
+            onClick={() => {
+              setActive(i);
+              box.current?.scrollTo?.({ left: 0 });
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
+      <div className="bracket" ref={box}>
+        {rounds.slice(active).map((round, k) => (
+          <div className="bracket-round" key={labels[active + k]}>
+            <h3>{labels[active + k]}</h3>
+            <div className="bracket-matches">{round.map((m, j) => renderMatch(m, j))}</div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/** An event: header, its draw (opening on the round under way, every round a tab away), then our tracked players. */
 export function TournamentPage({ season, tournamentId, draw }: Props) {
   const t = season.tournaments.find((x) => x.id === tournamentId)!;
   const year = t.startDate.slice(0, 4);
@@ -156,9 +145,8 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
   const final = bracket ? finalists(bracket) : null;
   const nameOf = (id: number | null) => (id === null ? '' : draw?.players.find((p) => p.wtaId === id)?.name ?? String(id));
   const roundLabel = (round: number) => table[round - 1]?.round ?? `R${round}`;
-  const qf = table.findIndex((r) => r.round === 'QF') + 1;
-  const firstShown = t.status === 'completed' ? 1 : Math.max(1, qf);
-  const current = draw?.matches.find((m) => m.winner === null)?.round ?? 0;
+  // Where the bracket opens: a live event on the round under way, anything else at the start.
+  const start = t.status === 'in-progress' && bracket ? Math.max(0, bracket.rounds.findIndex((r) => r.some((m) => m.outcome !== 'bye' && m.winner === null))) : 0;
   const { scenario, load } = useScenario(season);
   const interactive = t.status !== 'completed' && t.drawType !== 'united-cup';
   const applied = bracket ? applyPicks(bracket, interactive && draw ? pickedRounds(season, t, draw, scenario) : new Map()) : null;
@@ -196,30 +184,12 @@ export function TournamentPage({ season, tournamentId, draw }: Props) {
           ) : (
             <div className="draw-layout">
               <div className="draw-main">
-                <div className="bracket">
-                  {applied.slice(firstShown - 1).map((round, i) => (
-                    <div className="bracket-round" key={firstShown + i}>
-                      <h3>{roundLabel(firstShown + i)}</h3>
-                      <div className="bracket-matches">
-                        {round.map((m, j) => (
-                          <MatchBox key={j} m={m} draw={draw} season={season} onPick={onPick && ((wtaId) => onPick(m, wtaId))} />
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {firstShown > 1 &&
-                  Array.from({ length: firstShown - 1 }, (_, i) => firstShown - 1 - i).map((round) => (
-                    <RoundList
-                      key={round}
-                      label={roundLabel(round)}
-                      matches={applied[round - 1]!.filter((m) => m.outcome !== 'bye')}
-                      draw={draw}
-                      season={season}
-                      open={round === current}
-                      onPick={onPick}
-                    />
-                  ))}
+                <BracketView
+                  rounds={applied}
+                  labels={applied.map((_, i) => roundLabel(i + 1))}
+                  start={start}
+                  renderMatch={(m, j) => <MatchBox key={j} m={m} draw={draw} season={season} onPick={onPick && ((wtaId) => onPick(m, wtaId))} />}
+                />
               </div>
               {interactive && (
                 <div className="impact-side">
