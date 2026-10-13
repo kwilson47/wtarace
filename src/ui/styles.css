@@ -124,8 +124,12 @@ select { font: inherit; max-width: 100%; }
 .tournament-page h2 { font-size: 1.1rem; margin: 20px 0 8px; }
 .champion { margin: 0 0 6px; font-weight: 600; }
 .our-players { margin: 0; padding-left: 20px; }
-.our-players a, .tournament-page .bracket a, .round-list a { color: var(--accent-text); }
+.our-players a, .tournament-page .bracket a { color: var(--accent-text); }
 .bracket { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+.round-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.round-tabs button { font: inherit; font-size: 0.85rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--fg); cursor: pointer; }
+.round-tabs button[aria-current='true'] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+@media (max-width: 520px) { .bracket-round { min-width: 150px; } }
 .bracket-round { display: flex; flex-direction: column; min-width: 180px; }
 .bracket-round h3 { margin: 0 0 6px; font-size: 0.85rem; color: var(--muted); }
 .bracket-matches { display: flex; flex-direction: column; justify-content: space-around; flex: 1; gap: 6px; }
@@ -136,7 +140,6 @@ select { font: inherit; max-width: 100%; }
 .match .bye, .match .tbd { color: var(--muted); }
 .tournament-page details { margin: 8px 0; }
 .tournament-page summary { cursor: pointer; font-weight: 600; }
-.round-list { margin: 4px 0; padding-left: 20px; font-size: 0.9rem; }
 .tournament-link { display: inline-block; margin: 0 12px 12px 0; color: var(--accent-text); }
 .player-page .tournament h3 a { color: inherit; }
 .our-players { columns: 3 230px; column-gap: 24px; } .our-players li { break-inside: avoid; }
@@ -154,10 +157,9 @@ select { font: inherit; max-width: 100%; }
 .impact a { color: var(--accent-text); }
 .impact-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; font-size: 0.9rem; }
 .impact-actions a { color: var(--accent-text); }
-.match button.line, .round-list button.pick { display: block; width: 100%; text-align: left; font: inherit; border: 0; border-radius: 4px; padding: 1px 3px; background: transparent; color: inherit; cursor: pointer; }
-.round-list button.pick { display: inline; width: auto; }
-.match button.line:hover, .round-list button.pick:hover { background: var(--alt-bg); }
-.match button.line[aria-pressed='true'], .round-list button.pick[aria-pressed='true'] { font-weight: 600; background: var(--qualifier-bg); }
+.match button.line { display: block; width: 100%; text-align: left; font: inherit; border: 0; border-radius: 4px; padding: 1px 3px; background: transparent; color: inherit; cursor: pointer; }
+.match button.line:hover { background: var(--alt-bg); }
+.match button.line[aria-pressed='true'] { font-weight: 600; background: var(--qualifier-bg); }
 .match.conflict { border-color: var(--warn); }
 .match .pick-note { color: var(--accent-text); font-size: 0.75rem; }
 
@@ -188,3 +190,4 @@ select { font: inherit; max-width: 100%; }
 .player-picks { list-style: none; padding: 0; columns: 2; font-size: 0.9rem; }
 .player-picks .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin: 0 6px 0 4px; }
 @media (max-width: 520px) { .player-picks { columns: 1; } }
+.champion-box { border-color: var(--accent); background: var(--qualifier-bg); }

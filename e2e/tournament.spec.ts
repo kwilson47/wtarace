@@ -26,7 +26,7 @@ test('picking a winner moves the race impact and carries over to the standings',
   for (const path of paths) {
     await page.goto(path);
     if ((await page.getByRole('region', { name: 'Race impact' }).count()) === 0) continue;
-    const pick = page.locator('.match button.line:visible, .round-list button.pick:visible').first();
+    const pick = page.locator('.match button.line').first();
     if ((await pick.count()) === 0) continue;
     // Picking her can open her next match, so the first pickable button may then be someone else's: check hers.
     const name = (await pick.textContent())!.trim();
