@@ -1142,5 +1142,31 @@
     "score": "4-6 6-4 6-2",
     "outcome": "played",
     "points": 65
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R64",
+    "opponent": {
+      "id": 320301,
+      "name": "Katerina Siniakova",
+      "country": "CZ",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-1 5-7 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]
