@@ -708,6 +708,14 @@
       "outcome": "played"
     },
     {
+      "round": 2,
+      "a": 329824,
+      "b": 326735,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
       "round": 3,
       "a": 322191,
       "b": 330482,
