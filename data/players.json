@@ -1031,7 +1031,7 @@
       },
       {
         "tournamentId": "wuhan-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -1039,7 +1039,7 @@
       {
         "tournamentId": "wuhan-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 14
       }
     ],
@@ -2064,9 +2064,8 @@
     "live": [
       {
         "tournamentId": "wuhan-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 42
+        "state": "eliminated",
+        "round": "R32"
       }
     ],
     "qualified": false
@@ -2554,7 +2553,7 @@
       },
       {
         "tournamentId": "wuhan-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -2562,7 +2561,7 @@
       {
         "tournamentId": "wuhan-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 21
       }
     ],
@@ -2689,9 +2688,8 @@
     "live": [
       {
         "tournamentId": "wuhan-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 19
+        "state": "eliminated",
+        "round": "R32"
       }
     ],
     "qualified": false
