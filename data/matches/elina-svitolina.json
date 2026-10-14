@@ -1610,5 +1610,31 @@
     "score": "6-3 7-6(6)",
     "outcome": "played",
     "points": 215
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 2,
+    "roundName": "R32",
+    "opponent": {
+      "id": 322222,
+      "name": "Liudmila Samsonova",
+      "country": "RU",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-2 5-7 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]
