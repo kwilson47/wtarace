@@ -196,9 +196,8 @@
     "live": [
       {
         "tournamentId": "wuhan-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 1
+        "state": "eliminated",
+        "round": "R32"
       }
     ],
     "qualified": true
@@ -3707,7 +3706,7 @@
       },
       {
         "tournamentId": "wuhan-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -3715,7 +3714,7 @@
       {
         "tournamentId": "wuhan-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 2
       }
     ]
