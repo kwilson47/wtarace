@@ -308,7 +308,7 @@
         "round": "R32"
       }
     ],
-    "qualified": false
+    "qualified": true
   },
   {
     "id": "mirra-andreeva",
