@@ -679,17 +679,17 @@
       "round": 2,
       "a": 327391,
       "b": 323087,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 323087,
+      "score": "6-4 4-6 7-6(3)",
+      "outcome": "played"
     },
     {
       "round": 2,
       "a": 319939,
       "b": 316956,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 319939,
+      "score": "2-6 7-6(7) 6-3",
+      "outcome": "played"
     },
     {
       "round": 2,
@@ -711,6 +711,70 @@
       "round": 2,
       "a": 329824,
       "b": 326735,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": 322191,
+      "b": 330482,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": 334183,
+      "b": 318312,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": 332285,
+      "b": 325639,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": null,
+      "b": null,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": null,
+      "b": 326408,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": null,
+      "b": 328818,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": 319280,
+      "b": 329918,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 3,
+      "a": 316738,
+      "b": null,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
