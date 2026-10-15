@@ -1636,5 +1636,31 @@
     "score": "6-4 6-1",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 3,
+    "roundName": "R16",
+    "opponent": {
+      "id": 325639,
+      "name": "Maja Chwalinska",
+      "country": "PL",
+      "seed": 16,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-4 6-1",
+    "outcome": "played",
+    "points": null
   }
 ]
