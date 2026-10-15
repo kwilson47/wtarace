@@ -1168,5 +1168,31 @@
     "score": "2-6 7-6(7) 6-3",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 1075,
+    "year": 2026,
+    "tournament": "Wuhan",
+    "level": "WTA 1000",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-18",
+    "qualifying": false,
+    "round": 3,
+    "roundName": "R16",
+    "opponent": {
+      "id": 326735,
+      "name": "Leylah Fernandez",
+      "country": "CA",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-1 1-6 6-4",
+    "outcome": "played",
+    "points": null
   }
 ]
