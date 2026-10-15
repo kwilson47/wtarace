@@ -91,4 +91,25 @@ describe('playerOutlook', () => {
     expect([...passers]).toHaveLength(1);
     shows(s, o.missExample!, 'xen', false);
   });
+
+  it('builds the miss example against her projected total when her floor counts possible WTA 500 shortfalls', () => {
+    // 2 places, best 2 results. xen projects to 600 (500 + 100), but skipping `next` could cost her a WTA 500
+    // shortfall zero-pointer, so her floor is 500. pia (550) is already above the floor, but a scenario can't
+    // show xen skipping, so the example must take pia past 600: a title at `next` (650).
+    const raw = rawSeason();
+    raw.rules.maxCountedResults = 2;
+    raw.rules.qualification = { places: 2, championPlace: null, minEvents: null };
+    raw.tournaments = raw.tournaments.filter((t) => t.status !== 'in-progress').map((t) => ({ ...t, byes: [] }));
+    const player = (id: string, results: { tournamentId: string; round: string; points: number }[]) =>
+      ({ id, name: id.toUpperCase(), country: 'US', officialRaceTotal: 0, results });
+    raw.players = [
+      player('top', [{ tournamentId: 'slam', round: 'F', points: 2000 }]),
+      player('xen', [{ tournamentId: 'slam', round: 'F', points: 500 }, { tournamentId: 'c250', round: 'W', points: 100 }]),
+      player('pia', [{ tournamentId: 'slam', round: 'F', points: 550 }]),
+    ];
+    const s = parseOrThrow(raw);
+    const o = open(outlook(s, 'xen'));
+    expect(o.missExample).toEqual({ 'pia|next': 'W' });
+    shows(s, o.missExample!, 'xen', false);
+  });
 });
