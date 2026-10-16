@@ -31,15 +31,18 @@ export function livePoints(raw: RawSeason, snap: FeedSnapshot): Map<number, numb
 }
 
 /**
- * Untracked players to add: anyone in the race feed's top `top`, and anyone whose live total (race points plus
- * points from events under way) puts her in the live top `top`. Ordered by race ranking.
+ * Untracked players to add: anyone in the race feed's top `top`, anyone whose live total (race points plus
+ * points from events under way) puts her in the live top `top`, and anyone whose live total is level with or
+ * above the lowest tracked player's, so no untracked player ever ranks above one we track. Ordered by race ranking.
  */
 export function newcomers(raw: RawSeason, snap: FeedSnapshot, top = TOP): (RaceRow & { live: number })[] {
   const tracked = new Set(raw.players.map((p) => p.wtaId));
   const live = livePoints(raw, snap);
   const rows = snap.race.map((r) => ({ ...r, live: r.points + (live.get(r.player.id) ?? 0) }));
   const liveTop = new Set([...rows].sort((a, b) => b.live - a.live).slice(0, top).map((r) => r.player.id));
+  const trackedLive = rows.filter((r) => tracked.has(r.player.id)).map((r) => r.live);
+  const lowestTracked = trackedLive.length > 0 ? Math.min(...trackedLive) : Number.POSITIVE_INFINITY;
   return rows
-    .filter((r) => !tracked.has(r.player.id) && (r.ranking <= top || liveTop.has(r.player.id)))
+    .filter((r) => !tracked.has(r.player.id) && (r.ranking <= top || liveTop.has(r.player.id) || r.live >= lowestTracked))
     .sort((a, b) => a.ranking - b.ranking);
 }

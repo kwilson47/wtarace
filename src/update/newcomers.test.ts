@@ -27,6 +27,18 @@ describe('newcomers', () => {
     expect(newcomers(raw, snap, 4).map((r) => r.player.id)).toEqual([105]);
   });
 
+  it('adds a player outside the top N who passes the lowest tracked player on live points', () => {
+    // Top 2 live are ana and bea; cat (140, tracked) is the lowest we track. Eve's 135 + 10 = 145 passes her.
+    const { raw, snap } = withPlayer105(135);
+    expect(newcomers(raw, snap, 2).map((r) => [r.player.id, r.live])).toEqual([[105, 145]]);
+  });
+
+  it('adds a player level with the lowest tracked player, but not one below her', () => {
+    expect(newcomers(withPlayer105(130).raw, withPlayer105(130).snap, 2).map((r) => r.player.id)).toEqual([105]); // 140, level with cat
+    const { raw, snap } = withPlayer105(129); // 139
+    expect(newcomers(raw, snap, 2)).toEqual([]);
+  });
+
   it("counts an event's played matches even before our data marks it under way, so both callers agree", () => {
     const { raw, snap } = withPlayer105(135);
     raw.tournaments.find((t) => t.id === 'live')!.status = 'upcoming';
