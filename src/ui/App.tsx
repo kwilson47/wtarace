@@ -6,11 +6,16 @@ import { eliminatedPlayers, raceBounds } from '../engine/elimination';
 import { projectStandings } from '../engine/standings';
 import { useScenario } from '../scenario/useScenario';
 import type { IgnoredPick } from '../scenario/reconcile';
+import scenarioNotesFile from '../../data/scenarios.json';
+import { parseScenarioNotes } from '../data/scenarioNotes';
 import { Header } from './Header';
 import { ScenarioEditor } from './ScenarioEditor';
+import { ScenarioNotes } from './ScenarioNotes';
 import { SiteNav } from './SiteNav';
 import { StandingsTable } from './StandingsTable';
 import { useClinched } from './useClinched';
+
+const scenarioNotes = parseScenarioNotes(scenarioNotesFile);
 
 function IgnoredNotice({ ignored, onDismiss }: { ignored: IgnoredPick[]; onDismiss: () => void }) {
   return (
@@ -58,6 +63,7 @@ export function App({ season, chances = null }: { season: Season; chances?: Read
       {ignored.length > 0 && <IgnoredNotice ignored={ignored} onDismiss={dismissIgnored} />}
       <main>
         <p className="history-link"><a href="/race-history/">Race over time →</a></p>
+        <ScenarioNotes notes={scenarioNotes} />
         <StandingsTable rows={rows} eliminated={eliminated} clinched={clinched} maxPoints={maxPoints} breakdownOf={breakdownOf} chances={chances ?? undefined} />
         <ScenarioEditor season={season} players={byCurrentRank} scenario={scenario} warnings={warnings} onPick={setPick} onLoad={load} focusPlayer={focusPlayer} />
       </main>

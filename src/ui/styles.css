@@ -191,3 +191,6 @@ select { font: inherit; max-width: 100%; }
 .player-picks .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin: 0 6px 0 4px; }
 @media (max-width: 520px) { .player-picks { columns: 1; } }
 .champion-box { border-color: var(--accent); background: var(--qualifier-bg); }
+.scenario-notes { border: 1px solid var(--accent); border-radius: 6px; padding: 8px 12px; margin: 0 0 16px; background: var(--qualifier-bg); }
+.scenario-notes h2 { font-size: 1rem; margin: 0 0 4px; }
+.scenario-notes ul { margin: 0 0 4px; padding-left: 20px; }

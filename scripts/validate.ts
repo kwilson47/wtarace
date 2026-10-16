@@ -3,6 +3,7 @@ import { validateSeason } from '../src/data/validateSeason';
 import { validateDrawFiles } from '../src/draws/validateDraws';
 import { validateMatchFiles } from '../src/season/validateMatches';
 import { validateHistory } from '../src/history/validateHistory';
+import { parseScenarioNotes } from '../src/data/scenarioNotes';
 import { readDrawFiles, readHistory, readMatchFiles } from '../src/update/writeData';
 
 const read = (file: string): unknown => JSON.parse(readFileSync(new URL(`../data/${file}`, import.meta.url), 'utf8'));
@@ -20,6 +21,11 @@ const tournaments = read('tournaments.json') as { id: string }[];
 errors.push(...validateDrawFiles(readDrawFiles(new URL('../data/', import.meta.url).pathname), tournaments.map((t) => t.id)));
 const history = readHistory(new URL('../data/', import.meta.url).pathname);
 if (history) errors.push(...validateHistory(history, players.map((p) => p.id)));
+try {
+  parseScenarioNotes(read('scenarios.json'));
+} catch (e) {
+  errors.push(`scenarios.json: ${e instanceof Error ? e.message : String(e)}`);
+}
 
 if (errors.length > 0) {
   console.error(`Data validation failed (${errors.length} problem${errors.length === 1 ? '' : 's'}):`);
