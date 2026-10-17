@@ -629,11 +629,14 @@
     "startDate": "2026-10-19",
     "endDate": "2026-10-25",
     "status": "upcoming",
-    "byes": [],
+    "byes": [
+      "elena-rybakina",
+      "marta-kostyuk",
+      "iga-swiatek",
+      "iva-jovic"
+    ],
     "entries": [
       "elena-rybakina",
-      "jessica-pegula",
-      "elina-svitolina",
       "marta-kostyuk",
       "iga-swiatek",
       "iva-jovic",
@@ -646,9 +649,9 @@
       "marie-bouzkova",
       "leylah-fernandez",
       "sara-bejlek",
+      "jelena-ostapenko",
       "diane-parry",
       "jasmine-paolini",
-      "xinyu-wang",
       "ekaterina-alexandrova",
       "cristina-bucsa"
     ]
