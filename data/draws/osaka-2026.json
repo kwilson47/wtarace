@@ -1,0 +1,222 @@
+{
+  "drawSize": 32,
+  "players": [
+    {
+      "wtaId": 326096,
+      "name": "Ann Li",
+      "country": "US",
+      "seed": 1,
+      "entry": null
+    },
+    {
+      "wtaId": 326907,
+      "name": "Zeynep Sonmez",
+      "country": "TR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 330808,
+      "name": "Tereza Valentova",
+      "country": "CZ",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 311779,
+      "name": "Shuai Zhang",
+      "country": "CN",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 332150,
+      "name": "Lilli Tagger",
+      "country": "AT",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 322222,
+      "name": "Liudmila Samsonova",
+      "country": "RU",
+      "seed": 5,
+      "entry": null
+    },
+    {
+      "wtaId": 329393,
+      "name": "Talia Gibson",
+      "country": "AU",
+      "seed": 4,
+      "entry": null
+    },
+    {
+      "wtaId": 325725,
+      "name": "Caty McNally",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329651,
+      "name": "Lanlana Tararudee",
+      "country": "TH",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 331742,
+      "name": "Kaitlin Quevedo",
+      "country": "ES",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329409,
+      "name": "Ashlyn Krueger",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 328818,
+      "name": "Janice Tjen",
+      "country": "ID",
+      "seed": 6,
+      "entry": null
+    },
+    {
+      "wtaId": 319125,
+      "name": "Katie Boulter",
+      "country": "GB",
+      "seed": 8,
+      "entry": null
+    },
+    {
+      "wtaId": 326568,
+      "name": "Himeno Sakatsume",
+      "country": "JP",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 316296,
+      "name": "Viktorija Golubic",
+      "country": "CH",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 324750,
+      "name": "Mai Hontama",
+      "country": "JP",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 320124,
+      "name": "Paula Badosa",
+      "country": "ES",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329505,
+      "name": "Antonia Ruzic",
+      "country": "HR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 329918,
+      "name": "Sonay Kartal",
+      "country": "GB",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 320728,
+      "name": "Kimberly Birrell",
+      "country": "AU",
+      "seed": 3,
+      "entry": null
+    },
+    {
+      "wtaId": 327182,
+      "name": "Oleksandra Oliynykova",
+      "country": "UA",
+      "seed": 7,
+      "entry": null
+    },
+    {
+      "wtaId": 327241,
+      "name": "Moyuka Uchijima",
+      "country": "JP",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 322527,
+      "name": "Ena Shibahara",
+      "country": "JP",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 315130,
+      "name": "Magda Linette",
+      "country": "PL",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 320301,
+      "name": "Katerina Siniakova",
+      "country": "CZ",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 327573,
+      "name": "Peyton Stearns",
+      "country": "US",
+      "seed": 2,
+      "entry": null
+    }
+  ],
+  "matches": [],
+  "lines": [
+    326096,
+    null,
+    null,
+    326907,
+    330808,
+    311779,
+    332150,
+    322222,
+    329393,
+    null,
+    325725,
+    null,
+    329651,
+    331742,
+    329409,
+    328818,
+    319125,
+    326568,
+    316296,
+    324750,
+    320124,
+    329505,
+    329918,
+    320728,
+    327182,
+    null,
+    327241,
+    322527,
+    null,
+    315130,
+    320301,
+    327573
+  ]
+}
