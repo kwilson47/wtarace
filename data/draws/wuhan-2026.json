@@ -815,17 +815,9 @@
       "round": 5,
       "a": 329918,
       "b": 319939,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 5,
-      "a": 326408,
-      "b": 325639,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 329918,
+      "score": "7-6(9) 7-6(5)",
+      "outcome": "played"
     }
   ],
   "lines": [
