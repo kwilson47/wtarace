@@ -9,6 +9,20 @@
       "entry": null
     },
     {
+      "wtaId": 333111,
+      "name": "Emerson Jones",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 330544,
+      "name": "Maya Joint",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 326907,
       "name": "Zeynep Sonmez",
       "country": "TR",
@@ -51,11 +65,25 @@
       "entry": null
     },
     {
+      "wtaId": 319489,
+      "name": "Harriet Dart",
+      "country": "GB",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 325725,
       "name": "Caty McNally",
       "country": "US",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 327061,
+      "name": "Sinja Kraus",
+      "country": "AT",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 329651,
@@ -149,6 +177,13 @@
       "entry": null
     },
     {
+      "wtaId": 330265,
+      "name": "Mary Stoiana",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 327241,
       "name": "Moyuka Uchijima",
       "country": "JP",
@@ -161,6 +196,13 @@
       "country": "JP",
       "seed": null,
       "entry": "WC"
+    },
+    {
+      "wtaId": 323966,
+      "name": "Claire Liu",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 315130,
@@ -184,20 +226,77 @@
       "entry": null
     }
   ],
-  "matches": [],
+  "matches": [
+    {
+      "round": 1,
+      "a": 332150,
+      "b": 322222,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 316296,
+      "b": 324750,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 329651,
+      "b": 331742,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 329393,
+      "b": 319489,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 325725,
+      "b": 327061,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 319125,
+      "b": 326568,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 1,
+      "a": 329409,
+      "b": 328818,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    }
+  ],
   "lines": [
     326096,
-    null,
-    null,
+    333111,
+    330544,
     326907,
     330808,
     311779,
     332150,
     322222,
     329393,
-    null,
+    319489,
     325725,
-    null,
+    327061,
     329651,
     331742,
     329409,
@@ -211,10 +310,10 @@
     329918,
     320728,
     327182,
-    null,
+    330265,
     327241,
     322527,
-    null,
+    323966,
     315130,
     320301,
     327573
