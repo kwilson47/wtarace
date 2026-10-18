@@ -16,6 +16,20 @@
       "entry": "WC"
     },
     {
+      "wtaId": 328897,
+      "name": "Polina Kudermetova",
+      "country": "UZ",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 315806,
+      "name": "Katarzyna Kawa",
+      "country": "PL",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 325639,
       "name": "Maja Chwalinska",
       "country": "PL",
@@ -51,6 +65,13 @@
       "entry": null
     },
     {
+      "wtaId": 320567,
+      "name": "Anhelina Kalinina",
+      "country": "UA",
+      "seed": null,
+      "entry": "LL"
+    },
+    {
       "wtaId": 330332,
       "name": "Alexandra Eala",
       "country": "PH",
@@ -63,6 +84,13 @@
       "country": "FR",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 317683,
+      "name": "Yulia Putintseva",
+      "country": "KZ",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 330482,
@@ -93,6 +121,13 @@
       "entry": "WC"
     },
     {
+      "wtaId": 317790,
+      "name": "Aliaksandra Sasnovich",
+      "country": "BY",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 323087,
       "name": "Hanyu Guo",
       "country": "CN",
@@ -121,6 +156,13 @@
       "entry": null
     },
     {
+      "wtaId": 329824,
+      "name": "Han Shi",
+      "country": "CN",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 330375,
       "name": "Sara Bejlek",
       "country": "CZ",
@@ -133,6 +175,13 @@
       "country": "CN",
       "seed": null,
       "entry": "WC"
+    },
+    {
+      "wtaId": 325936,
+      "name": "Kamilla Rakhimova",
+      "country": "UZ",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 320983,
@@ -195,32 +244,32 @@
     324166,
     "bye",
     321158,
-    null,
-    null,
+    328897,
+    315806,
     325639,
     319939,
     319001,
     332285,
     "bye",
     319280,
-    null,
+    320567,
     330332,
     327077,
-    null,
+    317683,
     330482,
     317964,
     326735,
     322082,
-    null,
+    317790,
     323087,
     319007,
     "bye",
     326482,
     312469,
-    null,
+    329824,
     330375,
     326160,
-    null,
+    325936,
     320983,
     "bye",
     326408
