@@ -170,11 +170,11 @@
       "entry": null
     },
     {
-      "wtaId": 326160,
-      "name": "Xiyu Wang",
-      "country": "CN",
+      "wtaId": 326007,
+      "name": "Alycia Parks",
+      "country": "US",
       "seed": null,
-      "entry": "WC"
+      "entry": "LL"
     },
     {
       "wtaId": 325936,
@@ -219,6 +219,14 @@
       "round": 1,
       "a": 322082,
       "b": 317790,
+      "winner": 317790,
+      "score": "6-4 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 325936,
+      "b": 320983,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -227,14 +235,6 @@
       "round": 1,
       "a": 330332,
       "b": 327077,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 1,
-      "a": 325936,
-      "b": 320983,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -268,7 +268,7 @@
     312469,
     329824,
     330375,
-    326160,
+    326007,
     325936,
     320983,
     "bye",
