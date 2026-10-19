@@ -70,9 +70,11 @@ function Cell({ player, tournament, rules, scenario, messages, onPick }: Omit<Pa
   );
 }
 
-function ByTournament({ tournaments, players, ...rest }: PanelProps) {
+function ByTournament({ tournaments, players: everyone, ...rest }: PanelProps) {
   const [id, setId] = useState(tournaments[0].id);
   const tournament = tournaments.find((t) => t.id === id) ?? tournaments[0];
+  // Once an event is under way, only players in its draw can be picked or shown as out; leave the rest off.
+  const players = tournament.status === 'in-progress' ? everyone.filter((p) => p.live.some((l) => l.tournamentId === tournament.id)) : everyone;
   // With a published entry list, entered players come first (each part keeps current-rank order).
   const entries = tournament.entries;
   const groups: { heading: string | null; players: Player[] }[] = entries

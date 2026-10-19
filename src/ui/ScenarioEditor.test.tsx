@@ -66,11 +66,13 @@ describe('ScenarioEditor', () => {
     ]);
   });
 
-  it('by tournament: one dropdown or locked cell per player, and picks reach onPick', async () => {
+  it('by tournament: one dropdown or locked cell per player in a live draw, and picks reach onPick', async () => {
     const { onPick } = setup();
     expect(screen.getByRole('combobox', { name: 'Ana Alpha at Live Masters' })).toBeInTheDocument();
-    expect(screen.getByText('Out in Round of 16')).toBeInTheDocument();
-    expect(screen.getByText('Not in draw')).toBeInTheDocument();
+    expect(screen.getByText('Out in Round of 16')).toBeInTheDocument(); // bea: in the draw, out
+    // cat isn't in the live draw, so she isn't listed at all.
+    expect(screen.queryByText('Not in draw')).not.toBeInTheDocument();
+    expect(screen.queryByText('Cat Gamma')).not.toBeInTheDocument();
     await userEvent.selectOptions(screen.getByRole('combobox', { name: 'Ana Alpha at Live Masters' }), 'W');
     expect(onPick).toHaveBeenCalledWith('ana', 'live', 'W');
   });
