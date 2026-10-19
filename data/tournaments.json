@@ -565,7 +565,7 @@
     "drawType": "wta1000-56",
     "startDate": "2026-10-12",
     "endDate": "2026-10-18",
-    "status": "in-progress",
+    "status": "completed",
     "byes": [
       "aryna-sabalenka",
       "jessica-pegula",
@@ -628,33 +628,14 @@
     "drawType": "wta500-28",
     "startDate": "2026-10-19",
     "endDate": "2026-10-25",
-    "status": "upcoming",
+    "status": "in-progress",
     "byes": [
       "elena-rybakina",
       "marta-kostyuk",
       "iga-swiatek",
       "iva-jovic"
     ],
-    "entries": [
-      "elena-rybakina",
-      "marta-kostyuk",
-      "iga-swiatek",
-      "iva-jovic",
-      "sorana-cirstea",
-      "diana-shnaider",
-      "alexandra-eala",
-      "elise-mertens",
-      "belinda-bencic",
-      "maja-chwalinska",
-      "marie-bouzkova",
-      "leylah-fernandez",
-      "sara-bejlek",
-      "jelena-ostapenko",
-      "diane-parry",
-      "jasmine-paolini",
-      "ekaterina-alexandrova",
-      "cristina-bucsa"
-    ]
+    "drawSize": 28
   },
   {
     "id": "osaka-2026",
@@ -664,14 +645,9 @@
     "drawType": "wta250-32",
     "startDate": "2026-10-19",
     "endDate": "2026-10-25",
-    "status": "upcoming",
+    "status": "in-progress",
     "byes": [],
-    "entries": [
-      "peyton-stearns",
-      "ann-li",
-      "kimberly-birrell",
-      "liudmila-samsonova"
-    ]
+    "drawSize": 32
   },
   {
     "id": "guangzhou-2026",

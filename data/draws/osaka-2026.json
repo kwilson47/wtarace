@@ -156,11 +156,11 @@
       "entry": null
     },
     {
-      "wtaId": 329918,
-      "name": "Sonay Kartal",
-      "country": "GB",
+      "wtaId": 322534,
+      "name": "Kayla Day",
+      "country": "US",
       "seed": null,
-      "entry": null
+      "entry": "LL"
     },
     {
       "wtaId": 320728,
@@ -231,22 +231,30 @@
       "round": 1,
       "a": 332150,
       "b": 322222,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 332150,
+      "score": "6-3 6-3",
+      "outcome": "played"
     },
     {
       "round": 1,
       "a": 316296,
       "b": 324750,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 316296,
+      "score": "6-3 6-1",
+      "outcome": "played"
     },
     {
       "round": 1,
       "a": 329651,
       "b": 331742,
+      "winner": 329651,
+      "score": "7-5 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 325725,
+      "b": 327061,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -255,14 +263,6 @@
       "round": 1,
       "a": 329393,
       "b": 319489,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 1,
-      "a": 325725,
-      "b": 327061,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -307,7 +307,7 @@
     324750,
     320124,
     329505,
-    329918,
+    322534,
     320728,
     327182,
     330265,

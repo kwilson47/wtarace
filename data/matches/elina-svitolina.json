@@ -1630,12 +1630,12 @@
       "country": "RU",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 43
     },
     "won": true,
     "score": "6-2 5-7 6-2",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1655,13 +1655,13 @@
       "name": "Hanyu Guo",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 240
     },
     "won": true,
     "score": "6-1 6-4",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1682,11 +1682,11 @@
       "country": "GB",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 170
     },
     "won": false,
     "score": "6-2 2-6 6-4",
     "outcome": "played",
-    "points": null
+    "points": 215
   }
 ]

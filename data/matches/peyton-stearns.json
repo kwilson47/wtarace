@@ -1233,18 +1233,18 @@
     "endDate": "2026-10-18",
     "qualifying": true,
     "round": 1,
-    "roundName": "",
+    "roundName": "R32",
     "opponent": {
       "id": 329824,
       "name": "Han Shi",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 217
     },
     "won": false,
     "score": "2-6 7-5 6-4",
     "outcome": "played",
-    "points": null
+    "points": 2
   }
 ]

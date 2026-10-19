@@ -850,12 +850,12 @@
       "country": "CZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 30
     },
     "won": true,
     "score": "6-3 6-4",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1075,
@@ -876,12 +876,12 @@
       "country": "CZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 29
     },
     "won": true,
     "score": "7-6(5) 6-3",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1075,
@@ -902,11 +902,11 @@
       "country": "GB",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 170
     },
     "won": false,
     "score": "6-2 6-0",
     "outcome": "played",
-    "points": null
+    "points": 120
   }
 ]

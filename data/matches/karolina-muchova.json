@@ -1340,16 +1340,16 @@
     "roundName": "R32",
     "opponent": {
       "id": 325725,
-      "name": "Caty McNally",
+      "name": "Caty Mcnally",
       "country": "US",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 70
     },
     "won": true,
     "score": "3-6 7-6(1) 7-6(4)",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1075,
@@ -1370,11 +1370,11 @@
       "country": "RU",
       "seed": 11,
       "entry": null,
-      "rank": null
+      "rank": 13
     },
     "won": false,
     "score": "7-5 6-3",
     "outcome": "played",
-    "points": null
+    "points": 120
   }
 ]

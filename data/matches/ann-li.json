@@ -1343,13 +1343,13 @@
       "name": "Camila Osorio",
       "country": "CO",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 67
     },
     "won": true,
     "score": "6-1 3-0",
     "outcome": "retired",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1370,12 +1370,12 @@
       "country": "BY",
       "seed": 1,
       "entry": null,
-      "rank": null
+      "rank": 2
     },
     "won": true,
     "score": "3-6 6-4 7-6(5)",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1396,12 +1396,12 @@
       "country": "ID",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 47
     },
     "won": true,
     "score": "6-1 7-6(1)",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1422,11 +1422,11 @@
       "country": "PL",
       "seed": 7,
       "entry": null,
-      "rank": null
+      "rank": 9
     },
     "won": false,
     "score": "6-4 6-1",
     "outcome": "played",
-    "points": null
+    "points": 215
   }
 ]

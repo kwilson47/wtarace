@@ -1422,11 +1422,11 @@
       "country": "UA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 42
     },
     "won": false,
     "score": "6-4 7-5",
     "outcome": "played",
-    "points": null
+    "points": 10
   }
 ]

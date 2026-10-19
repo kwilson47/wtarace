@@ -1421,13 +1421,13 @@
       "name": "Magdalena Frech",
       "country": "PL",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 56
     },
     "won": true,
     "score": "6-2 6-1",
     "outcome": "played",
-    "points": null
+    "points": 390
   },
   {
     "tournamentId": 1075,
@@ -1447,13 +1447,13 @@
       "name": "Ashlyn Krueger",
       "country": "US",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 68
     },
     "won": true,
     "score": "6-1 6-4",
     "outcome": "played",
-    "points": null
+    "points": 390
   },
   {
     "tournamentId": 1075,
@@ -1474,12 +1474,12 @@
       "country": "US",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 31
     },
     "won": true,
     "score": "6-4 6-1",
     "outcome": "played",
-    "points": null
+    "points": 390
   },
   {
     "tournamentId": 1075,
@@ -1500,11 +1500,11 @@
       "country": "PL",
       "seed": 16,
       "entry": null,
-      "rank": null
+      "rank": 22
     },
     "won": false,
     "score": "7-5 6-1",
     "outcome": "played",
-    "points": null
+    "points": 390
   }
 ]

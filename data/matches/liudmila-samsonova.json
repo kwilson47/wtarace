@@ -1162,12 +1162,12 @@
       "country": "CZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 87
     },
     "won": true,
     "score": "6-1 5-7 6-2",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1075,
@@ -1188,10 +1188,36 @@
       "country": "UA",
       "seed": 5,
       "entry": null,
-      "rank": null
+      "rank": 6
     },
     "won": false,
     "score": "6-2 5-7 6-2",
+    "outcome": "played",
+    "points": 65
+  },
+  {
+    "tournamentId": 405,
+    "year": 2026,
+    "tournament": "Osaka",
+    "level": "WTA 250",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 332150,
+      "name": "Lilli Tagger",
+      "country": "AT",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-3 6-3",
     "outcome": "played",
     "points": null
   }

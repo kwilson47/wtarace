@@ -1473,12 +1473,12 @@
       "name": "Lanlana Tararudee",
       "country": "TH",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 60
     },
     "won": false,
     "score": "6-4 6-1",
     "outcome": "played",
-    "points": null
+    "points": 10
   }
 ]

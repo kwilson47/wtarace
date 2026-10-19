@@ -1629,13 +1629,13 @@
       "name": "Dayana Yastremska",
       "country": "UA",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 103
     },
     "won": true,
     "score": "6-4 6-1",
     "outcome": "played",
-    "points": null
+    "points": 120
   },
   {
     "tournamentId": 1075,
@@ -1656,11 +1656,11 @@
       "country": "PL",
       "seed": 16,
       "entry": null,
-      "rank": null
+      "rank": 22
     },
     "won": false,
     "score": "6-4 6-1",
     "outcome": "played",
-    "points": null
+    "points": 120
   }
 ]

@@ -1578,12 +1578,12 @@
       "country": "AT",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 55
     },
     "won": true,
     "score": "7-6(4) 2-6 6-1",
     "outcome": "played",
-    "points": null
+    "points": 65
   },
   {
     "tournamentId": 1075,
@@ -1604,11 +1604,11 @@
       "country": "IT",
       "seed": 15,
       "entry": null,
-      "rank": null
+      "rank": 33
     },
     "won": false,
     "score": "7-6(5) 6-3",
     "outcome": "played",
-    "points": null
+    "points": 65
   }
 ]

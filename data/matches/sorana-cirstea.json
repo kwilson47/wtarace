@@ -1499,12 +1499,12 @@
       "name": "Hanyu Guo",
       "country": "CN",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 240
     },
     "won": false,
     "score": "1-6 7-6(6) 7-5",
     "outcome": "played",
-    "points": null
+    "points": 10
   }
 ]

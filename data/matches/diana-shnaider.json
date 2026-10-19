@@ -1292,12 +1292,12 @@
       "country": "GB",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 54
     },
     "won": true,
     "score": "6-3 6-1",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1318,12 +1318,12 @@
       "country": "KZ",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 79
     },
     "won": true,
     "score": "6-2 6-2",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1344,12 +1344,12 @@
       "country": "CZ",
       "seed": 6,
       "entry": null,
-      "rank": null
+      "rank": 7
     },
     "won": true,
     "score": "7-5 6-3",
     "outcome": "played",
-    "points": null
+    "points": 215
   },
   {
     "tournamentId": 1075,
@@ -1370,11 +1370,11 @@
       "country": "LV",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 34
     },
     "won": false,
     "score": "7-6(6) 6-1",
     "outcome": "played",
-    "points": null
+    "points": 215
   }
 ]

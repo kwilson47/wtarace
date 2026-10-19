@@ -1136,11 +1136,11 @@
       "country": "CA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 25
     },
     "won": false,
     "score": "6-4 3-6 6-3",
     "outcome": "played",
-    "points": null
+    "points": 10
   }
 ]

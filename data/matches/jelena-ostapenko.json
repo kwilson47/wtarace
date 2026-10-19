@@ -1136,12 +1136,12 @@
       "country": "AU",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 82
     },
     "won": true,
     "score": "6-1 6-1",
     "outcome": "played",
-    "points": null
+    "points": 390
   },
   {
     "tournamentId": 1075,
@@ -1162,12 +1162,12 @@
       "country": "US",
       "seed": 2,
       "entry": null,
-      "rank": null
+      "rank": 4
     },
     "won": true,
     "score": "2-6 7-6(7) 6-3",
     "outcome": "played",
-    "points": null
+    "points": 390
   },
   {
     "tournamentId": 1075,
@@ -1188,12 +1188,12 @@
       "country": "CA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 25
     },
     "won": true,
     "score": "6-1 1-6 6-4",
     "outcome": "played",
-    "points": null
+    "points": 390
   },
   {
     "tournamentId": 1075,
@@ -1214,12 +1214,12 @@
       "country": "RU",
       "seed": 11,
       "entry": null,
-      "rank": null
+      "rank": 13
     },
     "won": true,
     "score": "7-6(6) 6-1",
     "outcome": "played",
-    "points": null
+    "points": 390
   },
   {
     "tournamentId": 1075,
@@ -1240,11 +1240,11 @@
       "country": "GB",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 170
     },
     "won": false,
     "score": "7-6(9) 7-6(5)",
     "outcome": "played",
-    "points": null
+    "points": 390
   }
 ]
