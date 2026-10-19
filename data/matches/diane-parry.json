@@ -1480,5 +1480,31 @@
     "score": "6-4 6-1",
     "outcome": "played",
     "points": 10
+  },
+  {
+    "tournamentId": 2092,
+    "year": 2026,
+    "tournament": "Ningbo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 330332,
+      "name": "Alexandra Eala",
+      "country": "PH",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-3 6-1",
+    "outcome": "played",
+    "points": null
   }
 ]
