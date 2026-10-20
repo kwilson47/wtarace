@@ -4079,7 +4079,7 @@
       },
       {
         "tournamentId": "ningbo-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -4087,7 +4087,7 @@
       {
         "tournamentId": "ningbo-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 20
       }
     ]
