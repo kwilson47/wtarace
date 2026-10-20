@@ -1043,21 +1043,9 @@
         "tournamentId": "wuhan-2026",
         "round": "SF",
         "points": 390
-      },
-      {
-        "tournamentId": "ningbo-2026",
-        "round": "R16",
-        "points": 0
       }
     ],
-    "live": [
-      {
-        "tournamentId": "ningbo-2026",
-        "state": "alive",
-        "round": "R16",
-        "drawPosition": 28
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -4364,21 +4352,9 @@
         "tournamentId": "wuhan-2026",
         "round": "R64",
         "points": 10
-      },
-      {
-        "tournamentId": "osaka-2026",
-        "round": "R32",
-        "points": 0
       }
     ],
-    "live": [
-      {
-        "tournamentId": "osaka-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 24
-      }
-    ]
+    "live": []
   },
   {
     "id": "nikola-bartunkova",
