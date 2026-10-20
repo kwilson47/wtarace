@@ -1246,5 +1246,31 @@
     "score": "2-6 7-5 6-4",
     "outcome": "played",
     "points": 2
+  },
+  {
+    "tournamentId": 405,
+    "year": 2026,
+    "tournament": "Osaka",
+    "level": "WTA 250",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 320301,
+      "name": "Katerina Siniakova",
+      "country": "CZ",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-4 0-6 4-0",
+    "outcome": "retired",
+    "points": null
   }
 ]

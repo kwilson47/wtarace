@@ -1168,5 +1168,31 @@
     "score": "6-0 7-5",
     "outcome": "played",
     "points": 10
+  },
+  {
+    "tournamentId": 2092,
+    "year": 2026,
+    "tournament": "Ningbo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 319939,
+      "name": "Jelena Ostapenko",
+      "country": "LV",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-3 1-1",
+    "outcome": "retired",
+    "points": null
   }
 ]

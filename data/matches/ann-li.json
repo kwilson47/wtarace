@@ -1428,5 +1428,31 @@
     "score": "6-4 6-1",
     "outcome": "played",
     "points": 215
+  },
+  {
+    "tournamentId": 405,
+    "year": 2026,
+    "tournament": "Osaka",
+    "level": "WTA 250",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 333111,
+      "name": "Emerson Jones",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q",
+      "rank": null
+    },
+    "won": true,
+    "score": "5-7 6-0 6-3",
+    "outcome": "played",
+    "points": null
   }
 ]

@@ -1090,5 +1090,31 @@
     "score": "6-4 5-7 6-3",
     "outcome": "played",
     "points": 10
+  },
+  {
+    "tournamentId": 2092,
+    "year": 2026,
+    "tournament": "Ningbo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 328897,
+      "name": "Polina Kudermetova",
+      "country": "UZ",
+      "seed": null,
+      "entry": "Q",
+      "rank": null
+    },
+    "won": false,
+    "score": "7-6(5) 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]

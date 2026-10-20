@@ -908,5 +908,31 @@
     "score": "6-2 6-0",
     "outcome": "played",
     "points": 120
+  },
+  {
+    "tournamentId": 2092,
+    "year": 2026,
+    "tournament": "Ningbo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 320567,
+      "name": "Anhelina Kalinina",
+      "country": "UA",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-2 7-5",
+    "outcome": "played",
+    "points": null
   }
 ]

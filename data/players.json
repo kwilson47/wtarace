@@ -1507,7 +1507,7 @@
       },
       {
         "tournamentId": "ningbo-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -1515,7 +1515,7 @@
       {
         "tournamentId": "ningbo-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 14
       }
     ],
@@ -2102,7 +2102,7 @@
       },
       {
         "tournamentId": "ningbo-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -2110,7 +2110,7 @@
       {
         "tournamentId": "ningbo-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 7
       }
     ],
@@ -3030,7 +3030,7 @@
       },
       {
         "tournamentId": "ningbo-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -3038,7 +3038,7 @@
       {
         "tournamentId": "ningbo-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 24
       }
     ]
@@ -3164,9 +3164,8 @@
     "live": [
       {
         "tournamentId": "ningbo-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 6
+        "state": "eliminated",
+        "round": "R32"
       }
     ]
   },
@@ -3525,7 +3524,7 @@
       },
       {
         "tournamentId": "ningbo-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -3533,7 +3532,7 @@
       {
         "tournamentId": "ningbo-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 9
       }
     ]
@@ -3664,9 +3663,8 @@
     "live": [
       {
         "tournamentId": "osaka-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 32
+        "state": "eliminated",
+        "round": "R32"
       }
     ]
   },
@@ -3809,7 +3807,7 @@
       },
       {
         "tournamentId": "osaka-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -3817,7 +3815,7 @@
       {
         "tournamentId": "osaka-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 1
       }
     ]
@@ -4220,9 +4218,8 @@
     "live": [
       {
         "tournamentId": "ningbo-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 2
+        "state": "eliminated",
+        "round": "R32"
       }
     ]
   },

@@ -191,11 +191,11 @@
       "entry": null
     },
     {
-      "wtaId": 326408,
-      "name": "Iga Swiatek",
-      "country": "PL",
-      "seed": 2,
-      "entry": null
+      "wtaId": 327367,
+      "name": "Anastasia Zakharova",
+      "country": "RU",
+      "seed": null,
+      "entry": "LL"
     }
   ],
   "matches": [
@@ -241,16 +241,48 @@
     },
     {
       "round": 1,
-      "a": 330375,
-      "b": 326007,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "a": 317683,
+      "b": 330482,
+      "winner": 330482,
+      "score": "7-5 7-6(4)",
+      "outcome": "played"
     },
     {
       "round": 1,
-      "a": 317683,
-      "b": 330482,
+      "a": 330375,
+      "b": 326007,
+      "winner": 330375,
+      "score": "4-6 6-3 6-3",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 321158,
+      "b": 328897,
+      "winner": 328897,
+      "score": "7-6(5) 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 319280,
+      "b": 320567,
+      "winner": 319280,
+      "score": "6-2 7-5",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
+      "a": 319939,
+      "b": 319001,
+      "winner": 319001,
+      "score": "6-3 1-1",
+      "outcome": "retired"
+    },
+    {
+      "round": 1,
+      "a": 315806,
+      "b": 327845,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -264,33 +296,33 @@
       "outcome": "scheduled"
     },
     {
-      "round": 1,
-      "a": 319939,
-      "b": 319001,
+      "round": 2,
+      "a": 320983,
+      "b": 327367,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
     },
     {
-      "round": 1,
-      "a": 315806,
-      "b": 327845,
+      "round": 2,
+      "a": null,
+      "b": 326482,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
     },
     {
-      "round": 1,
-      "a": 321158,
-      "b": 328897,
+      "round": 2,
+      "a": 312469,
+      "b": 330375,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
     },
     {
-      "round": 1,
-      "a": 319280,
-      "b": 320567,
+      "round": 2,
+      "a": 326735,
+      "b": 317790,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
@@ -328,6 +360,6 @@
     325936,
     320983,
     "bye",
-    326408
+    327367
   ]
 }

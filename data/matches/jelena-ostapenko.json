@@ -1246,5 +1246,31 @@
     "score": "7-6(9) 7-6(5)",
     "outcome": "played",
     "points": 390
+  },
+  {
+    "tournamentId": 2092,
+    "year": 2026,
+    "tournament": "Ningbo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 319001,
+      "name": "Belinda Bencic",
+      "country": "CH",
+      "seed": 5,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-3 1-1",
+    "outcome": "retired",
+    "points": null
   }
 ]
