@@ -1168,5 +1168,31 @@
     "score": "6-2 6-3",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 2092,
+    "year": 2026,
+    "tournament": "Ningbo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 2,
+    "roundName": "R16",
+    "opponent": {
+      "id": 326482,
+      "name": "Marta Kostyuk",
+      "country": "UA",
+      "seed": 3,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-4 0-0",
+    "outcome": "retired",
+    "points": null
   }
 ]
