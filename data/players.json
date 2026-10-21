@@ -1386,9 +1386,8 @@
     "live": [
       {
         "tournamentId": "ningbo-2026",
-        "state": "alive",
-        "round": "R16",
-        "drawPosition": 22
+        "state": "eliminated",
+        "round": "R16"
       }
     ],
     "qualified": false
@@ -3030,7 +3029,7 @@
       },
       {
         "tournamentId": "ningbo-2026",
-        "round": "R16",
+        "round": "QF",
         "points": 0
       }
     ],
@@ -3038,7 +3037,7 @@
       {
         "tournamentId": "ningbo-2026",
         "state": "alive",
-        "round": "R16",
+        "round": "QF",
         "drawPosition": 24
       }
     ]
