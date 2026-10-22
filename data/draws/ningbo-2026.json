@@ -355,9 +355,9 @@
       "round": 2,
       "a": 324166,
       "b": 328897,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 324166,
+      "score": "5-0",
+      "outcome": "retired"
     },
     {
       "round": 3,
