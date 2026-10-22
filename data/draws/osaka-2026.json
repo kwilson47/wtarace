@@ -405,16 +405,16 @@
     },
     {
       "round": 2,
-      "a": 315130,
-      "b": 320301,
+      "a": 330265,
+      "b": 327241,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
     },
     {
       "round": 2,
-      "a": 330265,
-      "b": 327241,
+      "a": 315130,
+      "b": 320301,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
