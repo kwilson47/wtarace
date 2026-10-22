@@ -1454,5 +1454,31 @@
     "score": "5-7 6-0 6-3",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 405,
+    "year": 2026,
+    "tournament": "Osaka",
+    "level": "WTA 250",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 2,
+    "roundName": "R16",
+    "opponent": {
+      "id": 326907,
+      "name": "Zeynep Sonmez",
+      "country": "TR",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-3 6-1",
+    "outcome": "played",
+    "points": null
   }
 ]
