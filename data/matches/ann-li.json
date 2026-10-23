@@ -1480,5 +1480,31 @@
     "score": "6-3 6-1",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 405,
+    "year": 2026,
+    "tournament": "Osaka",
+    "level": "WTA 250",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 3,
+    "roundName": "Q",
+    "opponent": {
+      "id": 332150,
+      "name": "Lilli Tagger",
+      "country": "AT",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-4 3-6 7-6(0)",
+    "outcome": "played",
+    "points": null
   }
 ]
