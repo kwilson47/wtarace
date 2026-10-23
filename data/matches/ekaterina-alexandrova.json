@@ -1194,5 +1194,31 @@
     "score": "6-4 0-0",
     "outcome": "retired",
     "points": null
+  },
+  {
+    "tournamentId": 2092,
+    "year": 2026,
+    "tournament": "Ningbo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 3,
+    "roundName": "Q",
+    "opponent": {
+      "id": 326735,
+      "name": "Leylah Fernandez",
+      "country": "CA",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "4-6 6-2 6-1",
+    "outcome": "played",
+    "points": null
   }
 ]

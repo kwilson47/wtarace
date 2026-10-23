@@ -2894,7 +2894,7 @@
       },
       {
         "tournamentId": "ningbo-2026",
-        "round": "QF",
+        "round": "SF",
         "points": 0
       }
     ],
@@ -2902,7 +2902,7 @@
       {
         "tournamentId": "ningbo-2026",
         "state": "alive",
-        "round": "QF",
+        "round": "SF",
         "drawPosition": 16
       }
     ]
@@ -4080,9 +4080,8 @@
     "live": [
       {
         "tournamentId": "ningbo-2026",
-        "state": "alive",
-        "round": "QF",
-        "drawPosition": 20
+        "state": "eliminated",
+        "round": "QF"
       }
     ]
   },
