@@ -149,13 +149,6 @@
       "entry": null
     },
     {
-      "wtaId": 326160,
-      "name": "Xiyu Wang",
-      "country": "CN",
-      "seed": null,
-      "entry": null
-    },
-    {
       "wtaId": 325956,
       "name": "Panna Udvardy",
       "country": "HU",
@@ -211,7 +204,7 @@
     320301,
     329651,
     320124,
-    326160,
+    null,
     325956,
     327061,
     null,
