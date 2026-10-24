@@ -1,0 +1,194 @@
+{
+  "drawSize": 28,
+  "players": [
+    {
+      "wtaId": 324166,
+      "name": "Elena Rybakina",
+      "country": "KZ",
+      "seed": 1,
+      "entry": null
+    },
+    {
+      "wtaId": 318312,
+      "name": "Maria Sakkari",
+      "country": "GR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 326735,
+      "name": "Leylah Fernandez",
+      "country": "CA",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 326568,
+      "name": "Himeno Sakatsume",
+      "country": "JP",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 327241,
+      "name": "Moyuka Uchijima",
+      "country": "JP",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 317964,
+      "name": "Elise Mertens",
+      "country": "BE",
+      "seed": 5,
+      "entry": null
+    },
+    {
+      "wtaId": 319001,
+      "name": "Belinda Bencic",
+      "country": "CH",
+      "seed": 4,
+      "entry": null
+    },
+    {
+      "wtaId": 326096,
+      "name": "Ann Li",
+      "country": "US",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 319007,
+      "name": "Ekaterina Alexandrova",
+      "country": "RU",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 327077,
+      "name": "Diane Parry",
+      "country": "FR",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 321158,
+      "name": "Cristina Bucsa",
+      "country": "ES",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 312469,
+      "name": "Sorana Cirstea",
+      "country": "RO",
+      "seed": 6,
+      "entry": null
+    },
+    {
+      "wtaId": 330332,
+      "name": "Alexandra Eala",
+      "country": "PH",
+      "seed": 8,
+      "entry": null
+    },
+    {
+      "wtaId": 333132,
+      "name": "Mika Stojsavljevic",
+      "country": "GB",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 329393,
+      "name": "Talia Gibson",
+      "country": "AU",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 330364,
+      "name": "Nikola Bartunkova",
+      "country": "CZ",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 330482,
+      "name": "Diana Shnaider",
+      "country": "RU",
+      "seed": 3,
+      "entry": null
+    },
+    {
+      "wtaId": 319998,
+      "name": "Naomi Osaka",
+      "country": "JP",
+      "seed": 7,
+      "entry": null
+    },
+    {
+      "wtaId": 319280,
+      "name": "Jasmine Paolini",
+      "country": "IT",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 334183,
+      "name": "Mia Pohankova",
+      "country": "SK",
+      "seed": null,
+      "entry": "WC"
+    },
+    {
+      "wtaId": 326376,
+      "name": "Xinyu Wang",
+      "country": "CN",
+      "seed": null,
+      "entry": null
+    },
+    {
+      "wtaId": 325639,
+      "name": "Maja Chwalinska",
+      "country": "PL",
+      "seed": 2,
+      "entry": null
+    }
+  ],
+  "matches": [],
+  "lines": [
+    324166,
+    "bye",
+    null,
+    318312,
+    326735,
+    326568,
+    327241,
+    317964,
+    319001,
+    "bye",
+    326096,
+    319007,
+    327077,
+    321158,
+    null,
+    312469,
+    330332,
+    333132,
+    null,
+    329393,
+    null,
+    330364,
+    "bye",
+    330482,
+    319998,
+    319280,
+    null,
+    334183,
+    326376,
+    null,
+    "bye",
+    325639
+  ]
+}
