@@ -3807,9 +3807,8 @@
     "live": [
       {
         "tournamentId": "osaka-2026",
-        "state": "alive",
-        "round": "SF",
-        "drawPosition": 1
+        "state": "eliminated",
+        "round": "SF"
       }
     ]
   },

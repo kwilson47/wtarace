@@ -1506,5 +1506,31 @@
     "score": "6-4 3-6 7-6(0)",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 405,
+    "year": 2026,
+    "tournament": "Osaka",
+    "level": "WTA 250",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-19",
+    "endDate": "2026-10-25",
+    "qualifying": false,
+    "round": 4,
+    "roundName": "S",
+    "opponent": {
+      "id": 329409,
+      "name": "Ashlyn Krueger",
+      "country": "US",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-4 6-7(4) 6-3",
+    "outcome": "played",
+    "points": null
   }
 ]
