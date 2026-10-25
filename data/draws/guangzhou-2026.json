@@ -72,6 +72,13 @@
       "entry": "WC"
     },
     {
+      "wtaId": 327367,
+      "name": "Anastasia Zakharova",
+      "country": "RU",
+      "seed": null,
+      "entry": "LL"
+    },
+    {
       "wtaId": 315130,
       "name": "Magda Linette",
       "country": "PL",
@@ -86,6 +93,20 @@
       "entry": "WC"
     },
     {
+      "wtaId": 332575,
+      "name": "Alevtina Ibragimova",
+      "country": "RU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 324261,
+      "name": "Dayana Yastremska",
+      "country": "UA",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 327391,
       "name": "Katie Volynets",
       "country": "US",
@@ -98,6 +119,13 @@
       "country": "UZ",
       "seed": 7,
       "entry": null
+    },
+    {
+      "wtaId": 334791,
+      "name": "Teodora Kostovic",
+      "country": "RS",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 335958,
@@ -149,6 +177,13 @@
       "entry": null
     },
     {
+      "wtaId": 329383,
+      "name": "Carol Young Suh Lee",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 325956,
       "name": "Panna Udvardy",
       "country": "HU",
@@ -161,6 +196,20 @@
       "country": "AT",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 319489,
+      "name": "Harriet Dart",
+      "country": "GB",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
+      "wtaId": 330723,
+      "name": "Tatiana Prozorova",
+      "country": "RU",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 328897,
@@ -189,14 +238,14 @@
     326907,
     332150,
     230220,
-    null,
+    327367,
     315130,
     329824,
-    null,
-    null,
+    332575,
+    324261,
     327391,
     328896,
-    null,
+    334791,
     335958,
     326929,
     329505,
@@ -204,11 +253,11 @@
     320301,
     329651,
     320124,
-    null,
+    329383,
     325956,
     327061,
-    null,
-    null,
+    319489,
+    330723,
     328897,
     328818
   ]
