@@ -130,6 +130,11 @@
         "points": 0
       },
       {
+        "tournamentId": "zp-wta500-3",
+        "round": "ZP",
+        "points": 0
+      },
+      {
         "tournamentId": "brisbane-2026",
         "round": "W",
         "points": 500
@@ -220,6 +225,11 @@
     "country": "US",
     "officialRaceTotal": 5835,
     "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
       {
         "tournamentId": "brisbane-2026",
         "round": "SF",
@@ -438,6 +448,11 @@
         "points": 0
       },
       {
+        "tournamentId": "zp-wta500-2",
+        "round": "ZP",
+        "points": 0
+      },
+      {
         "tournamentId": "united-cup-2026",
         "round": "UC3",
         "points": 150
@@ -640,6 +655,11 @@
     "officialRaceTotal": 4735,
     "results": [
       {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
         "tournamentId": "brisbane-2026",
         "round": "SF",
         "points": 195
@@ -740,6 +760,11 @@
     "country": "CZ",
     "officialRaceTotal": 4354,
     "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R16",
@@ -1677,6 +1702,11 @@
         "points": 0
       },
       {
+        "tournamentId": "zp-wta500-2",
+        "round": "ZP",
+        "points": 0
+      },
+      {
         "tournamentId": "united-cup-2026",
         "round": "UC1RR",
         "points": 32
@@ -2556,6 +2586,11 @@
     "country": "PL",
     "officialRaceTotal": 2755,
     "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
       {
         "tournamentId": "auckland-2026",
         "round": "Q2",
@@ -4682,6 +4717,11 @@
     "country": "CN",
     "officialRaceTotal": 2018,
     "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
       {
         "tournamentId": "doha-2026",
         "round": "R16",

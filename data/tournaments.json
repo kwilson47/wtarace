@@ -31,6 +31,16 @@
     "byes": []
   },
   {
+    "id": "zp-wta500-3",
+    "name": "Unnamed WTA 500 zero-pointer",
+    "category": "WTA500",
+    "drawType": "wta500-28",
+    "startDate": "2025-10-27",
+    "endDate": "2026-11-01",
+    "status": "completed",
+    "byes": []
+  },
+  {
     "id": "chennai-2025",
     "wtaId": 1148,
     "name": "Chennai",
