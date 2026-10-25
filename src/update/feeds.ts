@@ -62,15 +62,7 @@ export async function fetchSnapshot(raw: SeasonInput, get: GetJson = getJson): P
   }
   const partial: FeedSnapshot = { race, calendar, eventPlayers, eventMatches, eventDraws, playerMatches: {}, playerFeedErrors: [] };
   const raceStart = from!;
-  const playerFeed = async (id: number) => {
-    const all: PlayerMatch[] = [];
-    for (let page = 0; page < 5; page++) {
-      const batch = await fetchArray<PlayerMatch>(`${API}/players/${id}/matches?page=${page}&pageSize=100&sort=desc&type=S`, 'matches');
-      all.push(...batch);
-      if (batch.length < 100 || batch.at(-1)!.StartDate.slice(0, 10) < raceStart) break;
-    }
-    return all;
-  };
+  const playerFeed = (id: number) => fetchPlayerMatches(id, raceStart, get);
   // Feeds the season update depends on (new players, crediting) must load, or the run is a feed error.
   const needed = playerFeedsNeeded(raw, partial);
   for (const id of needed) partial.playerMatches[String(id)] = await playerFeed(id);
@@ -84,6 +76,36 @@ export async function fetchSnapshot(raw: SeasonInput, get: GetJson = getJson): P
     }
   }
   return partial;
+}
+
+/** Identifies one match in a player's feed, whichever copy of the feed it came from. */
+const matchKey = (m: PlayerMatch) =>
+  [m.tourn_nbr.trim(), m.tourn_year, m.qpm_flag, m.round_name.trim(), [m.player_1.trim(), m.player_2.trim()].sort().join('-')].join('|');
+
+/**
+ * A player's singles matches back to `raceStart`, newest first. The WTA's backend sometimes serves a stale copy of
+ * this feed for one page size and a current one for another (2026-10: pageSize=100 and 50 stale, 99 and 25 current),
+ * so the full history (pages of 100) is merged with the newest 25 from a separate request, and the newest copy of
+ * each match wins.
+ */
+export async function fetchPlayerMatches(id: number, raceStart: string, get: GetJson = getJson): Promise<PlayerMatch[]> {
+  const fetchArray = async (url: string) => arrayOf<PlayerMatch>(await get(url), 'matches', url);
+  const history: PlayerMatch[] = [];
+  for (let page = 0; page < 5; page++) {
+    const batch = await fetchArray(`${API}/players/${id}/matches?page=${page}&pageSize=100&sort=desc&type=S`);
+    history.push(...batch);
+    if (batch.length < 100 || batch.at(-1)!.StartDate.slice(0, 10) < raceStart) break;
+  }
+  const recent = await fetchArray(`${API}/players/${id}/matches?page=0&pageSize=25&sort=desc&type=S`);
+  // A copy with posted race points is newer than one without; otherwise prefer the recent request.
+  const posted = (m: PlayerMatch) => (m.player_1.trim() === String(id) ? m.points_champ_1 : m.points_champ_2) != null;
+  const byKey = new Map<string, PlayerMatch>();
+  for (const m of history) byKey.set(matchKey(m), m);
+  for (const m of recent) {
+    const old = byKey.get(matchKey(m));
+    if (!old || posted(m) || !posted(old)) byKey.set(matchKey(m), m);
+  }
+  return [...byKey.values()].sort((a, b) => b.StartDate.localeCompare(a.StartDate));
 }
 
 /** An event's draw sheets, or undefined if they don't load: draws then fall back to the players and matches feeds. */
