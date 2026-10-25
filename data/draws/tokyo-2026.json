@@ -9,6 +9,13 @@
       "entry": null
     },
     {
+      "wtaId": 317683,
+      "name": "Yulia Putintseva",
+      "country": "KZ",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 318312,
       "name": "Maria Sakkari",
       "country": "GR",
@@ -79,6 +86,13 @@
       "entry": null
     },
     {
+      "wtaId": 330544,
+      "name": "Maya Joint",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 312469,
       "name": "Sorana Cirstea",
       "country": "RO",
@@ -100,11 +114,25 @@
       "entry": "WC"
     },
     {
+      "wtaId": 322082,
+      "name": "Daria Kasatkina",
+      "country": "AU",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 329393,
       "name": "Talia Gibson",
       "country": "AU",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 317790,
+      "name": "Aliaksandra Sasnovich",
+      "country": "BY",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 330364,
@@ -135,6 +163,13 @@
       "entry": null
     },
     {
+      "wtaId": 330808,
+      "name": "Tereza Valentova",
+      "country": "CZ",
+      "seed": null,
+      "entry": "Q"
+    },
+    {
       "wtaId": 334183,
       "name": "Mia Pohankova",
       "country": "SK",
@@ -147,6 +182,13 @@
       "country": "CN",
       "seed": null,
       "entry": null
+    },
+    {
+      "wtaId": 326007,
+      "name": "Alycia Parks",
+      "country": "US",
+      "seed": null,
+      "entry": "Q"
     },
     {
       "wtaId": 325639,
@@ -201,7 +243,7 @@
   "lines": [
     324166,
     "bye",
-    null,
+    317683,
     318312,
     326735,
     326568,
@@ -213,22 +255,22 @@
     319007,
     327077,
     321158,
-    null,
+    330544,
     312469,
     330332,
     333132,
-    null,
+    322082,
     329393,
-    null,
+    317790,
     330364,
     "bye",
     330482,
     319998,
     319280,
-    null,
+    330808,
     334183,
     326376,
-    null,
+    326007,
     "bye",
     325639
   ]
