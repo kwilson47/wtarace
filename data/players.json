@@ -117,7 +117,7 @@
     "wtaId": 320760,
     "name": "Aryna Sabalenka",
     "country": "BY",
-    "officialRaceTotal": 6560,
+    "officialRaceTotal": 6550,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -223,7 +223,7 @@
     "wtaId": 316956,
     "name": "Jessica Pegula",
     "country": "US",
-    "officialRaceTotal": 5835,
+    "officialRaceTotal": 5825,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -440,7 +440,7 @@
     "wtaId": 328560,
     "name": "Coco Gauff",
     "country": "US",
-    "officialRaceTotal": 5774,
+    "officialRaceTotal": 5773,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -652,7 +652,7 @@
     "wtaId": 322191,
     "name": "Karolina Muchova",
     "country": "CZ",
-    "officialRaceTotal": 4735,
+    "officialRaceTotal": 4725,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -758,7 +758,7 @@
     "wtaId": 329668,
     "name": "Linda Noskova",
     "country": "CZ",
-    "officialRaceTotal": 4354,
+    "officialRaceTotal": 4353,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -1694,7 +1694,7 @@
     "wtaId": 319998,
     "name": "Naomi Osaka",
     "country": "JP",
-    "officialRaceTotal": 2297,
+    "officialRaceTotal": 2287,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
