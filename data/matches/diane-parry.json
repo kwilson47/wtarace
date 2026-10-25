@@ -1500,11 +1500,11 @@
       "country": "PH",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 20
     },
     "won": false,
     "score": "6-3 6-1",
     "outcome": "played",
-    "points": null
+    "points": 1
   }
 ]

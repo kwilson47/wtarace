@@ -638,7 +638,7 @@
     "drawType": "wta500-28",
     "startDate": "2026-10-19",
     "endDate": "2026-10-25",
-    "status": "in-progress",
+    "status": "completed",
     "byes": [
       "elena-rybakina",
       "marta-kostyuk",
@@ -654,7 +654,7 @@
     "drawType": "wta250-32",
     "startDate": "2026-10-19",
     "endDate": "2026-10-25",
-    "status": "in-progress",
+    "status": "completed",
     "byes": [],
     "drawSize": 32
   },

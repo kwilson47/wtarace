@@ -1526,12 +1526,12 @@
       "country": "CN",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 177
     },
     "won": true,
     "score": "6-3 6-2",
     "outcome": "played",
-    "points": null
+    "points": 60
   },
   {
     "tournamentId": 2092,
@@ -1552,11 +1552,11 @@
       "country": "CZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 32
     },
     "won": false,
     "score": "7-6(3) 6-4",
     "outcome": "played",
-    "points": null
+    "points": 60
   }
 ]

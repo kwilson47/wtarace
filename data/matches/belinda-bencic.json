@@ -1188,12 +1188,12 @@
       "country": "LV",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 24
     },
     "won": true,
     "score": "6-3 1-1",
     "outcome": "retired",
-    "points": null
+    "points": 60
   },
   {
     "tournamentId": 2092,
@@ -1214,11 +1214,11 @@
       "country": "PL",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 128
     },
     "won": false,
     "score": "7-5 6-2",
     "outcome": "played",
-    "points": null
+    "points": 60
   }
 ]

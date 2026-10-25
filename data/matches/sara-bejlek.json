@@ -1291,13 +1291,13 @@
       "name": "Alycia Parks",
       "country": "US",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 64
     },
     "won": true,
     "score": "4-6 6-3 6-3",
     "outcome": "played",
-    "points": null
+    "points": 108
   },
   {
     "tournamentId": 2092,
@@ -1318,12 +1318,12 @@
       "country": "RO",
       "seed": 8,
       "entry": null,
-      "rank": null
+      "rank": 17
     },
     "won": true,
     "score": "7-6(3) 6-4",
     "outcome": "played",
-    "points": null
+    "points": 108
   },
   {
     "tournamentId": 2092,
@@ -1344,11 +1344,11 @@
       "country": "CZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 26
     },
     "won": false,
     "score": "6-3 6-4",
     "outcome": "played",
-    "points": null
+    "points": 108
   }
 ]

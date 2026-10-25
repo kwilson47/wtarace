@@ -927,13 +927,13 @@
       "name": "Anhelina Kalinina",
       "country": "UA",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 51
     },
     "won": true,
     "score": "6-2 7-5",
     "outcome": "played",
-    "points": null
+    "points": 60
   },
   {
     "tournamentId": 2092,
@@ -954,11 +954,11 @@
       "country": "US",
       "seed": 4,
       "entry": null,
-      "rank": null
+      "rank": 12
     },
     "won": false,
     "score": "6-4 6-3",
     "outcome": "played",
-    "points": null
+    "points": 60
   }
 ]

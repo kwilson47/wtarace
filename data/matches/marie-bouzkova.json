@@ -1396,12 +1396,12 @@
       "country": "UZ",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 67
     },
     "won": true,
     "score": "6-4 6-4",
     "outcome": "played",
-    "points": null
+    "points": 195
   },
   {
     "tournamentId": 2092,
@@ -1421,13 +1421,13 @@
       "name": "Anastasia Zakharova",
       "country": "RU",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 111
     },
     "won": true,
     "score": "7-5 6-2",
     "outcome": "played",
-    "points": null
+    "points": 195
   },
   {
     "tournamentId": 2092,
@@ -1448,12 +1448,12 @@
       "country": "CZ",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 32
     },
     "won": true,
     "score": "6-3 6-4",
     "outcome": "played",
-    "points": null
+    "points": 195
   },
   {
     "tournamentId": 2092,
@@ -1474,11 +1474,11 @@
       "country": "CA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 30
     },
     "won": false,
     "score": "6-3 7-5",
     "outcome": "played",
-    "points": null
+    "points": 195
   }
 ]
