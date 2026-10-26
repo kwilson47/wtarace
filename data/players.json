@@ -5022,5 +5022,137 @@
       }
     ],
     "live": []
+  },
+  {
+    "id": "talia-gibson",
+    "wtaId": 329393,
+    "name": "Talia Gibson",
+    "country": "AU",
+    "officialRaceTotal": 1112,
+    "results": [
+      {
+        "tournamentId": "hong-kong-2025",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R64",
+        "points": 1
+      },
+      {
+        "tournamentId": "hobart-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "QF",
+        "points": 245
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R16",
+        "points": 150
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "R32",
+        "points": 25
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "Q1",
+        "points": 1
+      },
+      {
+        "tournamentId": "nottingham-2026",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "eastbourne-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "memphis-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "singapore-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "Q1",
+        "points": 2
+      },
+      {
+        "tournamentId": "osaka-2026",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R16",
+        "points": 0
+      }
+    ],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R16",
+        "drawPosition": 18
+      }
+    ]
   }
 ]
