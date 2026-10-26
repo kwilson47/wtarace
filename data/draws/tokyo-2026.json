@@ -51,13 +51,6 @@
       "entry": null
     },
     {
-      "wtaId": 319001,
-      "name": "Belinda Bencic",
-      "country": "CH",
-      "seed": 4,
-      "entry": null
-    },
-    {
       "wtaId": 326096,
       "name": "Ann Li",
       "country": "US",
@@ -191,11 +184,11 @@
       "entry": "Q"
     },
     {
-      "wtaId": 325639,
-      "name": "Maja Chwalinska",
-      "country": "PL",
-      "seed": 2,
-      "entry": null
+      "wtaId": 320728,
+      "name": "Kimberly Birrell",
+      "country": "AU",
+      "seed": null,
+      "entry": "LL"
     }
   ],
   "matches": [
@@ -219,17 +212,17 @@
       "round": 1,
       "a": 327241,
       "b": 317964,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 317964,
+      "score": "6-4 6-2",
+      "outcome": "played"
     },
     {
       "round": 1,
       "a": 330332,
       "b": 333132,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 330332,
+      "score": "6-1 6-2",
+      "outcome": "played"
     },
     {
       "round": 1,
@@ -305,7 +298,7 @@
     326568,
     327241,
     317964,
-    319001,
+    null,
     "bye",
     326096,
     319007,
@@ -328,6 +321,6 @@
     326376,
     326007,
     "bye",
-    325639
+    320728
   ]
 }
