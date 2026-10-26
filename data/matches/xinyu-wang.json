@@ -1298,5 +1298,31 @@
     "score": "6-2 6-0",
     "outcome": "played",
     "points": 10
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 326007,
+      "name": "Alycia Parks",
+      "country": "US",
+      "seed": null,
+      "entry": "Q",
+      "rank": null
+    },
+    "won": false,
+    "score": "6-1 7-6(7)",
+    "outcome": "played",
+    "points": null
   }
 ]
