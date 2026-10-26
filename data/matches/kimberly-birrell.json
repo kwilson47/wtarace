@@ -1662,5 +1662,57 @@
     "score": "6-7(1) 7-6(3) 6-3",
     "outcome": "played",
     "points": 10
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": true,
+    "round": 1,
+    "roundName": "",
+    "opponent": {
+      "id": 329009,
+      "name": "Aoi Ito",
+      "country": "JP",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-4 6-2",
+    "outcome": "played",
+    "points": null
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": true,
+    "round": 2,
+    "roundName": "",
+    "opponent": {
+      "id": 322082,
+      "name": "Daria Kasatkina",
+      "country": "AU",
+      "seed": 10,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-3 6-4",
+    "outcome": "played",
+    "points": null
   }
 ]

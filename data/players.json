@@ -100,9 +100,21 @@
         "tournamentId": "wuhan-2026",
         "round": "ZP",
         "points": 0
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R16",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R16",
+        "drawPosition": 1
+      }
+    ],
     "qualified": true
   },
   {
@@ -1385,9 +1397,21 @@
         "tournamentId": "ningbo-2026",
         "round": "R16",
         "points": 60
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 14
+      }
+    ],
     "qualified": false
   },
   {
@@ -1506,9 +1530,21 @@
         "tournamentId": "ningbo-2026",
         "round": "SF",
         "points": 195
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R16",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R16",
+        "drawPosition": 21
+      }
+    ],
     "qualified": false
   },
   {
@@ -1647,9 +1683,21 @@
         "tournamentId": "ningbo-2026",
         "round": "R16",
         "points": 60
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 15
+      }
+    ],
     "qualified": false
   },
   {
@@ -1753,9 +1801,21 @@
         "tournamentId": "wuhan-2026",
         "round": "ZP",
         "points": 0
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 22
+      }
+    ],
     "qualified": false
   },
   {
@@ -1874,9 +1934,21 @@
         "tournamentId": "ningbo-2026",
         "round": "R32",
         "points": 1
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 7
+      }
+    ],
     "qualified": false
   },
   {
@@ -2086,9 +2158,21 @@
         "tournamentId": "ningbo-2026",
         "round": "R16",
         "points": 60
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R16",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R16",
+        "drawPosition": 8
+      }
+    ],
     "qualified": false
   },
   {
@@ -2601,9 +2685,21 @@
         "tournamentId": "wuhan-2026",
         "round": "W",
         "points": 1000
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R16",
+        "points": 0
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R16",
+        "drawPosition": 28
+      }
+    ],
     "qualified": false
   },
   {
@@ -2873,9 +2969,21 @@
         "tournamentId": "ningbo-2026",
         "round": "F",
         "points": 325
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 4
+      }
+    ]
   },
   {
     "id": "sara-bejlek",
@@ -3238,9 +3346,21 @@
         "tournamentId": "wuhan-2026",
         "round": "QF",
         "points": 215
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 3
+      }
+    ]
   },
   {
     "id": "diane-parry",
@@ -3363,9 +3483,21 @@
         "tournamentId": "ningbo-2026",
         "round": "R32",
         "points": 1
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 11
+      }
+    ]
   },
   {
     "id": "jasmine-paolini",
@@ -3473,9 +3605,21 @@
         "tournamentId": "ningbo-2026",
         "round": "R16",
         "points": 60
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 23
+      }
+    ]
   },
   {
     "id": "peyton-stearns",
@@ -3743,9 +3887,21 @@
         "tournamentId": "osaka-2026",
         "round": "SF",
         "points": 98
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 9
+      }
+    ]
   },
   {
     "id": "xinyu-wang",
@@ -3868,9 +4024,21 @@
         "tournamentId": "wuhan-2026",
         "round": "R64",
         "points": 10
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 26
+      }
+    ]
   },
   {
     "id": "ekaterina-alexandrova",
@@ -4008,9 +4176,21 @@
         "tournamentId": "ningbo-2026",
         "round": "QF",
         "points": 108
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 10
+      }
+    ]
   },
   {
     "id": "cristina-bucsa",
@@ -4133,9 +4313,21 @@
         "tournamentId": "ningbo-2026",
         "round": "R32",
         "points": 1
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 12
+      }
+    ]
   },
   {
     "id": "kimberly-birrell",
@@ -4263,6 +4455,11 @@
         "tournamentId": "wuhan-2026",
         "round": "R64",
         "points": 10
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "Q2",
+        "points": 0
       }
     ],
     "live": []
@@ -4368,9 +4565,21 @@
         "tournamentId": "wuhan-2026",
         "round": "R32",
         "points": 65
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "R32",
+        "points": 0
       }
     ],
-    "live": []
+    "live": [
+      {
+        "tournamentId": "tokyo-2026",
+        "state": "alive",
+        "round": "R32",
+        "drawPosition": 20
+      }
+    ]
   },
   {
     "id": "hailey-baptiste",
@@ -4591,6 +4800,11 @@
         "tournamentId": "osaka-2026",
         "round": "R32",
         "points": 1
+      },
+      {
+        "tournamentId": "tokyo-2026",
+        "round": "Q1",
+        "points": 0
       }
     ],
     "live": []

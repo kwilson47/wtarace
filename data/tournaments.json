@@ -666,11 +666,9 @@
     "drawType": "wta250-32",
     "startDate": "2026-10-26",
     "endDate": "2026-11-01",
-    "status": "upcoming",
+    "status": "in-progress",
     "byes": [],
-    "entries": [
-      "sara-bejlek"
-    ]
+    "drawSize": 32
   },
   {
     "id": "tokyo-2026",
@@ -680,33 +678,13 @@
     "drawType": "wta500-28",
     "startDate": "2026-10-26",
     "endDate": "2026-11-01",
-    "status": "upcoming",
+    "status": "in-progress",
     "byes": [
       "elena-rybakina",
       "diana-shnaider",
       "belinda-bencic",
       "maja-chwalinska"
     ],
-    "entries": [
-      "elena-rybakina",
-      "sorana-cirstea",
-      "diana-shnaider",
-      "alexandra-eala",
-      "naomi-osaka",
-      "elise-mertens",
-      "belinda-bencic",
-      "maja-chwalinska",
-      "leylah-fernandez",
-      "maria-sakkari",
-      "diane-parry",
-      "jasmine-paolini",
-      "ann-li",
-      "xinyu-wang",
-      "ekaterina-alexandrova",
-      "cristina-bucsa",
-      "kimberly-birrell",
-      "nikola-bartunkova",
-      "liudmila-samsonova"
-    ]
+    "drawSize": 28
   }
 ]
