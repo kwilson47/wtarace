@@ -2158,21 +2158,9 @@
         "tournamentId": "ningbo-2026",
         "round": "R16",
         "points": 60
-      },
-      {
-        "tournamentId": "tokyo-2026",
-        "round": "R16",
-        "points": 0
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "alive",
-        "round": "R16",
-        "drawPosition": 8
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -2685,21 +2673,9 @@
         "tournamentId": "wuhan-2026",
         "round": "W",
         "points": 1000
-      },
-      {
-        "tournamentId": "tokyo-2026",
-        "round": "R16",
-        "points": 0
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "alive",
-        "round": "R16",
-        "drawPosition": 28
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
