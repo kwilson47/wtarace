@@ -1506,5 +1506,31 @@
     "score": "6-3 6-1",
     "outcome": "played",
     "points": 1
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 321158,
+      "name": "Cristina Bucsa",
+      "country": "ES",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "7-5 6-1",
+    "outcome": "played",
+    "points": null
   }
 ]

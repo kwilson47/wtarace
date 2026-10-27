@@ -3468,9 +3468,8 @@
     "live": [
       {
         "tournamentId": "tokyo-2026",
-        "state": "alive",
-        "round": "R32",
-        "drawPosition": 11
+        "state": "eliminated",
+        "round": "R32"
       }
     ]
   },
@@ -4289,7 +4288,7 @@
       },
       {
         "tournamentId": "tokyo-2026",
-        "round": "R32",
+        "round": "R16",
         "points": 0
       }
     ],
@@ -4297,7 +4296,7 @@
       {
         "tournamentId": "tokyo-2026",
         "state": "alive",
-        "round": "R32",
+        "round": "R16",
         "drawPosition": 12
       }
     ]
