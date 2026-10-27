@@ -317,6 +317,14 @@
     },
     {
       "round": 1,
+      "a": 328897,
+      "b": 328818,
+      "winner": 328818,
+      "score": "6-2 6-2",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
       "a": 329505,
       "b": 323966,
       "winner": null,
@@ -325,24 +333,8 @@
     },
     {
       "round": 1,
-      "a": 328897,
-      "b": 328818,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 1,
       "a": 335958,
       "b": 326929,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 1,
-      "a": 332150,
-      "b": 230220,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
