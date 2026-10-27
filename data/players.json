@@ -1409,7 +1409,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 13
+        "drawPosition": 14
       }
     ],
     "qualified": false
@@ -1542,7 +1542,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R16",
-        "drawPosition": 20
+        "drawPosition": 21
       }
     ],
     "qualified": false
@@ -1695,7 +1695,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R16",
-        "drawPosition": 14
+        "drawPosition": 15
       }
     ],
     "qualified": false
@@ -1813,7 +1813,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 21
+        "drawPosition": 22
       }
     ],
     "qualified": false
@@ -3471,7 +3471,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 10
+        "drawPosition": 11
       }
     ]
   },
@@ -3593,7 +3593,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 22
+        "drawPosition": 23
       }
     ]
   },
@@ -3875,7 +3875,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 8
+        "drawPosition": 9
       }
     ]
   },
@@ -4163,7 +4163,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 9
+        "drawPosition": 10
       }
     ]
   },
@@ -4300,7 +4300,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 11
+        "drawPosition": 12
       }
     ]
   },
@@ -4442,7 +4442,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R16",
-        "drawPosition": 27
+        "drawPosition": 28
       }
     ]
   },
@@ -4559,7 +4559,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R32",
-        "drawPosition": 19
+        "drawPosition": 20
       }
     ]
   },
@@ -5134,7 +5134,7 @@
         "tournamentId": "tokyo-2026",
         "state": "alive",
         "round": "R16",
-        "drawPosition": 17
+        "drawPosition": 18
       }
     ]
   }
