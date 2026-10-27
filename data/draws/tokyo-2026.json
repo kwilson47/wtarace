@@ -249,19 +249,19 @@
     },
     {
       "round": 1,
+      "a": 317683,
+      "b": 318312,
+      "winner": 317683,
+      "score": "6-4 3-6 6-1",
+      "outcome": "played"
+    },
+    {
+      "round": 1,
       "a": 327077,
       "b": 321158,
       "winner": 321158,
       "score": "7-5 6-1",
       "outcome": "played"
-    },
-    {
-      "round": 1,
-      "a": 317683,
-      "b": 318312,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
     },
     {
       "round": 1,
