@@ -1532,5 +1532,31 @@
     "score": "6-4 6-7(4) 6-3",
     "outcome": "played",
     "points": 98
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": false,
+    "round": 1,
+    "roundName": "R32",
+    "opponent": {
+      "id": 319007,
+      "name": "Ekaterina Alexandrova",
+      "country": "RU",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": false,
+    "score": "6-4 6-4",
+    "outcome": "played",
+    "points": null
   }
 ]
