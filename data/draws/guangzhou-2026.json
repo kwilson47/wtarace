@@ -351,9 +351,9 @@
       "round": 1,
       "a": 320301,
       "b": 329651,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 320301,
+      "score": "2-6 6-1 6-4",
+      "outcome": "played"
     },
     {
       "round": 2,
@@ -367,14 +367,6 @@
       "round": 2,
       "a": 319489,
       "b": 328818,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
-    },
-    {
-      "round": 2,
-      "a": 320124,
-      "b": 327061,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
