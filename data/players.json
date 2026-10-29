@@ -1810,9 +1810,8 @@
     "live": [
       {
         "tournamentId": "tokyo-2026",
-        "state": "alive",
-        "round": "R16",
-        "drawPosition": 22
+        "state": "eliminated",
+        "round": "R16"
       }
     ],
     "qualified": false
