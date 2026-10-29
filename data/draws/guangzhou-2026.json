@@ -381,16 +381,16 @@
     },
     {
       "round": 2,
-      "a": 320926,
-      "b": 326907,
-      "winner": null,
+      "a": 323966,
+      "b": 320301,
+      "winner": 323966,
       "score": "",
-      "outcome": "scheduled"
+      "outcome": "walkover"
     },
     {
       "round": 2,
-      "a": 323966,
-      "b": 320301,
+      "a": 320926,
+      "b": 326907,
       "winner": null,
       "score": "",
       "outcome": "scheduled"
