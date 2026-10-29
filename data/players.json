@@ -103,7 +103,7 @@
       },
       {
         "tournamentId": "tokyo-2026",
-        "round": "R16",
+        "round": "QF",
         "points": 0
       }
     ],
@@ -111,7 +111,7 @@
       {
         "tournamentId": "tokyo-2026",
         "state": "alive",
-        "round": "R16",
+        "round": "QF",
         "drawPosition": 1
       }
     ],

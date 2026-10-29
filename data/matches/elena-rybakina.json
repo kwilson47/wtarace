@@ -1740,5 +1740,31 @@
     "score": "6-2 6-2",
     "outcome": "played",
     "points": 500
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": false,
+    "round": 2,
+    "roundName": "R16",
+    "opponent": {
+      "id": 317683,
+      "name": "Yulia Putintseva",
+      "country": "KZ",
+      "seed": null,
+      "entry": "Q",
+      "rank": null
+    },
+    "won": true,
+    "score": "6-2 6-3",
+    "outcome": "played",
+    "points": null
   }
 ]
