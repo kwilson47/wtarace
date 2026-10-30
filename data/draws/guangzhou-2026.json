@@ -447,13 +447,13 @@
       "round": 3,
       "a": 332150,
       "b": 329824,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 332150,
+      "score": "6-4 3-6 7-5",
+      "outcome": "played"
     },
     {
       "round": 4,
-      "a": null,
+      "a": 335958,
       "b": 319489,
       "winner": null,
       "score": "",
