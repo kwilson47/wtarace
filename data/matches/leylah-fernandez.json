@@ -1558,5 +1558,31 @@
     "score": "6-2 7-6(8)",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": false,
+    "round": 3,
+    "roundName": "Q",
+    "opponent": {
+      "id": 324166,
+      "name": "Elena Rybakina",
+      "country": "KZ",
+      "seed": 1,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "W/O",
+    "outcome": "played",
+    "points": null
   }
 ]

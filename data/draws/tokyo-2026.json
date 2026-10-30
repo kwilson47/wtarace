@@ -371,17 +371,17 @@
       "round": 3,
       "a": 334183,
       "b": 326007,
-      "winner": null,
-      "score": "",
-      "outcome": "scheduled"
+      "winner": 334183,
+      "score": "7-6(3) 6-3",
+      "outcome": "played"
     },
     {
       "round": 3,
       "a": 324166,
       "b": 326735,
-      "winner": null,
+      "winner": 326735,
       "score": "",
-      "outcome": "scheduled"
+      "outcome": "walkover"
     },
     {
       "round": 3,
