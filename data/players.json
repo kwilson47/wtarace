@@ -1531,7 +1531,7 @@
       },
       {
         "tournamentId": "tokyo-2026",
-        "round": "QF",
+        "round": "SF",
         "points": 0
       }
     ],
@@ -1539,7 +1539,7 @@
       {
         "tournamentId": "tokyo-2026",
         "state": "alive",
-        "round": "QF",
+        "round": "SF",
         "drawPosition": 21
       }
     ],
@@ -1691,9 +1691,8 @@
     "live": [
       {
         "tournamentId": "tokyo-2026",
-        "state": "alive",
-        "round": "QF",
-        "drawPosition": 15
+        "state": "eliminated",
+        "round": "QF"
       }
     ],
     "qualified": false

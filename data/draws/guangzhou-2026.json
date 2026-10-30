@@ -450,6 +450,22 @@
       "winner": null,
       "score": "",
       "outcome": "scheduled"
+    },
+    {
+      "round": 4,
+      "a": null,
+      "b": 319489,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
+    },
+    {
+      "round": 4,
+      "a": 331742,
+      "b": null,
+      "winner": null,
+      "score": "",
+      "outcome": "scheduled"
     }
   ],
   "lines": [
