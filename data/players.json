@@ -2943,7 +2943,7 @@
       },
       {
         "tournamentId": "tokyo-2026",
-        "round": "SF",
+        "round": "F",
         "points": 0
       }
     ],
@@ -2951,7 +2951,7 @@
       {
         "tournamentId": "tokyo-2026",
         "state": "alive",
-        "round": "SF",
+        "round": "F",
         "drawPosition": 4
       }
     ]
