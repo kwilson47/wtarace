@@ -1532,5 +1532,31 @@
     "score": "2-6 7-6(5) 6-4",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": false,
+    "round": 4,
+    "roundName": "S",
+    "opponent": {
+      "id": 334183,
+      "name": "Mia Pohankova",
+      "country": "SK",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-4 7-6(7)",
+    "outcome": "played",
+    "points": null
   }
 ]
