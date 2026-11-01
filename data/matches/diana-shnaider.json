@@ -1558,5 +1558,31 @@
     "score": "6-4 7-6(7)",
     "outcome": "played",
     "points": null
+  },
+  {
+    "tournamentId": 1056,
+    "year": 2026,
+    "tournament": "Tokyo",
+    "level": "WTA 500",
+    "team": false,
+    "surface": "Hard",
+    "indoor": false,
+    "startDate": "2026-10-26",
+    "endDate": "2026-11-01",
+    "qualifying": false,
+    "round": 5,
+    "roundName": "F",
+    "opponent": {
+      "id": 326735,
+      "name": "Leylah Fernandez",
+      "country": "CA",
+      "seed": null,
+      "entry": null,
+      "rank": null
+    },
+    "won": true,
+    "score": "6-4 5-7 6-2",
+    "outcome": "played",
+    "points": null
   }
 ]
