@@ -20,3 +20,22 @@ export function renderIssue(problems: string[], at: string): string {
     'Fix the data by hand, with sources as described in `data/SOURCES.md`, and push. The next run carries on from there, and this issue closes itself once an update succeeds.',
   ].join('\n');
 }
+
+export interface UpdateReport {
+  status: string;
+  at: string;
+  problems: string[];
+}
+
+/**
+ * The report as the issue should see it, once the checks before committing have run. If they failed, nothing was
+ * published, so the run counts as blocked. The wording has no run link or time, so hourly repeats don't add comments.
+ */
+export function reportAfterChecks(report: UpdateReport, checkOutcome: string | undefined): UpdateReport {
+  if (checkOutcome !== 'failure') return report;
+  return {
+    ...report,
+    status: 'blocked',
+    problems: ['The new data loaded, but the checks before committing failed (type check, tests, build or browser tests), so nothing was published. The latest failed "Update data" run in GitHub Actions has the details.'],
+  };
+}

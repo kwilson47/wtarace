@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { noTournamentsRemain } from './helpers';
 
 test('a player page links to a tournament page, which links back to players', async ({ page }) => {
   await page.goto('/players/iga-swiatek/');
@@ -12,6 +13,7 @@ test('a player page links to a tournament page, which links back to players', as
 
 test('the scenario editor links to the selected tournament page', async ({ page }) => {
   await page.goto('/');
+  test.skip(await noTournamentsRemain(page), 'No tournaments remain to link to.');
   const href = await page.getByRole('link', { name: 'Tournament page →' }).getAttribute('href');
   await page.getByRole('link', { name: 'Tournament page →' }).click();
   await expect(page).toHaveURL(new RegExp(`${href!.replace(/\//g, '\\/')}$`));

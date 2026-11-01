@@ -31,13 +31,10 @@ jobs:
       - run: npm ci
       - name: Update from the WTA feeds
         run: npx tsx scripts/update.ts --out "$RUNNER_TEMP/update-result.json" --message "$RUNNER_TEMP/commit-message.txt"
-      - name: Report on the data-update issue
-        run: npx tsx scripts/issue.ts "$RUNNER_TEMP/update-result.json"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - id: status
         run: echo "status=$(node -p "require('$RUNNER_TEMP/update-result.json').status")" >> "$GITHUB_OUTPUT"
-      - name: Check before committing (the same checks as CI)
+      - id: check
+        name: Check before committing (the same checks as CI)
         if: steps.status.outputs.status == 'changed'
         run: |
           npm run typecheck
@@ -45,6 +42,13 @@ jobs:
           npm run build
           npx playwright install --with-deps chromium
           npm run test:e2e
+      # After the checks, so a failed check opens the issue rather than a "changed" report closing it.
+      - name: Report on the data-update issue
+        if: always() && steps.status.outcome == 'success'
+        run: npx tsx scripts/issue.ts "$RUNNER_TEMP/update-result.json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHECK_OUTCOME: ${{ steps.check.outcome }}
       - id: push
         if: steps.status.outputs.status == 'changed'
         name: Commit and push

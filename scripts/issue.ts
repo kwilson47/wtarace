@@ -1,9 +1,10 @@
 // Opens, updates or closes the single `data-update` issue from an update report (scripts/update.ts --out).
 // Usage: tsx scripts/issue.ts update-result.json   (needs GITHUB_TOKEN and GITHUB_REPOSITORY)
 import { readFileSync } from 'node:fs';
-import { ISSUE_LABEL, ISSUE_TITLE, keyOf, problemsKey, renderIssue } from '../src/update/issue';
+import { ISSUE_LABEL, ISSUE_TITLE, keyOf, problemsKey, renderIssue, reportAfterChecks, type UpdateReport } from '../src/update/issue';
 
-const report = JSON.parse(readFileSync(process.argv[2]!, 'utf8')) as { status: string; at: string; problems: string[] };
+// CHECK_OUTCOME is the workflow's result for the checks before committing, when they ran.
+const report = reportAfterChecks(JSON.parse(readFileSync(process.argv[2]!, 'utf8')) as UpdateReport, process.env.CHECK_OUTCOME);
 const repo = process.env.GITHUB_REPOSITORY;
 const token = process.env.GITHUB_TOKEN;
 

@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { noTournamentsRemain } from './helpers';
 
 test('the table links to a player profile with her season, which links back into the scenario builder', async ({ page }) => {
   await page.goto('/');
@@ -12,6 +13,8 @@ test('the table links to a player profile with her season, which links back into
   await expect(page.locator('section.tournament').first()).toBeVisible();
   const id = new URL(page.url()).pathname.split('/')[2]!;
   await page.getByRole('link', { name: `Explore scenarios for ${name}` }).click();
+  await expect(page).toHaveURL(new RegExp(`[?&]player=${id}`));
+  if (await noTournamentsRemain(page)) return; // the race is over: the builder has nothing to open on
   await expect(page.getByRole('combobox', { name: 'Player', exact: true })).toHaveValue(id);
 });
 
