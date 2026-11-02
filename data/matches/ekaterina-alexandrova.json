@@ -1240,12 +1240,12 @@
       "country": "US",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 31
     },
     "won": true,
     "score": "6-4 6-4",
     "outcome": "played",
-    "points": null
+    "points": 60
   },
   {
     "tournamentId": 1056,
@@ -1265,12 +1265,12 @@
       "name": "Kamilla Rakhimova",
       "country": "UZ",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 66
     },
     "won": false,
     "score": "6-4 4-6 7-6(5)",
     "outcome": "played",
-    "points": null
+    "points": 60
   }
 ]

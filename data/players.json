@@ -4,7 +4,7 @@
     "wtaId": 324166,
     "name": "Elena Rybakina",
     "country": "KZ",
-    "officialRaceTotal": 8001,
+    "officialRaceTotal": 8099,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -104,16 +104,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "QF",
-        "points": 0
+        "points": 108
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "QF"
-      }
-    ],
+    "live": [],
     "qualified": true
   },
   {
@@ -121,7 +115,7 @@
     "wtaId": 320760,
     "name": "Aryna Sabalenka",
     "country": "BY",
-    "officialRaceTotal": 6550,
+    "officialRaceTotal": 6485,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -135,6 +129,11 @@
       },
       {
         "tournamentId": "zp-wta500-3",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-4",
         "round": "ZP",
         "points": 0
       },
@@ -227,10 +226,15 @@
     "wtaId": 316956,
     "name": "Jessica Pegula",
     "country": "US",
-    "officialRaceTotal": 5825,
+    "officialRaceTotal": 5760,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-2",
         "round": "ZP",
         "points": 0
       },
@@ -444,7 +448,7 @@
     "wtaId": 328560,
     "name": "Coco Gauff",
     "country": "US",
-    "officialRaceTotal": 5773,
+    "officialRaceTotal": 5763,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -453,6 +457,11 @@
       },
       {
         "tournamentId": "zp-wta500-2",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-3",
         "round": "ZP",
         "points": 0
       },
@@ -550,8 +559,13 @@
     "wtaId": 316738,
     "name": "Elina Svitolina",
     "country": "UA",
-    "officialRaceTotal": 5229,
+    "officialRaceTotal": 5121,
     "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
       {
         "tournamentId": "auckland-2026",
         "round": "W",
@@ -656,10 +670,15 @@
     "wtaId": 322191,
     "name": "Karolina Muchova",
     "country": "CZ",
-    "officialRaceTotal": 4725,
+    "officialRaceTotal": 4665,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-2",
         "round": "ZP",
         "points": 0
       },
@@ -762,10 +781,15 @@
     "wtaId": 329668,
     "name": "Linda Noskova",
     "country": "CZ",
-    "officialRaceTotal": 4353,
+    "officialRaceTotal": 4343,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-2",
         "round": "ZP",
         "points": 0
       },
@@ -868,10 +892,15 @@
     "wtaId": 326482,
     "name": "Marta Kostyuk",
     "country": "UA",
-    "officialRaceTotal": 3920,
+    "officialRaceTotal": 3910,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-2",
         "round": "ZP",
         "points": 0
       },
@@ -974,10 +1003,15 @@
     "wtaId": 326408,
     "name": "Iga Swiatek",
     "country": "PL",
-    "officialRaceTotal": 4189,
+    "officialRaceTotal": 4188,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-2",
         "round": "ZP",
         "points": 0
       },
@@ -1196,16 +1230,11 @@
     "wtaId": 331006,
     "name": "Victoria Mboko",
     "country": "CA",
-    "officialRaceTotal": 2393,
+    "officialRaceTotal": 2143,
     "longTermInjury": {
       "from": "2026-06-08"
     },
     "results": [
-      {
-        "tournamentId": "hong-kong-2025",
-        "round": "W",
-        "points": 250
-      },
       {
         "tournamentId": "united-cup-2026",
         "round": "UC1RR",
@@ -1287,11 +1316,6 @@
     "country": "RO",
     "officialRaceTotal": 2386,
     "results": [
-      {
-        "tournamentId": "hong-kong-2025",
-        "round": "QF",
-        "points": 54
-      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R16",
@@ -1400,16 +1424,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R32",
-        "points": 0
+        "points": 1
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R32"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -1417,7 +1435,7 @@
     "wtaId": 330482,
     "name": "Diana Shnaider",
     "country": "RU",
-    "officialRaceTotal": 2798,
+    "officialRaceTotal": 3238,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -1532,17 +1550,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "W",
-        "points": 0
+        "points": 500
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "alive",
-        "round": "W",
-        "drawPosition": 21
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -1550,13 +1561,8 @@
     "wtaId": 330332,
     "name": "Alexandra Eala",
     "country": "PH",
-    "officialRaceTotal": 2176,
+    "officialRaceTotal": 2224,
     "results": [
-      {
-        "tournamentId": "hong-kong-2025",
-        "round": "R16",
-        "points": 30
-      },
       {
         "tournamentId": "auckland-2026",
         "round": "SF",
@@ -1685,16 +1691,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "QF",
-        "points": 0
+        "points": 108
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "QF"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -1702,7 +1702,7 @@
     "wtaId": 319998,
     "name": "Naomi Osaka",
     "country": "JP",
-    "officialRaceTotal": 2287,
+    "officialRaceTotal": 2315,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
@@ -1802,16 +1802,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R16",
-        "points": 0
+        "points": 60
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -1934,16 +1928,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R16",
-        "points": 0
+        "points": 60
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ],
+    "live": [],
     "qualified": false
   },
   {
@@ -1951,8 +1939,13 @@
     "wtaId": 316959,
     "name": "Madison Keys",
     "country": "US",
-    "officialRaceTotal": 2029,
+    "officialRaceTotal": 1921,
     "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
       {
         "tournamentId": "brisbane-2026",
         "round": "QF",
@@ -2062,12 +2055,12 @@
     "wtaId": 319001,
     "name": "Belinda Bencic",
     "country": "CH",
-    "officialRaceTotal": 2222,
+    "officialRaceTotal": 2168,
     "results": [
       {
-        "tournamentId": "hong-kong-2025",
-        "round": "QF",
-        "points": 54
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
       },
       {
         "tournamentId": "united-cup-2026",
@@ -2163,13 +2156,8 @@
     "wtaId": 323942,
     "name": "Anna Kalinskaya",
     "country": "RU",
-    "officialRaceTotal": 1935,
+    "officialRaceTotal": 1913,
     "results": [
-      {
-        "tournamentId": "hong-kong-2025",
-        "round": "QF",
-        "points": 54
-      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R32",
@@ -2281,6 +2269,11 @@
     "country": "US",
     "officialRaceTotal": 1963,
     "results": [
+      {
+        "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R16",
@@ -2804,13 +2797,8 @@
     "wtaId": 326735,
     "name": "Leylah Fernandez",
     "country": "CA",
-    "officialRaceTotal": 1974,
+    "officialRaceTotal": 2201,
     "results": [
-      {
-        "tournamentId": "hong-kong-2025",
-        "round": "SF",
-        "points": 98
-      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R32",
@@ -2944,16 +2932,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "F",
-        "points": 0
+        "points": 325
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "F"
-      }
-    ]
+    "live": []
   },
   {
     "id": "sara-bejlek",
@@ -3320,29 +3302,18 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R32",
-        "points": 0
+        "points": 1
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R32"
-      }
-    ]
+    "live": []
   },
   {
     "id": "diane-parry",
     "wtaId": 327077,
     "name": "Diane Parry",
     "country": "FR",
-    "officialRaceTotal": 1407,
+    "officialRaceTotal": 1378,
     "results": [
-      {
-        "tournamentId": "chennai-2025",
-        "round": "R16",
-        "points": 30
-      },
       {
         "tournamentId": "australian-open-2026",
         "round": "Q1",
@@ -3456,16 +3427,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R32",
-        "points": 0
+        "points": 1
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R32"
-      }
-    ]
+    "live": []
   },
   {
     "id": "jasmine-paolini",
@@ -3577,16 +3542,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R32",
-        "points": 0
+        "points": 1
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R32"
-      }
-    ]
+    "live": []
   },
   {
     "id": "peyton-stearns",
@@ -3721,11 +3680,6 @@
     "officialRaceTotal": 1681,
     "results": [
       {
-        "tournamentId": "jiujiang-2025",
-        "round": "R32",
-        "points": 1
-      },
-      {
         "tournamentId": "brisbane-2026",
         "round": "R64",
         "points": 1
@@ -3858,16 +3812,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R32",
-        "points": 0
+        "points": 1
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R32"
-      }
-    ]
+    "live": []
   },
   {
     "id": "xinyu-wang",
@@ -3994,23 +3942,17 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R32",
-        "points": 0
+        "points": 1
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R32"
-      }
-    ]
+    "live": []
   },
   {
     "id": "ekaterina-alexandrova",
     "wtaId": 319007,
     "name": "Ekaterina Alexandrova",
     "country": "RU",
-    "officialRaceTotal": 1591,
+    "officialRaceTotal": 1641,
     "results": [
       {
         "tournamentId": "brisbane-2026",
@@ -4145,29 +4087,18 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R16",
-        "points": 0
+        "points": 60
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ]
+    "live": []
   },
   {
     "id": "cristina-bucsa",
     "wtaId": 321158,
     "name": "Cristina Bucsa",
     "country": "ES",
-    "officialRaceTotal": 1240,
+    "officialRaceTotal": 1137,
     "results": [
-      {
-        "tournamentId": "hong-kong-2025",
-        "round": "F",
-        "points": 163
-      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R32",
@@ -4281,29 +4212,18 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R16",
-        "points": 0
+        "points": 60
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ]
+    "live": []
   },
   {
     "id": "kimberly-birrell",
     "wtaId": 320728,
     "name": "Kimberly Birrell",
     "country": "AU",
-    "officialRaceTotal": 1251,
+    "officialRaceTotal": 1101,
     "results": [
-      {
-        "tournamentId": "chennai-2025",
-        "round": "F",
-        "points": 163
-      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R32",
@@ -4422,16 +4342,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R16",
-        "points": 0
+        "points": 13
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R16"
-      }
-    ]
+    "live": []
   },
   {
     "id": "nikola-bartunkova",
@@ -4440,11 +4354,6 @@
     "country": "CZ",
     "officialRaceTotal": 1631,
     "results": [
-      {
-        "tournamentId": "chennai-2025",
-        "round": "R32",
-        "points": 1
-      },
       {
         "tournamentId": "australian-open-2026",
         "round": "R32",
@@ -4538,16 +4447,10 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R32",
-        "points": 0
+        "points": 1
       }
     ],
-    "live": [
-      {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R32"
-      }
-    ]
+    "live": []
   },
   {
     "id": "hailey-baptiste",
@@ -4772,7 +4675,7 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "Q1",
-        "points": 0
+        "points": 1
       }
     ],
     "live": []
@@ -4782,10 +4685,15 @@
     "wtaId": 328120,
     "name": "Qinwen Zheng",
     "country": "CN",
-    "officialRaceTotal": 2018,
+    "officialRaceTotal": 2017,
     "results": [
       {
         "tournamentId": "zp-wta500-1",
+        "round": "ZP",
+        "points": 0
+      },
+      {
+        "tournamentId": "zp-wta500-2",
         "round": "ZP",
         "points": 0
       },
@@ -4882,13 +4790,8 @@
     "wtaId": 318516,
     "name": "Donna Vekic",
     "country": "HR",
-    "officialRaceTotal": 1160,
+    "officialRaceTotal": 1107,
     "results": [
-      {
-        "tournamentId": "chennai-2025",
-        "round": "QF",
-        "points": 54
-      },
       {
         "tournamentId": "auckland-2026",
         "round": "R32",
@@ -4997,13 +4900,8 @@
     "wtaId": 329393,
     "name": "Talia Gibson",
     "country": "AU",
-    "officialRaceTotal": 1112,
+    "officialRaceTotal": 1171,
     "results": [
-      {
-        "tournamentId": "hong-kong-2025",
-        "round": "R32",
-        "points": 1
-      },
       {
         "tournamentId": "brisbane-2026",
         "round": "R64",
@@ -5112,15 +5010,364 @@
       {
         "tournamentId": "tokyo-2026",
         "round": "R16",
-        "points": 0
+        "points": 60
       }
     ],
-    "live": [
+    "live": []
+  },
+  {
+    "id": "katerina-siniakova",
+    "wtaId": 320301,
+    "name": "Katerina Siniakova",
+    "country": "CZ",
+    "officialRaceTotal": 1143,
+    "results": [
       {
-        "tournamentId": "tokyo-2026",
-        "state": "eliminated",
-        "round": "R16"
+        "tournamentId": "adelaide-2026",
+        "round": "R16",
+        "points": 73
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R16",
+        "points": 120
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R16",
+        "points": 85
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "osaka-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "guangzhou-2026",
+        "round": "R16",
+        "points": 30
       }
-    ]
+    ],
+    "live": []
+  },
+  {
+    "id": "katie-boulter",
+    "wtaId": 319125,
+    "name": "Katie Boulter",
+    "country": "GB",
+    "officialRaceTotal": 1115,
+    "results": [
+      {
+        "tournamentId": "auckland-2026",
+        "round": "R16",
+        "points": 30
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "ostrava-2026",
+        "round": "W",
+        "points": 250
+      },
+      {
+        "tournamentId": "merida-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "Q2",
+        "points": 20
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "linz-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "rouen-2026",
+        "round": "QF",
+        "points": 54
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "queens-2026",
+        "round": "SF",
+        "points": 195
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "osaka-2026",
+        "round": "SF",
+        "points": 98
+      }
+    ],
+    "live": []
+  },
+  {
+    "id": "magdalena-frech",
+    "wtaId": 320277,
+    "name": "Magdalena Frech",
+    "country": "PL",
+    "officialRaceTotal": 1110,
+    "results": [
+      {
+        "tournamentId": "brisbane-2026",
+        "round": "R32",
+        "points": 32
+      },
+      {
+        "tournamentId": "hobart-2026",
+        "round": "R16",
+        "points": 30
+      },
+      {
+        "tournamentId": "australian-open-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "doha-2026",
+        "round": "R32",
+        "points": 85
+      },
+      {
+        "tournamentId": "dubai-2026",
+        "round": "R64",
+        "points": 20
+      },
+      {
+        "tournamentId": "merida-2026",
+        "round": "F",
+        "points": 325
+      },
+      {
+        "tournamentId": "indian-wells-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "miami-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "charleston-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "madrid-2026",
+        "round": "R64",
+        "points": 10
+      },
+      {
+        "tournamentId": "rome-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "strasbourg-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "roland-garros-2026",
+        "round": "R64",
+        "points": 70
+      },
+      {
+        "tournamentId": "berlin-2026",
+        "round": "R32",
+        "points": 13
+      },
+      {
+        "tournamentId": "bad-homburg-2026",
+        "round": "R32",
+        "points": 1
+      },
+      {
+        "tournamentId": "wimbledon-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "washington-dc-2026",
+        "round": "R16",
+        "points": 60
+      },
+      {
+        "tournamentId": "toronto-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "cincinnati-2026",
+        "round": "R32",
+        "points": 65
+      },
+      {
+        "tournamentId": "us-open-2026",
+        "round": "R128",
+        "points": 10
+      },
+      {
+        "tournamentId": "guadalajara-2026",
+        "round": "QF",
+        "points": 108
+      },
+      {
+        "tournamentId": "beijing-2026",
+        "round": "R64",
+        "points": 35
+      },
+      {
+        "tournamentId": "wuhan-2026",
+        "round": "R32",
+        "points": 85
+      },
+      {
+        "tournamentId": "ningbo-2026",
+        "round": "Q1",
+        "points": 1
+      }
+    ],
+    "live": []
   }
 ]

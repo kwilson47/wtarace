@@ -1473,13 +1473,13 @@
       "name": "Moyuka Uchijima",
       "country": "JP",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 121
     },
     "won": true,
     "score": "6-4 6-2",
     "outcome": "played",
-    "points": null
+    "points": 60
   },
   {
     "tournamentId": 1056,
@@ -1500,11 +1500,11 @@
       "country": "CA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 23
     },
     "won": false,
     "score": "6-2 7-6(8)",
     "outcome": "played",
-    "points": null
+    "points": 60
   }
 ]

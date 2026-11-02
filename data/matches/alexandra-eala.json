@@ -1759,13 +1759,13 @@
       "name": "Mika Stojsavljevic",
       "country": "GB",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 411
     },
     "won": true,
     "score": "6-1 6-2",
     "outcome": "played",
-    "points": null
+    "points": 108
   },
   {
     "tournamentId": 1056,
@@ -1786,12 +1786,12 @@
       "country": "AU",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 38
     },
     "won": true,
     "score": "4-6 6-2 6-0",
     "outcome": "played",
-    "points": null
+    "points": 108
   },
   {
     "tournamentId": 1056,
@@ -1812,11 +1812,11 @@
       "country": "RU",
       "seed": 3,
       "entry": null,
-      "rank": null
+      "rank": 13
     },
     "won": false,
     "score": "2-6 7-6(5) 6-4",
     "outcome": "played",
-    "points": null
+    "points": 108
   }
 ]

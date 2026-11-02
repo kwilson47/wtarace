@@ -1675,19 +1675,19 @@
     "endDate": "2026-11-01",
     "qualifying": true,
     "round": 1,
-    "roundName": "",
+    "roundName": "R32",
     "opponent": {
       "id": 329009,
       "name": "Aoi Ito",
       "country": "JP",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 300
     },
     "won": true,
     "score": "6-4 6-2",
     "outcome": "played",
-    "points": null
+    "points": 13
   },
   {
     "tournamentId": 1056,
@@ -1701,19 +1701,19 @@
     "endDate": "2026-11-01",
     "qualifying": true,
     "round": 2,
-    "roundName": "",
+    "roundName": "R16",
     "opponent": {
       "id": 322082,
       "name": "Daria Kasatkina",
       "country": "AU",
       "seed": 10,
       "entry": null,
-      "rank": null
+      "rank": 75
     },
     "won": false,
     "score": "6-3 6-4",
     "outcome": "played",
-    "points": null
+    "points": 13
   },
   {
     "tournamentId": 1056,
@@ -1734,11 +1734,11 @@
       "country": "US",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 65
     },
     "won": false,
     "score": "6-3 6-1",
     "outcome": "played",
-    "points": null
+    "points": 13
   }
 ]

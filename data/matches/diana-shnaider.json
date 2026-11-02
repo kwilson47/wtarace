@@ -1500,12 +1500,12 @@
       "country": "BY",
       "seed": null,
       "entry": "Q",
-      "rank": null
+      "rank": 112
     },
     "won": true,
     "score": "6-3 5-7 6-3",
     "outcome": "played",
-    "points": null
+    "points": 500
   },
   {
     "tournamentId": 1056,
@@ -1526,12 +1526,12 @@
       "country": "PH",
       "seed": 8,
       "entry": null,
-      "rank": null
+      "rank": 19
     },
     "won": true,
     "score": "2-6 7-6(5) 6-4",
     "outcome": "played",
-    "points": null
+    "points": 500
   },
   {
     "tournamentId": 1056,
@@ -1551,13 +1551,13 @@
       "name": "Mia Pohankova",
       "country": "SK",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 144
     },
     "won": true,
     "score": "6-4 7-6(7)",
     "outcome": "played",
-    "points": null
+    "points": 500
   },
   {
     "tournamentId": 1056,
@@ -1578,11 +1578,11 @@
       "country": "CA",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 23
     },
     "won": true,
     "score": "6-4 5-7 6-2",
     "outcome": "played",
-    "points": null
+    "points": 500
   }
 ]

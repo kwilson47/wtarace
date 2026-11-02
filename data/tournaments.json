@@ -1,16 +1,5 @@
 [
   {
-    "id": "hong-kong-2025",
-    "wtaId": 1074,
-    "name": "Hong Kong",
-    "category": "WTA250",
-    "drawType": "wta250-32",
-    "startDate": "2025-10-27",
-    "endDate": "2025-11-02",
-    "status": "completed",
-    "byes": []
-  },
-  {
     "id": "zp-wta500-1",
     "name": "Unnamed WTA 500 zero-pointer",
     "category": "WTA500",
@@ -41,24 +30,12 @@
     "byes": []
   },
   {
-    "id": "chennai-2025",
-    "wtaId": 1148,
-    "name": "Chennai",
-    "category": "WTA250",
-    "drawType": "wta250-32",
+    "id": "zp-wta500-4",
+    "name": "Unnamed WTA 500 zero-pointer",
+    "category": "WTA500",
+    "drawType": "wta500-28",
     "startDate": "2025-10-27",
-    "endDate": "2025-11-02",
-    "status": "completed",
-    "byes": []
-  },
-  {
-    "id": "jiujiang-2025",
-    "wtaId": 1077,
-    "name": "Jiujiang",
-    "category": "WTA250",
-    "drawType": "wta250-32",
-    "startDate": "2025-10-27",
-    "endDate": "2025-11-02",
+    "endDate": "2026-11-01",
     "status": "completed",
     "byes": []
   },
@@ -678,7 +655,7 @@
     "drawType": "wta500-28",
     "startDate": "2026-10-26",
     "endDate": "2026-11-01",
-    "status": "in-progress",
+    "status": "completed",
     "byes": [
       "elena-rybakina",
       "diana-shnaider",

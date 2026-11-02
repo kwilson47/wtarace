@@ -1136,12 +1136,12 @@
       "country": "IT",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 35
     },
     "won": true,
     "score": "6-3 7-6(4)",
     "outcome": "played",
-    "points": null
+    "points": 60
   },
   {
     "tournamentId": 1056,
@@ -1161,12 +1161,12 @@
       "name": "Mia Pohankova",
       "country": "SK",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 144
     },
     "won": false,
     "score": "6-3 7-5",
     "outcome": "played",
-    "points": null
+    "points": 60
   }
 ]

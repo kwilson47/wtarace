@@ -1525,13 +1525,13 @@
       "name": "Himeno Sakatsume",
       "country": "JP",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "WC",
+      "rank": 114
     },
     "won": true,
     "score": "6-2 6-4",
     "outcome": "played",
-    "points": null
+    "points": 325
   },
   {
     "tournamentId": 1056,
@@ -1552,12 +1552,12 @@
       "country": "BE",
       "seed": 5,
       "entry": null,
-      "rank": null
+      "rank": 14
     },
     "won": true,
     "score": "6-2 7-6(8)",
     "outcome": "played",
-    "points": null
+    "points": 325
   },
   {
     "tournamentId": 1056,
@@ -1578,12 +1578,12 @@
       "country": "KZ",
       "seed": 1,
       "entry": null,
-      "rank": null
+      "rank": 1
     },
     "won": true,
-    "score": "W/O",
-    "outcome": "played",
-    "points": null
+    "score": "",
+    "outcome": "walkover",
+    "points": 325
   },
   {
     "tournamentId": 1056,
@@ -1603,13 +1603,13 @@
       "name": "Kamilla Rakhimova",
       "country": "UZ",
       "seed": null,
-      "entry": null,
-      "rank": null
+      "entry": "LL",
+      "rank": 66
     },
     "won": true,
     "score": "7-5 6-3",
     "outcome": "played",
-    "points": null
+    "points": 325
   },
   {
     "tournamentId": 1056,
@@ -1630,11 +1630,11 @@
       "country": "RU",
       "seed": 3,
       "entry": null,
-      "rank": null
+      "rank": 13
     },
     "won": false,
     "score": "6-4 5-7 6-2",
     "outcome": "played",
-    "points": null
+    "points": 325
   }
 ]

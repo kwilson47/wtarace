@@ -1526,11 +1526,11 @@
       "country": "ES",
       "seed": null,
       "entry": null,
-      "rank": null
+      "rank": 42
     },
     "won": false,
     "score": "7-5 6-1",
     "outcome": "played",
-    "points": null
+    "points": 1
   }
 ]
